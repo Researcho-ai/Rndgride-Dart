@@ -1,0 +1,100 @@
+name: Copy to New Branch and Build Web
+
+on:
+  push:
+    branches:
+      - flutterflow
+
+jobs:
+  copy_to_new_branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Git
+        run: |
+          git config --global user.email "akash@codots.io"
+          git config --global user.name "Codots-io"
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.24.2'
+
+      - name: Run Flutter Doctor
+        run: flutter doctor
+
+      - name: Clean Project
+        run: flutter clean
+
+      - name: Install Python YAML Library
+        run: |
+          sudo apt-get update && sudo apt-get install -y python3-pip
+          pip3 install pyyaml
+
+      - name: Modify pubspec.yaml using Python
+        run: |
+          echo "Modifying pubspec.yaml using Python..."
+          python3 - <<EOF
+          import yaml
+
+          with open('pubspec.yaml', 'r') as f:
+              data = yaml.safe_load(f)
+
+          # Ensure 'dev_dependencies' section exists
+          if 'dev_dependencies' not in data:
+              data['dev_dependencies'] = {}
+
+          # Add or update 'flutter_test'
+          data['dev_dependencies']['flutter_test'] = {'sdk': 'flutter'}
+
+          # Save back to pubspec.yaml
+          with open('pubspec.yaml', 'w') as f:
+              yaml.dump(data, f, default_flow_style=False)
+          EOF
+
+      - name: Downgrade collection and Get Dependencies
+        run: |
+          flutter pub add collection:^1.18.0
+          flutter pub get || true
+
+      - name: Update intl Dependency
+        run: flutter pub add intl:^0.19.0 || true
+
+      - name: Update image_picker_platform_interface Dependency
+        run: |
+          sed -i 's/image_picker_platform_interface: .*/image_picker_platform_interface: ^2.10.0/' pubspec.yaml
+          flutter pub get
+
+      - name: Replace carousel_slider with carousel_slider_plus
+        run: |
+          sed -i '/carousel_slider:/d' pubspec.yaml
+          echo 'carousel_slider_plus: ^6.0.0' >> pubspec.yaml
+          flutter pub get
+
+      - name: Update flutter_svg Dependency
+        run: |
+          sed -i 's/flutter_svg: .*/flutter_svg: ^2.0.10+1/' pubspec.yaml
+          flutter pub get
+
+      - name: Build Web
+        run: flutter build web --release --web-renderer canvaskit
+
+      - name: Ensure Branch Exists
+        run: |
+          if git show-ref --verify --quiet refs/heads/researcho_io_main; then
+            git checkout researcho_io_main
+          else
+            git checkout -b researcho_io_main
+          fi
+
+      - name: Copy Changes to Branch
+        run: |
+          git add .
+          git commit -m "Update dependencies and web build"
+          git push origin researcho_io_main --force
+
+      - name: Switch Back to Original Branch
+        run: git checkout flutterflow
