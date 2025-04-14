@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "357335650510",
+    "project_id": "codots-apps",
+    "storage_bucket": "codots-apps.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:357335650510:android:e3831f44d90dbdc739409f",
+        "android_client_info": {
+          "package_name": "com.mycompany.dashboard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "357335650510-f2bkll55gca58h2g7f1c51r2h1f4qjpd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6-NUHILEt-7vWPr2hYADaP6KO42Qd2IY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "357335650510-f2bkll55gca58h2g7f1c51r2h1f4qjpd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "357335650510-hvfgodm2k29h2phi6vd2ptrjafgo11if.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.mycompany.dashboard"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
