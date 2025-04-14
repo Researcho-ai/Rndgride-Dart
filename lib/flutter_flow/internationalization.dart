@@ -172,7 +172,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     'wwwnrcxj': {
-      'en': 'hello@codots.io',
+      'en': 'hello@rndgrid.com',
       'hi': '',
     },
     '3xodc14y': {

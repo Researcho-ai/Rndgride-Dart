@@ -625,7 +625,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                               Text(
                                                 FFLocalizations.of(context)
                                                     .getText(
-                                                  'wwwnrcxj' /* hello@codots.io */,
+                                                  'wwwnrcxj' /* hello@rndgrid.com */,
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
