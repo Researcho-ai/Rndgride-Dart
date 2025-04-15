@@ -1012,9 +1012,9 @@ class VerifyOtpCall {
         response,
         r'''$.user.display_name''',
       ));
-  String? userTypeRef(dynamic response) => castToType<String>(getJsonField(
+  String? usertype(dynamic response) => castToType<String>(getJsonField(
         response,
-        r'''$.user.user_type_ref''',
+        r'''$.user.user_type''',
       ));
   String? responseMessage(dynamic response) => castToType<String>(getJsonField(
         response,

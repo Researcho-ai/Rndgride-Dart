@@ -23,8 +23,6 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (Get User Data)] action in Profile widget.
-  ApiCallResponse? apiResultpwu;
   // Model for Drawer component.
   late DrawerModel drawerModel;
   // Model for TopNavBar component.

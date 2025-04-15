@@ -169,7 +169,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                       child: Text(
-                        FFAppState().userProfileData.displayName,
+                        valueOrDefault<String>(
+                          currentUserData?.displayName,
+                          '-',
+                        ),
                         style: FlutterFlowTheme.of(context).labelLarge.override(
                               fontFamily:
                                   FlutterFlowTheme.of(context).labelLargeFamily,

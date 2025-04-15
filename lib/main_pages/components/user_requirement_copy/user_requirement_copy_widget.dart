@@ -70,11 +70,11 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
     });
 
     _model.nameTextFieldTextController ??=
-        TextEditingController(text: FFAppState().userProfileData.displayName);
+        TextEditingController(text: currentUserData?.displayName);
     _model.nameTextFieldFocusNode ??= FocusNode();
 
     _model.phoneTextFieldTextController ??=
-        TextEditingController(text: FFAppState().userProfileData.phoneNumber);
+        TextEditingController(text: currentUserData?.phoneNumber);
     _model.phoneTextFieldFocusNode ??= FocusNode();
 
     _model.sectorOrFieldTextController ??= TextEditingController();
@@ -589,9 +589,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               widget.tagValue ==
                                                       'Becoming a Lab Partner'
                                                   ? 'Lab'
-                                                  : FFAppState()
-                                                      .userProfileData
-                                                      .userType,
+                                                  : currentUserData?.userType,
                                         ),
                                         options: _model.userTypes,
                                         onChanged: (val) => safeSetState(() =>
@@ -1372,9 +1370,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                     await InqueryGroup
                                                         .createInqueryCall
                                                         .call(
-                                                  userID: FFAppState()
-                                                      .userProfileData
-                                                      .uid,
+                                                  userID: currentUserData?.uid,
                                                   subType: widget.tagValue,
                                                   neededIn: _model
                                                       .durationDrpodownValue,

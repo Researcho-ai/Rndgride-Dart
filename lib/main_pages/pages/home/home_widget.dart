@@ -1,6 +1,4 @@
-import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/components/customer_feedback_mobile_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -129,49 +127,9 @@ class _HomeWidgetState extends State<HomeWidget> {
             );
             safeSetState(() {});
             return;
-          } else {
-            return;
           }
         }),
         Future(() async {}),
-        Future(() async {
-          if (loggedIn) {
-            logFirebaseEvent('Home_backend_call');
-            _model.userDataFetched = await UsersGroup.getUserDataCall.call(
-              userID: FFAppState().userProfileData.uid,
-            );
-
-            if ((_model.userDataFetched?.succeeded ?? true)) {
-              logFirebaseEvent('Home_update_app_state');
-              FFAppState().userProfileData = UserProfileDataStruct(
-                uid: UsersGroup.getUserDataCall.uid(
-                  (_model.userDataFetched?.jsonBody ?? ''),
-                ),
-                displayName: UsersGroup.getUserDataCall.displayName(
-                  (_model.userDataFetched?.jsonBody ?? ''),
-                ),
-                userAffiliation: UsersGroup.getUserDataCall.affiliation(
-                  (_model.userDataFetched?.jsonBody ?? ''),
-                ),
-                userResearchField: UsersGroup.getUserDataCall.researchField(
-                  (_model.userDataFetched?.jsonBody ?? ''),
-                ),
-                userType: UsersGroup.getUserDataCall.userType(
-                  (_model.userDataFetched?.jsonBody ?? ''),
-                ),
-                phoneNumber: UsersGroup.getUserDataCall.phoneNo(
-                  (_model.userDataFetched?.jsonBody ?? ''),
-                ),
-              );
-              FFAppState().update(() {});
-              return;
-            } else {
-              return;
-            }
-          } else {
-            return;
-          }
-        }),
       ]);
     });
 

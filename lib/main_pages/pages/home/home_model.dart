@@ -61,8 +61,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ApiCallResponse? sophisticatedInstrumentsMobile;
   // Stores action output result for [Backend Call - API (Get Instruments Tests)] action in Home widget.
   ApiCallResponse? instrumentsFromAPI;
-  // Stores action output result for [Backend Call - API (Get User Data)] action in Home widget.
-  ApiCallResponse? userDataFetched;
   // Model for Drawer component.
   late DrawerModel drawerModel;
   // Model for TopNavBar component.

@@ -47,30 +47,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('PROFILE_PAGE_Profile_ON_INIT_STATE');
       if (loggedIn) {
-        logFirebaseEvent('Profile_backend_call');
-        _model.apiResultpwu = await UsersGroup.getUserDataCall.call(
-          userID: FFAppState().userProfileData.uid,
-        );
-
-        if ((_model.apiResultpwu?.succeeded ?? true)) {
-          logFirebaseEvent('Profile_update_page_state');
-          _model.displayName = UsersGroup.getUserDataCall.displayName(
-            (_model.apiResultpwu?.jsonBody ?? ''),
-          );
-          _model.phoneNumber = UsersGroup.getUserDataCall.phoneNo(
-            (_model.apiResultpwu?.jsonBody ?? ''),
-          );
-          _model.researchField = UsersGroup.getUserDataCall.researchField(
-            (_model.apiResultpwu?.jsonBody ?? ''),
-          );
-          _model.affiliaion = UsersGroup.getUserDataCall.affiliation(
-            (_model.apiResultpwu?.jsonBody ?? ''),
-          );
-          _model.userType = UsersGroup.getUserDataCall.userType(
-            (_model.apiResultpwu?.jsonBody ?? ''),
-          );
-          safeSetState(() {});
-        }
       } else {
         if (MediaQuery.sizeOf(context).width < kBreakpointSmall
             ? true
@@ -620,8 +596,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                       Text(
                                                                         valueOrDefault<
                                                                             String>(
-                                                                          _model
-                                                                              .displayName,
+                                                                          currentUserData
+                                                                              ?.displayName,
                                                                           '-',
                                                                         ),
                                                                         style: FlutterFlowTheme.of(context)
@@ -634,9 +610,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             ),
                                                                       ),
                                                                     if (loggedIn &&
-                                                                        (_model.userType !=
+                                                                        (currentUserData?.userType !=
                                                                                 null &&
-                                                                            _model.userType !=
+                                                                            currentUserData?.userType !=
                                                                                 ''))
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -648,7 +624,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             Text(
                                                                           valueOrDefault<
                                                                               String>(
-                                                                            FFAppState().userProfileData.userType,
+                                                                            currentUserData?.userType,
                                                                             '-',
                                                                           ),
                                                                           style: FlutterFlowTheme.of(context)
@@ -661,9 +637,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                         ),
                                                                       ),
                                                                     if (loggedIn &&
-                                                                        (_model.userType ==
+                                                                        (currentUserData?.userType ==
                                                                                 null ||
-                                                                            _model.userType ==
+                                                                            currentUserData?.userType ==
                                                                                 ''))
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -707,7 +683,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                         child:
                                                                             Text(
                                                                           functions
-                                                                              .formatPhoneNumber(_model.phoneNumber!),
+                                                                              .formatPhoneNumber(currentUserData!.phoneNumber),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -1121,8 +1097,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                     child: Text(
                                                                       valueOrDefault<
                                                                           String>(
-                                                                        _model
-                                                                            .researchField,
+                                                                        currentUserData
+                                                                            ?.userResearchField,
                                                                         '-',
                                                                       ),
                                                                       style: FlutterFlowTheme.of(
@@ -1193,8 +1169,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                           Text(
                                                                         valueOrDefault<
                                                                             String>(
-                                                                          _model
-                                                                              .affiliaion,
+                                                                          currentUserData
+                                                                              ?.userAffiliation,
                                                                           '-',
                                                                         ),
                                                                         style: FlutterFlowTheme.of(context)

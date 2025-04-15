@@ -202,7 +202,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // SignIn
   {
     '5kbjs6ih': {
-      'en': 'codots.io',
+      'en': 'RNDgrid.com',
       'hi': '',
     },
     'bbi3wb6n': {

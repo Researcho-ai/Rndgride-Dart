@@ -78,7 +78,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     ),
                     title: Text(
                       FFLocalizations.of(context).getText(
-                        '5kbjs6ih' /* codots.io */,
+                        '5kbjs6ih' /* RNDgrid.com */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily:

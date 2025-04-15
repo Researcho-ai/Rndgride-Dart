@@ -1,3 +1,4 @@
+import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/components/analysis_compo_widget.dart';
 import '/components/common_dialog_widget.dart';
@@ -11,7 +12,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'instrument_properties_copy_model.dart';
 export 'instrument_properties_copy_model.dart';
 
@@ -93,8 +93,6 @@ class _InstrumentPropertiesCopyWidgetState
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: EdgeInsets.all(2.0),
       child: ClipRRect(
@@ -552,9 +550,7 @@ class _InstrumentPropertiesCopyWidgetState
                                                 await InqueryGroup
                                                     .createBookingCall
                                                     .call(
-                                              userID: FFAppState()
-                                                  .userProfileData
-                                                  .uid,
+                                              userID: currentUserData?.uid,
                                               subType: 'Resource Booking',
                                               instrumentRef: getJsonField(
                                                 widget.instrumentPropertieJson,
@@ -621,6 +617,75 @@ class _InstrumentPropertiesCopyWidgetState
                                     },
                                   );
                                 }
+                              } else {
+                                logFirebaseEvent('Button_alert_dialog');
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                          .resolve(Directionality.of(context)),
+                                      child: CommonDialogWidget(
+                                        instrumentTestName: getJsonField(
+                                          widget.instrumentPropertieJson,
+                                          r'''$.instrument_name''',
+                                        ).toString(),
+                                        isBooking: true,
+                                        bookingAction: () async {
+                                          logFirebaseEvent('_backend_call');
+                                          _model.apiResult = await InqueryGroup
+                                              .createBookingCall
+                                              .call(
+                                            userID: currentUserData?.uid,
+                                            subType: 'Resource Booking',
+                                            instrumentRef: getJsonField(
+                                              widget.instrumentPropertieJson,
+                                              r'''$._id''',
+                                            ).toString(),
+                                            testDetailsListJson:
+                                                _model.selectedTests,
+                                            sampleQuantity: _model
+                                                .requirementTextFieldTextController
+                                                .text,
+                                            neededIn:
+                                                _model.durationDrpodownValue,
+                                          );
+
+                                          if ((_model.apiResult?.succeeded ??
+                                              true)) {
+                                            logFirebaseEvent('_alert_dialog');
+                                            await showDialog(
+                                              context: context,
+                                              builder: (alertDialogContext) {
+                                                return AlertDialog(
+                                                  title: Text(
+                                                      'Thank You for Your Request'),
+                                                  content: Text(
+                                                      'Your request has been submitted successfully. We\'ll get back to you shortl'),
+                                                  actions: [
+                                                    TextButton(
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              alertDialogContext),
+                                                      child: Text('Ok'),
+                                                    ),
+                                                  ],
+                                                );
+                                              },
+                                            );
+                                            logFirebaseEvent('_navigate_to');
+
+                                            context.pushNamed(
+                                                HomeWidget.routeName);
+                                          }
+                                        },
+                                      ),
+                                    );
+                                  },
+                                );
                               }
 
                               safeSetState(() {});

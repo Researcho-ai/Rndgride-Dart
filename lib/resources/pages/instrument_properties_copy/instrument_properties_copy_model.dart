@@ -48,6 +48,8 @@ class InstrumentPropertiesCopyModel
   FormFieldController<String>? durationDrpodownValueController;
   // Stores action output result for [Backend Call - API (createBooking)] action in Button widget.
   ApiCallResponse? apiResultt50Copy;
+  // Stores action output result for [Backend Call - API (createBooking)] action in Button widget.
+  ApiCallResponse? apiResult;
 
   @override
   void initState(BuildContext context) {}
