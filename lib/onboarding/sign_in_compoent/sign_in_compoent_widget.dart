@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -258,17 +259,55 @@ class _SignInCompoentWidgetState extends State<SignInCompoentWidget> {
                       onPressed: () async {
                         logFirebaseEvent(
                             'SIGN_IN_COMPOENT_COMP_SUBMIT_BTN_ON_TAP');
-                        logFirebaseEvent('Button_navigate_to');
-
-                        context.pushNamed(
-                          VerifyOtpWidget.routeName,
-                          queryParameters: {
-                            'number': serializeParam(
-                              _model.phoneNumber2TextController.text,
-                              ParamType.String,
-                            ),
-                          }.withoutNulls,
+                        logFirebaseEvent('Button_backend_call');
+                        _model.apiResults4y =
+                            await AuthenticatonGroup.sendOtpCall.call(
+                          phoneNumber:
+                              '+91${_model.phoneNumber2TextController.text}',
                         );
+
+                        if ((_model.apiResults4y?.succeeded ?? true)) {
+                          logFirebaseEvent('Button_navigate_to');
+
+                          context.pushNamed(
+                            VerifyOtpWidget.routeName,
+                            queryParameters: {
+                              'session': serializeParam(
+                                AuthenticatonGroup.sendOtpCall.session(
+                                  (_model.apiResults4y?.jsonBody ?? ''),
+                                ),
+                                ParamType.String,
+                              ),
+                              'number': serializeParam(
+                                '+91${_model.phoneNumber2TextController.text}',
+                                ParamType.String,
+                              ),
+                            }.withoutNulls,
+                          );
+                        } else {
+                          logFirebaseEvent('Button_alert_dialog');
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title:
+                                    Text('There is an error in sending Otp!'),
+                                content: Text(
+                                    (_model.apiResults4y?.exceptionMessage ??
+                                        '')),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+
+                        safeSetState(() {});
                       },
                       text: FFLocalizations.of(context).getText(
                         'kr3vj80q' /* Submit */,

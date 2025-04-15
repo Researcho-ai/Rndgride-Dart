@@ -24,7 +24,74 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="RNDgrid">
 
-  
+  <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RNDgrid.com</title>
+  <link id="favicon" rel="shortcut icon" type="image/png" href="https://researcho.s3.ap-south-1.amazonaws.com/app_assets/Researcho.io_Symbol_Black_Fonts.png">
+
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      color: white;
+      background-image: url('https://s3.ap-south-1.amazonaws.com/researcho.ai/app_assets/backgroundGrid.svg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    .logo-container {
+      text-align: center;
+      margin-right: 20px;
+    }
+
+    .logo-container img {
+      width: 300px;
+      height: auto;
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const favicon = document.getElementById('favicon');
+      const logoImg = document.getElementById('main-logo');
+
+      function updateThemeAssets() {
+        const isDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+        // Update favicon (same for both modes in your original logic)
+        favicon.href = 'https://s3.ap-south-1.amazonaws.com/rndgrid.com/Assets/app_launcher_icon.png';
+
+        // Update logo image based on theme
+        if (logoImg) {
+          logoImg.src = isDark
+            ? 'https://s3.ap-south-1.amazonaws.com/rndgrid.com/Assets/RNDgrid_Horizontal_Logo_Light.svg'
+            : 'https://s3.ap-south-1.amazonaws.com/rndgrid.com/Assets/RNDgrid_Horizontal_Logo_Light.svg';
+        }
+      }
+
+      // Initial setup
+      updateThemeAssets();
+
+      // Watch for theme changes
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateThemeAssets);
+    });
+  </script>
+</head>
+
+<body>
+  <div class="logo-container">
+    <img id="main-logo" src="" alt="RNDgrid Logo">
+  </div>
+</body>
+</html>
+
 
   
 

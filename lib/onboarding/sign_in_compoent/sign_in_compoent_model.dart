@@ -1,3 +1,4 @@
+import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'sign_in_compoent_widget.dart' show SignInCompoentWidget;
 import 'package:flutter/material.dart';
@@ -16,6 +17,8 @@ class SignInCompoentModel extends FlutterFlowModel<SignInCompoentWidget> {
   TextEditingController? phoneNumber2TextController;
   final phoneNumber2Mask = MaskTextInputFormatter(mask: '##########');
   String? Function(BuildContext, String?)? phoneNumber2TextControllerValidator;
+  // Stores action output result for [Backend Call - API (sendOtp)] action in Button widget.
+  ApiCallResponse? apiResults4y;
 
   @override
   void initState(BuildContext context) {}

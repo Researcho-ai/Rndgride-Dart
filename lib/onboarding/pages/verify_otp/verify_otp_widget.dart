@@ -685,18 +685,19 @@ class _VerifyOtpWidgetState extends State<VerifyOtpWidget> {
                                                             ?.jsonBody ??
                                                         ''),
                                                   ),
+                                                  refreshToken:
+                                                      AuthenticatonGroup
+                                                          .verifyOtpCall
+                                                          .refreshToken(
+                                                    (_model.apiResulte19
+                                                            ?.jsonBody ??
+                                                        ''),
+                                                  ),
                                                   userData:
                                                       UserProfileDataStruct(
                                                     uid: AuthenticatonGroup
                                                         .verifyOtpCall
-                                                        .userID(
-                                                      (_model.apiResulte19
-                                                              ?.jsonBody ??
-                                                          ''),
-                                                    ),
-                                                    photoUrl: AuthenticatonGroup
-                                                        .verifyOtpCall
-                                                        .photoUrl(
+                                                        .uid(
                                                       (_model.apiResulte19
                                                               ?.jsonBody ??
                                                           ''),
@@ -725,10 +726,55 @@ class _VerifyOtpWidgetState extends State<VerifyOtpWidget> {
                                                               ?.jsonBody ??
                                                           ''),
                                                     ),
-                                                    userRequiredResources:
+                                                    userType: AuthenticatonGroup
+                                                        .verifyOtpCall
+                                                        .userTypeRef(
+                                                      (_model.apiResulte19
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    ),
+                                                    phoneNumber:
                                                         AuthenticatonGroup
                                                             .verifyOtpCall
-                                                            .requeredResources(
+                                                            .phoneNumber(
+                                                      (_model.apiResulte19
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    ),
+                                                  ),
+                                                );
+                                                if (loggedIn) {
+                                                  logFirebaseEvent(
+                                                      'Button_update_app_state');
+                                                  FFAppState().userProfileData =
+                                                      UserProfileDataStruct(
+                                                    uid: AuthenticatonGroup
+                                                        .verifyOtpCall
+                                                        .uid(
+                                                      (_model.apiResulte19
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    ),
+                                                    displayName:
+                                                        AuthenticatonGroup
+                                                            .verifyOtpCall
+                                                            .displayName(
+                                                      (_model.apiResulte19
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    ),
+                                                    userAffiliation:
+                                                        AuthenticatonGroup
+                                                            .verifyOtpCall
+                                                            .affiliation(
+                                                      (_model.apiResulte19
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    ),
+                                                    userResearchField:
+                                                        AuthenticatonGroup
+                                                            .verifyOtpCall
+                                                            .researchField(
                                                       (_model.apiResulte19
                                                               ?.jsonBody ??
                                                           ''),
@@ -748,9 +794,8 @@ class _VerifyOtpWidgetState extends State<VerifyOtpWidget> {
                                                               ?.jsonBody ??
                                                           ''),
                                                     ),
-                                                  ),
-                                                );
-                                                if (loggedIn) {
+                                                  );
+                                                  safeSetState(() {});
                                                   if (!AuthenticatonGroup
                                                       .verifyOtpCall
                                                       .isNewUser(
@@ -759,152 +804,12 @@ class _VerifyOtpWidgetState extends State<VerifyOtpWidget> {
                                                         ''),
                                                   )!) {
                                                     logFirebaseEvent(
-                                                        'Button_update_app_state');
-                                                    FFAppState()
-                                                            .userProfileData =
-                                                        UserProfileDataStruct(
-                                                      uid: AuthenticatonGroup
-                                                          .verifyOtpCall
-                                                          .userID(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      photoUrl:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .photoUrl(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      displayName:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .displayName(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      userAffiliation:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .affiliation(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      userResearchField:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .researchField(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      userRequiredResources:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .requeredResources(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      userType:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .userTypeRef(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      phoneNumber:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .phoneNumber(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                    );
-                                                    safeSetState(() {});
-                                                    logFirebaseEvent(
                                                         'Button_navigate_to');
 
                                                     context.goNamedAuth(
                                                         HomeWidget.routeName,
                                                         context.mounted);
                                                   } else {
-                                                    logFirebaseEvent(
-                                                        'Button_update_app_state');
-                                                    FFAppState()
-                                                            .userProfileData =
-                                                        UserProfileDataStruct(
-                                                      uid: AuthenticatonGroup
-                                                          .verifyOtpCall
-                                                          .userID(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      photoUrl:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .photoUrl(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      displayName:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .displayName(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      userAffiliation:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .affiliation(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      userResearchField:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .researchField(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      userRequiredResources:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .requeredResources(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      userType:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .userTypeRef(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                      phoneNumber:
-                                                          AuthenticatonGroup
-                                                              .verifyOtpCall
-                                                              .phoneNumber(
-                                                        (_model.apiResulte19
-                                                                ?.jsonBody ??
-                                                            ''),
-                                                      ),
-                                                    );
-                                                    safeSetState(() {});
                                                     logFirebaseEvent(
                                                         'Button_navigate_to');
 

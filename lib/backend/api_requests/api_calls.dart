@@ -12,7 +12,7 @@ const _kPrivateApiFunctionName = 'search';
 /// Start Labs Group Code
 
 class LabsGroup {
-  static String getBaseUrl() => 'https://js.rndgrid.researcho.ai/api/labs/';
+  static String getBaseUrl() => 'https://js.rndgrid.com/api/labs/';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
   };
@@ -263,8 +263,7 @@ class LabResourcesCall {
 /// Start Instruments Tests Group Code
 
 class InstrumentsTestsGroup {
-  static String getBaseUrl() =>
-      'https://js.rndgrid.researcho.ai/api/instruments/';
+  static String getBaseUrl() => 'https://js.rndgrid.com/api/instruments/';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
   };
@@ -504,7 +503,7 @@ class GetInstrumentPropertiesCall {
 /// Start Users Group Code
 
 class UsersGroup {
-  static String getBaseUrl() => 'https://js.rndgrid.researcho.ai/api/users/';
+  static String getBaseUrl() => 'https://js.rndgrid.com/api/users/';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
   };
@@ -906,7 +905,7 @@ class UoploadImageCall {
 /// Start Authenticaton Group Code
 
 class AuthenticatonGroup {
-  static String getBaseUrl() => 'https://js.rndgrid.researcho.ai/auth';
+  static String getBaseUrl() => 'https://js.rndgrid.com/auth';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
   };
@@ -926,7 +925,7 @@ class SendOtpCall {
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'sendOtp',
-      apiUrl: '${baseUrl}/send-otp',
+      apiUrl: '${baseUrl}/sign-up',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
@@ -1047,9 +1046,13 @@ class VerifyOtpCall {
         response,
         r'''$.user.user_required_resources''',
       ));
+  String? refreshToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.rt''',
+      ));
   bool? isNewUser(dynamic response) => castToType<bool>(getJsonField(
         response,
-        r'''$.isNewUser''',
+        r'''$.new_user''',
       ));
 }
 
@@ -1071,7 +1074,7 @@ class InqueryGroup {
     String? inquirySubject = '',
     String? userType = '',
   }) =>
-      'https://js.rndgrid.researcho.ai/api/inquiry/';
+      'https://js.rndgrid.com/api/inquiry/';
   static Map<String, String> headers = {
     'Content-Type': 'application/json',
   };
