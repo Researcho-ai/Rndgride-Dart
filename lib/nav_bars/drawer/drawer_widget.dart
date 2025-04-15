@@ -572,9 +572,10 @@ class _DrawerWidgetState extends State<DrawerWidget>
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 0.0, 0.0),
                                           child: Text(
-                                            FFAppState()
-                                                .userProfileData
-                                                .displayName,
+                                            valueOrDefault<String>(
+                                              currentUserData?.displayName,
+                                              '-',
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -604,9 +605,10 @@ class _DrawerWidgetState extends State<DrawerWidget>
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 8.0, 0.0, 0.0),
                                           child: Text(
-                                            FFAppState()
-                                                .userProfileData
-                                                .phoneNumber,
+                                            valueOrDefault<String>(
+                                              currentUserData?.phoneNumber,
+                                              '-',
+                                            ),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
