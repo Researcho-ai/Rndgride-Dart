@@ -588,9 +588,13 @@ class _InstrumentPropertiesCopyWidgetState
                                                   );
                                                 },
                                               );
+                                              logFirebaseEvent(
+                                                  '_update_app_state');
+
+                                              FFAppState().update(() {});
                                               logFirebaseEvent('_navigate_to');
 
-                                              context.pushNamed(
+                                              context.goNamed(
                                                   HomeWidget.routeName);
                                             }
                                           },
