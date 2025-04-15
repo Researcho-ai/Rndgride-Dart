@@ -47,40 +47,65 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('PROFILE_PAGE_Profile_ON_INIT_STATE');
       if (loggedIn) {
-        return;
-      }
+        logFirebaseEvent('Profile_backend_call');
+        _model.apiResultpwu = await UsersGroup.getUserDataCall.call(
+          userID: FFAppState().userProfileData.uid,
+        );
 
-      if (MediaQuery.sizeOf(context).width < kBreakpointSmall ? true : false) {
-        logFirebaseEvent('Profile_navigate_to');
-
-        context.pushNamed(SignInWidget.routeName);
+        if ((_model.apiResultpwu?.succeeded ?? true)) {
+          logFirebaseEvent('Profile_update_page_state');
+          _model.displayName = UsersGroup.getUserDataCall.displayName(
+            (_model.apiResultpwu?.jsonBody ?? ''),
+          );
+          _model.phoneNumber = UsersGroup.getUserDataCall.phoneNo(
+            (_model.apiResultpwu?.jsonBody ?? ''),
+          );
+          _model.researchField = UsersGroup.getUserDataCall.researchField(
+            (_model.apiResultpwu?.jsonBody ?? ''),
+          );
+          _model.affiliaion = UsersGroup.getUserDataCall.affiliation(
+            (_model.apiResultpwu?.jsonBody ?? ''),
+          );
+          _model.userType = UsersGroup.getUserDataCall.userType(
+            (_model.apiResultpwu?.jsonBody ?? ''),
+          );
+          safeSetState(() {});
+        }
       } else {
-        logFirebaseEvent('Profile_alert_dialog');
-        await showDialog(
-          context: context,
-          builder: (dialogContext) {
-            return Dialog(
-              elevation: 0,
-              insetPadding: EdgeInsets.zero,
-              backgroundColor: Colors.transparent,
-              alignment: AlignmentDirectional(0.0, 0.0)
-                  .resolve(Directionality.of(context)),
-              child: GestureDetector(
-                onTap: () {
-                  FocusScope.of(dialogContext).unfocus();
-                  FocusManager.instance.primaryFocus?.unfocus();
-                },
-                child: Container(
-                  height: 440.0,
-                  width: 610.0,
-                  child: SignInCompoentWidget(
-                    loginRequered: true,
+        if (MediaQuery.sizeOf(context).width < kBreakpointSmall
+            ? true
+            : false) {
+          logFirebaseEvent('Profile_navigate_to');
+
+          context.pushNamed(SignInWidget.routeName);
+        } else {
+          logFirebaseEvent('Profile_alert_dialog');
+          await showDialog(
+            context: context,
+            builder: (dialogContext) {
+              return Dialog(
+                elevation: 0,
+                insetPadding: EdgeInsets.zero,
+                backgroundColor: Colors.transparent,
+                alignment: AlignmentDirectional(0.0, 0.0)
+                    .resolve(Directionality.of(context)),
+                child: GestureDetector(
+                  onTap: () {
+                    FocusScope.of(dialogContext).unfocus();
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                  child: Container(
+                    height: 440.0,
+                    width: 610.0,
+                    child: SignInCompoentWidget(
+                      loginRequered: true,
+                    ),
                   ),
                 ),
-              ),
-            );
-          },
-        );
+              );
+            },
+          );
+        }
       }
 
       logFirebaseEvent('Profile_update_app_state');
@@ -488,9 +513,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                       uid: UsersGroup.getUserDataCall.uid(
                                                                                                         (_model.userDataFetched?.jsonBody ?? ''),
                                                                                                       ),
-                                                                                                      photoUrl: UsersGroup.getUserDataCall.photoURL(
-                                                                                                        (_model.userDataFetched?.jsonBody ?? ''),
-                                                                                                      ),
                                                                                                       displayName: UsersGroup.getUserDataCall.displayName(
                                                                                                         (_model.userDataFetched?.jsonBody ?? ''),
                                                                                                       ),
@@ -498,9 +520,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                         (_model.userDataFetched?.jsonBody ?? ''),
                                                                                                       ),
                                                                                                       userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                        (_model.userDataFetched?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      userRequiredResources: UsersGroup.getUserDataCall.requiredResources(
                                                                                                         (_model.userDataFetched?.jsonBody ?? ''),
                                                                                                       ),
                                                                                                       userType: UsersGroup.getUserDataCall.userType(
@@ -559,9 +578,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                       uid: UsersGroup.getUserDataCall.uid(
                                                                                                         (_model.userDataFetchedDialog?.jsonBody ?? ''),
                                                                                                       ),
-                                                                                                      photoUrl: UsersGroup.getUserDataCall.photoURL(
-                                                                                                        (_model.userDataFetchedDialog?.jsonBody ?? ''),
-                                                                                                      ),
                                                                                                       displayName: UsersGroup.getUserDataCall.displayName(
                                                                                                         (_model.userDataFetchedDialog?.jsonBody ?? ''),
                                                                                                       ),
@@ -569,9 +585,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                         (_model.userDataFetchedDialog?.jsonBody ?? ''),
                                                                                                       ),
                                                                                                       userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                        (_model.userDataFetchedDialog?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      userRequiredResources: UsersGroup.getUserDataCall.requiredResources(
                                                                                                         (_model.userDataFetchedDialog?.jsonBody ?? ''),
                                                                                                       ),
                                                                                                       userType: UsersGroup.getUserDataCall.userType(
@@ -607,8 +620,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                       Text(
                                                                         valueOrDefault<
                                                                             String>(
-                                                                          FFAppState()
-                                                                              .userProfileData
+                                                                          _model
                                                                               .displayName,
                                                                           '-',
                                                                         ),
@@ -622,8 +634,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             ),
                                                                       ),
                                                                     if (loggedIn &&
-                                                                        (FFAppState().userProfileData.userType !=
-                                                                            'Unknown'))
+                                                                        (_model.userType !=
+                                                                                null &&
+                                                                            _model.userType !=
+                                                                                ''))
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
@@ -647,8 +661,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                         ),
                                                                       ),
                                                                     if (loggedIn &&
-                                                                        (FFAppState().userProfileData.userType ==
-                                                                            'Unknown'))
+                                                                        (_model.userType ==
+                                                                                null ||
+                                                                            _model.userType ==
+                                                                                ''))
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
@@ -690,9 +706,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             8.0),
                                                                         child:
                                                                             Text(
-                                                                          functions.formatPhoneNumber(FFAppState()
-                                                                              .userProfileData
-                                                                              .phoneNumber),
+                                                                          functions
+                                                                              .formatPhoneNumber(_model.phoneNumber!),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .bodyMedium
                                                                               .override(
@@ -961,9 +976,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                 uid: UsersGroup.getUserDataCall.uid(
                                                                                                   (_model.userDataFetchedDialog2?.jsonBody ?? ''),
                                                                                                 ),
-                                                                                                photoUrl: UsersGroup.getUserDataCall.photoURL(
-                                                                                                  (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                ),
                                                                                                 displayName: UsersGroup.getUserDataCall.displayName(
                                                                                                   (_model.userDataFetchedDialog2?.jsonBody ?? ''),
                                                                                                 ),
@@ -971,9 +983,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                   (_model.userDataFetchedDialog2?.jsonBody ?? ''),
                                                                                                 ),
                                                                                                 userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                  (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                userRequiredResources: UsersGroup.getUserDataCall.requiredResources(
                                                                                                   (_model.userDataFetchedDialog2?.jsonBody ?? ''),
                                                                                                 ),
                                                                                                 userType: UsersGroup.getUserDataCall.userType(
@@ -1029,9 +1038,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                 uid: UsersGroup.getUserDataCall.uid(
                                                                                                   (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
                                                                                                 ),
-                                                                                                photoUrl: UsersGroup.getUserDataCall.photoURL(
-                                                                                                  (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                ),
                                                                                                 displayName: UsersGroup.getUserDataCall.displayName(
                                                                                                   (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
                                                                                                 ),
@@ -1039,9 +1045,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                   (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
                                                                                                 ),
                                                                                                 userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                  (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                userRequiredResources: UsersGroup.getUserDataCall.requiredResources(
                                                                                                   (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
                                                                                                 ),
                                                                                                 userType: UsersGroup.getUserDataCall.userType(
@@ -1118,9 +1121,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                     child: Text(
                                                                       valueOrDefault<
                                                                           String>(
-                                                                        FFAppState()
-                                                                            .userProfileData
-                                                                            .userResearchField,
+                                                                        _model
+                                                                            .researchField,
                                                                         '-',
                                                                       ),
                                                                       style: FlutterFlowTheme.of(
@@ -1191,9 +1193,8 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                           Text(
                                                                         valueOrDefault<
                                                                             String>(
-                                                                          FFAppState()
-                                                                              .userProfileData
-                                                                              .userAffiliation,
+                                                                          _model
+                                                                              .affiliaion,
                                                                           '-',
                                                                         ),
                                                                         style: FlutterFlowTheme.of(context)

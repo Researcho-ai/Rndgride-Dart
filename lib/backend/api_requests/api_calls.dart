@@ -599,18 +599,9 @@ class GetUserDataCall {
         response,
         r'''$.display_name''',
       ));
-  String? photoURL(dynamic response) => castToType<String>(getJsonField(
-        response,
-        r'''$.photo_url''',
-      ));
   String? userType(dynamic response) => castToType<String>(getJsonField(
         response,
         r'''$.user_type''',
-      ));
-  String? requiredResources(dynamic response) =>
-      castToType<String>(getJsonField(
-        response,
-        r'''$.user_required_resources''',
       ));
   String? researchField(dynamic response) => castToType<String>(getJsonField(
         response,

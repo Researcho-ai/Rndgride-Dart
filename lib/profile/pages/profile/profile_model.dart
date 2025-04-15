@@ -11,10 +11,20 @@ import 'package:flutter/material.dart';
 class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   ///  Local state fields for this page.
 
-  String? photeState;
+  String? displayName;
+
+  String? phoneNumber;
+
+  String? researchField;
+
+  String? affiliaion;
+
+  String? userType;
 
   ///  State fields for stateful widgets in this page.
 
+  // Stores action output result for [Backend Call - API (Get User Data)] action in Profile widget.
+  ApiCallResponse? apiResultpwu;
   // Model for Drawer component.
   late DrawerModel drawerModel;
   // Model for TopNavBar component.

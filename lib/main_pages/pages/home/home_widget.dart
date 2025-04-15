@@ -147,9 +147,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                 uid: UsersGroup.getUserDataCall.uid(
                   (_model.userDataFetched?.jsonBody ?? ''),
                 ),
-                photoUrl: UsersGroup.getUserDataCall.photoURL(
-                  (_model.userDataFetched?.jsonBody ?? ''),
-                ),
                 displayName: UsersGroup.getUserDataCall.displayName(
                   (_model.userDataFetched?.jsonBody ?? ''),
                 ),
@@ -157,10 +154,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                   (_model.userDataFetched?.jsonBody ?? ''),
                 ),
                 userResearchField: UsersGroup.getUserDataCall.researchField(
-                  (_model.userDataFetched?.jsonBody ?? ''),
-                ),
-                userRequiredResources:
-                    UsersGroup.getUserDataCall.requiredResources(
                   (_model.userDataFetched?.jsonBody ?? ''),
                 ),
                 userType: UsersGroup.getUserDataCall.userType(
