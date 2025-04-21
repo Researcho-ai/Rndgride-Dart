@@ -2,29 +2,33 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'analysis_compo_model.dart';
-export 'analysis_compo_model.dart';
+import 'test_component_model.dart';
+export 'test_component_model.dart';
 
-class AnalysisCompoWidget extends StatefulWidget {
-  const AnalysisCompoWidget({
+class TestComponentWidget extends StatefulWidget {
+  const TestComponentWidget({
     super.key,
-    this.analysisName,
-    this.solvent,
     this.addAction,
     this.rmAction,
-  });
+    this.test,
+    this.methods,
+    this.level,
+    bool? checkboxValue,
+  }) : this.checkboxValue = checkboxValue ?? false;
 
-  final String? analysisName;
-  final String? solvent;
   final Future Function()? addAction;
   final Future Function()? rmAction;
+  final String? test;
+  final String? methods;
+  final int? level;
+  final bool checkboxValue;
 
   @override
-  State<AnalysisCompoWidget> createState() => _AnalysisCompoWidgetState();
+  State<TestComponentWidget> createState() => _TestComponentWidgetState();
 }
 
-class _AnalysisCompoWidgetState extends State<AnalysisCompoWidget> {
-  late AnalysisCompoModel _model;
+class _TestComponentWidgetState extends State<TestComponentWidget> {
+  late TestComponentModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -35,7 +39,7 @@ class _AnalysisCompoWidgetState extends State<AnalysisCompoWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => AnalysisCompoModel());
+    _model = createModel(context, () => TestComponentModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -74,17 +78,17 @@ class _AnalysisCompoWidgetState extends State<AnalysisCompoWidget> {
                   unselectedWidgetColor: FlutterFlowTheme.of(context).primary,
                 ),
                 child: Checkbox(
-                  value: _model.checkboxValue ??= false,
+                  value: _model.checkboxValue ??= widget.checkboxValue,
                   onChanged: (newValue) async {
                     safeSetState(() => _model.checkboxValue = newValue!);
                     if (newValue!) {
                       logFirebaseEvent(
-                          'ANALYSIS_COMPO_Checkbox_mpryiamy_ON_TOGG');
+                          'TEST_COMPONENT_Checkbox_xs54550p_ON_TOGG');
                       logFirebaseEvent('Checkbox_execute_callback');
                       await widget.addAction?.call();
                     } else {
                       logFirebaseEvent(
-                          'ANALYSIS_COMPO_Checkbox_mpryiamy_ON_TOGG');
+                          'TEST_COMPONENT_Checkbox_xs54550p_ON_TOGG');
                       logFirebaseEvent('Checkbox_execute_callback');
                       await widget.rmAction?.call();
                     }
@@ -107,15 +111,17 @@ class _AnalysisCompoWidgetState extends State<AnalysisCompoWidget> {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          if ((widget.analysisName != null &&
-                                  widget.analysisName != '') &&
-                              (widget.analysisName != ''))
+                          if ((widget.test != null && widget.test != '') &&
+                              (widget.test != ''))
                             Flexible(
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 6.0, 0.0, 6.0),
                                 child: Text(
-                                  'Analysis : ${widget.analysisName}',
+                                  valueOrDefault<String>(
+                                    widget.test,
+                                    '-',
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(
@@ -137,15 +143,18 @@ class _AnalysisCompoWidgetState extends State<AnalysisCompoWidget> {
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         children: [
-                          if ((widget.solvent != null &&
-                                  widget.solvent != '') &&
-                              (widget.solvent != ''))
+                          if ((widget.methods != null &&
+                                  widget.methods != '') &&
+                              (widget.methods != ''))
                             Flexible(
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
                                     0.0, 6.0, 0.0, 6.0),
                                 child: Text(
-                                  'Solvent : ${widget.solvent}',
+                                  valueOrDefault<String>(
+                                    widget.methods,
+                                    '-',
+                                  ),
                                   style: FlutterFlowTheme.of(context)
                                       .bodyMedium
                                       .override(

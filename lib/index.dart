@@ -23,3 +23,4 @@ export '/resources/pages/sophisticated_instrument/sophisticated_instrument_widge
     show SophisticatedInstrumentWidget;
 export '/requirements/requirements_widget.dart' show RequirementsWidget;
 export '/resources/pages/labs/labs_widget.dart' show LabsWidget;
+export '/resources/pages/tests/tests_widget.dart' show TestsWidget;

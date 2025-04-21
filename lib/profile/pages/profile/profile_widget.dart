@@ -225,7 +225,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                               instrument: false,
                                               about: false,
                                               contactus: false,
-                                              jobs: false,
+                                              tests: false,
                                               labs: false,
                                             ),
                                           ),
@@ -694,31 +694,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                               ),
                                                                         ),
                                                                       ),
-                                                                    if (responsiveVisibility(
-                                                                      context:
-                                                                          context,
-                                                                      phone:
-                                                                          false,
-                                                                      tablet:
-                                                                          false,
-                                                                      tabletLandscape:
-                                                                          false,
-                                                                      desktop:
-                                                                          false,
-                                                                    ))
-                                                                      SelectionArea(
-                                                                          child:
-                                                                              Text(
-                                                                        FFAppState()
-                                                                            .debugString,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                            ),
-                                                                      )),
                                                                   ],
                                                                 ),
                                                               ),

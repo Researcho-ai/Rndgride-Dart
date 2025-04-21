@@ -619,7 +619,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     '06qae4g9': {
-      'en': 'Search  Instrument...',
+      'en': 'Search  Instruments/Tests...',
       'hi': '',
     },
     '3352kfsb': {
@@ -635,7 +635,15 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     'rk0agkm2': {
-      'en': 'Search results',
+      'en': 'Search Results',
+      'hi': '',
+    },
+    '4dmjkr8w': {
+      'en': 'Instruments',
+      'hi': '',
+    },
+    'w87m02gc': {
+      'en': 'Tests',
       'hi': '',
     },
     '1e970197': {
@@ -662,6 +670,19 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     'tniqbazd': {
       'en':
           'Find and utilize a variety of scientific instruments and tests to support your experiments and projects.',
+      'hi': '',
+    },
+    'ftdzm7nw': {
+      'en': 'Explore Tests',
+      'hi': '',
+    },
+    'ubjz0opy': {
+      'en': 'view all',
+      'hi': '',
+    },
+    '3qye1nn8': {
+      'en':
+          'Find and utilize a variety of tests to support your experiments and projects.',
       'hi': '',
     },
     'gmhvzvnc': {
@@ -764,6 +785,29 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
+  // Tests
+  {
+    'roqscz37': {
+      'en': 'Resources',
+      'hi': '',
+    },
+    'p0ampu9c': {
+      'en': 'Search  Tests...',
+      'hi': '',
+    },
+    '55n9dtfn': {
+      'en': 'Show More Tests',
+      'hi': '',
+    },
+    'k187dfoq': {
+      'en': 'Show More Instruments',
+      'hi': '',
+    },
+    'agxea3u4': {
+      'en': 'Resources',
+      'hi': '',
+    },
+  },
   // LogoutPopup
   {
     'hhq5pi42': {
@@ -785,8 +829,8 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Instruments',
       'hi': '',
     },
-    '90izqlyv': {
-      'en': 'Labs',
+    '0e1v881w': {
+      'en': 'Tests',
       'hi': '',
     },
     'mwn6usg0': {
@@ -1420,7 +1464,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // InstrumentPropertiesCopy
+  // InstrumentPropertiesComponent
   {
     'nh2jm05y': {
       'en': 'Number of samples',
@@ -1459,6 +1503,57 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     'wjikd30r': {
+      'en': 'Submit Request',
+      'hi': '',
+    },
+  },
+  // testPropertiesComponent
+  {
+    'ftkrnxdv': {
+      'en': 'Please selet the material ',
+      'hi': '',
+    },
+    'xuetjvlp': {
+      'en': 'Please selet the Test & Method ',
+      'hi': '',
+    },
+    '2avljgoe': {
+      'en': 'Number of samples',
+      'hi': '',
+    },
+    'n3oko1tg': {
+      'en': '',
+      'hi': '',
+    },
+    'iett80gh': {
+      'en': 'When do you need it?',
+      'hi': '',
+    },
+    'jq2eh3a7': {
+      'en': 'Search for an item...',
+      'hi': '',
+    },
+    '3qqnk5p0': {
+      'en': 'Today',
+      'hi': '',
+    },
+    '1iqjqy7c': {
+      'en': '2-6 days',
+      'hi': '',
+    },
+    'bh9s4z3g': {
+      'en': '7-14 days',
+      'hi': '',
+    },
+    'akpls8jd': {
+      'en': '15-30 days',
+      'hi': '',
+    },
+    'oyytvrl7': {
+      'en': 'Later',
+      'hi': '',
+    },
+    '7ke4gerq': {
       'en': 'Submit Request',
       'hi': '',
     },

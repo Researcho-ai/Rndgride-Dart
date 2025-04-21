@@ -342,10 +342,11 @@ class SearchInstrumentTestCall {
     );
   }
 
-  dynamic instruments(dynamic response) => getJsonField(
+  List? instruments(dynamic response) => getJsonField(
         response,
         r'''$.instruments''',
-      );
+        true,
+      ) as List?;
   int? count(dynamic response) => castToType<int>(getJsonField(
         response,
         r'''$.count''',
@@ -1070,6 +1071,7 @@ class InqueryGroup {
     'Content-Type': 'application/json',
   };
   static CreateBookingCall createBookingCall = CreateBookingCall();
+  static CreateTestBookingCall createTestBookingCall = CreateTestBookingCall();
   static CreateInqueryCall createInqueryCall = CreateInqueryCall();
 }
 
@@ -1114,6 +1116,64 @@ class CreateBookingCall {
     return ApiManager.instance.makeApiCall(
       callName: 'createBooking',
       apiUrl: '${baseUrl}createResourceBooking',
+      callType: ApiCallType.POST,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {},
+      body: ffApiRequestBody,
+      bodyType: BodyType.JSON,
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+class CreateTestBookingCall {
+  Future<ApiCallResponse> call({
+    String? userID = '',
+    String? subType = '',
+    String? instrumentRef = '',
+    dynamic testDetailsListJson,
+    String? sampleQuantity = '',
+    String? neededIn = '',
+    String? inquiryMessage = '',
+    String? phoneNumber = '',
+    String? userName = '',
+    String? inquirySubject = '',
+    String? userType = '',
+  }) async {
+    final baseUrl = InqueryGroup.getBaseUrl(
+      userID: userID,
+      subType: subType,
+      instrumentRef: instrumentRef,
+      testDetailsListJson: testDetailsListJson,
+      sampleQuantity: sampleQuantity,
+      neededIn: neededIn,
+      inquiryMessage: inquiryMessage,
+      phoneNumber: phoneNumber,
+      userName: userName,
+      inquirySubject: inquirySubject,
+      userType: userType,
+    );
+
+    final testDetailsList = _serializeJson(testDetailsListJson, true);
+    final ffApiRequestBody = '''
+{
+  "userID": "${escapeStringForJson(userID)}",
+  "subType": "${escapeStringForJson(subType)}",
+  "instrument_ref": "${escapeStringForJson(instrumentRef)}",
+  "test_details_list": ${testDetailsList},
+  "sample_quantity": "${escapeStringForJson(sampleQuantity)}",
+  "needed_in": "${escapeStringForJson(neededIn)}"
+}''';
+    return ApiManager.instance.makeApiCall(
+      callName: 'Create Test Booking',
+      apiUrl: '${baseUrl}createTestResourceBooking',
       callType: ApiCallType.POST,
       headers: {
         'Content-Type': 'application/json',
@@ -1192,6 +1252,132 @@ class CreateInqueryCall {
 }
 
 /// End Inquery Group Code
+
+/// Start Tests Group Code
+
+class TestsGroup {
+  static String getBaseUrl({
+    String? fieldRef = '',
+  }) =>
+      'https://js.rndgrid.com/api/test/';
+  static Map<String, String> headers = {
+    'Content-Type': 'application/json',
+  };
+  static GetFiedsCall getFiedsCall = GetFiedsCall();
+  static GetAvailabeTestPropetiesCall getAvailabeTestPropetiesCall =
+      GetAvailabeTestPropetiesCall();
+  static SearchTestCall searchTestCall = SearchTestCall();
+}
+
+class GetFiedsCall {
+  Future<ApiCallResponse> call({
+    int? limit,
+    String? fieldRef = '',
+  }) async {
+    final baseUrl = TestsGroup.getBaseUrl(
+      fieldRef: fieldRef,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Fieds',
+      apiUrl: '${baseUrl}getFields',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'limit': limit,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? fields(dynamic response) => getJsonField(
+        response,
+        r'''$.fields''',
+        true,
+      ) as List?;
+  int? count(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.count''',
+      ));
+}
+
+class GetAvailabeTestPropetiesCall {
+  Future<ApiCallResponse> call({
+    String? fieldRef = '',
+  }) async {
+    final baseUrl = TestsGroup.getBaseUrl(
+      fieldRef: fieldRef,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Availabe Test Propeties',
+      apiUrl: '${baseUrl}getAvailableTestProperties',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'field_ref': fieldRef,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  int? count(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.count''',
+      ));
+  List? data(dynamic response) => getJsonField(
+        response,
+        r'''$.fields''',
+        true,
+      ) as List?;
+}
+
+class SearchTestCall {
+  Future<ApiCallResponse> call({
+    String? searchTerm = '',
+    int? limit = 10,
+    String? fieldRef = '',
+  }) async {
+    final baseUrl = TestsGroup.getBaseUrl(
+      fieldRef: fieldRef,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Search Test',
+      apiUrl: '${baseUrl}searchTest',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'searchTerm': searchTerm,
+        'limit': limit,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+}
+
+/// End Tests Group Code
 
 class SendMailToAdminCall {
   static Future<ApiCallResponse> call({

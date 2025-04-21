@@ -179,7 +179,7 @@ class _LabsWidgetState extends State<LabsWidget> {
                                       instrument: false,
                                       about: false,
                                       contactus: false,
-                                      jobs: false,
+                                      tests: false,
                                       labs: true,
                                     ),
                                   ),

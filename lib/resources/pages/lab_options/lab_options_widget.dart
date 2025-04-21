@@ -230,7 +230,7 @@ class _LabOptionsWidgetState extends State<LabOptionsWidget> {
                                             instrument: false,
                                             about: false,
                                             contactus: false,
-                                            jobs: false,
+                                            tests: false,
                                             labs: false,
                                           ),
                                         ),

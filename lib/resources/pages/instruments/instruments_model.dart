@@ -18,7 +18,19 @@ class InstrumentsModel extends FlutterFlowModel<InstrumentsWidget> {
 
   dynamic instrumentsListFromAPI;
 
-  dynamic resultInstrumentsFromAPI;
+  List<dynamic> resultInstrumentsFromAPI = [];
+  void addToResultInstrumentsFromAPI(dynamic item) =>
+      resultInstrumentsFromAPI.add(item);
+  void removeFromResultInstrumentsFromAPI(dynamic item) =>
+      resultInstrumentsFromAPI.remove(item);
+  void removeAtIndexFromResultInstrumentsFromAPI(int index) =>
+      resultInstrumentsFromAPI.removeAt(index);
+  void insertAtIndexInResultInstrumentsFromAPI(int index, dynamic item) =>
+      resultInstrumentsFromAPI.insert(index, item);
+  void updateResultInstrumentsFromAPIAtIndex(
+          int index, Function(dynamic) updateFn) =>
+      resultInstrumentsFromAPI[index] =
+          updateFn(resultInstrumentsFromAPI[index]);
 
   int instrumentLength = 0;
 

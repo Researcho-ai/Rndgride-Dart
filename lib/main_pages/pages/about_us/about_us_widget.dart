@@ -149,7 +149,7 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                               instrument: false,
                                               about: false,
                                               contactus: false,
-                                              jobs: false,
+                                              tests: false,
                                               labs: false,
                                             ),
                                           ),

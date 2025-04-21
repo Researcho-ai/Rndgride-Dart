@@ -58,10 +58,7 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 
-	<key>NSCameraUsageDescription</key>
-    <string>Allow this app to access your camera to take photos and videos.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-    <string>Allow this app to access your photo library to view and share your photos and videos.</string>
+
 	<key>NSFaceIDUsageDescription</key>
     <string>Allow this app to use your biometric information for authentication purposes.</string>
 	<key>NSCalendarsUsageDescription</key>

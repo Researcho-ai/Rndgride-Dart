@@ -1,6 +1,6 @@
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/components/analysis_compo_widget.dart';
+import '/components/analysis_component_widget.dart';
 import '/components/common_dialog_widget.dart';
 import '/flutter_flow/flutter_flow_drop_down.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -12,11 +12,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'instrument_properties_copy_model.dart';
-export 'instrument_properties_copy_model.dart';
+import 'instrument_properties_component_model.dart';
+export 'instrument_properties_component_model.dart';
 
-class InstrumentPropertiesCopyWidget extends StatefulWidget {
-  const InstrumentPropertiesCopyWidget({
+class InstrumentPropertiesComponentWidget extends StatefulWidget {
+  const InstrumentPropertiesComponentWidget({
     super.key,
     bool? isShowAnalysis,
     bool? isShowSolvent,
@@ -34,13 +34,13 @@ class InstrumentPropertiesCopyWidget extends StatefulWidget {
   final String? instrumenetRef;
 
   @override
-  State<InstrumentPropertiesCopyWidget> createState() =>
-      _InstrumentPropertiesCopyWidgetState();
+  State<InstrumentPropertiesComponentWidget> createState() =>
+      _InstrumentPropertiesComponentWidgetState();
 }
 
-class _InstrumentPropertiesCopyWidgetState
-    extends State<InstrumentPropertiesCopyWidget> {
-  late InstrumentPropertiesCopyModel _model;
+class _InstrumentPropertiesComponentWidgetState
+    extends State<InstrumentPropertiesComponentWidget> {
+  late InstrumentPropertiesComponentModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -51,12 +51,12 @@ class _InstrumentPropertiesCopyWidgetState
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InstrumentPropertiesCopyModel());
+    _model = createModel(context, () => InstrumentPropertiesComponentModel());
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('INSTRUMENT_PROPERTIES_COPY_InstrumentPro');
-      logFirebaseEvent('InstrumentPropertiesCopy_backend_call');
+      logFirebaseEvent('INSTRUMENT_PROPERTIES_COMPONENT_Instrume');
+      logFirebaseEvent('InstrumentPropertiesComponent_backend_ca');
       _model.apiResultj0o =
           await InstrumentsTestsGroup.fetchInstrumentTestListCall.call(
         instrumentRef: getJsonField(
@@ -66,7 +66,7 @@ class _InstrumentPropertiesCopyWidgetState
       );
 
       if ((_model.apiResultj0o?.succeeded ?? true)) {
-        logFirebaseEvent('InstrumentPropertiesCopy_update_componen');
+        logFirebaseEvent('InstrumentPropertiesComponent_update_com');
         _model.availableInstrumentName =
             InstrumentsTestsGroup.fetchInstrumentTestListCall
                 .instrumentTestList(
@@ -310,7 +310,7 @@ class _InstrumentPropertiesCopyWidgetState
                             itemBuilder: (context, analyssiListIndex) {
                               final analyssiListItem =
                                   analyssiList[analyssiListIndex];
-                              return AnalysisCompoWidget(
+                              return AnalysisComponentWidget(
                                 key: Key(
                                     'Key17p_${analyssiListIndex}_of_${analyssiList.length}'),
                                 analysisName: getJsonField(
@@ -323,17 +323,17 @@ class _InstrumentPropertiesCopyWidgetState
                                 ).toString(),
                                 addAction: () async {
                                   logFirebaseEvent(
-                                      'INSTRUMENT_PROPERTIES_COPY_Container_17p');
+                                      'INSTRUMENT_PROPERTIES_COMPONENT_Containe');
                                   logFirebaseEvent(
-                                      'AnalysisCompo_update_component_state');
+                                      'AnalysisComponent_update_component_state');
                                   _model.addToSelectedTests(analyssiListItem);
                                   safeSetState(() {});
                                 },
                                 rmAction: () async {
                                   logFirebaseEvent(
-                                      'INSTRUMENT_PROPERTIES_COPY_Container_17p');
+                                      'INSTRUMENT_PROPERTIES_COMPONENT_Containe');
                                   logFirebaseEvent(
-                                      'AnalysisCompo_update_component_state');
+                                      'AnalysisComponent_update_component_state');
                                   _model.removeFromSelectedTests(
                                       analyssiListItem);
                                   safeSetState(() {});
@@ -523,7 +523,7 @@ class _InstrumentPropertiesCopyWidgetState
                           child: FFButtonWidget(
                             onPressed: () async {
                               logFirebaseEvent(
-                                  'INSTRUMENT_PROPERTIES_COPY_SUBMIT_REQUES');
+                                  'INSTRUMENT_PROPERTIES_COMPONENT_SUBMIT_R');
                               if (_model.availableInstrumentName.isNotEmpty) {
                                 if (_model.selectedTests.isNotEmpty) {
                                   logFirebaseEvent('Button_alert_dialog');

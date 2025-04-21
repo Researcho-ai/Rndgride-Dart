@@ -45,13 +45,45 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   bool showSophisticated = false;
 
-  dynamic instrumentaTestResult;
+  List<dynamic> instrumentaTestResult = [];
+  void addToInstrumentaTestResult(dynamic item) =>
+      instrumentaTestResult.add(item);
+  void removeFromInstrumentaTestResult(dynamic item) =>
+      instrumentaTestResult.remove(item);
+  void removeAtIndexFromInstrumentaTestResult(int index) =>
+      instrumentaTestResult.removeAt(index);
+  void insertAtIndexInInstrumentaTestResult(int index, dynamic item) =>
+      instrumentaTestResult.insert(index, item);
+  void updateInstrumentaTestResultAtIndex(
+          int index, Function(dynamic) updateFn) =>
+      instrumentaTestResult[index] = updateFn(instrumentaTestResult[index]);
 
   bool searchActive = false;
 
   dynamic emptyJson;
 
   int? resultLength = 0;
+
+  List<dynamic> testSearchList = [];
+  void addToTestSearchList(dynamic item) => testSearchList.add(item);
+  void removeFromTestSearchList(dynamic item) => testSearchList.remove(item);
+  void removeAtIndexFromTestSearchList(int index) =>
+      testSearchList.removeAt(index);
+  void insertAtIndexInTestSearchList(int index, dynamic item) =>
+      testSearchList.insert(index, item);
+  void updateTestSearchListAtIndex(int index, Function(dynamic) updateFn) =>
+      testSearchList[index] = updateFn(testSearchList[index]);
+
+  List<dynamic> finaResourcesList = [];
+  void addToFinaResourcesList(dynamic item) => finaResourcesList.add(item);
+  void removeFromFinaResourcesList(dynamic item) =>
+      finaResourcesList.remove(item);
+  void removeAtIndexFromFinaResourcesList(int index) =>
+      finaResourcesList.removeAt(index);
+  void insertAtIndexInFinaResourcesList(int index, dynamic item) =>
+      finaResourcesList.insert(index, item);
+  void updateFinaResourcesListAtIndex(int index, Function(dynamic) updateFn) =>
+      finaResourcesList[index] = updateFn(finaResourcesList[index]);
 
   ///  State fields for stateful widgets in this page.
 
@@ -61,6 +93,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ApiCallResponse? sophisticatedInstrumentsMobile;
   // Stores action output result for [Backend Call - API (Get Instruments Tests)] action in Home widget.
   ApiCallResponse? instrumentsFromAPI;
+  // Stores action output result for [Backend Call - API (Get Fieds)] action in Home widget.
+  ApiCallResponse? getFields;
   // Model for Drawer component.
   late DrawerModel drawerModel;
   // Model for TopNavBar component.
@@ -71,6 +105,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   String? Function(BuildContext, String?)? textFieldTextControllerValidator;
   // Stores action output result for [Backend Call - API (Search Instrument  Test)] action in TextField widget.
   ApiCallResponse? searchOutput;
+  // Stores action output result for [Backend Call - API (Search Test)] action in TextField widget.
+  ApiCallResponse? searhTest;
   // Models for InstrumentsDetails dynamic component.
   late FlutterFlowDynamicModels<InstrumentsDetailsModel>
       instrumentsDetailsModels1;

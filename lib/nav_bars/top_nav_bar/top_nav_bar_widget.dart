@@ -18,18 +18,18 @@ class TopNavBarWidget extends StatefulWidget {
     bool? instrument,
     bool? about,
     bool? contactus,
-    bool? jobs,
+    bool? tests,
     bool? labs,
   })  : this.instrument = instrument ?? false,
         this.about = about ?? false,
         this.contactus = contactus ?? false,
-        this.jobs = jobs ?? false,
+        this.tests = tests ?? false,
         this.labs = labs ?? false;
 
   final bool instrument;
   final bool about;
   final bool contactus;
-  final bool jobs;
+  final bool tests;
   final bool labs;
 
   @override
@@ -200,111 +200,98 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                         () => _model.instrumentMouseRegionHovered = false);
                   }),
                 ),
-                MouseRegion(
-                  opaque: false,
-                  cursor: MouseCursor.defer ?? MouseCursor.defer,
-                  child: Visibility(
-                    visible: responsiveVisibility(
-                      context: context,
-                      phone: false,
-                      tablet: false,
-                      tabletLandscape: false,
-                      desktop: false,
-                    ),
-                    child: Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent(
-                              'TOP_NAV_BAR_COMP_Column_yivx6xdc_ON_TAP');
-                          logFirebaseEvent('Column_navigate_to');
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                  child: MouseRegion(
+                    opaque: false,
+                    cursor: MouseCursor.defer ?? MouseCursor.defer,
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'TOP_NAV_BAR_COMP_Column_szovlnxc_ON_TAP');
+                        logFirebaseEvent('Column_navigate_to');
 
-                          context.pushNamed(LabsWidget.routeName);
+                        context.goNamed(TestsWidget.routeName);
 
-                          logFirebaseEvent('Column_update_app_state');
-                          FFAppState().topnavBaronSelect =
-                              TopNavBarOnSelectStruct(
-                            instruments: false,
-                            home: false,
-                            bookings: false,
-                            history: false,
-                            aboutUs: false,
-                            contactUs: false,
-                            forum: false,
-                            community: false,
-                            lab: true,
-                            jobs: false,
-                          );
-                          safeSetState(() {});
-                        },
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  15.0, 8.0, 15.0, 4.0),
-                              child: Text(
-                                FFLocalizations.of(context).getText(
-                                  '90izqlyv' /* Labs */,
-                                ),
-                                style: FlutterFlowTheme.of(context)
-                                    .titleSmall
-                                    .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .titleSmallFamily,
-                                      color: widget.labs ||
-                                              _model.labsMouseRegionHovered
-                                          ? FlutterFlowTheme.of(context)
-                                              .primaryText
-                                          : FlutterFlowTheme.of(context)
-                                              .secondaryText,
-                                      fontSize: widget.labs ||
-                                              _model.labsMouseRegionHovered
-                                          ? 20.0
-                                          : 18.0,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w500,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .titleSmallFamily),
-                                    ),
+                        logFirebaseEvent('Column_update_app_state');
+                        FFAppState().topnavBaronSelect =
+                            TopNavBarOnSelectStruct(
+                          instruments: false,
+                          home: false,
+                          bookings: false,
+                          history: true,
+                          aboutUs: false,
+                          contactUs: false,
+                          forum: false,
+                          community: false,
+                          lab: false,
+                          jobs: false,
+                        );
+                        safeSetState(() {});
+                      },
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                15.0, 8.0, 15.0, 4.0),
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                '0e1v881w' /* Tests */,
+                              ),
+                              style: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    fontFamily: FlutterFlowTheme.of(context)
+                                        .titleSmallFamily,
+                                    color: widget.instrument ||
+                                            _model.testMouseRegionHovered
+                                        ? FlutterFlowTheme.of(context)
+                                            .primaryText
+                                        : FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                    fontSize: widget.instrument ||
+                                            _model.testMouseRegionHovered
+                                        ? 20.0
+                                        : 18.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                    useGoogleFonts: GoogleFonts.asMap()
+                                        .containsKey(
+                                            FlutterFlowTheme.of(context)
+                                                .titleSmallFamily),
+                                  ),
+                            ),
+                          ),
+                          if (widget.tests || _model.testMouseRegionHovered)
+                            SizedBox(
+                              width: 80.0,
+                              child: Divider(
+                                thickness: 1.0,
+                                color: FlutterFlowTheme.of(context).primaryText,
                               ),
                             ),
-                            if (FFAppState().topnavBaronSelect.lab ||
-                                _model.labsMouseRegionHovered)
-                              SizedBox(
-                                width: 50.0,
-                                child: Divider(
-                                  thickness: 1.0,
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryText,
-                                ),
-                              ),
-                          ],
-                        ),
+                        ],
                       ),
                     ),
+                    onEnter: ((event) async {
+                      safeSetState(() => _model.testMouseRegionHovered = true);
+                    }),
+                    onExit: ((event) async {
+                      safeSetState(() => _model.testMouseRegionHovered = false);
+                    }),
                   ),
-                  onEnter: ((event) async {
-                    safeSetState(() => _model.labsMouseRegionHovered = true);
-                  }),
-                  onExit: ((event) async {
-                    safeSetState(() => _model.labsMouseRegionHovered = false);
-                  }),
                 ),
-                MouseRegion(
-                  opaque: false,
-                  cursor: MouseCursor.defer ?? MouseCursor.defer,
-                  child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 16.0, 0.0),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                  child: MouseRegion(
+                    opaque: false,
+                    cursor: MouseCursor.defer ?? MouseCursor.defer,
                     child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
@@ -380,15 +367,15 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                         ],
                       ),
                     ),
+                    onEnter: ((event) async {
+                      safeSetState(
+                          () => _model.abouteUsMouseRegionHovered = true);
+                    }),
+                    onExit: ((event) async {
+                      safeSetState(
+                          () => _model.abouteUsMouseRegionHovered = false);
+                    }),
                   ),
-                  onEnter: ((event) async {
-                    safeSetState(
-                        () => _model.abouteUsMouseRegionHovered = true);
-                  }),
-                  onExit: ((event) async {
-                    safeSetState(
-                        () => _model.abouteUsMouseRegionHovered = false);
-                  }),
                 ),
                 MouseRegion(
                   opaque: false,

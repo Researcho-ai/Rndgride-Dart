@@ -1,13 +1,13 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'instrument_properties_copy_widget.dart'
-    show InstrumentPropertiesCopyWidget;
+import 'instrument_properties_component_widget.dart'
+    show InstrumentPropertiesComponentWidget;
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class InstrumentPropertiesCopyModel
-    extends FlutterFlowModel<InstrumentPropertiesCopyWidget> {
+class InstrumentPropertiesComponentModel
+    extends FlutterFlowModel<InstrumentPropertiesComponentWidget> {
   ///  Local state fields for this component.
 
   List<dynamic> availableInstrumentName = [];
@@ -35,7 +35,7 @@ class InstrumentPropertiesCopyModel
 
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Backend Call - API (Fetch Instrument Test List)] action in InstrumentPropertiesCopy widget.
+  // Stores action output result for [Backend Call - API (Fetch Instrument Test List)] action in InstrumentPropertiesComponent widget.
   ApiCallResponse? apiResultj0o;
   // State field(s) for RequirementTextField widget.
   FocusNode? requirementTextFieldFocusNode;

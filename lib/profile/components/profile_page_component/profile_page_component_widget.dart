@@ -1,11 +1,6 @@
-import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_expanded_image_view.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/upload_data.dart';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -248,125 +243,6 @@ class _ProfilePageComponentWidgetState
                     fit: BoxFit.cover,
                   ),
                 ),
-              Align(
-                alignment: AlignmentDirectional(0.66, 0.79),
-                child: FlutterFlowIconButton(
-                  borderRadius: 20.0,
-                  borderWidth: 1.0,
-                  buttonSize: () {
-                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                      return 30.0;
-                    } else if (MediaQuery.sizeOf(context).width <
-                        kBreakpointMedium) {
-                      return 35.0;
-                    } else if (MediaQuery.sizeOf(context).width <
-                        kBreakpointLarge) {
-                      return 40.0;
-                    } else {
-                      return 40.0;
-                    }
-                  }(),
-                  fillColor: FlutterFlowTheme.of(context).primaryBackground,
-                  icon: Icon(
-                    FFIcons.kcamera,
-                    color: FlutterFlowTheme.of(context).primaryText,
-                    size: () {
-                      if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                        return 16.0;
-                      } else if (MediaQuery.sizeOf(context).width <
-                          kBreakpointMedium) {
-                        return 18.0;
-                      } else if (MediaQuery.sizeOf(context).width <
-                          kBreakpointLarge) {
-                        return 24.0;
-                      } else {
-                        return 24.0;
-                      }
-                    }(),
-                  ),
-                  onPressed: () async {
-                    logFirebaseEvent('PROFILE_COMPONENT_camera_ICN_ON_TAP');
-                    logFirebaseEvent('IconButton_store_media_for_upload');
-                    final selectedMedia = await selectMedia(
-                      mediaSource: MediaSource.photoGallery,
-                      multiImage: false,
-                    );
-                    if (selectedMedia != null &&
-                        selectedMedia.every((m) =>
-                            validateFileFormat(m.storagePath, context))) {
-                      safeSetState(() => _model.isDataUploading = true);
-                      var selectedUploadedFiles = <FFUploadedFile>[];
-
-                      try {
-                        showUploadMessage(
-                          context,
-                          'Uploading file...',
-                          showLoading: true,
-                        );
-                        selectedUploadedFiles = selectedMedia
-                            .map((m) => FFUploadedFile(
-                                  name: m.storagePath.split('/').last,
-                                  bytes: m.bytes,
-                                  height: m.dimensions?.height,
-                                  width: m.dimensions?.width,
-                                  blurHash: m.blurHash,
-                                ))
-                            .toList();
-                      } finally {
-                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
-                        _model.isDataUploading = false;
-                      }
-                      if (selectedUploadedFiles.length ==
-                          selectedMedia.length) {
-                        safeSetState(() {
-                          _model.uploadedLocalFile =
-                              selectedUploadedFiles.first;
-                        });
-                        showUploadMessage(context, 'Success!');
-                      } else {
-                        safeSetState(() {});
-                        showUploadMessage(context, 'Failed to upload data');
-                        return;
-                      }
-                    }
-
-                    logFirebaseEvent('IconButton_custom_action');
-                    _model.base4String = await actions.encodeImageToBase64(
-                      _model.uploadedLocalFile,
-                    );
-                    logFirebaseEvent('IconButton_update_app_state');
-                    FFAppState().debugString = _model.base4String!;
-                    safeSetState(() {});
-                    logFirebaseEvent('IconButton_backend_call');
-                    _model.imageUrl = await UsersGroup.uoploadImageCall.call(
-                      image: _model.base4String,
-                    );
-
-                    if ((_model.imageUrl?.succeeded ?? true)) {
-                      logFirebaseEvent('IconButton_backend_call');
-                      _model.apiResulto9p =
-                          await UsersGroup.updateUserImageCall.call(
-                        userId: FFAppState().userProfileData.uid,
-                        imageUrl: UsersGroup.uoploadImageCall.imageUrl(
-                          (_model.imageUrl?.jsonBody ?? ''),
-                        ),
-                      );
-
-                      if ((_model.apiResulto9p?.succeeded ?? true)) {
-                        logFirebaseEvent('IconButton_update_app_state');
-                        FFAppState().userProfileData = UserProfileDataStruct(
-                          photoUrl: UsersGroup.uoploadImageCall.imageUrl(
-                            (_model.imageUrl?.jsonBody ?? ''),
-                          ),
-                        );
-                        safeSetState(() {});
-                      }
-                    }
-
-                    safeSetState(() {});
-                  },
-                ),
-              ),
             ],
           ),
         ),

@@ -13,6 +13,7 @@ import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/resources/components/data_not_found_c_omponent/data_not_found_c_omponent_widget.dart';
 import '/resources/components/instruments_details/instruments_details_widget.dart';
 import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
+import '/resources/components/test_details/test_details_widget.dart';
 import 'dart:async';
 import '/index.dart';
 import 'package:flutter/material.dart';
@@ -121,7 +122,7 @@ class _HomeWidgetState extends State<HomeWidget> {
 
           if ((_model.instrumentsFromAPI?.succeeded ?? true)) {
             logFirebaseEvent('Home_update_app_state');
-            FFAppState().InstrumentsTests =
+            FFAppState().InstrumentsList =
                 InstrumentsTestsGroup.getInstrumentsTestsCall.instrumentsTests(
               (_model.instrumentsFromAPI?.jsonBody ?? ''),
             );
@@ -129,7 +130,24 @@ class _HomeWidgetState extends State<HomeWidget> {
             return;
           }
         }),
-        Future(() async {}),
+        Future(() async {
+          logFirebaseEvent('Home_backend_call');
+          _model.getFields = await TestsGroup.getFiedsCall.call(
+            limit: 5,
+          );
+
+          if ((_model.getFields?.succeeded ?? true)) {
+            logFirebaseEvent('Home_update_app_state');
+            FFAppState().testsList = TestsGroup.getFiedsCall
+                .fields(
+                  (_model.getFields?.jsonBody ?? ''),
+                )!
+                .toList()
+                .cast<dynamic>();
+            safeSetState(() {});
+            return;
+          }
+        }),
       ]);
     });
 
@@ -253,7 +271,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               instrument: false,
                                               about: false,
                                               contactus: false,
-                                              jobs: false,
+                                              tests: false,
                                               labs: false,
                                             ),
                                           ),
@@ -535,48 +553,80 @@ foc... */
                                                                         _model.searchActive =
                                                                             true;
                                                                         _model.instrumentaTestResult =
-                                                                            null;
+                                                                            [];
+                                                                        _model.testSearchList =
+                                                                            [];
+                                                                        _model.finaResourcesList =
+                                                                            [];
                                                                         safeSetState(
                                                                             () {});
-                                                                        logFirebaseEvent(
-                                                                            'TextField_backend_call');
-                                                                        _model.searchOutput = await InstrumentsTestsGroup
-                                                                            .searchInstrumentTestCall
-                                                                            .call(
-                                                                          search: _model
-                                                                              .textFieldTextController
-                                                                              .text,
-                                                                        );
+                                                                        await Future
+                                                                            .wait([
+                                                                          Future(
+                                                                              () async {
+                                                                            logFirebaseEvent('TextField_backend_call');
+                                                                            _model.searchOutput =
+                                                                                await InstrumentsTestsGroup.searchInstrumentTestCall.call(
+                                                                              search: _model.textFieldTextController.text,
+                                                                            );
 
-                                                                        _shouldSetState =
-                                                                            true;
-                                                                        if ((_model.searchOutput?.succeeded ??
-                                                                            true)) {
-                                                                          logFirebaseEvent(
-                                                                              'TextField_update_page_state');
-                                                                          _model.instrumentaTestResult = InstrumentsTestsGroup
-                                                                              .searchInstrumentTestCall
-                                                                              .instruments(
-                                                                            (_model.searchOutput?.jsonBody ??
-                                                                                ''),
-                                                                          );
-                                                                          _model.count =
-                                                                              valueOrDefault<int>(
-                                                                            InstrumentsTestsGroup.searchInstrumentTestCall.count(
-                                                                              (_model.searchOutput?.jsonBody ?? ''),
-                                                                            ),
-                                                                            0,
-                                                                          );
-                                                                          safeSetState(
-                                                                              () {});
-                                                                          if (_shouldSetState)
-                                                                            safeSetState(() {});
-                                                                          return;
-                                                                        } else {
-                                                                          if (_shouldSetState)
-                                                                            safeSetState(() {});
-                                                                          return;
-                                                                        }
+                                                                            _shouldSetState =
+                                                                                true;
+                                                                            if ((_model.searchOutput?.succeeded ??
+                                                                                true)) {
+                                                                              logFirebaseEvent('TextField_update_page_state');
+                                                                              _model.instrumentaTestResult = InstrumentsTestsGroup.searchInstrumentTestCall
+                                                                                  .instruments(
+                                                                                    (_model.searchOutput?.jsonBody ?? ''),
+                                                                                  )!
+                                                                                  .toList()
+                                                                                  .cast<dynamic>();
+                                                                              _model.count = _model.count +
+                                                                                  valueOrDefault<int>(
+                                                                                    InstrumentsTestsGroup.searchInstrumentTestCall.count(
+                                                                                      (_model.searchOutput?.jsonBody ?? ''),
+                                                                                    ),
+                                                                                    0,
+                                                                                  );
+                                                                              safeSetState(() {});
+                                                                            } else {
+                                                                              if (_shouldSetState)
+                                                                                safeSetState(() {});
+                                                                              return;
+                                                                            }
+                                                                          }),
+                                                                          Future(
+                                                                              () async {
+                                                                            logFirebaseEvent('TextField_backend_call');
+                                                                            _model.searhTest =
+                                                                                await TestsGroup.searchTestCall.call(
+                                                                              searchTerm: _model.textFieldTextController.text,
+                                                                            );
+
+                                                                            _shouldSetState =
+                                                                                true;
+                                                                            if ((_model.searhTest?.succeeded ??
+                                                                                true)) {
+                                                                              logFirebaseEvent('TextField_update_page_state');
+                                                                              _model.testSearchList = getJsonField(
+                                                                                (_model.searhTest?.jsonBody ?? ''),
+                                                                                r'''$.tests''',
+                                                                                true,
+                                                                              )!
+                                                                                  .toList()
+                                                                                  .cast<dynamic>();
+                                                                              _model.count = _model.count +
+                                                                                  valueOrDefault<int>(
+                                                                                    getJsonField(
+                                                                                      (_model.searhTest?.jsonBody ?? ''),
+                                                                                      r'''$.count''',
+                                                                                    ),
+                                                                                    0,
+                                                                                  );
+                                                                              safeSetState(() {});
+                                                                            }
+                                                                          }),
+                                                                        ]);
                                                                       } else {
                                                                         if (_shouldSetState)
                                                                           safeSetState(
@@ -603,7 +653,7 @@ foc... */
                                                                       hintText:
                                                                           FFLocalizations.of(context)
                                                                               .getText(
-                                                                        '06qae4g9' /* Search  Instrument... */,
+                                                                        '06qae4g9' /* Search  Instruments/Tests... */,
                                                                       ),
                                                                       hintStyle: FlutterFlowTheme.of(
                                                                               context)
@@ -1013,7 +1063,7 @@ foc... */
                                                     child: Text(
                                                   FFLocalizations.of(context)
                                                       .getText(
-                                                    'rk0agkm2' /* Search results */,
+                                                    'rk0agkm2' /* Search Results */,
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
@@ -1023,10 +1073,6 @@ foc... */
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .headlineSmallFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primaryText,
                                                         letterSpacing: 0.0,
                                                         useGoogleFonts: GoogleFonts
                                                                 .asMap()
@@ -1039,8 +1085,73 @@ foc... */
                                               ],
                                             ),
                                           ),
-                                          if (_model.instrumentaTestResult !=
-                                              null)
+                                          if (_model
+                                              .instrumentaTestResult.isNotEmpty)
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      valueOrDefault<double>(
+                                                        () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return 6.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return 12.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return 18.0;
+                                                          } else {
+                                                            return 18.0;
+                                                          }
+                                                        }(),
+                                                        24.0,
+                                                      )),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  SelectionArea(
+                                                      child: Text(
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      '4dmjkr8w' /* Instruments */,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMediumFamily),
+                                                        ),
+                                                  )),
+                                                ],
+                                              ),
+                                            ),
+                                          if (_model
+                                              .instrumentaTestResult.isNotEmpty)
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -1048,9 +1159,11 @@ foc... */
                                               child: Builder(
                                                 builder: (context) {
                                                   final instrumentsTestsList =
-                                                      _model.instrumentaTestResult
-                                                              ?.toList() ??
-                                                          [];
+                                                      _model
+                                                          .instrumentaTestResult
+                                                          .toList()
+                                                          .take(6)
+                                                          .toList();
 
                                                   return MasonryGridView
                                                       .builder(
@@ -1182,9 +1295,155 @@ foc... */
                                                 },
                                               ),
                                             ),
-                                          if ((_model.instrumentaTestResult ==
-                                                  null) ||
-                                              (_model.count <= 0))
+                                          if (_model.testSearchList.isNotEmpty)
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      valueOrDefault<double>(
+                                                        () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return 6.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return 12.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return 18.0;
+                                                          } else {
+                                                            return 18.0;
+                                                          }
+                                                        }(),
+                                                        24.0,
+                                                      )),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  SelectionArea(
+                                                      child: Text(
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      'w87m02gc' /* Tests */,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .titleMedium
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .titleMediumFamily,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMediumFamily),
+                                                        ),
+                                                  )),
+                                                ],
+                                              ),
+                                            ),
+                                          if (_model.testSearchList.isNotEmpty)
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 20.0),
+                                              child: Builder(
+                                                builder: (context) {
+                                                  final searcTestsList = _model
+                                                      .testSearchList
+                                                      .toList()
+                                                      .take(6)
+                                                      .toList();
+
+                                                  return MasonryGridView
+                                                      .builder(
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
+                                                    gridDelegate:
+                                                        SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount:
+                                                          valueOrDefault<int>(
+                                                        () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return 1;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return 2;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return 3;
+                                                          } else {
+                                                            return 3;
+                                                          }
+                                                        }(),
+                                                        2,
+                                                      ),
+                                                    ),
+                                                    crossAxisSpacing: 20.0,
+                                                    mainAxisSpacing: 20.0,
+                                                    itemCount:
+                                                        searcTestsList.length,
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                      0,
+                                                      0,
+                                                      0,
+                                                      10.0,
+                                                    ),
+                                                    shrinkWrap: true,
+                                                    itemBuilder: (context,
+                                                        searcTestsListIndex) {
+                                                      final searcTestsListItem =
+                                                          searcTestsList[
+                                                              searcTestsListIndex];
+                                                      return TestDetailsWidget(
+                                                        key: Key(
+                                                            'Keyynk_${searcTestsListIndex}_of_${searcTestsList.length}'),
+                                                        testName: getJsonField(
+                                                          searcTestsListItem,
+                                                          r'''$.field.field_name''',
+                                                        ).toString(),
+                                                        index:
+                                                            searcTestsListIndex,
+                                                        testJson:
+                                                            searcTestsListItem,
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
+                                          if (!(_model.instrumentaTestResult
+                                                  .isNotEmpty) ||
+                                              (_model.count <= 0) ||
+                                              !(_model
+                                                  .testSearchList.isNotEmpty))
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -1779,13 +2038,13 @@ foc... */
                                             ],
                                           ),
                                         ),
-                                        if (FFAppState().InstrumentsTests !=
+                                        if (FFAppState().InstrumentsList !=
                                             null)
                                           Builder(
                                             builder: (context) {
                                               final instrumentTestList =
                                                   FFAppState()
-                                                      .InstrumentsTests
+                                                      .InstrumentsList
                                                       .toList()
                                                       .take(5)
                                                       .toList();
@@ -1863,6 +2122,308 @@ foc... */
                                                             isLabInstrument:
                                                                 false,
                                                           ),
+                                                        ),
+                                                      ),
+                                                    );
+                                                  }),
+                                                ),
+                                              );
+                                            },
+                                          ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0,
+                                      0.0,
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      )),
+                                  child: Container(
+                                    width: () {
+                                      if (MediaQuery.sizeOf(context).width <
+                                          kBreakpointSmall) {
+                                        return (MediaQuery.sizeOf(context)
+                                                .width *
+                                            0.9);
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointMedium) {
+                                        return (MediaQuery.sizeOf(context)
+                                                .width *
+                                            0.8);
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointLarge) {
+                                        return (MediaQuery.sizeOf(context)
+                                                .width *
+                                            0.8);
+                                      } else {
+                                        return (MediaQuery.sizeOf(context)
+                                                .width *
+                                            0.8);
+                                      }
+                                    }(),
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                    ),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 4.0),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              SelectionArea(
+                                                  child: Text(
+                                                FFLocalizations.of(context)
+                                                    .getText(
+                                                  'ftdzm7nw' /* Explore Tests */,
+                                                ),
+                                                style:
+                                                    FlutterFlowTheme.of(context)
+                                                        .headlineSmall
+                                                        .override(
+                                                          fontFamily:
+                                                              FlutterFlowTheme.of(
+                                                                      context)
+                                                                  .headlineSmallFamily,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                          useGoogleFonts: GoogleFonts
+                                                                  .asMap()
+                                                              .containsKey(
+                                                                  FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmallFamily),
+                                                        ),
+                                              )),
+                                              InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'HOME_PAGE_Row_ttjui87p_ON_TAP');
+                                                  logFirebaseEvent(
+                                                      'Row_navigate_to');
+
+                                                  context.pushNamed(
+                                                      InstrumentsWidget
+                                                          .routeName);
+                                                },
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'ubjz0opy' /* view all */,
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .labelLarge
+                                                              .override(
+                                                                fontFamily: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLargeFamily,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                                useGoogleFonts: GoogleFonts
+                                                                        .asMap()
+                                                                    .containsKey(
+                                                                        FlutterFlowTheme.of(context)
+                                                                            .labelLargeFamily),
+                                                              ),
+                                                    ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Icon(
+                                                        FFIcons.karrowRight,
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        size: 24.0,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0,
+                                                  0.0,
+                                                  0.0,
+                                                  valueOrDefault<double>(
+                                                    () {
+                                                      if (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width <
+                                                          kBreakpointSmall) {
+                                                        return 8.0;
+                                                      } else if (MediaQuery
+                                                                  .sizeOf(
+                                                                      context)
+                                                              .width <
+                                                          kBreakpointMedium) {
+                                                        return 16.0;
+                                                      } else if (MediaQuery
+                                                                  .sizeOf(
+                                                                      context)
+                                                              .width <
+                                                          kBreakpointLarge) {
+                                                        return 24.0;
+                                                      } else {
+                                                        return 24.0;
+                                                      }
+                                                    }(),
+                                                    24.0,
+                                                  )),
+                                          child: Row(
+                                            mainAxisSize: MainAxisSize.max,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    '3qye1nn8' /* Find and utilize a variety of ... */,
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyMediumFamily,
+                                                        letterSpacing: 0.0,
+                                                        useGoogleFonts: GoogleFonts
+                                                                .asMap()
+                                                            .containsKey(
+                                                                FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyMediumFamily),
+                                                      ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        if (FFAppState().testsList.isNotEmpty)
+                                          Builder(
+                                            builder: (context) {
+                                              final testList = FFAppState()
+                                                  .testsList
+                                                  .toList()
+                                                  .take(5)
+                                                  .toList();
+
+                                              return SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: List.generate(
+                                                      testList.length,
+                                                      (testListIndex) {
+                                                    final testListItem =
+                                                        testList[testListIndex];
+                                                    return Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  4.0,
+                                                                  8.0,
+                                                                  20.0,
+                                                                  8.0),
+                                                      child: Container(
+                                                        width: () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return 320.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return 350.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return 400.0;
+                                                          } else {
+                                                            return 400.0;
+                                                          }
+                                                        }(),
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child:
+                                                            TestDetailsWidget(
+                                                          key: Key(
+                                                              'Key06l_${testListIndex}_of_${testList.length}'),
+                                                          testName:
+                                                              getJsonField(
+                                                            testListItem,
+                                                            r'''$.field_name''',
+                                                          ).toString(),
+                                                          index: testListIndex,
+                                                          testJson:
+                                                              testListItem,
                                                         ),
                                                       ),
                                                     );

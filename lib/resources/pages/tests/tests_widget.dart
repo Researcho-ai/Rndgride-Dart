@@ -7,8 +7,7 @@ import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
 import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/resources/components/data_not_found_c_omponent/data_not_found_c_omponent_widget.dart';
-import '/resources/components/instruments_details/instruments_details_widget.dart';
-import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
+import '/resources/components/test_details/test_details_widget.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -16,21 +15,21 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
-import 'instruments_model.dart';
-export 'instruments_model.dart';
+import 'tests_model.dart';
+export 'tests_model.dart';
 
-class InstrumentsWidget extends StatefulWidget {
-  const InstrumentsWidget({super.key});
+class TestsWidget extends StatefulWidget {
+  const TestsWidget({super.key});
 
-  static String routeName = 'Instruments';
-  static String routePath = 'Instruments';
+  static String routeName = 'Tests';
+  static String routePath = 'Tests';
 
   @override
-  State<InstrumentsWidget> createState() => _InstrumentsWidgetState();
+  State<TestsWidget> createState() => _TestsWidgetState();
 }
 
-class _InstrumentsWidgetState extends State<InstrumentsWidget> {
-  late InstrumentsModel _model;
+class _TestsWidgetState extends State<TestsWidget> {
+  late TestsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late StreamSubscription<bool> _keyboardVisibilitySubscription;
@@ -39,27 +38,27 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InstrumentsModel());
+    _model = createModel(context, () => TestsModel());
 
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Instruments'});
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Tests'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('INSTRUMENTS_Instruments_ON_INIT_STATE');
-      logFirebaseEvent('Instruments_backend_call');
-      _model.instrumentsFromAPI =
-          await InstrumentsTestsGroup.getInstrumentsTestsCall.call(
+      logFirebaseEvent('TESTS_PAGE_Tests_ON_INIT_STATE');
+      logFirebaseEvent('Tests_backend_call');
+      _model.testFromAPI = await TestsGroup.getFiedsCall.call(
         limit: 18,
       );
 
-      if ((_model.instrumentsFromAPI?.succeeded ?? true)) {
-        logFirebaseEvent('Instruments_update_page_state');
-        _model.instrumentsListFromAPI =
-            InstrumentsTestsGroup.getInstrumentsTestsCall.instrumentsTests(
-          (_model.instrumentsFromAPI?.jsonBody ?? ''),
-        );
-        _model.instrumentLength =
-            InstrumentsTestsGroup.getInstrumentsTestsCall.count(
-          (_model.instrumentsFromAPI?.jsonBody ?? ''),
+      if ((_model.testFromAPI?.succeeded ?? true)) {
+        logFirebaseEvent('Tests_update_page_state');
+        _model.testinstrumentsListFromAPI = TestsGroup.getFiedsCall
+            .fields(
+              (_model.testFromAPI?.jsonBody ?? ''),
+            )!
+            .toList()
+            .cast<dynamic>();
+        _model.testLength = TestsGroup.getFiedsCall.count(
+          (_model.testFromAPI?.jsonBody ?? ''),
         )!;
         safeSetState(() {});
         return;
@@ -136,14 +135,14 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                       ),
                       onPressed: () async {
                         logFirebaseEvent(
-                            'INSTRUMENTS_arrow_back_rounded_ICN_ON_TA');
+                            'TESTS_PAGE_arrow_back_rounded_ICN_ON_TAP');
                         logFirebaseEvent('IconButton_navigate_back');
                         context.pop();
                       },
                     ),
                     title: Text(
                       FFLocalizations.of(context).getText(
-                        'k21bwglw' /* Resources */,
+                        'roqscz37' /* Resources */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily:
@@ -192,10 +191,10 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                     model: _model.topNavBarModel,
                                     updateCallback: () => safeSetState(() {}),
                                     child: TopNavBarWidget(
-                                      instrument: true,
+                                      instrument: false,
                                       about: false,
                                       contactus: false,
-                                      tests: false,
+                                      tests: true,
                                       labs: false,
                                     ),
                                   ),
@@ -282,7 +281,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                   ),
                                                   onPressed: () async {
                                                     logFirebaseEvent(
-                                                        'INSTRUMENTS_PAGE_arrowLeft_ICN_ON_TAP');
+                                                        'TESTS_PAGE_arrowLeft_ICN_ON_TAP');
                                                     logFirebaseEvent(
                                                         'IconButton_navigate_back');
                                                     context.safePop();
@@ -415,7 +414,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                   onFieldSubmitted:
                                                                       (_) async {
                                                                     logFirebaseEvent(
-                                                                        'INSTRUMENTS_searchI_ON_TEXTFIELD_SUBMIT');
+                                                                        'TESTS_PAGE_searchI_ON_TEXTFIELD_SUBMIT');
                                                                     var _shouldSetState =
                                                                         false;
                                                                     if (_model
@@ -430,10 +429,10 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                           () {});
                                                                       logFirebaseEvent(
                                                                           'searchI_backend_call');
-                                                                      _model.instrumentSearch = await InstrumentsTestsGroup
-                                                                          .searchInstrumentTestCall
+                                                                      _model.instrumentSearch = await TestsGroup
+                                                                          .searchTestCall
                                                                           .call(
-                                                                        search: _model
+                                                                        searchTerm: _model
                                                                             .searchITextController
                                                                             .text,
                                                                       );
@@ -446,20 +445,21 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                           true)) {
                                                                         logFirebaseEvent(
                                                                             'searchI_update_page_state');
-                                                                        _model.resultInstrumentsFromAPI = InstrumentsTestsGroup
-                                                                            .searchInstrumentTestCall
-                                                                            .instruments(
-                                                                              (_model.instrumentSearch?.jsonBody ?? ''),
-                                                                            )!
+                                                                        _model
+                                                                            .resultTestFromAPI = getJsonField(
+                                                                          (_model.instrumentSearch?.jsonBody ??
+                                                                              ''),
+                                                                          r'''$.tests''',
+                                                                          true,
+                                                                        )!
                                                                             .toList()
                                                                             .cast<dynamic>();
-                                                                        _model.searchInstrumentCount =
+                                                                        _model.searchTestCount =
                                                                             valueOrDefault<int>(
-                                                                          InstrumentsTestsGroup
-                                                                              .searchInstrumentTestCall
-                                                                              .count(
+                                                                          getJsonField(
                                                                             (_model.instrumentSearch?.jsonBody ??
                                                                                 ''),
+                                                                            r'''$.count''',
                                                                           ),
                                                                           0,
                                                                         );
@@ -501,7 +501,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                     hintText: FFLocalizations.of(
                                                                             context)
                                                                         .getText(
-                                                                      'yhistp7b' /* Search  Instrument... */,
+                                                                      'p0ampu9c' /* Search  Tests... */,
                                                                     ),
                                                                     hintStyle: FlutterFlowTheme.of(
                                                                             context)
@@ -624,7 +624,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                   onTap:
                                                                       () async {
                                                                     logFirebaseEvent(
-                                                                        'INSTRUMENTS_PAGE_Icon_vf9iun5v_ON_TAP');
+                                                                        'TESTS_PAGE_Icon_wmzeqicw_ON_TAP');
                                                                     logFirebaseEvent(
                                                                         'Icon_clear_text_fields_pin_codes');
                                                                     safeSetState(
@@ -869,7 +869,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                           builder:
                                                                               (context) {
                                                                             final instrumentsTestsList =
-                                                                                _model.instrumentsListFromAPI?.toList() ?? [];
+                                                                                _model.testinstrumentsListFromAPI.toList();
 
                                                                             return MasonryGridView.builder(
                                                                               physics: const NeverScrollableScrollPhysics(),
@@ -901,46 +901,14 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                               shrinkWrap: true,
                                                                               itemBuilder: (context, instrumentsTestsListIndex) {
                                                                                 final instrumentsTestsListItem = instrumentsTestsList[instrumentsTestsListIndex];
-                                                                                return Material(
-                                                                                  color: Colors.transparent,
-                                                                                  elevation: 0.0,
-                                                                                  shape: RoundedRectangleBorder(
-                                                                                    borderRadius: BorderRadius.only(
-                                                                                      bottomLeft: Radius.circular(0.0),
-                                                                                      bottomRight: Radius.circular(0.0),
-                                                                                      topLeft: Radius.circular(0.0),
-                                                                                      topRight: Radius.circular(0.0),
-                                                                                    ),
-                                                                                  ),
-                                                                                  child: Container(
-                                                                                    decoration: BoxDecoration(
-                                                                                      borderRadius: BorderRadius.only(
-                                                                                        bottomLeft: Radius.circular(0.0),
-                                                                                        bottomRight: Radius.circular(0.0),
-                                                                                        topLeft: Radius.circular(0.0),
-                                                                                        topRight: Radius.circular(0.0),
-                                                                                      ),
-                                                                                    ),
-                                                                                    child: wrapWithModel(
-                                                                                      model: _model.instrumentsDetailsModels1.getModel(
-                                                                                        instrumentsTestsListIndex.toString(),
-                                                                                        instrumentsTestsListIndex,
-                                                                                      ),
-                                                                                      updateCallback: () => safeSetState(() {}),
-                                                                                      child: InstrumentsDetailsWidget(
-                                                                                        key: Key(
-                                                                                          'Keytdi_${instrumentsTestsListIndex.toString()}',
-                                                                                        ),
-                                                                                        instrumentTestName: getJsonField(
-                                                                                          instrumentsTestsListItem,
-                                                                                          r'''$.instrument_name''',
-                                                                                        ).toString(),
-                                                                                        index: instrumentsTestsListIndex,
-                                                                                        instrumentJson: instrumentsTestsListItem,
-                                                                                        isLabInstrument: false,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
+                                                                                return TestDetailsWidget(
+                                                                                  key: Key('Key1p3_${instrumentsTestsListIndex}_of_${instrumentsTestsList.length}'),
+                                                                                  testName: getJsonField(
+                                                                                    instrumentsTestsListItem,
+                                                                                    r'''$.field_name''',
+                                                                                  ).toString(),
+                                                                                  index: instrumentsTestsListIndex,
+                                                                                  testJson: instrumentsTestsListItem,
                                                                                 );
                                                                               },
                                                                             );
@@ -960,25 +928,28 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                           mainAxisAlignment:
                                                                               MainAxisAlignment.center,
                                                                           children: [
-                                                                            if (_model.instrumentLength >=
+                                                                            if (_model.testLength >=
                                                                                 18)
                                                                               FFButtonWidget(
                                                                                 onPressed: () async {
-                                                                                  logFirebaseEvent('INSTRUMENTS_PAGE_AddButton_ON_TAP');
+                                                                                  logFirebaseEvent('TESTS_PAGE_AddButton_ON_TAP');
                                                                                   var _shouldSetState = false;
                                                                                   logFirebaseEvent('AddButton_backend_call');
-                                                                                  _model.extraInstrumentz = await InstrumentsTestsGroup.getInstrumentsTestsCall.call(
-                                                                                    limit: _model.instrumentLength + 12,
+                                                                                  _model.extraTests = await TestsGroup.getFiedsCall.call(
+                                                                                    limit: _model.testLength + 12,
                                                                                   );
 
                                                                                   _shouldSetState = true;
-                                                                                  if ((_model.extraInstrumentz?.succeeded ?? true)) {
+                                                                                  if ((_model.extraTests?.succeeded ?? true)) {
                                                                                     logFirebaseEvent('AddButton_update_page_state');
-                                                                                    _model.instrumentsListFromAPI = InstrumentsTestsGroup.getInstrumentsTestsCall.instrumentsTests(
-                                                                                      (_model.extraInstrumentz?.jsonBody ?? ''),
-                                                                                    );
-                                                                                    _model.instrumentLength = InstrumentsTestsGroup.getInstrumentsTestsCall.count(
-                                                                                      (_model.extraInstrumentz?.jsonBody ?? ''),
+                                                                                    _model.testinstrumentsListFromAPI = TestsGroup.getFiedsCall
+                                                                                        .fields(
+                                                                                          (_model.extraTests?.jsonBody ?? ''),
+                                                                                        )!
+                                                                                        .toList()
+                                                                                        .cast<dynamic>();
+                                                                                    _model.testLength = TestsGroup.getFiedsCall.count(
+                                                                                      (_model.extraTests?.jsonBody ?? ''),
                                                                                     )!;
                                                                                     safeSetState(() {});
                                                                                     if (_shouldSetState) safeSetState(() {});
@@ -991,7 +962,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                                   if (_shouldSetState) safeSetState(() {});
                                                                                 },
                                                                                 text: FFLocalizations.of(context).getText(
-                                                                                  'rnul1obx' /* Show More Instruments */,
+                                                                                  '55n9dtfn' /* Show More Tests */,
                                                                                 ),
                                                                                 options: FFButtonOptions(
                                                                                   width: 200.0,
@@ -1064,109 +1035,62 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
-                                                                      if (_model
-                                                                          .resultInstrumentsFromAPI
-                                                                          .isNotEmpty)
-                                                                        Padding(
-                                                                          padding: EdgeInsetsDirectional.fromSTEB(
-                                                                              0.0,
-                                                                              0.0,
-                                                                              0.0,
-                                                                              20.0),
-                                                                          child:
-                                                                              Builder(
-                                                                            builder:
-                                                                                (context) {
-                                                                              final instrumentsTestsList = _model.resultInstrumentsFromAPI.toList();
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            20.0),
+                                                                        child:
+                                                                            Builder(
+                                                                          builder:
+                                                                              (context) {
+                                                                            final instrumentsTestsList = _model.resultTestFromAPI.toList();
 
-                                                                              return MasonryGridView.builder(
-                                                                                physics: const NeverScrollableScrollPhysics(),
-                                                                                gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                                                                  crossAxisCount: valueOrDefault<int>(
-                                                                                    () {
-                                                                                      if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                                                                                        return 1;
-                                                                                      } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-                                                                                        return 2;
-                                                                                      } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
-                                                                                        return 3;
-                                                                                      } else {
-                                                                                        return 3;
-                                                                                      }
-                                                                                    }(),
-                                                                                    2,
-                                                                                  ),
+                                                                            return MasonryGridView.builder(
+                                                                              physics: const NeverScrollableScrollPhysics(),
+                                                                              gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                                                crossAxisCount: valueOrDefault<int>(
+                                                                                  () {
+                                                                                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                      return 1;
+                                                                                    } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                      return 2;
+                                                                                    } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                      return 3;
+                                                                                    } else {
+                                                                                      return 3;
+                                                                                    }
+                                                                                  }(),
+                                                                                  2,
                                                                                 ),
-                                                                                crossAxisSpacing: 20.0,
-                                                                                mainAxisSpacing: 20.0,
-                                                                                itemCount: instrumentsTestsList.length,
-                                                                                padding: EdgeInsets.fromLTRB(
-                                                                                  0,
-                                                                                  0,
-                                                                                  0,
-                                                                                  10.0,
-                                                                                ),
-                                                                                shrinkWrap: true,
-                                                                                itemBuilder: (context, instrumentsTestsListIndex) {
-                                                                                  final instrumentsTestsListItem = instrumentsTestsList[instrumentsTestsListIndex];
-                                                                                  return Row(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    children: [
-                                                                                      if (!getJsonField(
-                                                                                        instrumentsTestsListItem,
-                                                                                        r'''$.is_sophisticated''',
-                                                                                      ))
-                                                                                        Flexible(
-                                                                                          child: wrapWithModel(
-                                                                                            model: _model.instrumentsDetailsModels2.getModel(
-                                                                                              instrumentsTestsListIndex.toString(),
-                                                                                              instrumentsTestsListIndex,
-                                                                                            ),
-                                                                                            updateCallback: () => safeSetState(() {}),
-                                                                                            child: InstrumentsDetailsWidget(
-                                                                                              key: Key(
-                                                                                                'Keyzma_${instrumentsTestsListIndex.toString()}',
-                                                                                              ),
-                                                                                              instrumentTestName: getJsonField(
-                                                                                                instrumentsTestsListItem,
-                                                                                                r'''$.instrument_name''',
-                                                                                              ).toString(),
-                                                                                              index: instrumentsTestsListIndex,
-                                                                                              instrumentJson: instrumentsTestsListItem,
-                                                                                              isLabInstrument: false,
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                      if (getJsonField(
-                                                                                        instrumentsTestsListItem,
-                                                                                        r'''$.is_sophisticated''',
-                                                                                      ))
-                                                                                        Flexible(
-                                                                                          child: wrapWithModel(
-                                                                                            model: _model.sophisticatedInstrumentComponentModels.getModel(
-                                                                                              instrumentsTestsListIndex.toString(),
-                                                                                              instrumentsTestsListIndex,
-                                                                                            ),
-                                                                                            updateCallback: () => safeSetState(() {}),
-                                                                                            child: SophisticatedInstrumentComponentWidget(
-                                                                                              key: Key(
-                                                                                                'Keyk1o_${instrumentsTestsListIndex.toString()}',
-                                                                                              ),
-                                                                                              imageURL: getJsonField(
-                                                                                                instrumentsTestsListItem,
-                                                                                                r'''$.image_dark''',
-                                                                                              ).toString(),
-                                                                                              instrumentJson: instrumentsTestsListItem,
-                                                                                            ),
-                                                                                          ),
-                                                                                        ),
-                                                                                    ],
-                                                                                  );
-                                                                                },
-                                                                              );
-                                                                            },
-                                                                          ),
+                                                                              ),
+                                                                              crossAxisSpacing: 20.0,
+                                                                              mainAxisSpacing: 20.0,
+                                                                              itemCount: instrumentsTestsList.length,
+                                                                              padding: EdgeInsets.fromLTRB(
+                                                                                0,
+                                                                                0,
+                                                                                0,
+                                                                                10.0,
+                                                                              ),
+                                                                              shrinkWrap: true,
+                                                                              itemBuilder: (context, instrumentsTestsListIndex) {
+                                                                                final instrumentsTestsListItem = instrumentsTestsList[instrumentsTestsListIndex];
+                                                                                return TestDetailsWidget(
+                                                                                  key: Key('Keybjc_${instrumentsTestsListIndex}_of_${instrumentsTestsList.length}'),
+                                                                                  testName: getJsonField(
+                                                                                    instrumentsTestsListItem,
+                                                                                    r'''$.field.field_name''',
+                                                                                  ).toString(),
+                                                                                  index: instrumentsTestsListIndex,
+                                                                                  testJson: instrumentsTestsListItem,
+                                                                                );
+                                                                              },
+                                                                            );
+                                                                          },
                                                                         ),
+                                                                      ),
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
                                                                             0.0,
@@ -1189,10 +1113,10 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                             ))
                                                                               FFButtonWidget(
                                                                                 onPressed: () async {
-                                                                                  logFirebaseEvent('INSTRUMENTS_PAGE_AddButton_ON_TAP');
+                                                                                  logFirebaseEvent('TESTS_PAGE_AddButton_ON_TAP');
                                                                                 },
                                                                                 text: FFLocalizations.of(context).getText(
-                                                                                  'zvv3a1uw' /* Show More Instruments */,
+                                                                                  'k187dfoq' /* Show More Instruments */,
                                                                                 ),
                                                                                 options: FFButtonOptions(
                                                                                   width: 200.0,
@@ -1217,13 +1141,13 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                           ],
                                                                         ),
                                                                       ),
-                                                                      if ((_model
-                                                                              .resultInstrumentsFromAPI
+                                                                      if (!(_model
+                                                                              .resultTestFromAPI
                                                                               .isNotEmpty) ||
                                                                           ((_model.instrumentSearch?.jsonBody ?? '') ==
                                                                               _model
                                                                                   .emptyJson) ||
-                                                                          (_model.searchInstrumentCount! <=
+                                                                          (_model.searchTestCount! <=
                                                                               0))
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(

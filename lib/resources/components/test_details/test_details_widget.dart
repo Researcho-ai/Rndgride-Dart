@@ -1,43 +1,32 @@
 import '/auth/custom_auth/auth_util.dart';
-import '/components/instrument_properties_component_widget.dart';
+import '/components/test_properties_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/onboarding/sign_in_compoent/sign_in_compoent_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'instruments_details_model.dart';
-export 'instruments_details_model.dart';
+import 'test_details_model.dart';
+export 'test_details_model.dart';
 
-class InstrumentsDetailsWidget extends StatefulWidget {
-  const InstrumentsDetailsWidget({
+class TestDetailsWidget extends StatefulWidget {
+  const TestDetailsWidget({
     super.key,
-    this.instrumentTestName,
+    this.testName,
     this.index,
-    this.instrumentJson,
-    this.labName,
-    this.instituteName,
-    this.labType,
-    this.instrumentId,
-    bool? isLabInstrument,
-  }) : this.isLabInstrument = isLabInstrument ?? false;
+    this.testJson,
+  });
 
-  final String? instrumentTestName;
+  final String? testName;
   final int? index;
-  final dynamic instrumentJson;
-  final String? labName;
-  final String? instituteName;
-  final String? labType;
-  final String? instrumentId;
-  final bool isLabInstrument;
+  final dynamic testJson;
 
   @override
-  State<InstrumentsDetailsWidget> createState() =>
-      _InstrumentsDetailsWidgetState();
+  State<TestDetailsWidget> createState() => _TestDetailsWidgetState();
 }
 
-class _InstrumentsDetailsWidgetState extends State<InstrumentsDetailsWidget> {
-  late InstrumentsDetailsModel _model;
+class _TestDetailsWidgetState extends State<TestDetailsWidget> {
+  late TestDetailsModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -48,7 +37,7 @@ class _InstrumentsDetailsWidgetState extends State<InstrumentsDetailsWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => InstrumentsDetailsModel());
+    _model = createModel(context, () => TestDetailsModel());
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
@@ -72,7 +61,7 @@ class _InstrumentsDetailsWidgetState extends State<InstrumentsDetailsWidget> {
           hoverColor: Colors.transparent,
           highlightColor: Colors.transparent,
           onTap: () async {
-            logFirebaseEvent('INSTRUMENTS_DETAILS_InstrumnetContainer_');
+            logFirebaseEvent('TEST_DETAILS_InstrumnetContainer_ON_TAP');
             if (loggedIn) {
               logFirebaseEvent('InstrumnetContainer_alert_dialog');
               await showDialog(
@@ -86,8 +75,8 @@ class _InstrumentsDetailsWidgetState extends State<InstrumentsDetailsWidget> {
                         .resolve(Directionality.of(context)),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 0.6,
-                      child: InstrumentPropertiesComponentWidget(
-                        instrumentPropertieJson: widget.instrumentJson,
+                      child: TestPropertiesComponentWidget(
+                        testPropertieJson: widget.testJson,
                       ),
                     ),
                   );
@@ -182,7 +171,7 @@ class _InstrumentsDetailsWidgetState extends State<InstrumentsDetailsWidget> {
                                 0.0, 0.0, 50.0, 0.0),
                             child: Text(
                               valueOrDefault<String>(
-                                widget.instrumentTestName,
+                                widget.testName,
                                 'N/A',
                               ).maybeHandleOverflow(
                                 maxChars: 104,
