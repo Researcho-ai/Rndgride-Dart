@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
-
+import 'package:flutter/material.dart';
 import '../main.dart';
 
 
@@ -398,8 +398,6 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
   }
 }
 
-// Make sure you have this import at the top:
-import 'package:flutter/material.dart'; // brings in Color
 
 /// Extension on Flutter’s built‑in Color type, not “Colour”
 extension ColorOpacityExt on Color {
