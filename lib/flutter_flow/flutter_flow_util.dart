@@ -398,9 +398,15 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
   }
 }
 
-extension ColorOpacityExt on Colour {
-  Color applyAlpha(double val) => withOpacity(val);
+// Make sure you have this import at the top:
+import 'package:flutter/material.dart'; // brings in Color
+
+/// Extension on Flutter’s built‑in Color type, not “Colour”
+extension ColorOpacityExt on Color {
+  /// Returns this color with the given opacity (0.0–1.0)
+  Color applyAlpha(double val) => this.withOpacity(val);
 }
+
 
 String roundTo(double value, int decimalPoints) {
   final power = pow(10, decimalPoints);
