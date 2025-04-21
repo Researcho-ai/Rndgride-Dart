@@ -4363,7 +4363,7 @@ foc... */
                                                                         affiliation:
                                                                             'Institute of Plasma Research',
                                                                         feedback:
-                                                                            '“Hello, I am PhD student and required a few characterizations for my ongoing research activities.  While finding it, I came across Codots. My experience with them was nice, and the data received was fine. The procedure was simple.”',
+                                                                            '“Hello, I am PhD student and required a few characterizations for my ongoing research activities.  While finding it, I came across RNDgrid. My experience with them was nice, and the data received was fine. The procedure was simple.”',
                                                                         designation:
                                                                             'PhD Fellow',
                                                                       ),
@@ -4392,7 +4392,7 @@ foc... */
                                                                         affiliation:
                                                                             'Central University of Gujarat',
                                                                         feedback:
-                                                                            '“I came across Codots post on LinkedIn, and they helped me in finding and scheduling NMR and XRD characterization facilities. Codots is a helpful platform for all researchers.”',
+                                                                            '“I came across Codots post on LinkedIn, and they helped me in finding and scheduling NMR and XRD characterization facilities. Rndgrid is a helpful platform for all researchers.”',
                                                                         designation:
                                                                             'Research Scholar',
                                                                       ),
@@ -4421,7 +4421,7 @@ foc... */
                                                                         affiliation:
                                                                             'Homi Bhabha National Institute',
                                                                         feedback:
-                                                                            '“I work in material engineering applications. So, I frequently require the characterization of various materials like metals, ceramics, and organics. Codots really helped me find leading industry-level test facilities. The procedure is quite simple yet affordable, which takes the burden away from fellow researchers.”',
+                                                                            '“I work in material engineering applications. So, I frequently require the characterization of various materials like metals, ceramics, and organics. RNDgrid really helped me find leading industry-level test facilities. The procedure is quite simple yet affordable, which takes the burden away from fellow researchers.”',
                                                                         designation:
                                                                             'PhD Fellow',
                                                                       ),

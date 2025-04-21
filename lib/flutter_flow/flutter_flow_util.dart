@@ -11,7 +11,7 @@ import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/material.dart';
+
 import '../main.dart';
 
 
@@ -398,13 +398,9 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
   }
 }
 
-
-/// Extension on Flutter’s built‑in Color type, not “Colour”
 extension ColorOpacityExt on Color {
-  /// Returns this color with the given opacity (0.0–1.0)
-  Color applyAlpha(double val) => this.withOpacity(val);
+  Color applyAlpha(double val) => withValues(alpha: val);
 }
-
 
 String roundTo(double value, int decimalPoints) {
   final power = pow(10, decimalPoints);
