@@ -43,14 +43,11 @@ jobs:
           with open('pubspec.yaml', 'r') as f:
               data = yaml.safe_load(f)
 
-          # Ensure 'dev_dependencies' section exists
           if 'dev_dependencies' not in data:
               data['dev_dependencies'] = {}
 
-          # Add or update 'flutter_test'
           data['dev_dependencies']['flutter_test'] = {'sdk': 'flutter'}
 
-          # Save back to pubspec.yaml
           with open('pubspec.yaml', 'w') as f:
               yaml.dump(data, f, default_flow_style=False)
           EOF
@@ -68,11 +65,9 @@ jobs:
           sed -i 's/image_picker_platform_interface: .*/image_picker_platform_interface: ^2.10.0/' pubspec.yaml
           flutter pub get
 
-      - name: Replace carousel_slider with carousel_slider_plus
+      - name: Ensure carousel_slider is included
         run: |
-          sed -i '/carousel_slider:/d' pubspec.yaml
-          echo 'carousel_slider_plus: ^6.0.0' >> pubspec.yaml
-          flutter pub get
+          flutter pub add carousel_slider:^4.2.1
 
       - name: Update flutter_svg Dependency
         run: |
