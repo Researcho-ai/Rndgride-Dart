@@ -66,13 +66,24 @@ jobs:
           flutter pub get
 
       - name: Ensure carousel_slider is included
-        run: |
-          flutter pub add carousel_slider:^4.2.1
+        run: flutter pub add carousel_slider:^4.2.1
 
       - name: Update flutter_svg Dependency
         run: |
           sed -i 's/flutter_svg: .*/flutter_svg: ^2.0.10+1/' pubspec.yaml
           flutter pub get
+
+      - name: Fix CarouselSlider usage in Dart files
+        run: |
+          echo "Fixing CarouselSliderController to CarouselController"
+          grep -rl 'CarouselSliderController' lib/ | xargs sed -i 's/CarouselSliderController/CarouselController/g'
+          
+          echo "Removing invalid carousel_controller.dart import"
+          grep -rl "carousel_controller.dart" lib/ | xargs sed -i '/carousel_controller.dart/d'
+          
+          echo "Ensuring correct import of carousel_slider.dart"
+          grep -rl 'carousel_slider.dart' lib/ | xargs sed -i '/carousel_slider.dart/d'
+          find lib/ -name '*.dart' -exec sed -i '1iimport '\''package:carousel_slider/carousel_slider.dart'\'';' {} +
 
       - name: Build Web
         run: flutter build web --release --web-renderer canvaskit
@@ -88,7 +99,7 @@ jobs:
       - name: Copy Changes to Branch
         run: |
           git add .
-          git commit -m "Update dependencies and web build"
+          git commit -m "Fix CarouselSliderController usage and build web"
           git push origin researcho_io_main --force
 
       - name: Switch Back to Original Branch
