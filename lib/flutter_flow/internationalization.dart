@@ -682,10 +682,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Our partner labs',
       'hi': '',
     },
-    'eo99nte1': {
-      'en': 'Hello World',
-      'hi': '',
-    },
     '793nprkg': {
       'en': 'What our customers say',
       'hi': '',

@@ -203,69 +203,101 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(40.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Flexible(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: 300.0,
-                                                    decoration: BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        'assets/images/Who_We_Are.png',
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      'vmog8yr1' /* Who we are */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .headlineMedium
-                                                        .override(
-                                                          font: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .headlineMedium,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          letterSpacing: 0.0,
+                                        child: MasonryGridView.builder(
+                                          gridDelegate:
+                                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return 2;
+                                              } else {
+                                                return 2;
+                                              }
+                                            }(),
+                                          ),
+                                          itemCount: 2,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return [
+                                              () => Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 300.0,
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Who_We_Are.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
                                                         ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 16.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'xb73z63u' /* RNDgrid is an innovation-drive... */,
                                                       ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
+                                                    ],
+                                                  ),
+                                              () => Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'vmog8yr1' /* Who we are */,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineMedium
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    16.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          FFLocalizations.of(
                                                                   context)
+                                                              .getText(
+                                                            'xb73z63u' /* RNDgrid is an innovation-drive... */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .bodyLarge
                                                               .override(
                                                                 font: FlutterFlowTheme.of(
@@ -277,12 +309,12 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
-                                                    ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                                            ][index]();
+                                          },
                                         ),
                                       ),
                                     ),
@@ -321,43 +353,71 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(40.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 16.0, 0.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      width: 150.0,
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Image.asset(
-                                                          'assets/images/Mission.png',
-                                                          fit: BoxFit.contain,
+                                        child: MasonryGridView.builder(
+                                          gridDelegate:
+                                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return 2;
+                                              } else {
+                                                return 2;
+                                              }
+                                            }(),
+                                          ),
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 10.0,
+                                          itemCount: 2,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return [
+                                              () => Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                16.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                          width: 150.0,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              'assets/images/Mission.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ),
-                                                    Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'hhywz9y8' /* Our mission */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
+                                                        Text(
+                                                          FFLocalizations.of(
                                                                   context)
+                                                              .getText(
+                                                            'hhywz9y8' /* Our mission */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .headlineMedium
                                                               .override(
                                                                 font: FlutterFlowTheme.of(
@@ -369,24 +429,23 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  16.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'bee7lppg' /* To democratize access to world... */,
                                                         ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      16.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            FFLocalizations.of(
                                                                     context)
+                                                                .getText(
+                                                              'bee7lppg' /* To democratize access to world... */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyLarge
                                                                 .override(
                                                                   font: FlutterFlowTheme.of(
@@ -398,46 +457,47 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        16.0, 0.0, 0.0, 0.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    Container(
-                                                      width: 150.0,
-                                                      decoration:
-                                                          BoxDecoration(),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(8.0),
-                                                        child: Image.asset(
-                                                          'assets/images/Vision.png',
-                                                          fit: BoxFit.contain,
+                                                          ),
                                                         ),
-                                                      ),
+                                                      ],
                                                     ),
-                                                    Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'ew3limtk' /* Our vision */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
+                                                  ),
+                                              () => Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(16.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .start,
+                                                      children: [
+                                                        Container(
+                                                          width: 150.0,
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              'assets/images/Vision.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          FFLocalizations.of(
                                                                   context)
+                                                              .getText(
+                                                            'ew3limtk' /* Our vision */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .headlineMedium
                                                               .override(
                                                                 font: FlutterFlowTheme.of(
@@ -449,24 +509,23 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  16.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'a2siwj6i' /* To become the global gateway f... */,
                                                         ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      16.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            FFLocalizations.of(
                                                                     context)
+                                                                .getText(
+                                                              'a2siwj6i' /* To become the global gateway f... */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
                                                                 .bodyLarge
                                                                 .override(
                                                                   font: FlutterFlowTheme.of(
@@ -478,13 +537,13 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                                   letterSpacing:
                                                                       0.0,
                                                                 ),
-                                                      ),
+                                                          ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ),
-                                          ],
+                                                  ),
+                                            ][index]();
+                                          },
                                         ),
                                       ),
                                     ),
@@ -525,69 +584,103 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(40.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Flexible(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: 300.0,
-                                                    decoration: BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        'assets/images/Why_RNDgrid_Exists.png',
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      '6jrqoh2b' /* Why RNDgrid exists */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .headlineMedium
-                                                        .override(
-                                                          font: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .headlineMedium,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          letterSpacing: 0.0,
+                                        child: MasonryGridView.builder(
+                                          gridDelegate:
+                                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return 2;
+                                              } else {
+                                                return 2;
+                                              }
+                                            }(),
+                                          ),
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 10.0,
+                                          itemCount: 2,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return [
+                                              () => Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 300.0,
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Why_RNDgrid_Exists.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
                                                         ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 16.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        '4i56pwl2' /* Navigating multiple websites, ... */,
                                                       ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
+                                                    ],
+                                                  ),
+                                              () => Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          '6jrqoh2b' /* Why RNDgrid exists */,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineMedium
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    16.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          FFLocalizations.of(
                                                                   context)
+                                                              .getText(
+                                                            '4i56pwl2' /* Navigating multiple websites, ... */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .bodyLarge
                                                               .override(
                                                                 font: FlutterFlowTheme.of(
@@ -599,12 +692,12 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
-                                                    ),
+                                                        ),
+                                                      ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                                            ][index]();
+                                          },
                                         ),
                                       ),
                                     ),
@@ -1480,47 +1573,79 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                       ),
                                       child: Padding(
                                         padding: EdgeInsets.all(40.0),
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Flexible(
-                                              child: Column(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      'elbep121' /* Let’s Build the Future, Togeth... */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .headlineMedium
-                                                        .override(
-                                                          font: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .headlineMedium,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          letterSpacing: 0.0,
+                                        child: MasonryGridView.builder(
+                                          gridDelegate:
+                                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return 2;
+                                              } else {
+                                                return 2;
+                                              }
+                                            }(),
+                                          ),
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 10.0,
+                                          itemCount: 2,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return [
+                                              () => Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Text(
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'elbep121' /* Let’s Build the Future, Togeth... */,
                                                         ),
-                                                  ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 16.0,
-                                                                0.0, 0.0),
-                                                    child: Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        '6s64ziso' /* We believe the next scientific... */,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineMedium
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    16.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Text(
+                                                          FFLocalizations.of(
                                                                   context)
+                                                              .getText(
+                                                            '6s64ziso' /* We believe the next scientific... */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
                                                               .bodyLarge
                                                               .override(
                                                                 font: FlutterFlowTheme.of(
@@ -1532,34 +1657,36 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
                                                                 letterSpacing:
                                                                     0.0,
                                                               ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Flexible(
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  Container(
-                                                    width: 300.0,
-                                                    decoration: BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        'assets/images/Lets_Build_the_Future.png',
-                                                        fit: BoxFit.contain,
+                                                        ),
                                                       ),
-                                                    ),
+                                                    ],
                                                   ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
+                                              () => Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      Container(
+                                                        width: 300.0,
+                                                        decoration:
+                                                            BoxDecoration(),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Lets_Build_the_Future.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                            ][index]();
+                                          },
                                         ),
                                       ),
                                     ),

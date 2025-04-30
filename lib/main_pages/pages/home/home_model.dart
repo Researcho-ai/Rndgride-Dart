@@ -160,10 +160,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   CarouselSliderController? webCarouselController;
   int webCarouselCurrentIndex = 1;
 
-  // State field(s) for MobileCarousel widget.
-  CarouselSliderController? mobileCarouselController;
-  int mobileCarouselCurrentIndex = 1;
-
   // State field(s) for PageView widget.
   PageController? pageViewController1;
 
