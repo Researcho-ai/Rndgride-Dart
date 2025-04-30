@@ -39,15 +39,11 @@ jobs:
           echo "Modifying pubspec.yaml using Python..."
           python3 - <<EOF
           import yaml
-
           with open('pubspec.yaml', 'r') as f:
               data = yaml.safe_load(f)
-
           if 'dev_dependencies' not in data:
               data['dev_dependencies'] = {}
-
           data['dev_dependencies']['flutter_test'] = {'sdk': 'flutter'}
-
           with open('pubspec.yaml', 'w') as f:
               yaml.dump(data, f, default_flow_style=False)
           EOF
@@ -73,27 +69,18 @@ jobs:
           sed -i 's/flutter_svg: .*/flutter_svg: ^2.0.10+1/' pubspec.yaml
           flutter pub get
 
-      - name: Fix CarouselSlider usage and resolve import conflict
+      - name: Fix CarouselSlider conflicts and alias everything as cs
         run: |
-          echo "🔄 Replacing CarouselSliderController with CarouselController"
-          grep -rl 'CarouselSliderController' lib/ | xargs sed -i 's/CarouselSliderController/CarouselController/g' || true
+          echo "🔄 Replacing all carousel types with aliases"
+          grep -rl 'CarouselSlider' lib/ | xargs sed -i 's/\bCarouselSlider\b/cs.CarouselSlider/g' || true
+          grep -rl 'CarouselOptions' lib/ | xargs sed -i 's/\bCarouselOptions\b/cs.CarouselOptions/g' || true
+          grep -rl 'CarouselController' lib/ | xargs sed -i 's/\bCarouselController\b/cs.CarouselController/g' || true
 
-          echo "❌ Removing carousel_controller.dart import"
-          FILES=$(grep -rl "carousel_controller.dart" lib/) || true
-          if [ -n "$FILES" ]; then
-            echo "$FILES" | xargs sed -i '/carousel_controller.dart/d'
-          else
-            echo "✅ No carousel_controller.dart imports found"
-          fi
+          echo "❌ Removing import of carousel_controller.dart"
+          grep -rl 'carousel_controller.dart' lib/ | xargs sed -i '/carousel_controller.dart/d' || true
 
-          echo "🔁 Applying alias import and usage fix for CarouselController"
-          FILES=$(grep -rl 'CarouselController' lib/) || true
-          for file in $FILES; do
-            if grep -q "package:carousel_slider/carousel_slider.dart" "$file"; then
-              sed -i "s#import 'package:carousel_slider/carousel_slider.dart';#import 'package:carousel_slider/carousel_slider.dart' as cs;#g" "$file"
-              sed -i 's/\bCarouselController\b/cs.CarouselController/g' "$file"
-            fi
-          done
+          echo "🛠 Replacing non-aliased carousel_slider import with aliased import"
+          grep -rl 'package:carousel_slider/carousel_slider.dart' lib/ | xargs sed -i "s#import 'package:carousel_slider/carousel_slider.dart';#import 'package:carousel_slider/carousel_slider.dart' as cs;#g" || true
 
       - name: Build Web
         run: flutter build web --release --web-renderer canvaskit
@@ -109,7 +96,7 @@ jobs:
       - name: Copy Changes to Branch
         run: |
           git add .
-          git commit -m "Fix CarouselController conflict and build web"
+          git commit -m "Fix carousel_slider conflicts and build web"
           git push origin researcho_io_main --force
 
       - name: Switch Back to Original Branch
