@@ -12,27 +12,36 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_svg/flutter_svg.dart'; // Import for SVG rendering
 
-class SvgImageWidget extends StatelessWidget {
-  const SvgImageWidget({
+class ImageWidgetFlexible extends StatelessWidget {
+  const ImageWidgetFlexible({
     Key? key,
     this.width,
     this.height,
-    required this.svgUrl,
+    required this.imageUrl,
   }) : super(key: key);
 
   final double? width;
   final double? height;
-  final String svgUrl;
+  final String imageUrl;
+
+  bool _isSvg(String url) {
+    return url.toLowerCase().endsWith('.svg');
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: width ?? double.infinity,
       height: height ?? double.infinity,
-      child: SvgPicture.network(
-        svgUrl,
-        fit: BoxFit.contain, // Adjust as needed
-      ),
+      child: _isSvg(imageUrl)
+          ? SvgPicture.network(
+              imageUrl,
+              fit: BoxFit.contain,
+            )
+          : Image.network(
+              imageUrl,
+              fit: BoxFit.contain,
+            ),
     );
   }
 }

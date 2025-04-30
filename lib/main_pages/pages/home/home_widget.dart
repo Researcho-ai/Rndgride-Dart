@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/available_testdetial_component_widget.dart';
 import '/components/customer_feedback_mobile_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -15,13 +16,16 @@ import '/resources/components/instruments_details/instruments_details_widget.dar
 import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
 import '/resources/components/test_details/test_details_widget.dart';
 import 'dart:async';
+import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'home_model.dart';
 export 'home_model.dart';
@@ -71,6 +75,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 .getSophisticatedInstrumentsTestsCall
                 .call(
               limit: 8,
+              filteredValue: true,
             );
 
             if ((_model.sophisticatedInstrumentDesktop?.succeeded ?? true)) {
@@ -94,6 +99,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                 .getSophisticatedInstrumentsTestsCall
                 .call(
               limit: 6,
+              filteredValue: true,
             );
 
             if ((_model.sophisticatedInstrumentsMobile?.succeeded ?? true)) {
@@ -118,6 +124,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           _model.instrumentsFromAPI =
               await InstrumentsTestsGroup.getInstrumentsTestsCall.call(
             limit: 5,
+            filteredValue: true,
           );
 
           if ((_model.instrumentsFromAPI?.succeeded ?? true)) {
@@ -132,14 +139,15 @@ class _HomeWidgetState extends State<HomeWidget> {
         }),
         Future(() async {
           logFirebaseEvent('Home_backend_call');
-          _model.getFields = await TestsGroup.getFiedsCall.call(
+          _model.getFields = await TestsGroup.getCategoriesCall.call(
             limit: 5,
+            filteredValue: true,
           );
 
           if ((_model.getFields?.succeeded ?? true)) {
             logFirebaseEvent('Home_update_app_state');
-            FFAppState().testsList = TestsGroup.getFiedsCall
-                .fields(
+            FFAppState().testsList = TestsGroup.getCategoriesCall
+                .categories(
                   (_model.getFields?.jsonBody ?? ''),
                 )!
                 .toList()
@@ -217,15 +225,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
+                                font: FlutterFlowTheme.of(context).bodyMedium,
                                 color: Colors.white,
                                 fontSize: 18.0,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
                               ),
                         ),
                       ],
@@ -272,7 +276,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               about: false,
                                               contactus: false,
                                               tests: false,
-                                              labs: false,
+                                              sophisticated: false,
                                             ),
                                           ),
                                         ),
@@ -325,155 +329,151 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     width:
                                         MediaQuery.sizeOf(context).width * 1.0,
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .iconBackground,
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
                                     ),
                                     child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                      mainAxisSize: MainAxisSize.max,
                                       children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 40.0, 0.0, 40.0),
-                                          child: SafeArea(
-                                            child: Container(
-                                              width: () {
-                                                if (MediaQuery.sizeOf(context)
-                                                        .width <
-                                                    kBreakpointSmall) {
-                                                  return (MediaQuery.sizeOf(
-                                                              context)
-                                                          .width *
-                                                      0.9);
-                                                } else if (MediaQuery.sizeOf(
-                                                            context)
-                                                        .width <
-                                                    kBreakpointMedium) {
-                                                  return (MediaQuery.sizeOf(
-                                                              context)
-                                                          .width *
-                                                      0.8);
-                                                } else if (MediaQuery.sizeOf(
-                                                            context)
-                                                        .width <
-                                                    kBreakpointLarge) {
-                                                  return (MediaQuery.sizeOf(
-                                                              context)
-                                                          .width *
-                                                      0.7);
-                                                } else {
-                                                  return (MediaQuery.sizeOf(
-                                                              context)
-                                                          .width *
-                                                      0.7);
-                                                }
-                                              }(),
-                                              constraints: BoxConstraints(
-                                                minHeight: 300.0,
-                                              ),
-                                              decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(12.0),
-                                              ),
-                                              child: Padding(
-                                                padding: EdgeInsets.all(16.0),
-                                                child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.center,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.center,
-                                                  children: [
-                                                    Row(
+                                        Row(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 40.0, 0.0, 40.0),
+                                              child: SafeArea(
+                                                child: Container(
+                                                  width: () {
+                                                    if (MediaQuery.sizeOf(
+                                                                context)
+                                                            .width <
+                                                        kBreakpointSmall) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.9);
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointMedium) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.8);
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointLarge) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.5);
+                                                    } else {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.5);
+                                                    }
+                                                  }(),
+                                                  constraints: BoxConstraints(
+                                                    minHeight: 300.0,
+                                                  ),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            12.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(16.0),
+                                                    child: Column(
                                                       mainAxisSize:
-                                                          MainAxisSize.max,
+                                                          MainAxisSize.min,
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
                                                       children: [
-                                                        Flexible(
-                                                          child: Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              'rl4agx8j' /* For research & innovation 
-foc... */
-                                                              ,
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .headlineMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineMediumFamily,
-                                                                  color: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .primaryText,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .headlineMediumFamily),
+                                                        Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            Flexible(
+                                                              child: Text(
+                                                                FFLocalizations.of(
+                                                                        context)
+                                                                    .getText(
+                                                                  'rl4agx8j' /* Unlock On-Demand Analytical Te... */,
                                                                 ),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .start,
+                                                                style: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .headlineSmall
+                                                                    .override(
+                                                                      font: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .headlineSmall,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .primaryBackground,
+                                                                      letterSpacing:
+                                                                          0.0,
+                                                                    ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      16.0,
+                                                                      0.0,
+                                                                      16.0),
+                                                          child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Flexible(
+                                                                child: Text(
+                                                                  FFLocalizations.of(
+                                                                          context)
+                                                                      .getText(
+                                                                    'i09efrwm' /* Streamline your research and i... */,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyLarge
+                                                                      .override(
+                                                                        font: FlutterFlowTheme.of(context)
+                                                                            .bodyLarge,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ],
                                                           ),
                                                         ),
-                                                      ],
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  16.0,
-                                                                  0.0,
-                                                                  16.0),
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .center,
-                                                        children: [
-                                                          Flexible(
-                                                            child: Text(
-                                                              FFLocalizations.of(
-                                                                      context)
-                                                                  .getText(
-                                                                'i09efrwm' /* Find R&D labs, instruments, an... */,
-                                                              ),
-                                                              style: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .bodyLarge
-                                                                  .override(
-                                                                    fontFamily:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyLargeFamily,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryText,
-                                                                    letterSpacing:
-                                                                        0.0,
-                                                                    useGoogleFonts: GoogleFonts
-                                                                            .asMap()
-                                                                        .containsKey(
-                                                                            FlutterFlowTheme.of(context).bodyLargeFamily),
-                                                                  ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
+                                                        Padding(
+                                                          padding: EdgeInsetsDirectional
                                                               .fromSTEB(
                                                                   0.0,
                                                                   24.0,
@@ -499,488 +499,735 @@ foc... */
                                                                     }(),
                                                                     0.0,
                                                                   )),
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      4.0,
-                                                                      0.0,
-                                                                      4.0,
-                                                                      0.0),
-                                                          child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Expanded(
-                                                                child:
-                                                                    Container(
-                                                                  width: MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width *
-                                                                      0.4,
-                                                                  child:
-                                                                      TextFormField(
-                                                                    controller:
-                                                                        _model
-                                                                            .textFieldTextController,
-                                                                    focusNode:
-                                                                        _model
-                                                                            .textFieldFocusNode,
-                                                                    onFieldSubmitted:
-                                                                        (_) async {
-                                                                      logFirebaseEvent(
-                                                                          'HOME_PAGE_TextField_ON_TEXTFIELD_SUBMIT');
-                                                                      var _shouldSetState =
-                                                                          false;
-                                                                      if (_model
-                                                                              .textFieldTextController
-                                                                              .text !=
-                                                                          ' ') {
-                                                                        logFirebaseEvent(
-                                                                            'TextField_update_page_state');
-                                                                        _model.searchActive =
-                                                                            true;
-                                                                        _model.instrumentaTestResult =
-                                                                            [];
-                                                                        _model.testSearchList =
-                                                                            [];
-                                                                        _model.finaResourcesList =
-                                                                            [];
-                                                                        safeSetState(
-                                                                            () {});
-                                                                        await Future
-                                                                            .wait([
-                                                                          Future(
-                                                                              () async {
-                                                                            logFirebaseEvent('TextField_backend_call');
-                                                                            _model.searchOutput =
-                                                                                await InstrumentsTestsGroup.searchInstrumentTestCall.call(
-                                                                              search: _model.textFieldTextController.text,
-                                                                            );
+                                                          child: Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryBackground,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                            ),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              children: [
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          4.0,
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            TextFormField(
+                                                                          controller:
+                                                                              _model.textFieldTextController,
+                                                                          focusNode:
+                                                                              _model.textFieldFocusNode,
+                                                                          onChanged: (_) =>
+                                                                              EasyDebounce.debounce(
+                                                                            '_model.textFieldTextController',
+                                                                            Duration(milliseconds: 100),
+                                                                            () async {
+                                                                              logFirebaseEvent('HOME_PAGE_TextField_ON_TEXTFIELD_CHANGE');
+                                                                              if (_model.textFieldTextController.text != '') {
+                                                                                logFirebaseEvent('TextField_backend_call');
+                                                                                _model.apiResultgim = await AdminGroup.globalSuggetionCall.call(
+                                                                                  searchTerm: _model.textFieldTextController.text,
+                                                                                );
 
-                                                                            _shouldSetState =
-                                                                                true;
-                                                                            if ((_model.searchOutput?.succeeded ??
-                                                                                true)) {
-                                                                              logFirebaseEvent('TextField_update_page_state');
-                                                                              _model.instrumentaTestResult = InstrumentsTestsGroup.searchInstrumentTestCall
-                                                                                  .instruments(
-                                                                                    (_model.searchOutput?.jsonBody ?? ''),
-                                                                                  )!
-                                                                                  .toList()
-                                                                                  .cast<dynamic>();
-                                                                              _model.count = _model.count +
-                                                                                  valueOrDefault<int>(
-                                                                                    InstrumentsTestsGroup.searchInstrumentTestCall.count(
-                                                                                      (_model.searchOutput?.jsonBody ?? ''),
-                                                                                    ),
-                                                                                    0,
-                                                                                  );
+                                                                                if ((_model.apiResultgim?.succeeded ?? true)) {
+                                                                                  logFirebaseEvent('TextField_update_page_state');
+                                                                                  _model.sugetions = AdminGroup.globalSuggetionCall
+                                                                                      .globalSuggetion(
+                                                                                        (_model.apiResultgim?.jsonBody ?? ''),
+                                                                                      )!
+                                                                                      .toList()
+                                                                                      .cast<String>();
+                                                                                  safeSetState(() {});
+                                                                                }
+                                                                              }
+
                                                                               safeSetState(() {});
+                                                                            },
+                                                                          ),
+                                                                          onFieldSubmitted:
+                                                                              (_) async {
+                                                                            logFirebaseEvent('HOME_PAGE_TextField_ON_TEXTFIELD_SUBMIT');
+                                                                            var _shouldSetState =
+                                                                                false;
+                                                                            if (_model.textFieldTextController.text !=
+                                                                                ' ') {
+                                                                              logFirebaseEvent('TextField_update_page_state');
+                                                                              _model.searchActive = true;
+                                                                              _model.instrumentaTestResult = [];
+                                                                              _model.testSearchList = [];
+                                                                              _model.finaResourcesList = [];
+                                                                              safeSetState(() {});
+                                                                              await Future.wait([
+                                                                                Future(() async {
+                                                                                  logFirebaseEvent('TextField_backend_call');
+                                                                                  _model.searchOutput = await InstrumentsTestsGroup.searchInstrumentTestCall.call(
+                                                                                    search: _model.textFieldTextController.text,
+                                                                                    sophisticatedSearch: false,
+                                                                                  );
+
+                                                                                  _shouldSetState = true;
+                                                                                  if ((_model.searchOutput?.succeeded ?? true)) {
+                                                                                    logFirebaseEvent('TextField_update_page_state');
+                                                                                    _model.instrumentaTestResult = InstrumentsTestsGroup.searchInstrumentTestCall
+                                                                                        .instruments(
+                                                                                          (_model.searchOutput?.jsonBody ?? ''),
+                                                                                        )!
+                                                                                        .toList()
+                                                                                        .cast<dynamic>();
+                                                                                    _model.count = _model.count +
+                                                                                        valueOrDefault<int>(
+                                                                                          InstrumentsTestsGroup.searchInstrumentTestCall.count(
+                                                                                            (_model.searchOutput?.jsonBody ?? ''),
+                                                                                          ),
+                                                                                          0,
+                                                                                        );
+                                                                                    safeSetState(() {});
+                                                                                  } else {
+                                                                                    if (_shouldSetState) safeSetState(() {});
+                                                                                    return;
+                                                                                  }
+                                                                                }),
+                                                                                Future(() async {
+                                                                                  logFirebaseEvent('TextField_backend_call');
+                                                                                  _model.sophisticatedSearch = await InstrumentsTestsGroup.searchInstrumentTestCall.call(
+                                                                                    search: _model.textFieldTextController.text,
+                                                                                    sophisticatedSearch: true,
+                                                                                  );
+
+                                                                                  _shouldSetState = true;
+                                                                                  if ((_model.sophisticatedSearch?.succeeded ?? true)) {
+                                                                                    logFirebaseEvent('TextField_update_page_state');
+                                                                                    _model.sophisticatedResultjson = InstrumentsTestsGroup.searchInstrumentTestCall
+                                                                                        .instruments(
+                                                                                          (_model.sophisticatedSearch?.jsonBody ?? ''),
+                                                                                        )!
+                                                                                        .toList()
+                                                                                        .cast<dynamic>();
+                                                                                    _model.count = _model.count +
+                                                                                        (InstrumentsTestsGroup.searchInstrumentTestCall.count(
+                                                                                          (_model.sophisticatedSearch?.jsonBody ?? ''),
+                                                                                        )!);
+                                                                                    safeSetState(() {});
+                                                                                  } else {
+                                                                                    if (_shouldSetState) safeSetState(() {});
+                                                                                    return;
+                                                                                  }
+                                                                                }),
+                                                                                Future(() async {
+                                                                                  logFirebaseEvent('TextField_backend_call');
+                                                                                  _model.searhTest = await TestsGroup.searchTestCall.call(
+                                                                                    searchTerm: _model.textFieldTextController.text,
+                                                                                  );
+
+                                                                                  _shouldSetState = true;
+                                                                                  if ((_model.searhTest?.succeeded ?? true)) {
+                                                                                    logFirebaseEvent('TextField_update_page_state');
+                                                                                    _model.testSearchList = TestsGroup.searchTestCall
+                                                                                        .searchResult(
+                                                                                          (_model.searhTest?.jsonBody ?? ''),
+                                                                                        )!
+                                                                                        .toList()
+                                                                                        .cast<dynamic>();
+                                                                                    _model.count = _model.count +
+                                                                                        valueOrDefault<int>(
+                                                                                          getJsonField(
+                                                                                            (_model.searhTest?.jsonBody ?? ''),
+                                                                                            r'''$.count''',
+                                                                                          ),
+                                                                                          0,
+                                                                                        );
+                                                                                    safeSetState(() {});
+                                                                                  }
+                                                                                }),
+                                                                              ]);
                                                                             } else {
                                                                               if (_shouldSetState)
                                                                                 safeSetState(() {});
                                                                               return;
                                                                             }
-                                                                          }),
-                                                                          Future(
-                                                                              () async {
-                                                                            logFirebaseEvent('TextField_backend_call');
-                                                                            _model.searhTest =
-                                                                                await TestsGroup.searchTestCall.call(
-                                                                              searchTerm: _model.textFieldTextController.text,
-                                                                            );
 
-                                                                            _shouldSetState =
-                                                                                true;
-                                                                            if ((_model.searhTest?.succeeded ??
-                                                                                true)) {
-                                                                              logFirebaseEvent('TextField_update_page_state');
-                                                                              _model.testSearchList = getJsonField(
-                                                                                (_model.searhTest?.jsonBody ?? ''),
-                                                                                r'''$.tests''',
-                                                                                true,
-                                                                              )!
-                                                                                  .toList()
-                                                                                  .cast<dynamic>();
-                                                                              _model.count = _model.count +
-                                                                                  valueOrDefault<int>(
-                                                                                    getJsonField(
-                                                                                      (_model.searhTest?.jsonBody ?? ''),
-                                                                                      r'''$.count''',
-                                                                                    ),
-                                                                                    0,
-                                                                                  );
+                                                                            if (_shouldSetState)
                                                                               safeSetState(() {});
-                                                                            }
-                                                                          }),
-                                                                        ]);
-                                                                      } else {
-                                                                        if (_shouldSetState)
-                                                                          safeSetState(
-                                                                              () {});
-                                                                        return;
-                                                                      }
-
-                                                                      if (_shouldSetState)
-                                                                        safeSetState(
-                                                                            () {});
-                                                                    },
-                                                                    autofocus:
-                                                                        false,
-                                                                    textCapitalization:
-                                                                        TextCapitalization
-                                                                            .none,
-                                                                    textInputAction:
-                                                                        TextInputAction
-                                                                            .search,
-                                                                    obscureText:
-                                                                        false,
-                                                                    decoration:
-                                                                        InputDecoration(
-                                                                      hintText:
-                                                                          FFLocalizations.of(context)
-                                                                              .getText(
-                                                                        '06qae4g9' /* Search  Instruments/Tests... */,
-                                                                      ),
-                                                                      hintStyle: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodySmall
-                                                                          .override(
-                                                                            fontFamily:
-                                                                                FlutterFlowTheme.of(context).bodySmallFamily,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                            useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodySmallFamily),
+                                                                          },
+                                                                          autofocus:
+                                                                              false,
+                                                                          textCapitalization:
+                                                                              TextCapitalization.none,
+                                                                          textInputAction:
+                                                                              TextInputAction.search,
+                                                                          obscureText:
+                                                                              false,
+                                                                          decoration:
+                                                                              InputDecoration(
+                                                                            hintText:
+                                                                                FFLocalizations.of(context).getText(
+                                                                              '06qae4g9' /* Search  Here... */,
+                                                                            ),
+                                                                            hintStyle: FlutterFlowTheme.of(context).bodySmall.override(
+                                                                                  font: FlutterFlowTheme.of(context).bodySmall,
+                                                                                  letterSpacing: 0.0,
+                                                                                ),
+                                                                            enabledBorder:
+                                                                                OutlineInputBorder(
+                                                                              borderSide: BorderSide(
+                                                                                color: Color(0x00000000),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: BorderRadius.circular(8.0),
+                                                                            ),
+                                                                            focusedBorder:
+                                                                                OutlineInputBorder(
+                                                                              borderSide: BorderSide(
+                                                                                color: Color(0x00000000),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: BorderRadius.circular(8.0),
+                                                                            ),
+                                                                            errorBorder:
+                                                                                OutlineInputBorder(
+                                                                              borderSide: BorderSide(
+                                                                                color: Color(0x00000000),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: BorderRadius.circular(8.0),
+                                                                            ),
+                                                                            focusedErrorBorder:
+                                                                                OutlineInputBorder(
+                                                                              borderSide: BorderSide(
+                                                                                color: Color(0x00000000),
+                                                                                width: 1.0,
+                                                                              ),
+                                                                              borderRadius: BorderRadius.circular(8.0),
+                                                                            ),
+                                                                            filled:
+                                                                                true,
+                                                                            fillColor:
+                                                                                FlutterFlowTheme.of(context).secondaryBackground,
+                                                                            prefixIcon:
+                                                                                Icon(
+                                                                              FFIcons.ksearch,
+                                                                              color: FlutterFlowTheme.of(context).secondaryText,
+                                                                            ),
                                                                           ),
-                                                                      enabledBorder:
-                                                                          OutlineInputBorder(
-                                                                        borderSide:
-                                                                            BorderSide(
-                                                                          color:
-                                                                              Color(0x00000000),
-                                                                          width:
-                                                                              1.0,
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                font: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                letterSpacing: 0.0,
+                                                                              ),
+                                                                          validator: _model
+                                                                              .textFieldTextControllerValidator
+                                                                              .asValidator(context),
+                                                                          inputFormatters: [
+                                                                            if (!isAndroid &&
+                                                                                !isiOS)
+                                                                              TextInputFormatter.withFunction((oldValue, newValue) {
+                                                                                return TextEditingValue(
+                                                                                  selection: newValue.selection,
+                                                                                  text: newValue.text.toCapitalization(TextCapitalization.none),
+                                                                                );
+                                                                              }),
+                                                                          ],
                                                                         ),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
                                                                       ),
-                                                                      focusedBorder:
-                                                                          OutlineInputBorder(
-                                                                        borderSide:
-                                                                            BorderSide(
-                                                                          color:
-                                                                              Color(0x00000000),
-                                                                          width:
-                                                                              1.0,
+                                                                      if (_model
+                                                                              .textFieldTextController
+                                                                              .text !=
+                                                                          '')
+                                                                        InkWell(
+                                                                          splashColor:
+                                                                              Colors.transparent,
+                                                                          focusColor:
+                                                                              Colors.transparent,
+                                                                          hoverColor:
+                                                                              Colors.transparent,
+                                                                          highlightColor:
+                                                                              Colors.transparent,
+                                                                          onTap:
+                                                                              () async {
+                                                                            logFirebaseEvent('HOME_PAGE_Icon_me3vrqb1_ON_TAP');
+                                                                            logFirebaseEvent('Icon_clear_text_fields_pin_codes');
+                                                                            safeSetState(() {
+                                                                              _model.textFieldTextController?.clear();
+                                                                            });
+                                                                            logFirebaseEvent('Icon_update_page_state');
+                                                                            _model.searchActive =
+                                                                                false;
+                                                                            safeSetState(() {});
+                                                                          },
+                                                                          child:
+                                                                              Icon(
+                                                                            FFIcons.kcross,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            size:
+                                                                                24.0,
+                                                                          ),
                                                                         ),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
-                                                                      ),
-                                                                      errorBorder:
-                                                                          OutlineInputBorder(
-                                                                        borderSide:
-                                                                            BorderSide(
-                                                                          color:
-                                                                              Color(0x00000000),
-                                                                          width:
-                                                                              1.0,
-                                                                        ),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
-                                                                      ),
-                                                                      focusedErrorBorder:
-                                                                          OutlineInputBorder(
-                                                                        borderSide:
-                                                                            BorderSide(
-                                                                          color:
-                                                                              Color(0x00000000),
-                                                                          width:
-                                                                              1.0,
-                                                                        ),
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(8.0),
-                                                                      ),
-                                                                      filled:
-                                                                          true,
-                                                                      fillColor:
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .secondaryBackground,
-                                                                      prefixIcon:
-                                                                          Icon(
-                                                                        FFIcons
-                                                                            .ksearch,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryText,
-                                                                      ),
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .bodyMedium
-                                                                        .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                        ),
-                                                                    validator: _model
-                                                                        .textFieldTextControllerValidator
-                                                                        .asValidator(
-                                                                            context),
+                                                                    ],
                                                                   ),
                                                                 ),
+                                                                if ((_model.textFieldTextController.text !=
+                                                                            '') &&
+                                                                    (_model
+                                                                        .sugetions
+                                                                        .isNotEmpty))
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            24.0,
+                                                                            8.0,
+                                                                            24.0,
+                                                                            8.0),
+                                                                    child:
+                                                                        Builder(
+                                                                      builder:
+                                                                          (context) {
+                                                                        final sUggention = _model
+                                                                            .sugetions
+                                                                            .toList()
+                                                                            .take(6)
+                                                                            .toList();
+
+                                                                        return SingleChildScrollView(
+                                                                          child:
+                                                                              Column(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.min,
+                                                                            children:
+                                                                                List.generate(sUggention.length, (sUggentionIndex) {
+                                                                              final sUggentionItem = sUggention[sUggentionIndex];
+                                                                              return Padding(
+                                                                                padding: EdgeInsetsDirectional.fromSTEB(4.0, 6.0, 4.0, 6.0),
+                                                                                child: InkWell(
+                                                                                  splashColor: Colors.transparent,
+                                                                                  focusColor: Colors.transparent,
+                                                                                  hoverColor: Colors.transparent,
+                                                                                  highlightColor: Colors.transparent,
+                                                                                  onTap: () async {
+                                                                                    logFirebaseEvent('HOME_PAGE_Row_hvigajny_ON_TAP');
+                                                                                    logFirebaseEvent('Row_custom_action');
+                                                                                    _model.replacedWord = await actions.replaceLastWord(
+                                                                                      _model.textFieldTextController.text,
+                                                                                      sUggentionItem,
+                                                                                    );
+                                                                                    logFirebaseEvent('Row_set_form_field');
+                                                                                    safeSetState(() {
+                                                                                      _model.textFieldTextController?.text = _model.replacedWord!;
+                                                                                    });
+
+                                                                                    safeSetState(() {});
+                                                                                  },
+                                                                                  child: Row(
+                                                                                    mainAxisSize: MainAxisSize.max,
+                                                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                                                    children: [
+                                                                                      Flexible(
+                                                                                        child: Text(
+                                                                                          valueOrDefault<String>(
+                                                                                            sUggentionItem,
+                                                                                            '1h',
+                                                                                          ),
+                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                                font: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                                letterSpacing: 0.0,
+                                                                                              ),
+                                                                                        ),
+                                                                                      ),
+                                                                                      Icon(
+                                                                                        Icons.arrow_outward,
+                                                                                        color: FlutterFlowTheme.of(context).primaryText,
+                                                                                        size: 16.0,
+                                                                                      ),
+                                                                                    ],
+                                                                                  ),
+                                                                                ),
+                                                                              );
+                                                                            }),
+                                                                          ),
+                                                                        );
+                                                                      },
+                                                                    ),
+                                                                  ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                            Container(
+                                              width: 350.0,
+                                              decoration: BoxDecoration(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primary,
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                              ),
+                                              child: ClipRRect(
+                                                borderRadius:
+                                                    BorderRadius.circular(16.0),
+                                                child: Image.asset(
+                                                  'assets/images/Hero_Image_Abstract.png',
+                                                  width: double.infinity,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 45.0),
+                                          child: Container(
+                                            width: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.9);
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.8);
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.7);
+                                              } else {
+                                                return (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.7);
+                                              }
+                                            }(),
+                                            decoration: BoxDecoration(),
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'sgu7eikv' /* Who's on RNDgrid? */,
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleMedium
+                                                              .override(
+                                                                font: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .secondaryBackground,
+                                                                letterSpacing:
+                                                                    0.0,
                                                               ),
-                                                              if (_model
-                                                                      .textFieldTextController
-                                                                      .text !=
-                                                                  '')
+                                                    ),
+                                                  ],
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                              0.0,
+                                                              valueOrDefault<
+                                                                  double>(
+                                                                () {
+                                                                  if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointSmall) {
+                                                                    return 16.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointMedium) {
+                                                                    return 24.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointLarge) {
+                                                                    return 28.0;
+                                                                  } else {
+                                                                    return 28.0;
+                                                                  }
+                                                                }(),
+                                                                0.0,
+                                                              ),
+                                                              0.0,
+                                                              0.0),
+                                                  child:
+                                                      MasonryGridView.builder(
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
+                                                    gridDelegate:
+                                                        SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount: 3,
+                                                    ),
+                                                    crossAxisSpacing: 30.0,
+                                                    mainAxisSpacing: 20.0,
+                                                    itemCount: 3,
+                                                    shrinkWrap: true,
+                                                    itemBuilder:
+                                                        (context, index) {
+                                                      return [
+                                                        () => Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Container(
+                                                                  width: 150.0,
+                                                                  height: 150.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            12.0),
+                                                                  ),
+                                                                  child:
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                    child: Image
+                                                                        .asset(
+                                                                      'assets/images/Startups.png',
+                                                                      width:
+                                                                          200.0,
+                                                                      height:
+                                                                          200.0,
+                                                                      fit: BoxFit
+                                                                          .cover,
+                                                                    ),
+                                                                  ),
+                                                                ),
                                                                 Padding(
                                                                   padding: EdgeInsetsDirectional
                                                                       .fromSTEB(
                                                                           0.0,
+                                                                          4.0,
                                                                           0.0,
-                                                                          8.0,
                                                                           0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'i8w7u8ue' /* Bring your product ideas to li... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).labelMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                        () => Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Container(
+                                                                  width: 150.0,
+                                                                  height: 150.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            12.0),
+                                                                  ),
                                                                   child:
-                                                                      InkWell(
-                                                                    splashColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    focusColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    hoverColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    highlightColor:
-                                                                        Colors
-                                                                            .transparent,
-                                                                    onTap:
-                                                                        () async {
-                                                                      logFirebaseEvent(
-                                                                          'HOME_PAGE_Icon_me3vrqb1_ON_TAP');
-                                                                      logFirebaseEvent(
-                                                                          'Icon_clear_text_fields_pin_codes');
-                                                                      safeSetState(
-                                                                          () {
-                                                                        _model
-                                                                            .textFieldTextController
-                                                                            ?.clear();
-                                                                      });
-                                                                      logFirebaseEvent(
-                                                                          'Icon_update_page_state');
-                                                                      _model.searchActive =
-                                                                          false;
-                                                                      safeSetState(
-                                                                          () {});
-                                                                    },
-                                                                    child: Icon(
-                                                                      FFIcons
-                                                                          .kcross,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                      size:
-                                                                          24.0,
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                    child: Image
+                                                                        .asset(
+                                                                      'assets/images/Students.png',
+                                                                      width:
+                                                                          200.0,
+                                                                      height:
+                                                                          200.0,
+                                                                      fit: BoxFit
+                                                                          .cover,
                                                                     ),
                                                                   ),
                                                                 ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  valueOrDefault<
-                                                                      double>(
-                                                                    () {
-                                                                      if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointSmall) {
-                                                                        return 16.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointMedium) {
-                                                                        return 24.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointLarge) {
-                                                                        return 28.0;
-                                                                      } else {
-                                                                        return 28.0;
-                                                                      }
-                                                                    }(),
-                                                                    0.0,
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      '5q7xb7s7' /* Find the right tools, data, an... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).labelMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
                                                                   ),
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: MasonryGridView
-                                                          .builder(
-                                                        physics:
-                                                            const NeverScrollableScrollPhysics(),
-                                                        gridDelegate:
-                                                            SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                                          crossAxisCount: 3,
-                                                        ),
-                                                        crossAxisSpacing: 20.0,
-                                                        mainAxisSpacing: 20.0,
-                                                        itemCount: 3,
-                                                        shrinkWrap: true,
-                                                        itemBuilder:
-                                                            (context, index) {
-                                                          return [
-                                                            () => Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .end,
-                                                                  children: [
-                                                                    Icon(
-                                                                      FFIcons
-                                                                          .ksearch,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                      size:
-                                                                          40.0,
+                                                                ),
+                                                              ],
+                                                            ),
+                                                        () => Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Container(
+                                                                  width: 150.0,
+                                                                  height: 150.0,
+                                                                  decoration:
+                                                                      BoxDecoration(
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            12.0),
+                                                                  ),
+                                                                  child:
+                                                                      ClipRRect(
+                                                                    borderRadius:
+                                                                        BorderRadius.circular(
+                                                                            8.0),
+                                                                    child: Image
+                                                                        .asset(
+                                                                      'assets/images/Innovators.png',
+                                                                      width:
+                                                                          200.0,
+                                                                      height:
+                                                                          200.0,
+                                                                      fit: BoxFit
+                                                                          .cover,
                                                                     ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
                                                                           0.0,
                                                                           4.0,
                                                                           0.0,
                                                                           0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        FFLocalizations.of(context)
-                                                                            .getText(
-                                                                          '3352kfsb' /* Search */,
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      '759boupv' /* Whether you're building a prot... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .labelMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).labelMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
                                                                         ),
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .titleMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleMediumFamily),
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
+                                                                  ),
                                                                 ),
-                                                            () => Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .end,
-                                                                  children: [
-                                                                    Icon(
-                                                                      FFIcons
-                                                                          .kcompare,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                      size:
-                                                                          40.0,
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        FFLocalizations.of(context)
-                                                                            .getText(
-                                                                          '4v183wv0' /* Compare labs */,
-                                                                        ),
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .titleMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleMediumFamily),
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                            () => Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .end,
-                                                                  children: [
-                                                                    Icon(
-                                                                      FFIcons
-                                                                          .kcall,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .secondaryText,
-                                                                      size:
-                                                                          40.0,
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        FFLocalizations.of(context)
-                                                                            .getText(
-                                                                          'rjzos1fi' /* Contact lab */,
-                                                                        ),
-                                                                        textAlign:
-                                                                            TextAlign.center,
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .titleMedium
-                                                                            .override(
-                                                                              fontFamily: FlutterFlowTheme.of(context).titleMediumFamily,
-                                                                              letterSpacing: 0.0,
-                                                                              useGoogleFonts: GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).titleMediumFamily),
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                          ][index]();
-                                                        },
-                                                      ),
-                                                    ),
-                                                  ],
+                                                              ],
+                                                            ),
+                                                      ][index]();
+                                                    },
+                                                  ),
                                                 ),
-                                              ),
+                                              ],
                                             ),
                                           ),
                                         ),
@@ -1069,22 +1316,225 @@ foc... */
                                                           context)
                                                       .headlineSmall
                                                       .override(
-                                                        fontFamily:
+                                                        font:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .headlineSmallFamily,
+                                                                .headlineSmall,
                                                         letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineSmallFamily),
                                                       ),
                                                 )),
                                               ],
                                             ),
                                           ),
+                                          if (_model.sophisticatedResultjson
+                                              .isNotEmpty)
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      valueOrDefault<double>(
+                                                        () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return 6.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return 12.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return 18.0;
+                                                          } else {
+                                                            return 18.0;
+                                                          }
+                                                        }(),
+                                                        24.0,
+                                                      )),
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'HOME_PAGE_Row_zvkje66i_ON_TAP');
+                                                  if (_model
+                                                      .sophisticatedShow) {
+                                                    logFirebaseEvent(
+                                                        'Row_update_page_state');
+                                                    _model.sophisticatedShow =
+                                                        false;
+                                                    safeSetState(() {});
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'Row_update_page_state');
+                                                    _model.sophisticatedShow =
+                                                        true;
+                                                    safeSetState(() {});
+                                                  }
+                                                },
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    SelectionArea(
+                                                        child: Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        '4dmjkr8w' /* Sophisticated Instruments */,
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleMedium
+                                                              .override(
+                                                                font: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                    )),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        if (!_model
+                                                            .sophisticatedShow)
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_arrow_right_outlined,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                        if (_model
+                                                            .sophisticatedShow)
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_arrow_down_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                          if ((_model.sophisticatedResultjson
+                                                  .isNotEmpty) &&
+                                              _model.sophisticatedShow)
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 20.0),
+                                              child: Builder(
+                                                builder: (context) {
+                                                  final instrumentsTestsList =
+                                                      _model
+                                                          .sophisticatedResultjson
+                                                          .toList()
+                                                          .take(6)
+                                                          .toList();
+
+                                                  return MasonryGridView
+                                                      .builder(
+                                                    physics:
+                                                        const NeverScrollableScrollPhysics(),
+                                                    gridDelegate:
+                                                        SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                      crossAxisCount:
+                                                          valueOrDefault<int>(
+                                                        () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return 2;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return 3;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return 4;
+                                                          } else {
+                                                            return 4;
+                                                          }
+                                                        }(),
+                                                        2,
+                                                      ),
+                                                    ),
+                                                    crossAxisSpacing: 20.0,
+                                                    mainAxisSpacing: 20.0,
+                                                    itemCount:
+                                                        instrumentsTestsList
+                                                            .length,
+                                                    padding:
+                                                        EdgeInsets.fromLTRB(
+                                                      0,
+                                                      0,
+                                                      0,
+                                                      10.0,
+                                                    ),
+                                                    shrinkWrap: true,
+                                                    itemBuilder: (context,
+                                                        instrumentsTestsListIndex) {
+                                                      final instrumentsTestsListItem =
+                                                          instrumentsTestsList[
+                                                              instrumentsTestsListIndex];
+                                                      return wrapWithModel(
+                                                        model: _model
+                                                            .sophisticatedInstrumentComponentModels1
+                                                            .getModel(
+                                                          instrumentsTestsListItem
+                                                              .toString(),
+                                                          instrumentsTestsListIndex,
+                                                        ),
+                                                        updateCallback: () =>
+                                                            safeSetState(() {}),
+                                                        child:
+                                                            SophisticatedInstrumentComponentWidget(
+                                                          key: Key(
+                                                            'Keyhij_${instrumentsTestsListItem.toString()}',
+                                                          ),
+                                                          imageURL:
+                                                              getJsonField(
+                                                            instrumentsTestsListItem,
+                                                            r'''$.image_dark''',
+                                                          ).toString(),
+                                                          instrumentJson:
+                                                              instrumentsTestsListItem,
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                              ),
+                                            ),
                                           if (_model
                                               .instrumentaTestResult.isNotEmpty)
                                             Padding(
@@ -1118,40 +1568,88 @@ foc... */
                                                         }(),
                                                         24.0,
                                                       )),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  SelectionArea(
-                                                      child: Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      '4dmjkr8w' /* Instruments */,
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'HOME_PAGE_Row_9wgts4dx_ON_TAP');
+                                                  if (_model.devlopmentShow) {
+                                                    logFirebaseEvent(
+                                                        'Row_update_page_state');
+                                                    _model.devlopmentShow =
+                                                        false;
+                                                    safeSetState(() {});
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'Row_update_page_state');
+                                                    _model.devlopmentShow =
+                                                        true;
+                                                    safeSetState(() {});
+                                                  }
+                                                },
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    SelectionArea(
+                                                        child: Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'o0cppanp' /* Devlopment Facilities */,
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleMedium
+                                                              .override(
+                                                                font: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                    )),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        if (!_model
+                                                            .devlopmentShow)
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_arrow_right_outlined,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                        if (_model
+                                                            .devlopmentShow)
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_arrow_down_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                      ],
                                                     ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMediumFamily,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMediumFamily),
-                                                        ),
-                                                  )),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          if (_model
-                                              .instrumentaTestResult.isNotEmpty)
+                                          if ((_model.instrumentaTestResult
+                                                  .isNotEmpty) &&
+                                              _model.devlopmentShow)
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
@@ -1216,79 +1714,33 @@ foc... */
                                                       final instrumentsTestsListItem =
                                                           instrumentsTestsList[
                                                               instrumentsTestsListIndex];
-                                                      return Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          if (!getJsonField(
+                                                      return wrapWithModel(
+                                                        model: _model
+                                                            .instrumentsDetailsModels1
+                                                            .getModel(
+                                                          instrumentsTestsListIndex
+                                                              .toString(),
+                                                          instrumentsTestsListIndex,
+                                                        ),
+                                                        updateCallback: () =>
+                                                            safeSetState(() {}),
+                                                        child:
+                                                            InstrumentsDetailsWidget(
+                                                          key: Key(
+                                                            'Keyjbl_${instrumentsTestsListIndex.toString()}',
+                                                          ),
+                                                          instrumentTestName:
+                                                              getJsonField(
                                                             instrumentsTestsListItem,
-                                                            r'''$.is_sophisticated''',
-                                                          ))
-                                                            Flexible(
-                                                              child:
-                                                                  wrapWithModel(
-                                                                model: _model
-                                                                    .instrumentsDetailsModels1
-                                                                    .getModel(
-                                                                  instrumentsTestsListIndex
-                                                                      .toString(),
-                                                                  instrumentsTestsListIndex,
-                                                                ),
-                                                                updateCallback: () =>
-                                                                    safeSetState(
-                                                                        () {}),
-                                                                child:
-                                                                    InstrumentsDetailsWidget(
-                                                                  key: Key(
-                                                                    'Keyjbl_${instrumentsTestsListIndex.toString()}',
-                                                                  ),
-                                                                  instrumentTestName:
-                                                                      getJsonField(
-                                                                    instrumentsTestsListItem,
-                                                                    r'''$.instrument_name''',
-                                                                  ).toString(),
-                                                                  index:
-                                                                      instrumentsTestsListIndex,
-                                                                  instrumentJson:
-                                                                      instrumentsTestsListItem,
-                                                                  isLabInstrument:
-                                                                      false,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          if (getJsonField(
-                                                            instrumentsTestsListItem,
-                                                            r'''$.is_sophisticated''',
-                                                          ))
-                                                            Flexible(
-                                                              child:
-                                                                  wrapWithModel(
-                                                                model: _model
-                                                                    .sophisticatedInstrumentComponentModels1
-                                                                    .getModel(
-                                                                  instrumentsTestsListItem
-                                                                      .toString(),
-                                                                  instrumentsTestsListIndex,
-                                                                ),
-                                                                updateCallback: () =>
-                                                                    safeSetState(
-                                                                        () {}),
-                                                                child:
-                                                                    SophisticatedInstrumentComponentWidget(
-                                                                  key: Key(
-                                                                    'Keyi9h_${instrumentsTestsListItem.toString()}',
-                                                                  ),
-                                                                  imageURL:
-                                                                      getJsonField(
-                                                                    instrumentsTestsListItem,
-                                                                    r'''$.image_dark''',
-                                                                  ).toString(),
-                                                                  instrumentJson:
-                                                                      instrumentsTestsListItem,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                        ],
+                                                            r'''$.instrument_name''',
+                                                          ).toString(),
+                                                          index:
+                                                              instrumentsTestsListIndex,
+                                                          instrumentJson:
+                                                              instrumentsTestsListItem,
+                                                          isLabInstrument:
+                                                              false,
+                                                        ),
                                                       );
                                                     },
                                                   );
@@ -1327,46 +1779,91 @@ foc... */
                                                         }(),
                                                         24.0,
                                                       )),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  SelectionArea(
-                                                      child: Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      'w87m02gc' /* Tests */,
+                                              child: InkWell(
+                                                splashColor: Colors.transparent,
+                                                focusColor: Colors.transparent,
+                                                hoverColor: Colors.transparent,
+                                                highlightColor:
+                                                    Colors.transparent,
+                                                onTap: () async {
+                                                  logFirebaseEvent(
+                                                      'HOME_PAGE_Row_mha9dnbj_ON_TAP');
+                                                  if (_model.testShow) {
+                                                    logFirebaseEvent(
+                                                        'Row_update_page_state');
+                                                    _model.testShow = false;
+                                                    safeSetState(() {});
+                                                  } else {
+                                                    logFirebaseEvent(
+                                                        'Row_update_page_state');
+                                                    _model.testShow = true;
+                                                    safeSetState(() {});
+                                                  }
+                                                },
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    SelectionArea(
+                                                        child: Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'w87m02gc' /* Tests */,
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .titleMedium
+                                                              .override(
+                                                                font: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .titleMedium,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                    )),
+                                                    Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        if (!_model.testShow)
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_arrow_right_outlined,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                        if (_model.testShow)
+                                                          Icon(
+                                                            Icons
+                                                                .keyboard_arrow_down_rounded,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryText,
+                                                            size: 24.0,
+                                                          ),
+                                                      ],
                                                     ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleMediumFamily,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMediumFamily),
-                                                        ),
-                                                  )),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          if (_model.testSearchList.isNotEmpty)
+                                          if ((_model
+                                                  .testSearchList.isNotEmpty) &&
+                                              _model.testShow)
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
                                                       0.0, 0.0, 0.0, 20.0),
                                               child: Builder(
                                                 builder: (context) {
-                                                  final searcTestsList = _model
+                                                  final result = _model
                                                       .testSearchList
                                                       .toList()
                                                       .take(6)
@@ -1374,65 +1871,41 @@ foc... */
 
                                                   return MasonryGridView
                                                       .builder(
-                                                    physics:
-                                                        const NeverScrollableScrollPhysics(),
                                                     gridDelegate:
                                                         SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                                      crossAxisCount:
-                                                          valueOrDefault<int>(
-                                                        () {
-                                                          if (MediaQuery.sizeOf(
-                                                                      context)
-                                                                  .width <
-                                                              kBreakpointSmall) {
-                                                            return 1;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
-                                                            return 2;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointLarge) {
-                                                            return 3;
-                                                          } else {
-                                                            return 3;
-                                                          }
-                                                        }(),
-                                                        2,
-                                                      ),
+                                                      crossAxisCount: 3,
                                                     ),
                                                     crossAxisSpacing: 20.0,
                                                     mainAxisSpacing: 20.0,
-                                                    itemCount:
-                                                        searcTestsList.length,
-                                                    padding:
-                                                        EdgeInsets.fromLTRB(
-                                                      0,
-                                                      0,
-                                                      0,
-                                                      10.0,
-                                                    ),
+                                                    itemCount: result.length,
                                                     shrinkWrap: true,
-                                                    itemBuilder: (context,
-                                                        searcTestsListIndex) {
-                                                      final searcTestsListItem =
-                                                          searcTestsList[
-                                                              searcTestsListIndex];
-                                                      return TestDetailsWidget(
+                                                    itemBuilder:
+                                                        (context, resultIndex) {
+                                                      final resultItem =
+                                                          result[resultIndex];
+                                                      return AvailableTestdetialComponentWidget(
                                                         key: Key(
-                                                            'Keyynk_${searcTestsListIndex}_of_${searcTestsList.length}'),
-                                                        testName: getJsonField(
-                                                          searcTestsListItem,
+                                                            'Keyjk4_${resultIndex}_of_${result.length}'),
+                                                        fieldName: getJsonField(
+                                                          resultItem,
                                                           r'''$.field.field_name''',
                                                         ).toString(),
-                                                        index:
-                                                            searcTestsListIndex,
-                                                        testJson:
-                                                            searcTestsListItem,
+                                                        materialName:
+                                                            getJsonField(
+                                                          resultItem,
+                                                          r'''$.material.material_name''',
+                                                        ).toString(),
+                                                        testName: getJsonField(
+                                                          resultItem,
+                                                          r'''$.test.test_name''',
+                                                        ).toString(),
+                                                        methodName:
+                                                            getJsonField(
+                                                          resultItem,
+                                                          r'''$.method.method_name''',
+                                                        ).toString(),
+                                                        isSearchresult: true,
+                                                        testObject: resultItem,
                                                       );
                                                     },
                                                   );
@@ -1472,7 +1945,25 @@ foc... */
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0,
-                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        0.0,
+                                      ),
                                       0.0,
                                       valueOrDefault<double>(
                                         () {
@@ -1521,294 +2012,325 @@ foc... */
                                       }(),
                                       decoration: BoxDecoration(
                                         color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
+                                            .primaryBackground,
                                         borderRadius:
                                             BorderRadius.circular(8.0),
                                       ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            valueOrDefault<double>(
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.05,
-                                              0.0,
-                                            ),
-                                            48.0,
-                                            valueOrDefault<double>(
-                                              MediaQuery.sizeOf(context).width *
-                                                  0.05,
-                                              0.0,
-                                            ),
-                                            48.0),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                          ),
-                                          child: Column(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Row(
                                             mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
                                             crossAxisAlignment:
-                                                CrossAxisAlignment.center,
+                                                CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 4.0),
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
-                                                  children: [
-                                                    Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        '1e970197' /* Sophisticated instruments */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .headlineSmall
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineSmallFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primaryText,
-                                                                letterSpacing:
+                                              Flexible(
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 24.0, 0.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
                                                                     0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .headlineSmallFamily),
-                                                              ),
-                                                    ),
-                                                    InkWell(
-                                                      splashColor:
-                                                          Colors.transparent,
-                                                      focusColor:
-                                                          Colors.transparent,
-                                                      hoverColor:
-                                                          Colors.transparent,
-                                                      highlightColor:
-                                                          Colors.transparent,
-                                                      onTap: () async {
-                                                        logFirebaseEvent(
-                                                            'HOME_PAGE_Row_m7u5306g_ON_TAP');
-                                                        logFirebaseEvent(
-                                                            'Row_navigate_to');
-
-                                                        context.pushNamed(
-                                                            SophisticatedInstrumentWidget
-                                                                .routeName);
-                                                      },
-                                                      child: Row(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          if (responsiveVisibility(
-                                                            context: context,
-                                                            phone: false,
-                                                            tablet: false,
-                                                          ))
+                                                                    0.0,
+                                                                    0.0,
+                                                                    8.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
                                                             Text(
                                                               FFLocalizations.of(
                                                                       context)
                                                                   .getText(
-                                                                '6mx7gdev' /* view all */,
+                                                                '1e970197' /* Sophisticated instruments */,
                                                               ),
                                                               style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .labelLarge
+                                                                  .headlineSmall
                                                                   .override(
-                                                                    fontFamily:
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .labelLargeFamily,
+                                                                    font: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall,
                                                                     color: FlutterFlowTheme.of(
                                                                             context)
-                                                                        .primary,
+                                                                        .primaryText,
                                                                     letterSpacing:
                                                                         0.0,
-                                                                    useGoogleFonts: GoogleFonts
-                                                                            .asMap()
-                                                                        .containsKey(
-                                                                            FlutterFlowTheme.of(context).labelLargeFamily),
                                                                   ),
                                                             ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        8.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0),
-                                                            child: Icon(
-                                                              FFIcons
-                                                                  .karrowRight,
-                                                              color: FlutterFlowTheme
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                '1v4839de' /* Discover a wide range of advan... */,
+                                                              ),
+                                                              style: FlutterFlowTheme
                                                                       .of(context)
-                                                                  .primary,
-                                                              size: 24.0,
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
                                                             ),
                                                           ),
                                                         ],
                                                       ),
-                                                    ),
-                                                  ],
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 0.0, 0.0, 16.0),
+                                              Container(
+                                                width: 300.0,
+                                                height: 200.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          16.0),
+                                                  border: Border.all(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .border,
+                                                    width: 2.0,
+                                                  ),
+                                                ),
                                                 child: Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
                                                   mainAxisAlignment:
-                                                      MainAxisAlignment
-                                                          .spaceBetween,
+                                                      MainAxisAlignment.center,
                                                   children: [
-                                                    Expanded(
-                                                      child: Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          '3t3ymk2r' /* Access and book cutting-edge s... */,
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .bodyMediumFamily),
-                                                                ),
+                                                    ClipRRect(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8.0),
+                                                      child: Image.asset(
+                                                        'assets/images/Instruments.png',
+                                                        fit: BoxFit.cover,
                                                       ),
                                                     ),
                                                   ],
                                                 ),
                                               ),
-                                              if (FFAppState()
-                                                      .sophisticatedInstruments !=
-                                                  null)
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 24.0, 0.0, 24.0),
-                                                  child: Container(
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                    ),
-                                                    child: Visibility(
-                                                      visible: FFAppState()
-                                                              .sophisticatedInstruments !=
-                                                          null,
-                                                      child: Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                -1.0, 0.0),
-                                                        child: Builder(
-                                                          builder: (context) {
-                                                            final sophisticatedInstrumentList =
-                                                                FFAppState()
-                                                                    .sophisticatedInstruments
-                                                                    .toList()
-                                                                    .take(8)
-                                                                    .toList();
+                                            ],
+                                          ),
+                                          if (FFAppState()
+                                                  .sophisticatedInstruments !=
+                                              null)
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 24.0, 0.0, 24.0),
+                                              child: Container(
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                ),
+                                                child: Visibility(
+                                                  visible: FFAppState()
+                                                          .sophisticatedInstruments !=
+                                                      null,
+                                                  child: Align(
+                                                    alignment:
+                                                        AlignmentDirectional(
+                                                            -1.0, 0.0),
+                                                    child: Builder(
+                                                      builder: (context) {
+                                                        final sophisticatedInstrumentList =
+                                                            FFAppState()
+                                                                .sophisticatedInstruments
+                                                                .toList()
+                                                                .take(8)
+                                                                .toList();
 
-                                                            return MasonryGridView
-                                                                .builder(
-                                                              physics:
-                                                                  const NeverScrollableScrollPhysics(),
-                                                              gridDelegate:
-                                                                  SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                                                crossAxisCount:
-                                                                    () {
-                                                                  if (MediaQuery.sizeOf(
+                                                        return MasonryGridView
+                                                            .builder(
+                                                          physics:
+                                                              const NeverScrollableScrollPhysics(),
+                                                          gridDelegate:
+                                                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                            crossAxisCount: () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 1;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
                                                                               context)
-                                                                          .width <
-                                                                      kBreakpointSmall) {
-                                                                    return 1;
-                                                                  } else if (MediaQuery.sizeOf(
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 3;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
                                                                               context)
-                                                                          .width <
-                                                                      kBreakpointMedium) {
-                                                                    return 3;
-                                                                  } else if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointLarge) {
-                                                                    return 4;
-                                                                  } else {
-                                                                    return 4;
-                                                                  }
-                                                                }(),
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 4;
+                                                              } else {
+                                                                return 4;
+                                                              }
+                                                            }(),
+                                                          ),
+                                                          crossAxisSpacing:
+                                                              20.0,
+                                                          mainAxisSpacing: 20.0,
+                                                          itemCount:
+                                                              sophisticatedInstrumentList
+                                                                  .length,
+                                                          shrinkWrap: true,
+                                                          itemBuilder: (context,
+                                                              sophisticatedInstrumentListIndex) {
+                                                            final sophisticatedInstrumentListItem =
+                                                                sophisticatedInstrumentList[
+                                                                    sophisticatedInstrumentListIndex];
+                                                            return wrapWithModel(
+                                                              model: _model
+                                                                  .sophisticatedInstrumentComponentModels2
+                                                                  .getModel(
+                                                                sophisticatedInstrumentListIndex
+                                                                    .toString(),
+                                                                sophisticatedInstrumentListIndex,
                                                               ),
-                                                              crossAxisSpacing:
-                                                                  20.0,
-                                                              mainAxisSpacing:
-                                                                  20.0,
-                                                              itemCount:
-                                                                  sophisticatedInstrumentList
-                                                                      .length,
-                                                              shrinkWrap: true,
-                                                              itemBuilder: (context,
-                                                                  sophisticatedInstrumentListIndex) {
-                                                                final sophisticatedInstrumentListItem =
-                                                                    sophisticatedInstrumentList[
-                                                                        sophisticatedInstrumentListIndex];
-                                                                return wrapWithModel(
-                                                                  model: _model
-                                                                      .sophisticatedInstrumentComponentModels2
-                                                                      .getModel(
-                                                                    sophisticatedInstrumentListIndex
-                                                                        .toString(),
-                                                                    sophisticatedInstrumentListIndex,
-                                                                  ),
-                                                                  updateCallback: () =>
-                                                                      safeSetState(
-                                                                          () {}),
-                                                                  child:
-                                                                      SophisticatedInstrumentComponentWidget(
-                                                                    key: Key(
-                                                                      'Keywf6_${sophisticatedInstrumentListIndex.toString()}',
-                                                                    ),
-                                                                    imageURL:
-                                                                        getJsonField(
-                                                                      sophisticatedInstrumentListItem,
-                                                                      r'''$.image_dark''',
-                                                                    ).toString(),
-                                                                    instrumentJson:
-                                                                        sophisticatedInstrumentListItem,
-                                                                  ),
-                                                                );
-                                                              },
+                                                              updateCallback: () =>
+                                                                  safeSetState(
+                                                                      () {}),
+                                                              child:
+                                                                  SophisticatedInstrumentComponentWidget(
+                                                                key: Key(
+                                                                  'Keywf6_${sophisticatedInstrumentListIndex.toString()}',
+                                                                ),
+                                                                imageURL:
+                                                                    getJsonField(
+                                                                  sophisticatedInstrumentListItem,
+                                                                  r'''$.image_dark''',
+                                                                ).toString(),
+                                                                instrumentJson:
+                                                                    sophisticatedInstrumentListItem,
+                                                              ),
                                                             );
                                                           },
-                                                        ),
-                                                      ),
+                                                        );
+                                                      },
                                                     ),
                                                   ),
                                                 ),
-                                            ],
+                                              ),
+                                            ),
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 4.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'HOME_PAGE_Row_4ntlxepn_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Row_navigate_to');
+
+                                                    context.pushNamed(
+                                                        SophisticatedInstrumentWidget
+                                                            .routeName);
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      if (responsiveVisibility(
+                                                        context: context,
+                                                        phone: false,
+                                                        tablet: false,
+                                                      ))
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'so6vlpmi' /* view all */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelLarge
+                                                              .override(
+                                                                font: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLarge,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Icon(
+                                                          FFIcons.karrowRight,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 24.0,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
                                           ),
-                                        ),
+                                        ],
                                       ),
                                     ),
                                   ),
@@ -1816,7 +2338,25 @@ foc... */
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0,
-                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      ),
                                       0.0,
                                       valueOrDefault<double>(
                                         () {
@@ -1863,281 +2403,428 @@ foc... */
                                       }
                                     }(),
                                     decoration: BoxDecoration(
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryBackground,
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color(0x544568DC),
+                                          Color(0x55B06AB3)
+                                        ],
+                                        stops: [0.0, 1.0],
+                                        begin: AlignmentDirectional(-1.0, 0.0),
+                                        end: AlignmentDirectional(1.0, 0),
+                                      ),
+                                      borderRadius: BorderRadius.circular(16.0),
                                     ),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 4.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SelectionArea(
-                                                  child: Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  'ytd3ulpa' /* Explore instruments */,
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineSmallFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineSmallFamily),
-                                                        ),
-                                              )),
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  logFirebaseEvent(
-                                                      'HOME_PAGE_Row_catzwgun_ON_TAP');
-                                                  logFirebaseEvent(
-                                                      'Row_navigate_to');
-
-                                                  context.pushNamed(
-                                                      InstrumentsWidget
-                                                          .routeName);
-                                                },
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        's91xnnfm' /* view all */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelLarge
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .labelLargeFamily),
-                                                              ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Icon(
-                                                        FFIcons.karrowRight,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        size: 24.0,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0,
-                                                  0.0,
-                                                  0.0,
-                                                  valueOrDefault<double>(
-                                                    () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return 8.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return 16.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return 24.0;
-                                                      } else {
-                                                        return 24.0;
-                                                      }
-                                                    }(),
-                                                    24.0,
-                                                  )),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    'tniqbazd' /* Find and utilize a variety of ... */,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        if (FFAppState().InstrumentsList !=
-                                            null)
-                                          Builder(
-                                            builder: (context) {
-                                              final instrumentTestList =
-                                                  FFAppState()
-                                                      .InstrumentsList
-                                                      .toList()
-                                                      .take(5)
-                                                      .toList();
-
-                                              return SingleChildScrollView(
-                                                scrollDirection:
-                                                    Axis.horizontal,
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: List.generate(
-                                                      instrumentTestList.length,
-                                                      (instrumentTestListIndex) {
-                                                    final instrumentTestListItem =
-                                                        instrumentTestList[
-                                                            instrumentTestListIndex];
-                                                    return Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  4.0,
-                                                                  8.0,
-                                                                  20.0,
-                                                                  8.0),
-                                                      child: Container(
-                                                        width: () {
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.all(valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      )),
+                                      child: Container(
+                                        width: () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return (MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.9);
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return (MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.8);
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return (MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.8);
+                                          } else {
+                                            return (MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.8);
+                                          }
+                                        }(),
+                                        decoration: BoxDecoration(),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      valueOrDefault<double>(
+                                                        () {
                                                           if (MediaQuery.sizeOf(
                                                                       context)
                                                                   .width <
                                                               kBreakpointSmall) {
-                                                            return 320.0;
+                                                            return 8.0;
                                                           } else if (MediaQuery
                                                                       .sizeOf(
                                                                           context)
                                                                   .width <
                                                               kBreakpointMedium) {
-                                                            return 350.0;
+                                                            return 16.0;
                                                           } else if (MediaQuery
                                                                       .sizeOf(
                                                                           context)
                                                                   .width <
                                                               kBreakpointLarge) {
-                                                            return 400.0;
+                                                            return 24.0;
                                                           } else {
-                                                            return 400.0;
+                                                            return 24.0;
                                                           }
                                                         }(),
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        child: wrapWithModel(
-                                                          model: _model
-                                                              .instrumentsDetailsModels2
-                                                              .getModel(
-                                                            instrumentTestListIndex
-                                                                .toString(),
-                                                            instrumentTestListIndex,
-                                                          ),
-                                                          updateCallback: () =>
-                                                              safeSetState(
-                                                                  () {}),
-                                                          child:
-                                                              InstrumentsDetailsWidget(
-                                                            key: Key(
-                                                              'Keynd5_${instrumentTestListIndex.toString()}',
+                                                        24.0,
+                                                      )),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Flexible(
+                                                    flex: 3,
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .start,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        8.0),
+                                                            child: Row(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .spaceBetween,
+                                                              children: [
+                                                                SelectionArea(
+                                                                    child: Text(
+                                                                  FFLocalizations.of(
+                                                                          context)
+                                                                      .getText(
+                                                                    'ytd3ulpa' /* Development Facilities */,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall
+                                                                      .override(
+                                                                        font: FlutterFlowTheme.of(context)
+                                                                            .headlineSmall,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primaryText,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                )),
+                                                              ],
                                                             ),
-                                                            instrumentTestName:
-                                                                getJsonField(
-                                                              instrumentTestListItem,
-                                                              r'''$.instrument_name''',
-                                                            ).toString(),
-                                                            index:
-                                                                instrumentTestListIndex,
-                                                            instrumentJson:
-                                                                instrumentTestListItem,
-                                                            isLabInstrument:
-                                                                false,
+                                                          ),
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .start,
+                                                            children: [
+                                                              Expanded(
+                                                                child: Text(
+                                                                  FFLocalizations.of(
+                                                                          context)
+                                                                      .getText(
+                                                                    'tniqbazd' /* Leverage state-of-the-art R&D ... */,
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryText,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                  Flexible(
+                                                    flex: 1,
+                                                    child: Container(
+                                                      width: 250.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16.0),
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .border,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(8.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      8.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Dev_Facilities.png',
+                                                            width: 200.0,
+                                                            height: 200.0,
+                                                            fit: BoxFit.cover,
                                                           ),
                                                         ),
                                                       ),
-                                                    );
-                                                  }),
-                                                ),
-                                              );
-                                            },
-                                          ),
-                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            if (FFAppState().InstrumentsList !=
+                                                null)
+                                              Builder(
+                                                builder: (context) {
+                                                  final instrumentTestList =
+                                                      FFAppState()
+                                                          .InstrumentsList
+                                                          .toList()
+                                                          .take(5)
+                                                          .toList();
+
+                                                  return SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      children: List.generate(
+                                                          instrumentTestList
+                                                              .length,
+                                                          (instrumentTestListIndex) {
+                                                        final instrumentTestListItem =
+                                                            instrumentTestList[
+                                                                instrumentTestListIndex];
+                                                        return Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      4.0,
+                                                                      8.0,
+                                                                      20.0,
+                                                                      8.0),
+                                                          child: Container(
+                                                            width: () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 320.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 350.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 400.0;
+                                                              } else {
+                                                                return 400.0;
+                                                              }
+                                                            }(),
+                                                            decoration:
+                                                                BoxDecoration(),
+                                                            child:
+                                                                wrapWithModel(
+                                                              model: _model
+                                                                  .instrumentsDetailsModels2
+                                                                  .getModel(
+                                                                instrumentTestListIndex
+                                                                    .toString(),
+                                                                instrumentTestListIndex,
+                                                              ),
+                                                              updateCallback: () =>
+                                                                  safeSetState(
+                                                                      () {}),
+                                                              child:
+                                                                  InstrumentsDetailsWidget(
+                                                                key: Key(
+                                                                  'Keynd5_${instrumentTestListIndex.toString()}',
+                                                                ),
+                                                                instrumentTestName:
+                                                                    getJsonField(
+                                                                  instrumentTestListItem,
+                                                                  r'''$.instrument_name''',
+                                                                ).toString(),
+                                                                index:
+                                                                    instrumentTestListIndex,
+                                                                instrumentJson:
+                                                                    instrumentTestListItem,
+                                                                isLabInstrument:
+                                                                    false,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }),
+                                                    ),
+                                                  );
+                                                },
+                                              ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 8.0, 0.0, 4.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.end,
+                                                children: [
+                                                  InkWell(
+                                                    splashColor:
+                                                        Colors.transparent,
+                                                    focusColor:
+                                                        Colors.transparent,
+                                                    hoverColor:
+                                                        Colors.transparent,
+                                                    highlightColor:
+                                                        Colors.transparent,
+                                                    onTap: () async {
+                                                      logFirebaseEvent(
+                                                          'HOME_PAGE_Row_6w4knn9m_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Row_navigate_to');
+
+                                                      context.pushNamed(
+                                                          InstrumentsWidget
+                                                              .routeName);
+                                                    },
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Text(
+                                                          FFLocalizations.of(
+                                                                  context)
+                                                              .getText(
+                                                            'p1757jtp' /* view all */,
+                                                          ),
+                                                          style: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .labelLarge
+                                                              .override(
+                                                                font: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .labelLarge,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      8.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Icon(
+                                                            FFIcons.karrowRight,
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            size: 24.0,
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
                                       0.0,
-                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      ),
                                       0.0,
                                       valueOrDefault<double>(
                                         () {
@@ -2195,110 +2882,6 @@ foc... */
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 4.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SelectionArea(
-                                                  child: Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  'ftdzm7nw' /* Explore Tests */,
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineSmallFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryText,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineSmallFamily),
-                                                        ),
-                                              )),
-                                              InkWell(
-                                                splashColor: Colors.transparent,
-                                                focusColor: Colors.transparent,
-                                                hoverColor: Colors.transparent,
-                                                highlightColor:
-                                                    Colors.transparent,
-                                                onTap: () async {
-                                                  logFirebaseEvent(
-                                                      'HOME_PAGE_Row_ttjui87p_ON_TAP');
-                                                  logFirebaseEvent(
-                                                      'Row_navigate_to');
-
-                                                  context.pushNamed(
-                                                      InstrumentsWidget
-                                                          .routeName);
-                                                },
-                                                child: Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      FFLocalizations.of(
-                                                              context)
-                                                          .getText(
-                                                        'ubjz0opy' /* view all */,
-                                                      ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelLarge
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLargeFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .labelLargeFamily),
-                                                              ),
-                                                    ),
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  8.0,
-                                                                  0.0,
-                                                                  0.0,
-                                                                  0.0),
-                                                      child: Icon(
-                                                        FFIcons.karrowRight,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        size: 24.0,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
                                                   0.0,
                                                   0.0,
                                                   0.0,
@@ -2331,29 +2914,129 @@ foc... */
                                             mainAxisSize: MainAxisSize.max,
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
                                             children: [
                                               Expanded(
-                                                child: Text(
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    '3qye1nn8' /* Find and utilize a variety of ... */,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .bodyMediumFamily,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .bodyMediumFamily),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 24.0, 0.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .start,
+                                                    children: [
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    8.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .spaceBetween,
+                                                          children: [
+                                                            SelectionArea(
+                                                                child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'xjmv6ixy' /* Industrial Testing */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .headlineSmall
+                                                                  .override(
+                                                                    font: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .headlineSmall,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .primaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            )),
+                                                          ],
+                                                        ),
                                                       ),
+                                                      Row(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .spaceBetween,
+                                                        children: [
+                                                          Expanded(
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'rb2s7y4p' /* Access specialized testing acr... */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyMedium
+                                                                  .override(
+                                                                    font: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              Flexible(
+                                                child: Container(
+                                                  width: 300.0,
+                                                  height: 175.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.0),
+                                                    border: Border.all(
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .border,
+                                                      width: 2.0,
+                                                    ),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.asset(
+                                                          'assets/images/Fields.png',
+                                                          fit: BoxFit.cover,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ],
@@ -2419,7 +3102,7 @@ foc... */
                                                           testName:
                                                               getJsonField(
                                                             testListItem,
-                                                            r'''$.field_name''',
+                                                            r'''$.category_name''',
                                                           ).toString(),
                                                           index: testListIndex,
                                                           testJson:
@@ -2432,6 +3115,85 @@ foc... */
                                               );
                                             },
                                           ),
+                                        Expanded(
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 8.0, 0.0, 4.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
+                                              children: [
+                                                InkWell(
+                                                  splashColor:
+                                                      Colors.transparent,
+                                                  focusColor:
+                                                      Colors.transparent,
+                                                  hoverColor:
+                                                      Colors.transparent,
+                                                  highlightColor:
+                                                      Colors.transparent,
+                                                  onTap: () async {
+                                                    logFirebaseEvent(
+                                                        'HOME_PAGE_Row_9cnq9a8f_ON_TAP');
+                                                    logFirebaseEvent(
+                                                        'Row_navigate_to');
+
+                                                    context.pushNamed(
+                                                        InstrumentsWidget
+                                                            .routeName);
+                                                  },
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          '3zrgqqmn' /* view all */,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLarge
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLarge,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    8.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        child: Icon(
+                                                          FFIcons.karrowRight,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          size: 24.0,
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                       ],
                                     ),
                                   ),
@@ -2540,27 +3302,21 @@ foc... */
                                                 Text(
                                                   FFLocalizations.of(context)
                                                       .getText(
-                                                    'gmhvzvnc' /* Why researchers choose us */,
+                                                    'gmhvzvnc' /* How it works */,
                                                   ),
                                                   style: FlutterFlowTheme.of(
                                                           context)
                                                       .headlineSmall
                                                       .override(
-                                                        fontFamily:
+                                                        font:
                                                             FlutterFlowTheme.of(
                                                                     context)
-                                                                .headlineSmallFamily,
+                                                                .headlineSmall,
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
                                                                 .primaryText,
                                                         letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineSmallFamily),
                                                       ),
                                                 ),
                                               ],
@@ -2582,7 +3338,7 @@ foc... */
                                                               context)
                                                           .width <
                                                       kBreakpointMedium) {
-                                                    return 2;
+                                                    return 1;
                                                   } else if (MediaQuery.sizeOf(
                                                               context)
                                                           .width <
@@ -2593,6 +3349,8 @@ foc... */
                                                   }
                                                 }(),
                                               ),
+                                              crossAxisSpacing: 25.0,
+                                              mainAxisSpacing: 25.0,
                                               itemCount: 3,
                                               shrinkWrap: true,
                                               itemBuilder: (context, index) {
@@ -2603,21 +3361,21 @@ foc... */
                                                                       context)
                                                                   .width <
                                                               kBreakpointSmall) {
-                                                            return 200.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
                                                             return 240.0;
                                                           } else if (MediaQuery
                                                                       .sizeOf(
                                                                           context)
                                                                   .width <
+                                                              kBreakpointMedium) {
+                                                            return 280.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
                                                               kBreakpointLarge) {
-                                                            return 280.0;
+                                                            return 320.0;
                                                           } else {
-                                                            return 280.0;
+                                                            return 320.0;
                                                           }
                                                         }(),
                                                         constraints:
@@ -2629,6 +3387,10 @@ foc... */
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
                                                           border: Border.all(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
@@ -2647,267 +3409,59 @@ foc... */
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
+                                                              Container(
+                                                                width: 200.0,
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                                child:
+                                                                    ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                  child: Image
+                                                                      .asset(
+                                                                    'assets/images/Search_Facilites.png',
+                                                                    width:
+                                                                        200.0,
+                                                                    height:
+                                                                        200.0,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                               Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
                                                                 children: [
-                                                                  if (responsiveVisibility(
-                                                                    context:
-                                                                        context,
-                                                                    phone:
-                                                                        false,
-                                                                    tablet:
-                                                                        false,
-                                                                    tabletLandscape:
-                                                                        false,
-                                                                    desktop:
-                                                                        false,
-                                                                  ))
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0),
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            100.0,
-                                                                        height:
-                                                                            100.0,
-                                                                        decoration:
-                                                                            BoxDecoration(),
-                                                                        child:
-                                                                            Visibility(
-                                                                          visible:
-                                                                              responsiveVisibility(
-                                                                            context:
-                                                                                context,
-                                                                            phone:
-                                                                                false,
-                                                                            tablet:
-                                                                                false,
-                                                                            tabletLandscape:
-                                                                                false,
-                                                                            desktop:
-                                                                                false,
-                                                                          ),
-                                                                          child:
-                                                                              ClipRRect(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(8.0),
-                                                                            child:
-                                                                                SvgPicture.asset(
-                                                                              'assets/images/clock_fill.svg',
-                                                                              fit: BoxFit.contain,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  Container(
-                                                                    width: () {
-                                                                      if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointSmall) {
-                                                                        return 60.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointMedium) {
-                                                                        return 70.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointLarge) {
-                                                                        return 90.0;
-                                                                      } else {
-                                                                        return 90.0;
-                                                                      }
-                                                                    }(),
-                                                                    height: () {
-                                                                      if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointSmall) {
-                                                                        return 60.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointMedium) {
-                                                                        return 70.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointLarge) {
-                                                                        return 90.0;
-                                                                      } else {
-                                                                        return 90.0;
-                                                                      }
-                                                                    }(),
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      FFLocalizations.of(
                                                                               context)
-                                                                          .secondaryBackground,
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                          blurRadius:
-                                                                              4.0,
-                                                                          color:
-                                                                              Color(0x33000000),
-                                                                          offset:
-                                                                              Offset(
-                                                                            0.0,
-                                                                            2.0,
+                                                                          .getText(
+                                                                        'f87ikzhk' /* Use our advanced search and fi... */,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .override(
+                                                                            font:
+                                                                                FlutterFlowTheme.of(context).titleSmall,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).secondaryText,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
                                                                           ),
-                                                                        )
-                                                                      ],
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                        width:
-                                                                            6.0,
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          () {
-                                                                        if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointSmall) {
-                                                                          return 50.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointMedium) {
-                                                                          return 70.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointLarge) {
-                                                                          return 80.0;
-                                                                        } else {
-                                                                          return 80.0;
-                                                                        }
-                                                                      }(),
-                                                                      height:
-                                                                          () {
-                                                                        if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointSmall) {
-                                                                          return 50.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointMedium) {
-                                                                          return 70.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointLarge) {
-                                                                          return 80.0;
-                                                                        } else {
-                                                                          return 80.0;
-                                                                        }
-                                                                      }(),
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .iconBackground,
-                                                                        shape: BoxShape
-                                                                            .circle,
-                                                                      ),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          if (() {
-                                                                            if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointSmall) {
-                                                                              return false;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointMedium) {
-                                                                              return false;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointLarge) {
-                                                                              return true;
-                                                                            } else {
-                                                                              return true;
-                                                                            }
-                                                                          }())
-                                                                            Container(
-                                                                              decoration: BoxDecoration(),
-                                                                              child: Align(
-                                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                child: Icon(
-                                                                                  FFIcons.kclock,
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                  size: 32.0,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          if (() {
-                                                                            if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointSmall) {
-                                                                              return true;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointMedium) {
-                                                                              return true;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointLarge) {
-                                                                              return false;
-                                                                            } else {
-                                                                              return false;
-                                                                            }
-                                                                          }())
-                                                                            Container(
-                                                                              decoration: BoxDecoration(),
-                                                                              child: Align(
-                                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                child: Icon(
-                                                                                  FFIcons.kclock,
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                  size: 32.0,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                        ],
-                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            20.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    '9vbn3m5h' /* Save time in finding facilitie... */,
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                      ),
-                                                                ),
                                                               ),
                                                             ],
                                                           ),
@@ -2919,21 +3473,21 @@ foc... */
                                                                       context)
                                                                   .width <
                                                               kBreakpointSmall) {
-                                                            return 200.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
                                                             return 240.0;
                                                           } else if (MediaQuery
                                                                       .sizeOf(
                                                                           context)
                                                                   .width <
+                                                              kBreakpointMedium) {
+                                                            return 280.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
                                                               kBreakpointLarge) {
-                                                            return 280.0;
+                                                            return 320.0;
                                                           } else {
-                                                            return 280.0;
+                                                            return 320.0;
                                                           }
                                                         }(),
                                                         constraints:
@@ -2945,6 +3499,10 @@ foc... */
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
                                                           border: Border.all(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
@@ -2963,252 +3521,53 @@ foc... */
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
+                                                              Container(
+                                                                width: 200.0,
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                                child:
+                                                                    ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                  child: Image
+                                                                      .asset(
+                                                                    'assets/images/Submit_Request.png',
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                               Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
                                                                 children: [
-                                                                  if (responsiveVisibility(
-                                                                    context:
-                                                                        context,
-                                                                    phone:
-                                                                        false,
-                                                                    tablet:
-                                                                        false,
-                                                                    tabletLandscape:
-                                                                        false,
-                                                                    desktop:
-                                                                        false,
-                                                                  ))
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0),
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            70.0,
-                                                                        height:
-                                                                            100.0,
-                                                                        decoration:
-                                                                            BoxDecoration(),
-                                                                        child:
-                                                                            ClipRRect(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8.0),
-                                                                          child:
-                                                                              SvgPicture.asset(
-                                                                            'assets/images/star_fill.svg',
-                                                                            fit:
-                                                                                BoxFit.contain,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  Container(
-                                                                    width: () {
-                                                                      if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointSmall) {
-                                                                        return 60.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointMedium) {
-                                                                        return 70.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointLarge) {
-                                                                        return 90.0;
-                                                                      } else {
-                                                                        return 90.0;
-                                                                      }
-                                                                    }(),
-                                                                    height: () {
-                                                                      if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointSmall) {
-                                                                        return 60.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointMedium) {
-                                                                        return 70.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointLarge) {
-                                                                        return 90.0;
-                                                                      } else {
-                                                                        return 90.0;
-                                                                      }
-                                                                    }(),
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      FFLocalizations.of(
                                                                               context)
-                                                                          .secondaryBackground,
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                          blurRadius:
-                                                                              4.0,
-                                                                          color:
-                                                                              Color(0x33000000),
-                                                                          offset:
-                                                                              Offset(
-                                                                            0.0,
-                                                                            2.0,
+                                                                          .getText(
+                                                                        'vbt45i8p' /* Quickly submit your detailed r... */,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .override(
+                                                                            font:
+                                                                                FlutterFlowTheme.of(context).titleSmall,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
                                                                           ),
-                                                                        )
-                                                                      ],
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                        width:
-                                                                            6.0,
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          () {
-                                                                        if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointSmall) {
-                                                                          return 50.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointMedium) {
-                                                                          return 70.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointLarge) {
-                                                                          return 80.0;
-                                                                        } else {
-                                                                          return 80.0;
-                                                                        }
-                                                                      }(),
-                                                                      height:
-                                                                          () {
-                                                                        if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointSmall) {
-                                                                          return 50.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointMedium) {
-                                                                          return 70.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointLarge) {
-                                                                          return 80.0;
-                                                                        } else {
-                                                                          return 80.0;
-                                                                        }
-                                                                      }(),
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .iconBackground,
-                                                                        shape: BoxShape
-                                                                            .circle,
-                                                                      ),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          if (() {
-                                                                            if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointSmall) {
-                                                                              return false;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointMedium) {
-                                                                              return false;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointLarge) {
-                                                                              return true;
-                                                                            } else {
-                                                                              return true;
-                                                                            }
-                                                                          }())
-                                                                            Container(
-                                                                              decoration: BoxDecoration(),
-                                                                              child: Align(
-                                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                child: Icon(
-                                                                                  FFIcons.kstar,
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                  size: 32.0,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          if (() {
-                                                                            if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointSmall) {
-                                                                              return true;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointMedium) {
-                                                                              return true;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointLarge) {
-                                                                              return false;
-                                                                            } else {
-                                                                              return false;
-                                                                            }
-                                                                          }())
-                                                                            Container(
-                                                                              decoration: BoxDecoration(),
-                                                                              child: Align(
-                                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                child: Icon(
-                                                                                  FFIcons.kstar,
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                  size: 32.0,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                        ],
-                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            20.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    'mwfc4vor' /* Transparent pricing and fair r... */,
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                      ),
-                                                                ),
                                                               ),
                                                             ],
                                                           ),
@@ -3220,21 +3579,21 @@ foc... */
                                                                       context)
                                                                   .width <
                                                               kBreakpointSmall) {
-                                                            return 200.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
                                                             return 240.0;
                                                           } else if (MediaQuery
                                                                       .sizeOf(
                                                                           context)
                                                                   .width <
+                                                              kBreakpointMedium) {
+                                                            return 280.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
                                                               kBreakpointLarge) {
-                                                            return 280.0;
+                                                            return 320.0;
                                                           } else {
-                                                            return 280.0;
+                                                            return 320.0;
                                                           }
                                                         }(),
                                                         constraints:
@@ -3246,6 +3605,10 @@ foc... */
                                                           color: FlutterFlowTheme
                                                                   .of(context)
                                                               .primaryBackground,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
                                                           border: Border.all(
                                                             color: FlutterFlowTheme
                                                                     .of(context)
@@ -3264,252 +3627,57 @@ foc... */
                                                                 MainAxisAlignment
                                                                     .center,
                                                             children: [
+                                                              Container(
+                                                                width: 200.0,
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                                child:
+                                                                    ClipRRect(
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              8.0),
+                                                                  child: Image
+                                                                      .asset(
+                                                                    'assets/images/Book.png',
+                                                                    width:
+                                                                        200.0,
+                                                                    height:
+                                                                        200.0,
+                                                                    fit: BoxFit
+                                                                        .cover,
+                                                                  ),
+                                                                ),
+                                                              ),
                                                               Row(
                                                                 mainAxisSize:
                                                                     MainAxisSize
                                                                         .max,
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .center,
                                                                 children: [
-                                                                  if (responsiveVisibility(
-                                                                    context:
-                                                                        context,
-                                                                    phone:
-                                                                        false,
-                                                                    tablet:
-                                                                        false,
-                                                                    tabletLandscape:
-                                                                        false,
-                                                                    desktop:
-                                                                        false,
-                                                                  ))
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0),
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            100.0,
-                                                                        height:
-                                                                            100.0,
-                                                                        decoration:
-                                                                            BoxDecoration(),
-                                                                        child:
-                                                                            ClipRRect(
-                                                                          borderRadius:
-                                                                              BorderRadius.circular(8.0),
-                                                                          child:
-                                                                              SvgPicture.asset(
-                                                                            'assets/images/atom_fill.svg',
-                                                                            fit:
-                                                                                BoxFit.contain,
-                                                                          ),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  Container(
-                                                                    width: () {
-                                                                      if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointSmall) {
-                                                                        return 60.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointMedium) {
-                                                                        return 70.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointLarge) {
-                                                                        return 90.0;
-                                                                      } else {
-                                                                        return 90.0;
-                                                                      }
-                                                                    }(),
-                                                                    height: () {
-                                                                      if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointSmall) {
-                                                                        return 60.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointMedium) {
-                                                                        return 70.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointLarge) {
-                                                                        return 90.0;
-                                                                      } else {
-                                                                        return 90.0;
-                                                                      }
-                                                                    }(),
-                                                                    decoration:
-                                                                        BoxDecoration(
-                                                                      color: FlutterFlowTheme.of(
+                                                                  Expanded(
+                                                                    child: Text(
+                                                                      FFLocalizations.of(
                                                                               context)
-                                                                          .secondaryBackground,
-                                                                      boxShadow: [
-                                                                        BoxShadow(
-                                                                          blurRadius:
-                                                                              4.0,
-                                                                          color:
-                                                                              Color(0x33000000),
-                                                                          offset:
-                                                                              Offset(
-                                                                            0.0,
-                                                                            2.0,
+                                                                          .getText(
+                                                                        'ttih53gw' /* Receive a competitive quote di... */,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .center,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .titleSmall
+                                                                          .override(
+                                                                            font:
+                                                                                FlutterFlowTheme.of(context).titleSmall,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.normal,
                                                                           ),
-                                                                        )
-                                                                      ],
-                                                                      shape: BoxShape
-                                                                          .circle,
-                                                                      border:
-                                                                          Border
-                                                                              .all(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .secondaryBackground,
-                                                                        width:
-                                                                            6.0,
-                                                                      ),
-                                                                    ),
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          () {
-                                                                        if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointSmall) {
-                                                                          return 50.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointMedium) {
-                                                                          return 70.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointLarge) {
-                                                                          return 80.0;
-                                                                        } else {
-                                                                          return 80.0;
-                                                                        }
-                                                                      }(),
-                                                                      height:
-                                                                          () {
-                                                                        if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointSmall) {
-                                                                          return 50.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointMedium) {
-                                                                          return 70.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointLarge) {
-                                                                          return 80.0;
-                                                                        } else {
-                                                                          return 80.0;
-                                                                        }
-                                                                      }(),
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .iconBackground,
-                                                                        shape: BoxShape
-                                                                            .circle,
-                                                                      ),
-                                                                      child:
-                                                                          Row(
-                                                                        mainAxisSize:
-                                                                            MainAxisSize.max,
-                                                                        mainAxisAlignment:
-                                                                            MainAxisAlignment.center,
-                                                                        children: [
-                                                                          if (() {
-                                                                            if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointSmall) {
-                                                                              return false;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointMedium) {
-                                                                              return false;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointLarge) {
-                                                                              return true;
-                                                                            } else {
-                                                                              return true;
-                                                                            }
-                                                                          }())
-                                                                            Container(
-                                                                              decoration: BoxDecoration(),
-                                                                              child: Align(
-                                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                child: Icon(
-                                                                                  FFIcons.katom,
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                  size: 32.0,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                          if (() {
-                                                                            if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointSmall) {
-                                                                              return true;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointMedium) {
-                                                                              return true;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointLarge) {
-                                                                              return false;
-                                                                            } else {
-                                                                              return false;
-                                                                            }
-                                                                          }())
-                                                                            Container(
-                                                                              decoration: BoxDecoration(),
-                                                                              child: Align(
-                                                                                alignment: AlignmentDirectional(0.0, 0.0),
-                                                                                child: Icon(
-                                                                                  FFIcons.katom,
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                  size: 32.0,
-                                                                                ),
-                                                                              ),
-                                                                            ),
-                                                                        ],
-                                                                      ),
                                                                     ),
                                                                   ),
                                                                 ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            20.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Text(
-                                                                  FFLocalizations.of(
-                                                                          context)
-                                                                      .getText(
-                                                                    'pc74x4mt' /* Vast network of Research and D... */,
-                                                                  ),
-                                                                  textAlign:
-                                                                      TextAlign
-                                                                          .center,
-                                                                  style: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMedium
-                                                                      .override(
-                                                                        fontFamily:
-                                                                            FlutterFlowTheme.of(context).bodyMediumFamily,
-                                                                        color: FlutterFlowTheme.of(context)
-                                                                            .primaryText,
-                                                                        letterSpacing:
-                                                                            0.0,
-                                                                        fontWeight:
-                                                                            FontWeight.w500,
-                                                                        useGoogleFonts:
-                                                                            GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
-                                                                      ),
-                                                                ),
                                                               ),
                                                             ],
                                                           ),
@@ -3526,492 +3694,3015 @@ foc... */
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 24.0),
-                                  child: Stack(
-                                    alignment: AlignmentDirectional(0.0, 0.0),
-                                    children: [
-                                      Container(
-                                        width:
-                                            MediaQuery.sizeOf(context).width *
-                                                1.0,
-                                        height: 1.0,
-                                        decoration: BoxDecoration(
-                                          color:
-                                              FlutterFlowTheme.of(context).line,
-                                        ),
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
                                       ),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: FlutterFlowTheme.of(context)
-                                              .primaryBackground,
-                                        ),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  4.0, 0.0, 4.0, 0.0),
-                                          child: Text(
-                                            FFLocalizations.of(context).getText(
-                                              'mpsqjpvy' /* We are supported by */,
-                                            ),
-                                            style: FlutterFlowTheme.of(context)
-                                                .headlineSmall
-                                                .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineSmallFamily,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primaryText,
-                                                  letterSpacing: 0.0,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(FlutterFlowTheme
-                                                              .of(context)
-                                                          .headlineSmallFamily),
-                                                ),
-                                          ),
-                                        ),
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      )),
+                                  child: SafeArea(
+                                    child: Container(
+                                      width: () {
+                                        if (MediaQuery.sizeOf(context).width <
+                                            kBreakpointSmall) {
+                                          return (MediaQuery.sizeOf(context)
+                                                  .width *
+                                              0.9);
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointMedium) {
+                                          return (MediaQuery.sizeOf(context)
+                                                  .width *
+                                              0.8);
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointLarge) {
+                                          return (MediaQuery.sizeOf(context)
+                                                  .width *
+                                              0.8);
+                                        } else {
+                                          return (MediaQuery.sizeOf(context)
+                                                  .width *
+                                              0.8);
+                                        }
+                                      }(),
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primary,
+                                        borderRadius:
+                                            BorderRadius.circular(16.0),
                                       ),
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      0.0, 0.0, 0.0, 24.0),
-                                  child: Container(
-                                    decoration: BoxDecoration(),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: () {
-                                            if (MediaQuery.sizeOf(context)
-                                                    .width <
-                                                kBreakpointSmall) {
-                                              return 70.0;
-                                            } else if (MediaQuery.sizeOf(
-                                                        context)
-                                                    .width <
-                                                kBreakpointMedium) {
-                                              return 75.0;
-                                            } else if (MediaQuery.sizeOf(
-                                                        context)
-                                                    .width <
-                                                kBreakpointLarge) {
-                                              return 80.0;
-                                            } else {
-                                              return 80.0;
-                                            }
-                                          }(),
-                                          decoration: BoxDecoration(),
-                                          child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    valueOrDefault<double>(
-                                                      () {
-                                                        if (MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width <
-                                                            kBreakpointSmall) {
-                                                          return 24.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointMedium) {
-                                                          return 36.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointLarge) {
-                                                          return 48.0;
-                                                        } else {
-                                                          return 48.0;
-                                                        }
-                                                      }(),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(32.0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
                                                       0.0,
-                                                    ),
-                                                    8.0,
-                                                    valueOrDefault<double>(
-                                                      () {
-                                                        if (MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width <
-                                                            kBreakpointSmall) {
-                                                          return 24.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointMedium) {
-                                                          return 36.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointLarge) {
-                                                          return 48.0;
-                                                        } else {
-                                                          return 48.0;
-                                                        }
-                                                      }(),
                                                       0.0,
-                                                    ),
-                                                    0.0),
-                                            child: SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
+                                                      0.0,
+                                                      valueOrDefault<double>(
+                                                        () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return 16.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return 24.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return 32.0;
+                                                          } else {
+                                                            return 32.0;
+                                                          }
+                                                        }(),
+                                                        32.0,
+                                                      )),
                                               child: Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
+                                                    MainAxisAlignment.center,
                                                 children: [
-                                                  Container(
-                                                    width:
-                                                        valueOrDefault<double>(
-                                                      () {
-                                                        if (MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width <
-                                                            kBreakpointSmall) {
-                                                          return 140.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointMedium) {
-                                                          return 175.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointLarge) {
-                                                          return 200.0;
-                                                        } else {
-                                                          return 200.0;
-                                                        }
-                                                      }(),
-                                                      200.0,
+                                                  Text(
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      'u6t0t1om' /* Key features highlight */,
                                                     ),
-                                                    height: () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return 50.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return 80.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return 90.0;
-                                                      } else {
-                                                        return 90.0;
-                                                      }
-                                                    }(),
-                                                    decoration: BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? 'assets/images/iHUB_Dark.png'
-                                                            : 'assets/images/iHUB_Light.png',
-                                                        width: 220.0,
-                                                        height: 220.0,
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        valueOrDefault<double>(
-                                                      () {
-                                                        if (MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width <
-                                                            kBreakpointSmall) {
-                                                          return 140.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointMedium) {
-                                                          return 175.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointLarge) {
-                                                          return 200.0;
-                                                        } else {
-                                                          return 200.0;
-                                                        }
-                                                      }(),
-                                                      200.0,
-                                                    ),
-                                                    height: () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return 70.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return 100.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return 100.0;
-                                                      } else {
-                                                        return 100.0;
-                                                      }
-                                                    }(),
-                                                    decoration: BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? 'assets/images/GUSEC-removebg-preview.png'
-                                                            : 'assets/images/GUSEC-removebg-preview.png',
-                                                        width: 220.0,
-                                                        height: 220.0,
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        valueOrDefault<double>(
-                                                      () {
-                                                        if (MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width <
-                                                            kBreakpointSmall) {
-                                                          return 140.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointMedium) {
-                                                          return 175.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointLarge) {
-                                                          return 200.0;
-                                                        } else {
-                                                          return 200.0;
-                                                        }
-                                                      }(),
-                                                      200.0,
-                                                    ),
-                                                    height: () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return 70.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return 100.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return 100.0;
-                                                      } else {
-                                                        return 100.0;
-                                                      }
-                                                    }(),
-                                                    decoration: BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? 'assets/images/StrongHer-removebg-preview.png'
-                                                            : 'assets/images/StrongHer-removebg-preview.png',
-                                                        width: 220.0,
-                                                        height: 220.0,
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        valueOrDefault<double>(
-                                                      () {
-                                                        if (MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width <
-                                                            kBreakpointSmall) {
-                                                          return 140.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointMedium) {
-                                                          return 175.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointLarge) {
-                                                          return 200.0;
-                                                        } else {
-                                                          return 200.0;
-                                                        }
-                                                      }(),
-                                                      200.0,
-                                                    ),
-                                                    height: () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return 70.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return 100.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return 100.0;
-                                                      } else {
-                                                        return 100.0;
-                                                      }
-                                                    }(),
-                                                    decoration: BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? 'assets/images/PDEU_IIC-removebg-preview.png'
-                                                            : 'assets/images/PDEU_IIC-removebg-preview.png',
-                                                        width: 220.0,
-                                                        height: 220.0,
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  Container(
-                                                    width:
-                                                        valueOrDefault<double>(
-                                                      () {
-                                                        if (MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width <
-                                                            kBreakpointSmall) {
-                                                          return 140.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointMedium) {
-                                                          return 175.0;
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointLarge) {
-                                                          return 200.0;
-                                                        } else {
-                                                          return 200.0;
-                                                        }
-                                                      }(),
-                                                      200.0,
-                                                    ),
-                                                    height: () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return 50.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return 80.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return 90.0;
-                                                      } else {
-                                                        return 90.0;
-                                                      }
-                                                    }(),
-                                                    decoration: BoxDecoration(),
-                                                    child: ClipRRect(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              8.0),
-                                                      child: Image.asset(
-                                                        Theme.of(context)
-                                                                    .brightness ==
-                                                                Brightness.dark
-                                                            ? 'assets/images/herSTART-removebg-preview.png'
-                                                            : 'assets/images/herSTART-removebg-preview.png',
-                                                        width: 220.0,
-                                                        height: 220.0,
-                                                        fit: BoxFit.contain,
-                                                      ),
-                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .headlineSmall
+                                                        .override(
+                                                          font: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .headlineSmall,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryBackground,
+                                                          letterSpacing: 0.0,
+                                                        ),
                                                   ),
                                                 ],
                                               ),
                                             ),
+                                            Container(
+                                              decoration: BoxDecoration(),
+                                              child: MasonryGridView.builder(
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                gridDelegate:
+                                                    SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: () {
+                                                    if (MediaQuery.sizeOf(
+                                                                context)
+                                                            .width <
+                                                        kBreakpointSmall) {
+                                                      return 1;
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointMedium) {
+                                                      return 2;
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointLarge) {
+                                                      return 3;
+                                                    } else {
+                                                      return 3;
+                                                    }
+                                                  }(),
+                                                ),
+                                                crossAxisSpacing: 25.0,
+                                                mainAxisSpacing: 25.0,
+                                                itemCount: 3,
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) {
+                                                  return [
+                                                    () => Container(
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 220.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 260.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 300.0;
+                                                            } else {
+                                                              return 300.0;
+                                                            }
+                                                          }(),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            minHeight: 150.0,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16.0),
+                                                            border: Border.all(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .border,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    16.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Container(
+                                                                      width:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      height:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                4.0,
+                                                                            color:
+                                                                                Color(0x33000000),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              2.0,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          width:
+                                                                              6.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .hub_outlined,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        size:
+                                                                            40.0,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      '5aqn35x2' /* One Platform, Endless Possibil... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).titleMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'me81uek4' /* Access top academic and indust... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).bodyMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    () => Container(
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 220.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 260.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 300.0;
+                                                            } else {
+                                                              return 300.0;
+                                                            }
+                                                          }(),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            minHeight: 150.0,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16.0),
+                                                            border: Border.all(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .border,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    16.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Container(
+                                                                      width:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      height:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                4.0,
+                                                                            color:
+                                                                                Color(0x33000000),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              2.0,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          width:
+                                                                              6.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .people_outline,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        size:
+                                                                            40.0,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'i4xp5fa7' /* Expert Consultations */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).titleMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'h15z667u' /* Connect with leading researche... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).bodyMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    () => Container(
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 220.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 260.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 300.0;
+                                                            } else {
+                                                              return 300.0;
+                                                            }
+                                                          }(),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            minHeight: 150.0,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16.0),
+                                                            border: Border.all(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .border,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    16.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              crossAxisAlignment:
+                                                                  CrossAxisAlignment
+                                                                      .start,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .start,
+                                                                  children: [
+                                                                    Container(
+                                                                      width:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      height:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                4.0,
+                                                                            color:
+                                                                                Color(0x33000000),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              2.0,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          width:
+                                                                              6.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Icon(
+                                                                        Icons
+                                                                            .sync_rounded,
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .primary,
+                                                                        size:
+                                                                            40.0,
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'eq5nfi5b' /* Simplified Workflow */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).titleMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          4.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'mefhhqj1' /* RNDgrid manages all communicat... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .start,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).bodyMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                  ][index]();
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                if (responsiveVisibility(
+                                  context: context,
+                                  phone: false,
+                                  tablet: false,
+                                  tabletLandscape: false,
+                                  desktop: false,
+                                ))
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0.0,
+                                        0.0,
+                                        0.0,
+                                        valueOrDefault<double>(
+                                          () {
+                                            if (MediaQuery.sizeOf(context)
+                                                    .width <
+                                                kBreakpointSmall) {
+                                              return 24.0;
+                                            } else if (MediaQuery.sizeOf(
+                                                        context)
+                                                    .width <
+                                                kBreakpointMedium) {
+                                              return 32.0;
+                                            } else if (MediaQuery.sizeOf(
+                                                        context)
+                                                    .width <
+                                                kBreakpointLarge) {
+                                              return 48.0;
+                                            } else {
+                                              return 48.0;
+                                            }
+                                          }(),
+                                          48.0,
+                                        )),
+                                    child: SafeArea(
+                                      child: Container(
+                                        width: () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return (MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.9);
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return (MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.8);
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return (MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.8);
+                                          } else {
+                                            return (MediaQuery.sizeOf(context)
+                                                    .width *
+                                                0.8);
+                                          }
+                                        }(),
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primaryBackground,
+                                          borderRadius: BorderRadius.circular(
+                                              valueOrDefault<double>(
+                                            Theme.of(context).brightness ==
+                                                    Brightness.dark
+                                                ? 16.0
+                                                : 0.0,
+                                            0.0,
+                                          )),
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0,
+                                                      0.0,
+                                                      0.0,
+                                                      valueOrDefault<double>(
+                                                        () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return 16.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return 24.0;
+                                                          } else if (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return 32.0;
+                                                          } else {
+                                                            return 32.0;
+                                                          }
+                                                        }(),
+                                                        32.0,
+                                                      )),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  Text(
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      '07qs4mcn' /* Why researchers choose us */,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .headlineSmall
+                                                        .override(
+                                                          font: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .headlineSmall,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(),
+                                              child: MasonryGridView.builder(
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                gridDelegate:
+                                                    SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: () {
+                                                    if (MediaQuery.sizeOf(
+                                                                context)
+                                                            .width <
+                                                        kBreakpointSmall) {
+                                                      return 1;
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointMedium) {
+                                                      return 2;
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointLarge) {
+                                                      return 3;
+                                                    } else {
+                                                      return 3;
+                                                    }
+                                                  }(),
+                                                ),
+                                                itemCount: 3,
+                                                shrinkWrap: true,
+                                                itemBuilder: (context, index) {
+                                                  return [
+                                                    () => Container(
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 200.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 240.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 280.0;
+                                                            } else {
+                                                              return 280.0;
+                                                            }
+                                                          }(),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            minHeight: 150.0,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            border: Border.all(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .border,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    16.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    if (responsiveVisibility(
+                                                                      context:
+                                                                          context,
+                                                                      phone:
+                                                                          false,
+                                                                      tablet:
+                                                                          false,
+                                                                      tabletLandscape:
+                                                                          false,
+                                                                      desktop:
+                                                                          false,
+                                                                    ))
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            16.0),
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              100.0,
+                                                                          height:
+                                                                              100.0,
+                                                                          decoration:
+                                                                              BoxDecoration(),
+                                                                          child:
+                                                                              Visibility(
+                                                                            visible:
+                                                                                responsiveVisibility(
+                                                                              context: context,
+                                                                              phone: false,
+                                                                              tablet: false,
+                                                                              tabletLandscape: false,
+                                                                              desktop: false,
+                                                                            ),
+                                                                            child:
+                                                                                ClipRRect(
+                                                                              borderRadius: BorderRadius.circular(8.0),
+                                                                              child: SvgPicture.asset(
+                                                                                'assets/images/clock_fill.svg',
+                                                                                fit: BoxFit.contain,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    Container(
+                                                                      width:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      height:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                4.0,
+                                                                            color:
+                                                                                Color(0x33000000),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              2.0,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          width:
+                                                                              6.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Container(
+                                                                        width:
+                                                                            () {
+                                                                          if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointSmall) {
+                                                                            return 50.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointMedium) {
+                                                                            return 70.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointLarge) {
+                                                                            return 80.0;
+                                                                          } else {
+                                                                            return 80.0;
+                                                                          }
+                                                                        }(),
+                                                                        height:
+                                                                            () {
+                                                                          if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointSmall) {
+                                                                            return 50.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointMedium) {
+                                                                            return 70.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointLarge) {
+                                                                            return 80.0;
+                                                                          } else {
+                                                                            return 80.0;
+                                                                          }
+                                                                        }(),
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).iconBackground,
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            if (() {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return false;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return false;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return true;
+                                                                              } else {
+                                                                                return true;
+                                                                              }
+                                                                            }())
+                                                                              Container(
+                                                                                decoration: BoxDecoration(),
+                                                                                child: Align(
+                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Icon(
+                                                                                    FFIcons.kclock,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 32.0,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            if (() {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return true;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return true;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return false;
+                                                                              } else {
+                                                                                return false;
+                                                                              }
+                                                                            }())
+                                                                              Container(
+                                                                                decoration: BoxDecoration(),
+                                                                                child: Align(
+                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Icon(
+                                                                                    FFIcons.kclock,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 32.0,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          20.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'nnwde73w' /* Save time in finding facilitie... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).bodyMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    () => Container(
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 200.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 240.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 280.0;
+                                                            } else {
+                                                              return 280.0;
+                                                            }
+                                                          }(),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            minHeight: 150.0,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            border: Border.all(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .border,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    16.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    if (responsiveVisibility(
+                                                                      context:
+                                                                          context,
+                                                                      phone:
+                                                                          false,
+                                                                      tablet:
+                                                                          false,
+                                                                      tabletLandscape:
+                                                                          false,
+                                                                      desktop:
+                                                                          false,
+                                                                    ))
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            16.0),
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              70.0,
+                                                                          height:
+                                                                              100.0,
+                                                                          decoration:
+                                                                              BoxDecoration(),
+                                                                          child:
+                                                                              ClipRRect(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(8.0),
+                                                                            child:
+                                                                                SvgPicture.asset(
+                                                                              'assets/images/star_fill.svg',
+                                                                              fit: BoxFit.contain,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    Container(
+                                                                      width:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      height:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                4.0,
+                                                                            color:
+                                                                                Color(0x33000000),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              2.0,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          width:
+                                                                              6.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Container(
+                                                                        width:
+                                                                            () {
+                                                                          if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointSmall) {
+                                                                            return 50.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointMedium) {
+                                                                            return 70.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointLarge) {
+                                                                            return 80.0;
+                                                                          } else {
+                                                                            return 80.0;
+                                                                          }
+                                                                        }(),
+                                                                        height:
+                                                                            () {
+                                                                          if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointSmall) {
+                                                                            return 50.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointMedium) {
+                                                                            return 70.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointLarge) {
+                                                                            return 80.0;
+                                                                          } else {
+                                                                            return 80.0;
+                                                                          }
+                                                                        }(),
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).iconBackground,
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            if (() {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return false;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return false;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return true;
+                                                                              } else {
+                                                                                return true;
+                                                                              }
+                                                                            }())
+                                                                              Container(
+                                                                                decoration: BoxDecoration(),
+                                                                                child: Align(
+                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Icon(
+                                                                                    FFIcons.kstar,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 32.0,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            if (() {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return true;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return true;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return false;
+                                                                              } else {
+                                                                                return false;
+                                                                              }
+                                                                            }())
+                                                                              Container(
+                                                                                decoration: BoxDecoration(),
+                                                                                child: Align(
+                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Icon(
+                                                                                    FFIcons.kstar,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 32.0,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          20.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'z1gvzysh' /* Transparent pricing and fair r... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).bodyMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                    () => Container(
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 200.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 240.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 280.0;
+                                                            } else {
+                                                              return 280.0;
+                                                            }
+                                                          }(),
+                                                          constraints:
+                                                              BoxConstraints(
+                                                            minHeight: 150.0,
+                                                          ),
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primaryBackground,
+                                                            border: Border.all(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .border,
+                                                            ),
+                                                          ),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsets.all(
+                                                                    16.0),
+                                                            child: Column(
+                                                              mainAxisSize:
+                                                                  MainAxisSize
+                                                                      .max,
+                                                              mainAxisAlignment:
+                                                                  MainAxisAlignment
+                                                                      .center,
+                                                              children: [
+                                                                Row(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .max,
+                                                                  mainAxisAlignment:
+                                                                      MainAxisAlignment
+                                                                          .center,
+                                                                  children: [
+                                                                    if (responsiveVisibility(
+                                                                      context:
+                                                                          context,
+                                                                      phone:
+                                                                          false,
+                                                                      tablet:
+                                                                          false,
+                                                                      tabletLandscape:
+                                                                          false,
+                                                                      desktop:
+                                                                          false,
+                                                                    ))
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            16.0),
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              100.0,
+                                                                          height:
+                                                                              100.0,
+                                                                          decoration:
+                                                                              BoxDecoration(),
+                                                                          child:
+                                                                              ClipRRect(
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(8.0),
+                                                                            child:
+                                                                                SvgPicture.asset(
+                                                                              'assets/images/atom_fill.svg',
+                                                                              fit: BoxFit.contain,
+                                                                            ),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    Container(
+                                                                      width:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      height:
+                                                                          () {
+                                                                        if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointSmall) {
+                                                                          return 60.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointMedium) {
+                                                                          return 70.0;
+                                                                        } else if (MediaQuery.sizeOf(context).width <
+                                                                            kBreakpointLarge) {
+                                                                          return 90.0;
+                                                                        } else {
+                                                                          return 90.0;
+                                                                        }
+                                                                      }(),
+                                                                      decoration:
+                                                                          BoxDecoration(
+                                                                        color: FlutterFlowTheme.of(context)
+                                                                            .secondaryBackground,
+                                                                        boxShadow: [
+                                                                          BoxShadow(
+                                                                            blurRadius:
+                                                                                4.0,
+                                                                            color:
+                                                                                Color(0x33000000),
+                                                                            offset:
+                                                                                Offset(
+                                                                              0.0,
+                                                                              2.0,
+                                                                            ),
+                                                                          )
+                                                                        ],
+                                                                        shape: BoxShape
+                                                                            .circle,
+                                                                        border:
+                                                                            Border.all(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).secondaryBackground,
+                                                                          width:
+                                                                              6.0,
+                                                                        ),
+                                                                      ),
+                                                                      child:
+                                                                          Container(
+                                                                        width:
+                                                                            () {
+                                                                          if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointSmall) {
+                                                                            return 50.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointMedium) {
+                                                                            return 70.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointLarge) {
+                                                                            return 80.0;
+                                                                          } else {
+                                                                            return 80.0;
+                                                                          }
+                                                                        }(),
+                                                                        height:
+                                                                            () {
+                                                                          if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointSmall) {
+                                                                            return 50.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointMedium) {
+                                                                            return 70.0;
+                                                                          } else if (MediaQuery.sizeOf(context).width <
+                                                                              kBreakpointLarge) {
+                                                                            return 80.0;
+                                                                          } else {
+                                                                            return 80.0;
+                                                                          }
+                                                                        }(),
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).iconBackground,
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.center,
+                                                                          children: [
+                                                                            if (() {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return false;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return false;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return true;
+                                                                              } else {
+                                                                                return true;
+                                                                              }
+                                                                            }())
+                                                                              Container(
+                                                                                decoration: BoxDecoration(),
+                                                                                child: Align(
+                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Icon(
+                                                                                    FFIcons.katom,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 32.0,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                            if (() {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return true;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return true;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return false;
+                                                                              } else {
+                                                                                return false;
+                                                                              }
+                                                                            }())
+                                                                              Container(
+                                                                                decoration: BoxDecoration(),
+                                                                                child: Align(
+                                                                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                                                                  child: Icon(
+                                                                                    FFIcons.katom,
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    size: 32.0,
+                                                                                  ),
+                                                                                ),
+                                                                              ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ],
+                                                                ),
+                                                                Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          20.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Text(
+                                                                    FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      'c08uoeno' /* Vast network of Research and D... */,
+                                                                    ),
+                                                                    textAlign:
+                                                                        TextAlign
+                                                                            .center,
+                                                                    style: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyMedium
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).bodyMedium,
+                                                                          color:
+                                                                              FlutterFlowTheme.of(context).primaryText,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                          fontWeight:
+                                                                              FontWeight.w500,
+                                                                        ),
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ),
+                                                        ),
+                                                  ][index]();
+                                                },
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      ),
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      )),
+                                  child: Container(
+                                    decoration: BoxDecoration(),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 24.0),
+                                          child: Stack(
+                                            alignment:
+                                                AlignmentDirectional(0.0, 0.0),
+                                            children: [
+                                              Container(
+                                                width:
+                                                    MediaQuery.sizeOf(context)
+                                                            .width *
+                                                        1.0,
+                                                height: 1.0,
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .line,
+                                                ),
+                                              ),
+                                              Container(
+                                                decoration: BoxDecoration(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryBackground,
+                                                ),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          4.0, 0.0, 4.0, 0.0),
+                                                  child: Text(
+                                                    FFLocalizations.of(context)
+                                                        .getText(
+                                                      'mpsqjpvy' /* We are supported by */,
+                                                    ),
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .headlineSmall
+                                                        .override(
+                                                          font: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .headlineSmall,
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0.0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Container(
+                                                height: () {
+                                                  if (MediaQuery.sizeOf(context)
+                                                          .width <
+                                                      kBreakpointSmall) {
+                                                    return 70.0;
+                                                  } else if (MediaQuery.sizeOf(
+                                                              context)
+                                                          .width <
+                                                      kBreakpointMedium) {
+                                                    return 75.0;
+                                                  } else if (MediaQuery.sizeOf(
+                                                              context)
+                                                          .width <
+                                                      kBreakpointLarge) {
+                                                    return 80.0;
+                                                  } else {
+                                                    return 80.0;
+                                                  }
+                                                }(),
+                                                decoration: BoxDecoration(),
+                                                child: Padding(
+                                                  padding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                              valueOrDefault<
+                                                                  double>(
+                                                                () {
+                                                                  if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointSmall) {
+                                                                    return 24.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointMedium) {
+                                                                    return 36.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointLarge) {
+                                                                    return 48.0;
+                                                                  } else {
+                                                                    return 48.0;
+                                                                  }
+                                                                }(),
+                                                                0.0,
+                                                              ),
+                                                              8.0,
+                                                              valueOrDefault<
+                                                                  double>(
+                                                                () {
+                                                                  if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointSmall) {
+                                                                    return 24.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointMedium) {
+                                                                    return 36.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointLarge) {
+                                                                    return 48.0;
+                                                                  } else {
+                                                                    return 48.0;
+                                                                  }
+                                                                }(),
+                                                                0.0,
+                                                              ),
+                                                              0.0),
+                                                  child: SingleChildScrollView(
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    child: Row(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Container(
+                                                          width: valueOrDefault<
+                                                              double>(
+                                                            () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 140.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 175.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 200.0;
+                                                              } else {
+                                                                return 200.0;
+                                                              }
+                                                            }(),
+                                                            200.0,
+                                                          ),
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 50.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 80.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 90.0;
+                                                            } else {
+                                                              return 90.0;
+                                                            }
+                                                          }(),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? 'assets/images/iHUB_Dark.png'
+                                                                  : 'assets/images/iHUB_Light.png',
+                                                              width: 220.0,
+                                                              height: 220.0,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: valueOrDefault<
+                                                              double>(
+                                                            () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 140.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 175.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 200.0;
+                                                              } else {
+                                                                return 200.0;
+                                                              }
+                                                            }(),
+                                                            200.0,
+                                                          ),
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 70.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 100.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 100.0;
+                                                            } else {
+                                                              return 100.0;
+                                                            }
+                                                          }(),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? 'assets/images/GUSEC-removebg-preview.png'
+                                                                  : 'assets/images/GUSEC-removebg-preview.png',
+                                                              width: 220.0,
+                                                              height: 220.0,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: valueOrDefault<
+                                                              double>(
+                                                            () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 140.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 175.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 200.0;
+                                                              } else {
+                                                                return 200.0;
+                                                              }
+                                                            }(),
+                                                            200.0,
+                                                          ),
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 70.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 100.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 100.0;
+                                                            } else {
+                                                              return 100.0;
+                                                            }
+                                                          }(),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? 'assets/images/StrongHer-removebg-preview.png'
+                                                                  : 'assets/images/StrongHer-removebg-preview.png',
+                                                              width: 220.0,
+                                                              height: 220.0,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: valueOrDefault<
+                                                              double>(
+                                                            () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 140.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 175.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 200.0;
+                                                              } else {
+                                                                return 200.0;
+                                                              }
+                                                            }(),
+                                                            200.0,
+                                                          ),
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 70.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 100.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 100.0;
+                                                            } else {
+                                                              return 100.0;
+                                                            }
+                                                          }(),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? 'assets/images/PDEU_IIC-removebg-preview.png'
+                                                                  : 'assets/images/PDEU_IIC-removebg-preview.png',
+                                                              width: 220.0,
+                                                              height: 220.0,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: valueOrDefault<
+                                                              double>(
+                                                            () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 140.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 175.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 200.0;
+                                                              } else {
+                                                                return 200.0;
+                                                              }
+                                                            }(),
+                                                            200.0,
+                                                          ),
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 50.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 80.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 90.0;
+                                                            } else {
+                                                              return 90.0;
+                                                            }
+                                                          }(),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? 'assets/images/herSTART-removebg-preview.png'
+                                                                  : 'assets/images/herSTART-removebg-preview.png',
+                                                              width: 220.0,
+                                                              height: 220.0,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
                                       ],
                                     ),
                                   ),
                                 ),
-                                Divider(
-                                  thickness: 1.0,
-                                  color: FlutterFlowTheme.of(context).line,
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      ),
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      )),
+                                  child: Container(
+                                    width: double.infinity,
+                                    decoration: BoxDecoration(
+                                      gradient: LinearGradient(
+                                        colors: [
+                                          Color(0x274568DC),
+                                          Color(0x25B06AB3)
+                                        ],
+                                        stops: [0.0, 1.0],
+                                        begin: AlignmentDirectional(0.0, -1.0),
+                                        end: AlignmentDirectional(0, 1.0),
+                                      ),
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0,
+                                          valueOrDefault<double>(
+                                            () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return 24.0;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return 32.0;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return 48.0;
+                                              } else {
+                                                return 48.0;
+                                              }
+                                            }(),
+                                            0.0,
+                                          ),
+                                          0.0,
+                                          valueOrDefault<double>(
+                                            () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return 24.0;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return 32.0;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return 48.0;
+                                              } else {
+                                                return 48.0;
+                                              }
+                                            }(),
+                                            48.0,
+                                          )),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0,
+                                                    0.0,
+                                                    valueOrDefault<double>(
+                                                      () {
+                                                        if (MediaQuery.sizeOf(
+                                                                    context)
+                                                                .width <
+                                                            kBreakpointSmall) {
+                                                          return 0.0;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointMedium) {
+                                                          return 0.0;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointLarge) {
+                                                          return 20.0;
+                                                        } else {
+                                                          return 20.0;
+                                                        }
+                                                      }(),
+                                                      0.0,
+                                                    ),
+                                                    valueOrDefault<double>(
+                                                      () {
+                                                        if (MediaQuery.sizeOf(
+                                                                    context)
+                                                                .width <
+                                                            kBreakpointSmall) {
+                                                          return 16.0;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointMedium) {
+                                                          return 24.0;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointLarge) {
+                                                          return 32.0;
+                                                        } else {
+                                                          return 32.0;
+                                                        }
+                                                      }(),
+                                                      32.0,
+                                                    )),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    'piibqo2e' /* Our partner labs */,
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .headlineSmall
+                                                      .override(
+                                                        font:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineSmall,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            phone: false,
+                                            tablet: false,
+                                          ))
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 8.0),
+                                              child: Container(
+                                                width: double.infinity,
+                                                height: 100.0,
+                                                child: CarouselSlider(
+                                                  items: [
+                                                    Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Nirma.jpg',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          child: Image.asset(
+                                                            'assets/images/NFSU.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          child: Image.asset(
+                                                            'assets/images/IIPHG_TBI.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Saint_Xaviers.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Silver_Oak.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          child: Image.asset(
+                                                            'assets/images/SRISTI_Lab.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Marwadi.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    Container(
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(12.0),
+                                                        shape:
+                                                            BoxShape.rectangle,
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primary,
+                                                          width: 2.0,
+                                                        ),
+                                                      ),
+                                                      child: Padding(
+                                                        padding:
+                                                            EdgeInsets.all(4.0),
+                                                        child: ClipRRect(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          child: Image.asset(
+                                                            'assets/images/Indreshil.png',
+                                                            fit: BoxFit.contain,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                  ],
+                                                  carouselController: _model
+                                                          .webCarouselController ??=
+                                                      CarouselSliderController(),
+                                                  options: CarouselOptions(
+                                                    initialPage: 1,
+                                                    viewportFraction: 0.2,
+                                                    disableCenter: false,
+                                                    enlargeCenterPage: false,
+                                                    enlargeFactor: 0.0,
+                                                    enableInfiniteScroll: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    autoPlay: true,
+                                                    autoPlayAnimationDuration:
+                                                        Duration(
+                                                            milliseconds: 800),
+                                                    autoPlayInterval: Duration(
+                                                        milliseconds:
+                                                            (800 + 4000)),
+                                                    autoPlayCurve:
+                                                        Curves.linear,
+                                                    pauseAutoPlayInFiniteScroll:
+                                                        true,
+                                                    onPageChanged: (index, _) =>
+                                                        _model.webCarouselCurrentIndex =
+                                                            index,
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          if (responsiveVisibility(
+                                            context: context,
+                                            tabletLandscape: false,
+                                            desktop: false,
+                                          ))
+                                            Container(
+                                              width: double.infinity,
+                                              height: 100.0,
+                                              child: CarouselSlider(
+                                                items: [
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(0.0, 0.0,
+                                                                16.0, 0.0),
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .border,
+                                                          width: 1.0,
+                                                        ),
+                                                      ),
+                                                      alignment:
+                                                          AlignmentDirectional(
+                                                              0.0, 0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .max,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: [
+                                                              Flexible(
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          5.0,
+                                                                          0.0),
+                                                                  child:
+                                                                      Container(
+                                                                    width: 70.0,
+                                                                    height:
+                                                                        70.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      shape: BoxShape
+                                                                          .circle,
+                                                                    ),
+                                                                    child:
+                                                                        Padding(
+                                                                      padding:
+                                                                          EdgeInsets.all(
+                                                                              8.0),
+                                                                      child:
+                                                                          Container(
+                                                                        clipBehavior:
+                                                                            Clip.antiAlias,
+                                                                        decoration:
+                                                                            BoxDecoration(
+                                                                          shape:
+                                                                              BoxShape.circle,
+                                                                        ),
+                                                                        child: Image
+                                                                            .network(
+                                                                          'https://picsum.photos/seed/534/600',
+                                                                          fit: BoxFit
+                                                                              .scaleDown,
+                                                                        ),
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              SizedBox(
+                                                                height: 100.0,
+                                                                child:
+                                                                    VerticalDivider(
+                                                                  thickness:
+                                                                      1.0,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .border,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                flex: 1,
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          5.0,
+                                                                          5.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                                  child: Row(
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .center,
+                                                                    children: [
+                                                                      Expanded(
+                                                                        child:
+                                                                            Text(
+                                                                          FFLocalizations.of(context)
+                                                                              .getText(
+                                                                            'eo99nte1' /* Hello World */,
+                                                                          ),
+                                                                          style: FlutterFlowTheme.of(context)
+                                                                              .bodyMedium
+                                                                              .override(
+                                                                                font: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                letterSpacing: 0.0,
+                                                                              ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ],
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                                carouselController: _model
+                                                        .mobileCarouselController ??=
+                                                    CarouselSliderController(),
+                                                options: CarouselOptions(
+                                                  initialPage: 0,
+                                                  viewportFraction: 0.6,
+                                                  disableCenter: true,
+                                                  enlargeCenterPage: false,
+                                                  enlargeFactor: 0.0,
+                                                  enableInfiniteScroll: true,
+                                                  scrollDirection:
+                                                      Axis.horizontal,
+                                                  autoPlay: true,
+                                                  autoPlayAnimationDuration:
+                                                      Duration(
+                                                          milliseconds: 800),
+                                                  autoPlayInterval: Duration(
+                                                      milliseconds:
+                                                          (800 + 4000)),
+                                                  autoPlayCurve: Curves.linear,
+                                                  pauseAutoPlayInFiniteScroll:
+                                                      true,
+                                                  onPageChanged: (index, _) =>
+                                                      _model.mobileCarouselCurrentIndex =
+                                                          index,
+                                                ),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
                                 ),
                                 Padding(
                                   padding: EdgeInsetsDirectional.fromSTEB(
@@ -4129,25 +6820,19 @@ foc... */
                                                     .getText(
                                                   '793nprkg' /* What our customers say */,
                                                 ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineSmallFamily,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
+                                                style: FlutterFlowTheme.of(
+                                                        context)
+                                                    .headlineSmall
+                                                    .override(
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .headlineSmall,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
                                                               .primaryText,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineSmallFamily),
-                                                        ),
+                                                      letterSpacing: 0.0,
+                                                    ),
                                               ),
                                             ],
                                           ),
@@ -4755,364 +7440,380 @@ foc... */
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: FlutterFlowTheme.of(context)
-                                        .iconBackground,
-                                  ),
-                                  child: Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 48.0, 0.0, 48.0),
-                                        child: Container(
-                                          width: () {
-                                            if (MediaQuery.sizeOf(context)
-                                                    .width <
-                                                kBreakpointSmall) {
-                                              return (MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  0.9);
-                                            } else if (MediaQuery.sizeOf(
-                                                        context)
-                                                    .width <
-                                                kBreakpointMedium) {
-                                              return (MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  0.8);
-                                            } else if (MediaQuery.sizeOf(
-                                                        context)
-                                                    .width <
-                                                kBreakpointLarge) {
-                                              return (MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  0.7);
-                                            } else {
-                                              return (MediaQuery.sizeOf(context)
-                                                      .width *
-                                                  0.7);
-                                            }
-                                          }(),
-                                          decoration: BoxDecoration(),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceEvenly,
-                                            children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0,
-                                                        0.0,
-                                                        valueOrDefault<double>(
-                                                          () {
-                                                            if (MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width <
-                                                                kBreakpointSmall) {
-                                                              return 12.0;
-                                                            } else if (MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .width <
-                                                                kBreakpointMedium) {
-                                                              return 16.0;
-                                                            } else if (MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .width <
-                                                                kBreakpointLarge) {
-                                                              return 24.0;
-                                                            } else {
-                                                              return 24.0;
-                                                            }
-                                                          }(),
-                                                          0.0,
-                                                        ),
-                                                        0.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'cay2j0ra' /* 150+ */,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .headlineMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineMediumFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .headlineMediumFamily),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0,
+                                      0.0,
+                                      0.0,
+                                      valueOrDefault<double>(
+                                        () {
+                                          if (MediaQuery.sizeOf(context).width <
+                                              kBreakpointSmall) {
+                                            return 24.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointMedium) {
+                                            return 32.0;
+                                          } else if (MediaQuery.sizeOf(context)
+                                                  .width <
+                                              kBreakpointLarge) {
+                                            return 48.0;
+                                          } else {
+                                            return 48.0;
+                                          }
+                                        }(),
+                                        48.0,
+                                      )),
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color:
+                                          FlutterFlowTheme.of(context).primary,
+                                    ),
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 48.0, 0.0, 48.0),
+                                          child: Container(
+                                            width: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.9);
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.8);
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.7);
+                                              } else {
+                                                return (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width *
+                                                    0.7);
+                                              }
+                                            }(),
+                                            decoration: BoxDecoration(),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                              0.0,
+                                                              0.0,
+                                                              valueOrDefault<
+                                                                  double>(
+                                                                () {
+                                                                  if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointSmall) {
+                                                                    return 12.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointMedium) {
+                                                                    return 16.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointLarge) {
+                                                                    return 24.0;
+                                                                  } else {
+                                                                    return 24.0;
+                                                                  }
+                                                                }(),
+                                                                0.0,
                                                               ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      8.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
+                                                              0.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  8.0,
+                                                                  0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
                                                             FFLocalizations.of(
                                                                     context)
                                                                 .getText(
-                                                              'rvbr24e0' /* instruments */,
+                                                              'cay2j0ra' /* 150+ */,
                                                             ),
                                                             style: FlutterFlowTheme
                                                                     .of(context)
-                                                                .titleMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMediumFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleMediumFamily),
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0,
-                                                        0.0,
-                                                        valueOrDefault<double>(
-                                                          () {
-                                                            if (MediaQuery.sizeOf(
-                                                                        context)
-                                                                    .width <
-                                                                kBreakpointSmall) {
-                                                              return 12.0;
-                                                            } else if (MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .width <
-                                                                kBreakpointMedium) {
-                                                              return 16.0;
-                                                            } else if (MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .width <
-                                                                kBreakpointLarge) {
-                                                              return 24.0;
-                                                            } else {
-                                                              return 24.0;
-                                                            }
-                                                          }(),
-                                                          0.0,
-                                                        ),
-                                                        0.0),
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            10.0),
-                                                  ),
-                                                  child: Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                8.0, 0.0),
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            '5tyrg7tc' /* 300+ */,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .headlineMedium
-                                                              .override(
-                                                                fontFamily: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineMediumFamily,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .headlineMediumFamily),
-                                                              ),
-                                                        ),
-                                                        Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      8.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              's4jgn7h5' /* tests */,
-                                                            ),
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .titleMedium
-                                                                .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .titleMediumFamily,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .titleMediumFamily),
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          10.0),
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          8.0, 0.0, 8.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      Text(
-                                                        FFLocalizations.of(
-                                                                context)
-                                                            .getText(
-                                                          'aahaxb2i' /* 10+ */,
-                                                        ),
-                                                        style:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
                                                                 .headlineMedium
                                                                 .override(
-                                                                  fontFamily: FlutterFlowTheme.of(
+                                                                  font: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .headlineMediumFamily,
+                                                                      .headlineMedium,
                                                                   color: FlutterFlowTheme.of(
                                                                           context)
-                                                                      .primary,
+                                                                      .primaryBackground,
                                                                   letterSpacing:
                                                                       0.0,
-                                                                  useGoogleFonts: GoogleFonts
-                                                                          .asMap()
-                                                                      .containsKey(
-                                                                          FlutterFlowTheme.of(context)
-                                                                              .headlineMediumFamily),
                                                                 ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        8.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                'rvbr24e0' /* instruments */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleMedium
+                                                                  .override(
+                                                                    font: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
                                                       ),
-                                                      Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    8.0,
-                                                                    0.0,
-                                                                    0.0),
-                                                        child: Text(
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                              0.0,
+                                                              0.0,
+                                                              valueOrDefault<
+                                                                  double>(
+                                                                () {
+                                                                  if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointSmall) {
+                                                                    return 12.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointMedium) {
+                                                                    return 16.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointLarge) {
+                                                                    return 24.0;
+                                                                  } else {
+                                                                    return 24.0;
+                                                                  }
+                                                                }(),
+                                                                0.0,
+                                                              ),
+                                                              0.0),
+                                                  child: Container(
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              10.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  8.0,
+                                                                  0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        mainAxisAlignment:
+                                                            MainAxisAlignment
+                                                                .center,
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: [
+                                                          Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              '5tyrg7tc' /* 300+ */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .headlineMedium
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineMedium,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryBackground,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        8.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                's4jgn7h5' /* tests */,
+                                                              ),
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleMedium
+                                                                  .override(
+                                                                    font: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleMedium,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            10.0),
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(8.0, 0.0,
+                                                                8.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.min,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Text(
                                                           FFLocalizations.of(
                                                                   context)
                                                               .getText(
-                                                            '7fxl0gan' /* labs */,
+                                                            'aahaxb2i' /* 10+ */,
                                                           ),
                                                           style: FlutterFlowTheme
                                                                   .of(context)
-                                                              .titleMedium
+                                                              .headlineMedium
                                                               .override(
-                                                                fontFamily: FlutterFlowTheme.of(
+                                                                font: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .titleMediumFamily,
+                                                                    .headlineMedium,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .titleMediumFamily),
                                                               ),
                                                         ),
-                                                      ),
-                                                    ],
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      8.0,
+                                                                      0.0,
+                                                                      0.0),
+                                                          child: Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              '7fxl0gan' /* labs */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .titleMedium
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
                                 ),
                                 Padding(
@@ -5171,315 +7872,388 @@ foc... */
                                               kBreakpointLarge) {
                                             return (MediaQuery.sizeOf(context)
                                                     .width *
-                                                0.45);
+                                                0.8);
                                           } else {
                                             return (MediaQuery.sizeOf(context)
                                                     .width *
-                                                0.45);
+                                                0.8);
                                           }
                                         }(),
                                         decoration: BoxDecoration(),
-                                        child: Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  valueOrDefault<double>(
-                                                    () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return 0.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
+                                        child: MasonryGridView.builder(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          gridDelegate:
+                                              SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisCount: () {
+                                              if (MediaQuery.sizeOf(context)
+                                                      .width <
+                                                  kBreakpointSmall) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointMedium) {
+                                                return 1;
+                                              } else if (MediaQuery.sizeOf(
+                                                          context)
+                                                      .width <
+                                                  kBreakpointLarge) {
+                                                return 2;
+                                              } else {
+                                                return 2;
+                                              }
+                                            }(),
+                                          ),
+                                          crossAxisSpacing: 10.0,
+                                          mainAxisSpacing: 10.0,
+                                          itemCount: 2,
+                                          shrinkWrap: true,
+                                          itemBuilder: (context, index) {
+                                            return [
+                                              () => Container(
+                                                    decoration: BoxDecoration(
+                                                      gradient: LinearGradient(
+                                                        colors: [
+                                                          Color(0x414568DC),
+                                                          Color(0x41B06AB3)
+                                                        ],
+                                                        stops: [0.0, 1.0],
+                                                        begin:
+                                                            AlignmentDirectional(
+                                                                0.0, -1.0),
+                                                        end:
+                                                            AlignmentDirectional(
+                                                                0, 1.0),
+                                                      ),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              16.0),
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsets.all(24.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        32.0),
+                                                            child: Container(
+                                                              width: 210.0,
+                                                              decoration:
+                                                                  BoxDecoration(),
+                                                              child: ClipRRect(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            8.0),
+                                                                child:
+                                                                    Image.asset(
+                                                                  'assets/images/Contact.png',
+                                                                  fit: BoxFit
+                                                                      .cover,
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'p6wfhqya' /* How can we help you ? */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .headlineSmall
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primaryText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        8.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child: Text(
+                                                              FFLocalizations.of(
                                                                       context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return 73.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return 73.0;
-                                                      } else {
-                                                        return 73.0;
-                                                      }
-                                                    }(),
-                                                    0.0,
+                                                                  .getText(
+                                                                '2db0lfch' /* Please select an option below ... */,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .titleSmall
+                                                                  .override(
+                                                                    font: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .titleSmall,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        24.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child:
+                                                                wrapWithModel(
+                                                              model: _model
+                                                                  .requermentButtonModel1,
+                                                              updateCallback: () =>
+                                                                  safeSetState(
+                                                                      () {}),
+                                                              child:
+                                                                  RequermentButtonWidget(
+                                                                parameter2: _model
+                                                                    .contactUsButtomIndex,
+                                                                text:
+                                                                    'Testing and Development Facility',
+                                                                isHome: false,
+                                                                hoverIndex: 1,
+                                                                openForm:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'HOME_PAGE_Container_lrgjqtpf_CALLBACK');
+                                                                  logFirebaseEvent(
+                                                                      'requermentButton_update_page_state');
+                                                                  _model.contactUsButtomIndex =
+                                                                      1;
+                                                                  _model.tagValue =
+                                                                      'Testing and Devlopment Facility';
+                                                                  _model.openRequermentForm =
+                                                                      true;
+                                                                  safeSetState(
+                                                                      () {});
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        16.0,
+                                                                        0.0,
+                                                                        0.0),
+                                                            child:
+                                                                wrapWithModel(
+                                                              model: _model
+                                                                  .requermentButtonModel2,
+                                                              updateCallback: () =>
+                                                                  safeSetState(
+                                                                      () {}),
+                                                              child:
+                                                                  RequermentButtonWidget(
+                                                                parameter2: _model
+                                                                    .contactUsButtomIndex,
+                                                                text:
+                                                                    'Consultation and Analysis Services',
+                                                                isHome: false,
+                                                                hoverIndex: 2,
+                                                                openForm:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'HOME_PAGE_Container_lt44e5l7_CALLBACK');
+                                                                  logFirebaseEvent(
+                                                                      'requermentButton_update_page_state');
+                                                                  _model.contactUsButtomIndex =
+                                                                      2;
+                                                                  _model.tagValue =
+                                                                      'Consultation and Analysis Services';
+                                                                  _model.openRequermentForm =
+                                                                      true;
+                                                                  safeSetState(
+                                                                      () {});
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          Align(
+                                                            alignment:
+                                                                AlignmentDirectional(
+                                                                    0.0, 0.0),
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          16.0,
+                                                                          0.0,
+                                                                          0.0),
+                                                              child: InkWell(
+                                                                splashColor: Colors
+                                                                    .transparent,
+                                                                focusColor: Colors
+                                                                    .transparent,
+                                                                hoverColor: Colors
+                                                                    .transparent,
+                                                                highlightColor:
+                                                                    Colors
+                                                                        .transparent,
+                                                                onTap:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'HOME_PAGE_Container_3ndrm3zv_ON_TAP');
+                                                                  logFirebaseEvent(
+                                                                      'requermentButton_update_page_state');
+
+                                                                  safeSetState(
+                                                                      () {});
+                                                                },
+                                                                child:
+                                                                    wrapWithModel(
+                                                                  model: _model
+                                                                      .requermentButtonModel3,
+                                                                  updateCallback: () =>
+                                                                      safeSetState(
+                                                                          () {}),
+                                                                  child:
+                                                                      RequermentButtonWidget(
+                                                                    parameter2:
+                                                                        _model
+                                                                            .contactUsButtomIndex,
+                                                                    text:
+                                                                        'Becoming a Lab Pertner',
+                                                                    isHome:
+                                                                        false,
+                                                                    hoverIndex:
+                                                                        3,
+                                                                    openForm:
+                                                                        () async {
+                                                                      logFirebaseEvent(
+                                                                          'HOME_PAGE_Container_3ndrm3zv_CALLBACK');
+                                                                      logFirebaseEvent(
+                                                                          'requermentButton_update_page_state');
+                                                                      _model.contactUsButtomIndex =
+                                                                          3;
+                                                                      _model.tagValue =
+                                                                          'Becoming a Lab Partner';
+                                                                      _model.openRequermentForm =
+                                                                          true;
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    },
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
                                                   ),
-                                                  0.0,
-                                                  valueOrDefault<double>(
-                                                    () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return 0.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return 73.0;
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return 73.0;
-                                                      } else {
-                                                        return 73.0;
-                                                      }
-                                                    }(),
-                                                    0.0,
-                                                  ),
-                                                  0.0),
-                                          child: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  'p6wfhqya' /* How can we help you ? */,
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .headlineSmallFamily,
+                                              () => Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(8.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Container(
+                                                      width: () {
+                                                        if (MediaQuery.sizeOf(
+                                                                    context)
+                                                                .width <
+                                                            kBreakpointSmall) {
+                                                          return (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width *
+                                                              0.9);
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointMedium) {
+                                                          return (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width *
+                                                              0.9);
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointLarge) {
+                                                          return (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width *
+                                                              0.45);
+                                                        } else {
+                                                          return (MediaQuery
+                                                                      .sizeOf(
+                                                                          context)
+                                                                  .width *
+                                                              0.45);
+                                                        }
+                                                      }(),
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(16.0),
+                                                        border: Border.all(
                                                           color: FlutterFlowTheme
                                                                   .of(context)
-                                                              .primaryText,
-                                                          letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .headlineSmallFamily),
+                                                              .primary,
+                                                          width: 2.0,
                                                         ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 8.0, 0.0, 0.0),
-                                                child: Text(
-                                                  FFLocalizations.of(context)
-                                                      .getText(
-                                                    '2db0lfch' /* Please select an option below ... */,
-                                                  ),
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleSmall
-                                                      .override(
-                                                        fontFamily:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .titleSmallFamily,
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                        useGoogleFonts: GoogleFonts
-                                                                .asMap()
-                                                            .containsKey(
-                                                                FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleSmallFamily),
                                                       ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 32.0, 0.0, 0.0),
-                                                child: wrapWithModel(
-                                                  model: _model
-                                                      .requermentButtonModel1,
-                                                  updateCallback: () =>
-                                                      safeSetState(() {}),
-                                                  child: RequermentButtonWidget(
-                                                    parameter2: _model
-                                                        .contactUsButtomIndex,
-                                                    text:
-                                                        'Testing and Development Facility',
-                                                    isHome: false,
-                                                    hoverIndex: 1,
-                                                    openForm: () async {
-                                                      logFirebaseEvent(
-                                                          'HOME_PAGE_Container_lrgjqtpf_CALLBACK');
-                                                      logFirebaseEvent(
-                                                          'requermentButton_update_page_state');
-                                                      _model.contactUsButtomIndex =
-                                                          1;
-                                                      _model.tagValue =
-                                                          'Testing and Devlopment Facility';
-                                                      _model.openRequermentForm =
-                                                          true;
-                                                      safeSetState(() {});
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 16.0, 0.0, 0.0),
-                                                child: wrapWithModel(
-                                                  model: _model
-                                                      .requermentButtonModel2,
-                                                  updateCallback: () =>
-                                                      safeSetState(() {}),
-                                                  child: RequermentButtonWidget(
-                                                    parameter2: _model
-                                                        .contactUsButtomIndex,
-                                                    text:
-                                                        'Consultation and Analysis Services',
-                                                    isHome: false,
-                                                    hoverIndex: 2,
-                                                    openForm: () async {
-                                                      logFirebaseEvent(
-                                                          'HOME_PAGE_Container_lt44e5l7_CALLBACK');
-                                                      logFirebaseEvent(
-                                                          'requermentButton_update_page_state');
-                                                      _model.contactUsButtomIndex =
-                                                          2;
-                                                      _model.tagValue =
-                                                          'Consultation and Analysis Services';
-                                                      _model.openRequermentForm =
-                                                          true;
-                                                      safeSetState(() {});
-                                                    },
-                                                  ),
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 16.0, 0.0, 0.0),
-                                                child: InkWell(
-                                                  splashColor:
-                                                      Colors.transparent,
-                                                  focusColor:
-                                                      Colors.transparent,
-                                                  hoverColor:
-                                                      Colors.transparent,
-                                                  highlightColor:
-                                                      Colors.transparent,
-                                                  onTap: () async {
-                                                    logFirebaseEvent(
-                                                        'HOME_PAGE_Container_3ndrm3zv_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'requermentButton_update_page_state');
-
-                                                    safeSetState(() {});
-                                                  },
-                                                  child: wrapWithModel(
-                                                    model: _model
-                                                        .requermentButtonModel3,
-                                                    updateCallback: () =>
-                                                        safeSetState(() {}),
-                                                    child:
-                                                        RequermentButtonWidget(
-                                                      parameter2: _model
-                                                          .contactUsButtomIndex,
-                                                      text:
-                                                          'Becoming a Lab Partner',
-                                                      isHome: false,
-                                                      hoverIndex: 3,
-                                                      openForm: () async {
-                                                        logFirebaseEvent(
-                                                            'HOME_PAGE_Container_3ndrm3zv_CALLBACK');
-                                                        logFirebaseEvent(
-                                                            'requermentButton_update_page_state');
-                                                        _model.contactUsButtomIndex =
-                                                            3;
-                                                        _model.tagValue =
-                                                            'Becoming a Lab Partner';
-                                                        _model.openRequermentForm =
-                                                            true;
-                                                        safeSetState(() {});
-                                                      },
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              if (_model.openRequermentForm)
-                                                Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          0.0, 48.0, 0.0, 48.0),
-                                                  child: Container(
-                                                    width: () {
-                                                      if (MediaQuery.sizeOf(
-                                                                  context)
-                                                              .width <
-                                                          kBreakpointSmall) {
-                                                        return (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width *
-                                                            0.9);
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointMedium) {
-                                                        return (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width *
-                                                            0.9);
-                                                      } else if (MediaQuery
-                                                                  .sizeOf(
-                                                                      context)
-                                                              .width <
-                                                          kBreakpointLarge) {
-                                                        return (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width *
-                                                            0.45);
-                                                      } else {
-                                                        return (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width *
-                                                            0.45);
-                                                      }
-                                                    }(),
-                                                    decoration: BoxDecoration(),
-                                                    child: wrapWithModel(
-                                                      model: _model
-                                                          .userRequirementCopyModel,
-                                                      updateCallback: () =>
-                                                          safeSetState(() {}),
-                                                      updateOnChange: true,
-                                                      child:
-                                                          UserRequirementCopyWidget(
-                                                        isDialog: false,
-                                                        tagValue:
-                                                            _model.tagValue,
-                                                        requermwntDialog: false,
-                                                        action: () async {
-                                                          logFirebaseEvent(
-                                                              'HOME_PAGE_Container_bbn5mb4v_CALLBACK');
-                                                          logFirebaseEvent(
-                                                              'UserRequirementCopy_update_page_state');
-                                                          _model.openRequermentForm =
-                                                              false;
-                                                          safeSetState(() {});
-                                                        },
+                                                      child: wrapWithModel(
+                                                        model: _model
+                                                            .userRequirementCopyModel,
+                                                        updateCallback: () =>
+                                                            safeSetState(() {}),
+                                                        updateOnChange: true,
+                                                        child:
+                                                            UserRequirementCopyWidget(
+                                                          isDialog: false,
+                                                          tagValue:
+                                                              _model.tagValue,
+                                                          requermwntDialog:
+                                                              false,
+                                                          action: () async {
+                                                            logFirebaseEvent(
+                                                                'HOME_PAGE_Container_bbn5mb4v_CALLBACK');
+                                                            logFirebaseEvent(
+                                                                'UserRequirementCopy_update_page_state');
+                                                            _model.tagValue =
+                                                                'Testing and Development Facility';
+                                                            safeSetState(() {});
+                                                          },
+                                                        ),
                                                       ),
                                                     ),
                                                   ),
-                                                ),
-                                            ],
-                                          ),
+                                            ][index]();
+                                          },
                                         ),
                                       ),
                                     ),

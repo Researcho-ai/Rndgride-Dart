@@ -12,11 +12,11 @@ import 'package:flutter/material.dart';
 class ContactUsModel extends FlutterFlowModel<ContactUsWidget> {
   ///  Local state fields for this page.
 
-  bool openRequermentForm = false;
+  bool openRequermentForm = true;
 
-  int? indexValue;
+  int indexValue = 1;
 
-  String? tagValue;
+  String tagValue = 'Testing and Development Facility';
 
   ///  State fields for stateful widgets in this page.
 

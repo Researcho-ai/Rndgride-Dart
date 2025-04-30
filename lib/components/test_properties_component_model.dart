@@ -65,12 +65,30 @@ class TestPropertiesComponentModel
   void updateSelectedTestIndexsAtIndex(int index, Function(int) updateFn) =>
       selectedTestIndexs[index] = updateFn(selectedTestIndexs[index]);
 
+  String? selectedfield;
+
+  bool fieldShow = false;
+
+  int? fieldIndex;
+
+  List<dynamic> fielsJsonList = [];
+  void addToFielsJsonList(dynamic item) => fielsJsonList.add(item);
+  void removeFromFielsJsonList(dynamic item) => fielsJsonList.remove(item);
+  void removeAtIndexFromFielsJsonList(int index) =>
+      fielsJsonList.removeAt(index);
+  void insertAtIndexInFielsJsonList(int index, dynamic item) =>
+      fielsJsonList.insert(index, item);
+  void updateFielsJsonListAtIndex(int index, Function(dynamic) updateFn) =>
+      fielsJsonList[index] = updateFn(fielsJsonList[index]);
+
   ///  State fields for stateful widgets in this component.
 
-  // Stores action output result for [Backend Call - API (Get Availabe Test Propeties)] action in testPropertiesComponent widget.
+  // Stores action output result for [Backend Call - API (Get Fieds)] action in testPropertiesComponent widget.
+  ApiCallResponse? apiResultvth;
+  // Stores action output result for [Backend Call - API (Get Availabe Test Propeties)] action in materialComponent widget.
   ApiCallResponse? apiResultj0o;
   // Stores action output result for [Custom Action - filterAvailableTests] action in materialComponent widget.
-  List<dynamic>? testMethods;
+  List<dynamic>? testMethods2;
   // State field(s) for RequirementTextField widget.
   FocusNode? requirementTextFieldFocusNode;
   TextEditingController? requirementTextFieldTextController;

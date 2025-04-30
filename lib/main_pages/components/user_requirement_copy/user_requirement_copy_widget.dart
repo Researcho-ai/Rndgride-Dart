@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'user_requirement_copy_model.dart';
 export 'user_requirement_copy_model.dart';
@@ -171,7 +170,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                             if (!widget.isDialog && !widget.isRequermentPage)
                               Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 16.0),
+                                    0.0, 0.0, 0.0, 12.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -184,16 +183,12 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                         style: FlutterFlowTheme.of(context)
                                             .titleMedium
                                             .override(
-                                              fontFamily:
+                                              font: FlutterFlowTheme.of(context)
+                                                  .titleMedium,
+                                              color:
                                                   FlutterFlowTheme.of(context)
-                                                      .titleMediumFamily,
+                                                      .primaryText,
                                               letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleMediumFamily),
                                             ),
                                       ),
                                     ),
@@ -261,19 +256,15 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               )
                                             ],
                                             style: FlutterFlowTheme.of(context)
-                                                .titleMedium
+                                                .titleSmall
                                                 .override(
-                                                  fontFamily:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .titleMediumFamily,
+                                                  font: FlutterFlowTheme.of(
+                                                          context)
+                                                      .titleSmall,
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
                                                   letterSpacing: 0.0,
-                                                  useGoogleFonts: GoogleFonts
-                                                          .asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMediumFamily),
                                                 ),
                                           ),
                                         ),
@@ -328,37 +319,25 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                   context)
                                               .labelMedium
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily,
+                                                        .labelMedium,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMediumFamily),
                                               ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodySmall
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodySmallFamily,
+                                                        .bodySmall,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .border,
+                                                        .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodySmallFamily),
                                               ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -368,10 +347,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -381,10 +357,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           errorBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -394,10 +367,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           focusedErrorBorder:
                                               UnderlineInputBorder(
@@ -408,35 +378,22 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           filled: true,
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .primaryBackground,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 16.0, 0.0),
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
+                                              font: FlutterFlowTheme.of(context)
+                                                  .bodyMedium,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
                                             ),
                                         validator: _model
                                             .nameTextFieldTextControllerValidator
@@ -462,34 +419,25 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                   context)
                                               .labelMedium
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily,
+                                                        .labelMedium,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMediumFamily),
                                               ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodySmall
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodySmallFamily,
+                                                        .bodySmall,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .border,
+                                                        .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodySmallFamily),
                                               ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -499,10 +447,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -512,10 +457,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           errorBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -525,10 +467,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           focusedErrorBorder:
                                               UnderlineInputBorder(
@@ -539,35 +478,22 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           filled: true,
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .primaryBackground,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 16.0, 0.0),
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
+                                              font: FlutterFlowTheme.of(context)
+                                                  .bodyMedium,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
                                             ),
                                         validator: _model
                                             .phoneTextFieldTextControllerValidator
@@ -598,19 +524,12 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodySmallFamily,
+                                              font: FlutterFlowTheme.of(context)
+                                                  .bodySmall,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               letterSpacing: 0.0,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodySmallFamily),
                                             ),
                                         hintText: widget.tagValue ==
                                                 'Becoming a Lab Partner'
@@ -619,17 +538,14 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                         icon: Icon(
                                           FFIcons.karrowDown,
                                           color: FlutterFlowTheme.of(context)
-                                              .secondaryText,
+                                              .iconColor,
                                           size: 24.0,
                                         ),
-                                        fillColor: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
                                         elevation: 0.0,
                                         borderColor: Colors.transparent,
                                         borderWidth: 0.0,
-                                        borderRadius: 0.0,
-                                        margin: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 0.0, 0.0, 0.0),
+                                        borderRadius: 16.0,
+                                        margin: EdgeInsets.all(0.0),
                                         isOverButton: true,
                                         isSearchable: false,
                                         isMultiSelect: false,
@@ -638,19 +554,12 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                 context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
+                                              font: FlutterFlowTheme.of(context)
+                                                  .bodyMedium,
                                               color:
                                                   FlutterFlowTheme.of(context)
-                                                      .primaryText,
+                                                      .primaryBackground,
                                               letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
                                             ),
                                       ),
                                     ),
@@ -685,41 +594,27 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMediumFamily,
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMediumFamily),
                                                     ),
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodySmall
                                                     .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodySmallFamily,
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodySmall,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .border,
                                                       letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodySmallFamily),
                                                     ),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
@@ -785,19 +680,13 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
+                                                        .bodyMedium,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
                                               ),
                                           validator: _model
                                               .sectorOrFieldTextControllerValidator
@@ -823,41 +712,27 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMediumFamily,
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMediumFamily),
                                                     ),
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodySmall
                                                     .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodySmallFamily,
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodySmall,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .border,
                                                       letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodySmallFamily),
                                                     ),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
@@ -923,19 +798,13 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
+                                                        .bodyMedium,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
                                               ),
                                           validator: _model
                                               .affilianceTextControllerValidator
@@ -962,41 +831,27 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .labelMedium
                                                     .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .labelMediumFamily,
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .labelMedium,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .primaryText,
                                                       letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .labelMediumFamily),
                                                     ),
                                             hintStyle:
                                                 FlutterFlowTheme.of(context)
                                                     .bodySmall
                                                     .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodySmallFamily,
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .bodySmall,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .border,
                                                       letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodySmallFamily),
                                                     ),
                                             enabledBorder: UnderlineInputBorder(
                                               borderSide: BorderSide(
@@ -1062,19 +917,13 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
+                                                        .bodyMedium,
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
                                               ),
                                           validator: _model
                                               .requireFacilitiesTextControllerValidator
@@ -1110,34 +959,25 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                   context)
                                               .labelMedium
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .labelMediumFamily,
+                                                        .labelMedium,
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .labelMediumFamily),
                                               ),
                                           hintStyle: FlutterFlowTheme.of(
                                                   context)
                                               .bodySmall
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodySmallFamily,
+                                                        .bodySmall,
                                                 color:
                                                     FlutterFlowTheme.of(context)
-                                                        .border,
+                                                        .primaryText,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodySmallFamily),
                                               ),
                                           enabledBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -1147,10 +987,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           focusedBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -1160,10 +997,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           errorBorder: UnderlineInputBorder(
                                             borderSide: BorderSide(
@@ -1173,10 +1007,7 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           focusedErrorBorder:
                                               UnderlineInputBorder(
@@ -1187,35 +1018,22 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                               width: 2.0,
                                             ),
                                             borderRadius:
-                                                const BorderRadius.only(
-                                              topLeft: Radius.circular(4.0),
-                                              topRight: Radius.circular(4.0),
-                                            ),
+                                                BorderRadius.circular(0.0),
                                           ),
                                           filled: true,
                                           fillColor:
                                               FlutterFlowTheme.of(context)
                                                   .primaryBackground,
-                                          contentPadding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 16.0, 16.0, 16.0),
                                         ),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
+                                              font: FlutterFlowTheme.of(context)
+                                                  .bodyMedium,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
                                             ),
                                         maxLines: 3,
                                         validator: _model
@@ -1256,19 +1074,12 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                         textStyle: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodySmallFamily,
+                                              font: FlutterFlowTheme.of(context)
+                                                  .bodySmall,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               letterSpacing: 0.0,
-                                              useGoogleFonts:
-                                                  GoogleFonts.asMap()
-                                                      .containsKey(
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .bodySmallFamily),
                                             ),
                                         hintText:
                                             FFLocalizations.of(context).getText(
@@ -1296,19 +1107,12 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                 context)
                                             .bodyMedium
                                             .override(
-                                              fontFamily:
-                                                  FlutterFlowTheme.of(context)
-                                                      .bodyMediumFamily,
+                                              font: FlutterFlowTheme.of(context)
+                                                  .bodyMedium,
                                               color:
                                                   FlutterFlowTheme.of(context)
                                                       .primaryText,
                                               letterSpacing: 0.0,
-                                              useGoogleFonts: GoogleFonts
-                                                      .asMap()
-                                                  .containsKey(
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .bodyMediumFamily),
                                             ),
                                       ),
                                     ),
@@ -1465,22 +1269,15 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmallFamily,
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .buttonText,
                                                       fontSize: 16.0,
                                                       letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily),
                                                     ),
                                             elevation: 3.0,
                                             borderSide: BorderSide(
@@ -1651,22 +1448,15 @@ class _UserRequirementCopyWidgetState extends State<UserRequirementCopyWidget> {
                                                 FlutterFlowTheme.of(context)
                                                     .titleSmall
                                                     .override(
-                                                      fontFamily:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleSmallFamily,
+                                                      font: FlutterFlowTheme.of(
+                                                              context)
+                                                          .titleSmall,
                                                       color:
                                                           FlutterFlowTheme.of(
                                                                   context)
                                                               .buttonText,
                                                       fontSize: 16.0,
                                                       letterSpacing: 0.0,
-                                                      useGoogleFonts: GoogleFonts
-                                                              .asMap()
-                                                          .containsKey(
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .titleSmallFamily),
                                                     ),
                                             elevation: 3.0,
                                             borderSide: BorderSide(

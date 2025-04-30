@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'view_p_d_f_model.dart';
 export 'view_p_d_f_model.dart';
 
@@ -68,17 +67,14 @@ class _ViewPDFWidgetState extends State<ViewPDFWidget> {
                       FFLocalizations.of(context).getText(
                         'huxns30x' /* Page Title */,
                       ),
-                      style:
-                          FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .headlineMediumFamily,
-                                color: FlutterFlowTheme.of(context).primaryText,
-                                fontSize: 24.0,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .headlineMediumFamily),
-                              ),
+                      style: FlutterFlowTheme.of(context)
+                          .headlineMedium
+                          .override(
+                            font: FlutterFlowTheme.of(context).headlineMedium,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            fontSize: 24.0,
+                            letterSpacing: 0.0,
+                          ),
                     ),
                     actions: [],
                     centerTitle: false,
@@ -120,14 +116,10 @@ class _ViewPDFWidgetState extends State<ViewPDFWidget> {
                             textStyle: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleSmallFamily,
+                                  font: FlutterFlowTheme.of(context).titleSmall,
                                   color: Colors.white,
                                   fontSize: 16.0,
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .titleSmallFamily),
                                 ),
                             elevation: 3.0,
                             borderSide: BorderSide(

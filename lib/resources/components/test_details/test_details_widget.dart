@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/onboarding/sign_in_compoent/sign_in_compoent_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'test_details_model.dart';
 export 'test_details_model.dart';
 
@@ -181,13 +180,9 @@ class _TestDetailsWidgetState extends State<TestDetailsWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .labelLarge
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .labelLargeFamily,
+                                    font:
+                                        FlutterFlowTheme.of(context).labelLarge,
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .labelLargeFamily),
                                   ),
                             ),
                           ),

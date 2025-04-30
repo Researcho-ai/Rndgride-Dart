@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'common_dialog_model.dart';
 export 'common_dialog_model.dart';
 
@@ -96,13 +95,11 @@ class _CommonDialogWidgetState extends State<CommonDialogWidget> {
                 }(),
                 textAlign: TextAlign.center,
                 style: FlutterFlowTheme.of(context).bodyMedium.override(
-                      fontFamily: FlutterFlowTheme.of(context).bodyMediumFamily,
+                      font: FlutterFlowTheme.of(context).bodyMedium,
                       color: FlutterFlowTheme.of(context).primaryText,
                       fontSize: 16.0,
                       letterSpacing: 0.0,
                       fontWeight: FontWeight.w500,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).bodyMediumFamily),
                     ),
               ),
               Padding(
@@ -162,17 +159,12 @@ class _CommonDialogWidgetState extends State<CommonDialogWidget> {
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).secondaryBackground,
-                        textStyle: FlutterFlowTheme.of(context)
-                            .bodyMedium
-                            .override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
-                              color: FlutterFlowTheme.of(context).primary,
-                              letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily),
-                            ),
+                        textStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
+                                  font: FlutterFlowTheme.of(context).bodyMedium,
+                                  color: FlutterFlowTheme.of(context).primary,
+                                  letterSpacing: 0.0,
+                                ),
                         elevation: 3.0,
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).primary,
@@ -215,13 +207,9 @@ class _CommonDialogWidgetState extends State<CommonDialogWidget> {
                         textStyle: FlutterFlowTheme.of(context)
                             .bodyMedium
                             .override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyMediumFamily,
+                              font: FlutterFlowTheme.of(context).bodyMedium,
                               color: FlutterFlowTheme.of(context).buttonText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily),
                             ),
                         elevation: 3.0,
                         borderSide: BorderSide(

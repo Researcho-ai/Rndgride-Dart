@@ -5,7 +5,6 @@ import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/resources/components/data_not_found_c_omponent/data_not_found_c_omponent_widget.dart';
 import '/resources/components/instruments_details/instruments_details_widget.dart';
-import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
 import 'instruments_widget.dart' show InstrumentsWidget;
 import 'package:flutter/material.dart';
 
@@ -38,6 +37,15 @@ class InstrumentsModel extends FlutterFlowModel<InstrumentsWidget> {
 
   int? searchInstrumentCount;
 
+  List<String> sugetiion = [];
+  void addToSugetiion(String item) => sugetiion.add(item);
+  void removeFromSugetiion(String item) => sugetiion.remove(item);
+  void removeAtIndexFromSugetiion(int index) => sugetiion.removeAt(index);
+  void insertAtIndexInSugetiion(int index, String item) =>
+      sugetiion.insert(index, item);
+  void updateSugetiionAtIndex(int index, Function(String) updateFn) =>
+      sugetiion[index] = updateFn(sugetiion[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Get Instruments Tests)] action in Instruments widget.
@@ -50,6 +58,10 @@ class InstrumentsModel extends FlutterFlowModel<InstrumentsWidget> {
   String? Function(BuildContext, String?)? searchITextControllerValidator;
   // Stores action output result for [Backend Call - API (Search Instrument  Test)] action in searchI widget.
   ApiCallResponse? instrumentSearch;
+  // Stores action output result for [Backend Call - API (Instrument suggestions)] action in searchI widget.
+  ApiCallResponse? apiResultq7d;
+  // Stores action output result for [Custom Action - replaceLastWord] action in Row widget.
+  String? replacedWord;
   // Models for InstrumentsDetails dynamic component.
   late FlutterFlowDynamicModels<InstrumentsDetailsModel>
       instrumentsDetailsModels1;
@@ -58,9 +70,6 @@ class InstrumentsModel extends FlutterFlowModel<InstrumentsWidget> {
   // Models for InstrumentsDetails dynamic component.
   late FlutterFlowDynamicModels<InstrumentsDetailsModel>
       instrumentsDetailsModels2;
-  // Models for SophisticatedInstrumentComponent dynamic component.
-  late FlutterFlowDynamicModels<SophisticatedInstrumentComponentModel>
-      sophisticatedInstrumentComponentModels;
   // Model for DataNotFoundCOmponent component.
   late DataNotFoundCOmponentModel dataNotFoundCOmponentModel;
   // Model for BottomNavBar component.
@@ -75,8 +84,6 @@ class InstrumentsModel extends FlutterFlowModel<InstrumentsWidget> {
         FlutterFlowDynamicModels(() => InstrumentsDetailsModel());
     instrumentsDetailsModels2 =
         FlutterFlowDynamicModels(() => InstrumentsDetailsModel());
-    sophisticatedInstrumentComponentModels =
-        FlutterFlowDynamicModels(() => SophisticatedInstrumentComponentModel());
     dataNotFoundCOmponentModel =
         createModel(context, () => DataNotFoundCOmponentModel());
     bottomNavBarModel = createModel(context, () => BottomNavBarModel());
@@ -91,7 +98,6 @@ class InstrumentsModel extends FlutterFlowModel<InstrumentsWidget> {
 
     instrumentsDetailsModels1.dispose();
     instrumentsDetailsModels2.dispose();
-    sophisticatedInstrumentComponentModels.dispose();
     dataNotFoundCOmponentModel.dispose();
     bottomNavBarModel.dispose();
     drawerModel.dispose();

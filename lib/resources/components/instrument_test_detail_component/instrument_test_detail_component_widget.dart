@@ -2,7 +2,6 @@ import '/auth/custom_auth/auth_util.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'instrument_test_detail_component_model.dart';
 export 'instrument_test_detail_component_model.dart';
 
@@ -150,22 +149,14 @@ class _InstrumentTestDetailComponentWidgetState
                           labelStyle: FlutterFlowTheme.of(context)
                               .bodyLarge
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyLargeFamily,
+                                font: FlutterFlowTheme.of(context).bodyLarge,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyLargeFamily),
                               ),
                           hintStyle: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .labelMediumFamily,
+                                font: FlutterFlowTheme.of(context).labelMedium,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelMediumFamily),
                               ),
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -175,13 +166,9 @@ class _InstrumentTestDetailComponentWidgetState
                               0.0, 2.0, 0.0, 0.0),
                         ),
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).titleSmallFamily,
+                              font: FlutterFlowTheme.of(context).titleSmall,
                               color: FlutterFlowTheme.of(context).primaryText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .titleSmallFamily),
                             ),
                         validator: _model.textController1Validator
                             .asValidator(context),
@@ -195,11 +182,8 @@ class _InstrumentTestDetailComponentWidgetState
                           '2ajiv7yv' /* - */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyLargeFamily,
+                              font: FlutterFlowTheme.of(context).bodyLarge,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context).bodyLargeFamily),
                             ),
                       ),
                     ),
@@ -227,22 +211,14 @@ class _InstrumentTestDetailComponentWidgetState
                           labelStyle: FlutterFlowTheme.of(context)
                               .bodyLarge
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyLargeFamily,
+                                font: FlutterFlowTheme.of(context).bodyLarge,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyLargeFamily),
                               ),
                           hintStyle: FlutterFlowTheme.of(context)
                               .labelMedium
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .labelMediumFamily,
+                                font: FlutterFlowTheme.of(context).labelMedium,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelMediumFamily),
                               ),
                           enabledBorder: InputBorder.none,
                           focusedBorder: InputBorder.none,
@@ -252,13 +228,9 @@ class _InstrumentTestDetailComponentWidgetState
                               0.0, 2.0, 0.0, 0.0),
                         ),
                         style: FlutterFlowTheme.of(context).titleSmall.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).titleSmallFamily,
+                              font: FlutterFlowTheme.of(context).titleSmall,
                               color: FlutterFlowTheme.of(context).primaryText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .titleSmallFamily),
                             ),
                         validator: _model.textController2Validator
                             .asValidator(context),
@@ -272,11 +244,8 @@ class _InstrumentTestDetailComponentWidgetState
                           's1pdapm5' /* - */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyLargeFamily,
+                              font: FlutterFlowTheme.of(context).bodyLarge,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context).bodyLargeFamily),
                             ),
                       ),
                     ),
@@ -298,12 +267,9 @@ class _InstrumentTestDetailComponentWidgetState
                         'un3pv25x' /* Upon Request */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyLargeFamily,
+                            font: FlutterFlowTheme.of(context).bodyLarge,
                             color: FlutterFlowTheme.of(context).primaryText,
                             letterSpacing: 0.0,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyLargeFamily),
                           ),
                     ),
                   Padding(
@@ -327,24 +293,16 @@ class _InstrumentTestDetailComponentWidgetState
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .bodyLargeFamily,
+                                      font: FlutterFlowTheme.of(context)
+                                          .bodyLarge,
                                       letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLargeFamily),
                                     ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .labelMediumFamily,
+                                      font: FlutterFlowTheme.of(context)
+                                          .labelMedium,
                                       letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMediumFamily),
                                     ),
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -356,15 +314,11 @@ class _InstrumentTestDetailComponentWidgetState
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .titleSmallFamily,
+                                    font:
+                                        FlutterFlowTheme.of(context).titleSmall,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleSmallFamily),
                                   ),
                               validator: _model.textController3Validator
                                   .asValidator(context),
@@ -395,24 +349,16 @@ class _InstrumentTestDetailComponentWidgetState
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .bodyLarge
                                     .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .bodyLargeFamily,
+                                      font: FlutterFlowTheme.of(context)
+                                          .bodyLarge,
                                       letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyLargeFamily),
                                     ),
                                 hintStyle: FlutterFlowTheme.of(context)
                                     .labelMedium
                                     .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .labelMediumFamily,
+                                      font: FlutterFlowTheme.of(context)
+                                          .labelMedium,
                                       letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .labelMediumFamily),
                                     ),
                                 enabledBorder: InputBorder.none,
                                 focusedBorder: InputBorder.none,
@@ -424,15 +370,11 @@ class _InstrumentTestDetailComponentWidgetState
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .titleSmallFamily,
+                                    font:
+                                        FlutterFlowTheme.of(context).titleSmall,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleSmallFamily),
                                   ),
                               validator: _model.textController4Validator
                                   .asValidator(context),
@@ -465,13 +407,9 @@ class _InstrumentTestDetailComponentWidgetState
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
+                                font: FlutterFlowTheme.of(context).bodyMedium,
                                 color: FlutterFlowTheme.of(context).error,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
                               ),
                         ),
                       ),
@@ -488,10 +426,8 @@ class _InstrumentTestDetailComponentWidgetState
               Text(
                 widget.other!,
                 style: FlutterFlowTheme.of(context).bodySmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                      font: FlutterFlowTheme.of(context).bodySmall,
                       letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).bodySmallFamily),
                     ),
               ),
             if (widget.otherBool &&
@@ -501,10 +437,8 @@ class _InstrumentTestDetailComponentWidgetState
                   'zs00z61r' /* - */,
                 ),
                 style: FlutterFlowTheme.of(context).bodySmall.override(
-                      fontFamily: FlutterFlowTheme.of(context).bodySmallFamily,
+                      font: FlutterFlowTheme.of(context).bodySmall,
                       letterSpacing: 0.0,
-                      useGoogleFonts: GoogleFonts.asMap().containsKey(
-                          FlutterFlowTheme.of(context).bodySmallFamily),
                     ),
               ),
           ],

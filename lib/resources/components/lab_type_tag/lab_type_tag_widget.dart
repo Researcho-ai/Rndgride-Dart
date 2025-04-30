@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'lab_type_tag_model.dart';
 export 'lab_type_tag_model.dart';
 
@@ -60,11 +59,9 @@ class _LabTypeTagWidgetState extends State<LabTypeTagWidget> {
                 'labType',
               ),
               style: FlutterFlowTheme.of(context).labelSmall.override(
-                    fontFamily: FlutterFlowTheme.of(context).labelSmallFamily,
+                    font: FlutterFlowTheme.of(context).labelSmall,
                     color: Color(0xFF141B33),
                     letterSpacing: 0.0,
-                    useGoogleFonts: GoogleFonts.asMap().containsKey(
-                        FlutterFlowTheme.of(context).labelSmallFamily),
                   ),
             ),
           ),

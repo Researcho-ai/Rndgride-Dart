@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/main_pages/components/user_requirement_copy/user_requirement_copy_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'requirements_model.dart';
 export 'requirements_model.dart';
 
@@ -81,11 +80,8 @@ class _RequirementsWidgetState extends State<RequirementsWidget> {
                         'i6f27mys' /* User requirement form */,
                       ),
                       style: FlutterFlowTheme.of(context).titleLarge.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).titleLargeFamily,
+                            font: FlutterFlowTheme.of(context).titleLarge,
                             letterSpacing: 0.0,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).titleLargeFamily),
                           ),
                     ),
                     actions: [],
@@ -182,16 +178,10 @@ class _RequirementsWidgetState extends State<RequirementsWidget> {
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium
                                               .override(
-                                                fontFamily:
+                                                font:
                                                     FlutterFlowTheme.of(context)
-                                                        .bodyMediumFamily,
+                                                        .bodyMedium,
                                                 letterSpacing: 0.0,
-                                                useGoogleFonts: GoogleFonts
-                                                        .asMap()
-                                                    .containsKey(
-                                                        FlutterFlowTheme.of(
-                                                                context)
-                                                            .bodyMediumFamily),
                                               ),
                                         ),
                                       ),

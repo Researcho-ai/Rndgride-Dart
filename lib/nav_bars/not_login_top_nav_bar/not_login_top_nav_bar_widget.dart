@@ -56,120 +56,63 @@ class _NotLoginTopNavBarWidgetState extends State<NotLoginTopNavBarWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (Theme.of(context).brightness == Brightness.dark)
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent(
-                              'NOT_LOGIN_TOP_NAV_BAR_darkMode_ON_TAP');
-                          if (!loggedIn) {
-                            logFirebaseEvent('darkMode_navigate_to');
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                    child: InkWell(
+                      splashColor: Colors.transparent,
+                      focusColor: Colors.transparent,
+                      hoverColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () async {
+                        logFirebaseEvent(
+                            'NOT_LOGIN_TOP_NAV_BAR_lightMode_ON_TAP');
+                        if (!loggedIn) {
+                          logFirebaseEvent('lightMode_navigate_to');
 
-                            context.pushNamed(HomeWidget.routeName);
+                          context.pushNamed(HomeWidget.routeName);
 
-                            logFirebaseEvent('darkMode_update_app_state');
-                            FFAppState().topnavBaronSelect =
-                                TopNavBarOnSelectStruct(
-                              instruments: false,
-                              home: true,
-                              bookings: false,
-                              history: false,
-                              aboutUs: false,
-                              contactUs: false,
-                              forum: false,
-                              community: false,
-                            );
-                            safeSetState(() {});
-                          } else {
-                            logFirebaseEvent('darkMode_alert_dialog');
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('please Complete your profile !'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        },
-                        child: SvgPicture.asset(
-                          'assets/images/RNDgrid_Horizontal_Logo_Dark.svg',
-                          width: 150.0,
-                          height: 40.0,
-                          fit: BoxFit.fitWidth,
-                        ),
+                          logFirebaseEvent('lightMode_update_app_state');
+                          FFAppState().topnavBaronSelect =
+                              TopNavBarOnSelectStruct(
+                            instruments: false,
+                            home: true,
+                            bookings: false,
+                            history: false,
+                            aboutUs: false,
+                            contactUs: false,
+                            forum: false,
+                            community: false,
+                          );
+                          safeSetState(() {});
+                        } else {
+                          logFirebaseEvent('lightMode_alert_dialog');
+                          await showDialog(
+                            context: context,
+                            builder: (alertDialogContext) {
+                              return AlertDialog(
+                                title: Text('please Complete your profile !'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(alertDialogContext),
+                                    child: Text('Ok'),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
+                        }
+                      },
+                      child: SvgPicture.asset(
+                        Theme.of(context).brightness == Brightness.dark
+                            ? 'assets/images/RNDgrid_Horizontal_Logo_Dark.svg'
+                            : 'assets/images/RNDgrid_Horizontal_Logo_Light.svg',
+                        width: 150.0,
+                        height: 40.0,
+                        fit: BoxFit.contain,
                       ),
                     ),
-                  if (Theme.of(context).brightness == Brightness.light)
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent(
-                              'NOT_LOGIN_TOP_NAV_BAR_lightMode_ON_TAP');
-                          if (!loggedIn) {
-                            logFirebaseEvent('lightMode_navigate_to');
-
-                            context.pushNamed(HomeWidget.routeName);
-
-                            logFirebaseEvent('lightMode_update_app_state');
-                            FFAppState().topnavBaronSelect =
-                                TopNavBarOnSelectStruct(
-                              instruments: false,
-                              home: true,
-                              bookings: false,
-                              history: false,
-                              aboutUs: false,
-                              contactUs: false,
-                              forum: false,
-                              community: false,
-                            );
-                            safeSetState(() {});
-                          } else {
-                            logFirebaseEvent('lightMode_alert_dialog');
-                            await showDialog(
-                              context: context,
-                              builder: (alertDialogContext) {
-                                return AlertDialog(
-                                  title: Text('please Complete your profile !'),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(alertDialogContext),
-                                      child: Text('Ok'),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-                        },
-                        child: Image.asset(
-                          'assets/images/horizontal_black_fonts.png',
-                          width: 150.0,
-                          height: 40.0,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
+                  ),
                 ],
               ),
             ),

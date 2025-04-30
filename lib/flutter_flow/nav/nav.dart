@@ -191,42 +191,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => AboutUsWidget(),
             ),
             FFRoute(
-              name: LabOptionsWidget.routeName,
-              path: LabOptionsWidget.routePath,
-              builder: (context, params) => LabOptionsWidget(
-                instrumentTestName: params.getParam(
-                  'instrumentTestName',
-                  ParamType.String,
-                ),
-                id: params.getParam(
-                  'id',
-                  ParamType.String,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: LabInstrumentsWidget.routeName,
-              path: LabInstrumentsWidget.routePath,
-              builder: (context, params) => LabInstrumentsWidget(
-                labName: params.getParam(
-                  'labName',
-                  ParamType.String,
-                ),
-                instituteName: params.getParam(
-                  'instituteName',
-                  ParamType.String,
-                ),
-                labType: params.getParam(
-                  'labType',
-                  ParamType.String,
-                ),
-                labID: params.getParam(
-                  'labID',
-                  ParamType.String,
-                ),
-              ),
-            ),
-            FFRoute(
               name: ProfileWidget.routeName,
               path: ProfileWidget.routePath,
               builder: (context, params) => ProfileWidget(),
@@ -260,11 +224,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: RequirementsWidget.routeName,
               path: RequirementsWidget.routePath,
               builder: (context, params) => RequirementsWidget(),
-            ),
-            FFRoute(
-              name: LabsWidget.routeName,
-              path: LabsWidget.routePath,
-              builder: (context, params) => LabsWidget(),
             ),
             FFRoute(
               name: TestsWidget.routeName,

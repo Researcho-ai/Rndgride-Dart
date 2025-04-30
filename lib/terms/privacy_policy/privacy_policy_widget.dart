@@ -5,7 +5,6 @@ import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'privacy_policy_model.dart';
 export 'privacy_policy_model.dart';
 
@@ -101,17 +100,14 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                           return 'Lab Terms and Conditions';
                         }
                       }(),
-                      style:
-                          FlutterFlowTheme.of(context).headlineMedium.override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .headlineMediumFamily,
-                                color: Colors.white,
-                                fontSize: 20.0,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .headlineMediumFamily),
-                              ),
+                      style: FlutterFlowTheme.of(context)
+                          .headlineMedium
+                          .override(
+                            font: FlutterFlowTheme.of(context).headlineMedium,
+                            color: Colors.white,
+                            fontSize: 20.0,
+                            letterSpacing: 0.0,
+                          ),
                     ),
                     actions: [],
                     centerTitle: false,
@@ -252,16 +248,11 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                                                                   context)
                                                               .titleMedium
                                                               .override(
-                                                                fontFamily: FlutterFlowTheme.of(
+                                                                font: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .titleMediumFamily,
+                                                                    .titleMedium,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .titleMediumFamily),
                                                               ),
                                                     ),
                                                   ),
@@ -271,17 +262,10 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                                                             context)
                                                         .bodyMedium
                                                         .override(
-                                                          fontFamily:
-                                                              FlutterFlowTheme.of(
-                                                                      context)
-                                                                  .bodyMediumFamily,
+                                                          font: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .bodyMedium,
                                                           letterSpacing: 0.0,
-                                                          useGoogleFonts: GoogleFonts
-                                                                  .asMap()
-                                                              .containsKey(
-                                                                  FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyMediumFamily),
                                                         ),
                                                   ),
                                                   Padding(
@@ -300,16 +284,11 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                                                                   context)
                                                               .bodyLarge
                                                               .override(
-                                                                fontFamily: FlutterFlowTheme.of(
+                                                                font: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .bodyLargeFamily,
+                                                                    .bodyLarge,
                                                                 letterSpacing:
                                                                     0.0,
-                                                                useGoogleFonts: GoogleFonts
-                                                                        .asMap()
-                                                                    .containsKey(
-                                                                        FlutterFlowTheme.of(context)
-                                                                            .bodyLargeFamily),
                                                               ),
                                                     ),
                                                   ),
@@ -395,12 +374,10 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                                                                               context)
                                                                           .labelLarge
                                                                           .override(
-                                                                            fontFamily:
-                                                                                FlutterFlowTheme.of(context).labelLargeFamily,
+                                                                            font:
+                                                                                FlutterFlowTheme.of(context).labelLarge,
                                                                             letterSpacing:
                                                                                 0.0,
-                                                                            useGoogleFonts:
-                                                                                GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).labelLargeFamily),
                                                                           ),
                                                                     ),
                                                                   ),
@@ -413,12 +390,10 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                                                                             context)
                                                                         .bodyMedium
                                                                         .override(
-                                                                          fontFamily:
-                                                                              FlutterFlowTheme.of(context).bodyMediumFamily,
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).bodyMedium,
                                                                           letterSpacing:
                                                                               0.0,
-                                                                          useGoogleFonts:
-                                                                              GoogleFonts.asMap().containsKey(FlutterFlowTheme.of(context).bodyMediumFamily),
                                                                         ),
                                                                   ),
                                                                 ],

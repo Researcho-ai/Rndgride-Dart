@@ -4,7 +4,6 @@ import 'dart:async';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'bottom_nav_bar_model.dart';
 export 'bottom_nav_bar_model.dart';
 
@@ -134,15 +133,11 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodySmall
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodySmallFamily,
+                                font: FlutterFlowTheme.of(context).bodySmall,
                                 color: widget.home
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodySmallFamily),
                               ),
                         ),
                       ],
@@ -183,15 +178,11 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodySmall
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodySmallFamily,
+                                font: FlutterFlowTheme.of(context).bodySmall,
                                 color: widget.resources
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodySmallFamily),
                               ),
                         ),
                       ],
@@ -232,15 +223,11 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodySmall
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodySmallFamily,
+                                font: FlutterFlowTheme.of(context).bodySmall,
                                 color: widget.job
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodySmallFamily),
                               ),
                         ),
                       ],
@@ -249,51 +236,33 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                 ),
               ),
               Expanded(
-                child: InkWell(
-                  splashColor: Colors.transparent,
-                  focusColor: Colors.transparent,
-                  hoverColor: Colors.transparent,
-                  highlightColor: Colors.transparent,
-                  onTap: () async {
-                    logFirebaseEvent('BOTTOM_NAV_BAR_COMP_Hom_ON_TAP');
-                    logFirebaseEvent('Hom_navigate_to');
-
-                    context.pushNamed(LabsWidget.routeName);
-                  },
-                  child: Container(
-                    height: 70.0,
-                    decoration: BoxDecoration(),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Icon(
-                          FFIcons.ktestTube,
-                          color: widget.tools
-                              ? FlutterFlowTheme.of(context).primary
-                              : FlutterFlowTheme.of(context).secondaryText,
-                          size: 28.0,
+                child: Container(
+                  height: 70.0,
+                  decoration: BoxDecoration(),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Icon(
+                        FFIcons.ktestTube,
+                        color: widget.tools
+                            ? FlutterFlowTheme.of(context).primary
+                            : FlutterFlowTheme.of(context).secondaryText,
+                        size: 28.0,
+                      ),
+                      Text(
+                        FFLocalizations.of(context).getText(
+                          'vcq5zkgt' /* Labs */,
                         ),
-                        Text(
-                          FFLocalizations.of(context).getText(
-                            'vcq5zkgt' /* Labs */,
-                          ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodySmall
-                              .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodySmallFamily,
-                                color: widget.tools
-                                    ? FlutterFlowTheme.of(context).primary
-                                    : FlutterFlowTheme.of(context).primaryText,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodySmallFamily),
-                              ),
-                        ),
-                      ],
-                    ),
+                        style: FlutterFlowTheme.of(context).bodySmall.override(
+                              font: FlutterFlowTheme.of(context).bodySmall,
+                              color: widget.tools
+                                  ? FlutterFlowTheme.of(context).primary
+                                  : FlutterFlowTheme.of(context).primaryText,
+                              letterSpacing: 0.0,
+                            ),
+                      ),
+                    ],
                   ),
                 ),
               ),

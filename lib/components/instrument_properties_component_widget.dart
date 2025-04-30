@@ -11,7 +11,6 @@ import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'instrument_properties_component_model.dart';
 export 'instrument_properties_component_model.dart';
 
@@ -163,12 +162,8 @@ class _InstrumentPropertiesComponentWidgetState
                           style: FlutterFlowTheme.of(context)
                               .labelLarge
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .labelLargeFamily,
+                                font: FlutterFlowTheme.of(context).labelLarge,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .labelLargeFamily),
                               ),
                         ),
                       ),
@@ -259,13 +254,9 @@ class _InstrumentPropertiesComponentWidgetState
                                 style: FlutterFlowTheme.of(context)
                                     .bodySmall
                                     .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .bodySmallFamily,
+                                      font: FlutterFlowTheme.of(context)
+                                          .bodySmall,
                                       letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .bodySmallFamily),
                                     ),
                               )),
                             ),
@@ -365,23 +356,16 @@ class _InstrumentPropertiesComponentWidgetState
                             labelStyle: FlutterFlowTheme.of(context)
                                 .labelMedium
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .labelMediumFamily,
+                                  font:
+                                      FlutterFlowTheme.of(context).labelMedium,
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .labelMediumFamily),
                                 ),
                             hintStyle: FlutterFlowTheme.of(context)
                                 .bodySmall
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .bodySmallFamily,
+                                  font: FlutterFlowTheme.of(context).bodySmall,
                                   color: FlutterFlowTheme.of(context).border,
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .bodySmallFamily),
                                 ),
                             enabledBorder: UnderlineInputBorder(
                               borderSide: BorderSide(
@@ -432,13 +416,9 @@ class _InstrumentPropertiesComponentWidgetState
                           style: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
+                                font: FlutterFlowTheme.of(context).bodyMedium,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
                               ),
                           validator: _model
                               .requirementTextFieldTextControllerValidator
@@ -475,13 +455,9 @@ class _InstrumentPropertiesComponentWidgetState
                           textStyle: FlutterFlowTheme.of(context)
                               .bodySmall
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodySmallFamily,
+                                font: FlutterFlowTheme.of(context).bodySmall,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodySmallFamily),
                               ),
                           hintText: FFLocalizations.of(context).getText(
                             '9cwnbadk' /* When do you need it? */,
@@ -506,13 +482,9 @@ class _InstrumentPropertiesComponentWidgetState
                           labelTextStyle: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
+                                font: FlutterFlowTheme.of(context).bodyMedium,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
                               ),
                         ),
                       ),
@@ -707,15 +679,11 @@ class _InstrumentPropertiesComponentWidgetState
                               textStyle: FlutterFlowTheme.of(context)
                                   .labelLarge
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .labelLargeFamily,
+                                    font:
+                                        FlutterFlowTheme.of(context).labelLarge,
                                     color:
                                         FlutterFlowTheme.of(context).buttonText,
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .labelLargeFamily),
                                   ),
                               elevation: 3.0,
                               borderSide: BorderSide(

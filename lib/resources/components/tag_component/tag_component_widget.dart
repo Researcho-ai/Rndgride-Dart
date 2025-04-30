@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'tag_component_model.dart';
 export 'tag_component_model.dart';
 
@@ -67,15 +66,12 @@ class _TagComponentWidgetState extends State<TagComponentWidget> {
                     widget.text!,
                     textAlign: TextAlign.center,
                     style: FlutterFlowTheme.of(context).labelSmall.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).labelSmallFamily,
+                          font: FlutterFlowTheme.of(context).labelSmall,
                           color: valueOrDefault<Color>(
                             widget.textColor,
                             Color(0xFF141B33),
                           ),
                           letterSpacing: 0.0,
-                          useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).labelSmallFamily),
                         ),
                   ),
                 ),

@@ -24,7 +24,9 @@ class LabsGroup {
 }
 
 class GetLabsCall {
-  Future<ApiCallResponse> call() async {
+  Future<ApiCallResponse> call({
+    String? searchTerm = '',
+  }) async {
     final baseUrl = LabsGroup.getBaseUrl();
 
     return ApiManager.instance.makeApiCall(
@@ -34,7 +36,9 @@ class GetLabsCall {
       headers: {
         'Content-Type': 'application/json',
       },
-      params: {},
+      params: {
+        'searchTerm': searchTerm,
+      },
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
@@ -48,6 +52,10 @@ class GetLabsCall {
         response,
         r'''$.labs''',
       );
+  int? count(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.count''',
+      ));
 }
 
 class FetchLabOptionsCall {
@@ -278,11 +286,14 @@ class InstrumentsTestsGroup {
       FetchInstrumentTestListCall();
   static GetInstrumentPropertiesCall getInstrumentPropertiesCall =
       GetInstrumentPropertiesCall();
+  static InstrumentSuggestionsCall instrumentSuggestionsCall =
+      InstrumentSuggestionsCall();
 }
 
 class GetInstrumentsTestsCall {
   Future<ApiCallResponse> call({
     int? limit,
+    bool? filteredValue = true,
   }) async {
     final baseUrl = InstrumentsTestsGroup.getBaseUrl();
 
@@ -295,6 +306,7 @@ class GetInstrumentsTestsCall {
       },
       params: {
         'limit': limit,
+        'filtered_value': filteredValue,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -319,6 +331,7 @@ class SearchInstrumentTestCall {
   Future<ApiCallResponse> call({
     String? search = '',
     int? limit,
+    bool? sophisticatedSearch,
   }) async {
     final baseUrl = InstrumentsTestsGroup.getBaseUrl();
 
@@ -332,6 +345,7 @@ class SearchInstrumentTestCall {
       params: {
         'searchTerm': search,
         'limit': limit,
+        'sophisticated_search': sophisticatedSearch,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -356,6 +370,7 @@ class SearchInstrumentTestCall {
 class GetSophisticatedInstrumentsTestsCall {
   Future<ApiCallResponse> call({
     int? limit,
+    bool? filteredValue = true,
   }) async {
     final baseUrl = InstrumentsTestsGroup.getBaseUrl();
 
@@ -368,6 +383,7 @@ class GetSophisticatedInstrumentsTestsCall {
       },
       params: {
         'limit': limit,
+        'filtered_value': filteredValue,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -497,6 +513,48 @@ class GetInstrumentPropertiesCall {
         response,
         r'''$.fieldsPresence''',
       );
+}
+
+class InstrumentSuggestionsCall {
+  Future<ApiCallResponse> call({
+    String? searchTerm = '',
+    bool? sophisticatedSearch = false,
+  }) async {
+    final baseUrl = InstrumentsTestsGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Instrument suggestions',
+      apiUrl: '${baseUrl}suggestions',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'searchTerm': searchTerm,
+        'sophisticated_search': sophisticatedSearch,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<String>? suggetion(dynamic response) => (getJsonField(
+        response,
+        r'''$.suggestions''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  int? count(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.count''',
+      ));
 }
 
 /// End Instruments Tests Group Code
@@ -1267,11 +1325,14 @@ class TestsGroup {
   static GetAvailabeTestPropetiesCall getAvailabeTestPropetiesCall =
       GetAvailabeTestPropetiesCall();
   static SearchTestCall searchTestCall = SearchTestCall();
+  static TestSuggestionCall testSuggestionCall = TestSuggestionCall();
+  static GetCategoriesCall getCategoriesCall = GetCategoriesCall();
 }
 
 class GetFiedsCall {
   Future<ApiCallResponse> call({
     int? limit,
+    String? categoryRef = '',
     String? fieldRef = '',
   }) async {
     final baseUrl = TestsGroup.getBaseUrl(
@@ -1287,6 +1348,7 @@ class GetFiedsCall {
       },
       params: {
         'limit': limit,
+        'category_ref': categoryRef,
       },
       returnBody: true,
       encodeBodyUtf8: false,
@@ -1375,9 +1437,149 @@ class SearchTestCall {
       alwaysAllowBody: false,
     );
   }
+
+  List? searchResult(dynamic response) => getJsonField(
+        response,
+        r'''$.data''',
+        true,
+      ) as List?;
+}
+
+class TestSuggestionCall {
+  Future<ApiCallResponse> call({
+    String? searchTerm = '',
+    int? limit = 10,
+    String? fieldRef = '',
+  }) async {
+    final baseUrl = TestsGroup.getBaseUrl(
+      fieldRef: fieldRef,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Test Suggestion',
+      apiUrl: '${baseUrl}suggestions',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'searchTerm': searchTerm,
+        'limit': limit,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<String>? suggetoins(dynamic response) => (getJsonField(
+        response,
+        r'''$.suggestions''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+}
+
+class GetCategoriesCall {
+  Future<ApiCallResponse> call({
+    int? limit,
+    bool? filteredValue = true,
+    String? fieldRef = '',
+  }) async {
+    final baseUrl = TestsGroup.getBaseUrl(
+      fieldRef: fieldRef,
+    );
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Get Categories',
+      apiUrl: '${baseUrl}getCategories',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'limit': limit,
+        'filtered_value': filteredValue,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List? categories(dynamic response) => getJsonField(
+        response,
+        r'''$.categories''',
+        true,
+      ) as List?;
+  int? count(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.count''',
+      ));
 }
 
 /// End Tests Group Code
+
+/// Start Admin Group Code
+
+class AdminGroup {
+  static String getBaseUrl() => 'https://js.rndgrid.com/api/admin/';
+  static Map<String, String> headers = {
+    'Content-Type': 'application/json',
+  };
+  static GlobalSuggetionCall globalSuggetionCall = GlobalSuggetionCall();
+}
+
+class GlobalSuggetionCall {
+  Future<ApiCallResponse> call({
+    String? searchTerm = '',
+  }) async {
+    final baseUrl = AdminGroup.getBaseUrl();
+
+    return ApiManager.instance.makeApiCall(
+      callName: 'Global Suggetion',
+      apiUrl: '${baseUrl}global-suggestions',
+      callType: ApiCallType.GET,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      params: {
+        'searchTerm': searchTerm,
+      },
+      returnBody: true,
+      encodeBodyUtf8: false,
+      decodeUtf8: false,
+      cache: false,
+      isStreamingApi: false,
+      alwaysAllowBody: false,
+    );
+  }
+
+  List<String>? globalSuggetion(dynamic response) => (getJsonField(
+        response,
+        r'''$.suggestions''',
+        true,
+      ) as List?)
+          ?.withoutNulls
+          .map((x) => castToType<String>(x))
+          .withoutNulls
+          .toList();
+  int? count(dynamic response) => castToType<int>(getJsonField(
+        response,
+        r'''$.count''',
+      ));
+}
+
+/// End Admin Group Code
 
 class SendMailToAdminCall {
   static Future<ApiCallResponse> call({

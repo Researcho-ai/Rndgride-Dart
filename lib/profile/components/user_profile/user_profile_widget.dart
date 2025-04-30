@@ -6,7 +6,6 @@ import '/main_pages/components/theme_mode/theme_mode_widget.dart';
 import '/onboarding/logout_popup/logout_popup_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'user_profile_model.dart';
 export 'user_profile_model.dart';
@@ -174,12 +173,8 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                           '-',
                         ),
                         style: FlutterFlowTheme.of(context).labelLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).labelLargeFamily,
+                              font: FlutterFlowTheme.of(context).labelLarge,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .labelLargeFamily),
                             ),
                       ),
                     ),
@@ -220,12 +215,9 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                         textStyle: FlutterFlowTheme.of(context)
                             .bodySmall
                             .override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodySmallFamily,
+                              font: FlutterFlowTheme.of(context).bodySmall,
                               color: FlutterFlowTheme.of(context).secondaryText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context).bodySmallFamily),
                             ),
                         elevation: 0.0,
                         borderSide: BorderSide(
@@ -271,14 +263,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily,
+                                  font: FlutterFlowTheme.of(context).bodyMedium,
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .bodyMediumFamily),
                                 ),
                           ),
                         ),
@@ -313,14 +301,10 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily,
+                                  font: FlutterFlowTheme.of(context).bodyMedium,
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .bodyMediumFamily),
                                 ),
                           ),
                         ),
@@ -372,15 +356,11 @@ class _UserProfileWidgetState extends State<UserProfileWidget> {
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
-                                      fontFamily: FlutterFlowTheme.of(context)
-                                          .bodyMediumFamily,
+                                      font: FlutterFlowTheme.of(context)
+                                          .bodyMedium,
                                       color: FlutterFlowTheme.of(context)
                                           .primaryText,
                                       letterSpacing: 0.0,
-                                      useGoogleFonts: GoogleFonts.asMap()
-                                          .containsKey(
-                                              FlutterFlowTheme.of(context)
-                                                  .bodyMediumFamily),
                                     ),
                               ),
                             ),

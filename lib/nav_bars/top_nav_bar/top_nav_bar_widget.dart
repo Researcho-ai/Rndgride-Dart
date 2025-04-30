@@ -7,7 +7,6 @@ import '/index.dart';
 import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'top_nav_bar_model.dart';
 export 'top_nav_bar_model.dart';
@@ -19,18 +18,18 @@ class TopNavBarWidget extends StatefulWidget {
     bool? about,
     bool? contactus,
     bool? tests,
-    bool? labs,
+    bool? sophisticated,
   })  : this.instrument = instrument ?? false,
         this.about = about ?? false,
         this.contactus = contactus ?? false,
         this.tests = tests ?? false,
-        this.labs = labs ?? false;
+        this.sophisticated = sophisticated ?? false;
 
   final bool instrument;
   final bool about;
   final bool contactus;
   final bool tests;
-  final bool labs;
+  final bool sophisticated;
 
   @override
   State<TopNavBarWidget> createState() => _TopNavBarWidgetState();
@@ -129,6 +128,94 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                           'TOP_NAV_BAR_COMP_Column_2czshu1x_ON_TAP');
                       logFirebaseEvent('Column_navigate_to');
 
+                      context
+                          .pushNamed(SophisticatedInstrumentWidget.routeName);
+
+                      logFirebaseEvent('Column_update_app_state');
+                      FFAppState().topnavBaronSelect = TopNavBarOnSelectStruct(
+                        instruments: true,
+                        home: false,
+                        bookings: false,
+                        history: false,
+                        aboutUs: false,
+                        contactUs: false,
+                        forum: false,
+                        community: false,
+                        lab: true,
+                        jobs: false,
+                      );
+                      safeSetState(() {});
+                    },
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Flexible(
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                15.0, 8.0, 15.0, 4.0),
+                            child: Text(
+                              FFLocalizations.of(context).getText(
+                                '3v0sb94k' /* Instruments */,
+                              ),
+                              textAlign: TextAlign.center,
+                              style: FlutterFlowTheme.of(context)
+                                  .titleSmall
+                                  .override(
+                                    font:
+                                        FlutterFlowTheme.of(context).titleSmall,
+                                    color: widget.instrument ||
+                                            _model
+                                                .instrumentMouseRegionHovered1
+                                        ? FlutterFlowTheme.of(context)
+                                            .primaryText
+                                        : FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                    fontSize: widget.instrument ||
+                                            _model
+                                                .instrumentMouseRegionHovered1
+                                        ? 20.0
+                                        : 18.0,
+                                    letterSpacing: 0.0,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                            ),
+                          ),
+                        ),
+                        if (widget.sophisticated ||
+                            _model.instrumentMouseRegionHovered1)
+                          SizedBox(
+                            width: 100.0,
+                            child: Divider(
+                              thickness: 1.0,
+                              color: FlutterFlowTheme.of(context).primaryText,
+                            ),
+                          ),
+                      ],
+                    ),
+                  ),
+                  onEnter: ((event) async {
+                    safeSetState(
+                        () => _model.instrumentMouseRegionHovered1 = true);
+                  }),
+                  onExit: ((event) async {
+                    safeSetState(
+                        () => _model.instrumentMouseRegionHovered1 = false);
+                  }),
+                ),
+                MouseRegion(
+                  opaque: false,
+                  cursor: MouseCursor.defer ?? MouseCursor.defer,
+                  child: InkWell(
+                    splashColor: Colors.transparent,
+                    focusColor: Colors.transparent,
+                    hoverColor: Colors.transparent,
+                    highlightColor: Colors.transparent,
+                    onTap: () async {
+                      logFirebaseEvent(
+                          'TOP_NAV_BAR_COMP_Column_1dgvrce3_ON_TAP');
+                      logFirebaseEvent('Column_navigate_to');
+
                       context.goNamed(InstrumentsWidget.routeName);
 
                       logFirebaseEvent('Column_update_app_state');
@@ -155,32 +242,28 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                               15.0, 8.0, 15.0, 4.0),
                           child: Text(
                             FFLocalizations.of(context).getText(
-                              '3v0sb94k' /* Instruments */,
+                              'd2f0iqxd' /* Lab Facilities */,
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleSmallFamily,
+                                  font: FlutterFlowTheme.of(context).titleSmall,
                                   color: widget.instrument ||
-                                          _model.instrumentMouseRegionHovered
+                                          _model.instrumentMouseRegionHovered2
                                       ? FlutterFlowTheme.of(context).primaryText
                                       : FlutterFlowTheme.of(context)
                                           .secondaryText,
                                   fontSize: widget.instrument ||
-                                          _model.instrumentMouseRegionHovered
+                                          _model.instrumentMouseRegionHovered2
                                       ? 20.0
                                       : 18.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .titleSmallFamily),
                                 ),
                           ),
                         ),
                         if (widget.instrument ||
-                            _model.instrumentMouseRegionHovered)
+                            _model.instrumentMouseRegionHovered2)
                           SizedBox(
                             width: 100.0,
                             child: Divider(
@@ -193,11 +276,11 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                   ),
                   onEnter: ((event) async {
                     safeSetState(
-                        () => _model.instrumentMouseRegionHovered = true);
+                        () => _model.instrumentMouseRegionHovered2 = true);
                   }),
                   onExit: ((event) async {
                     safeSetState(
-                        () => _model.instrumentMouseRegionHovered = false);
+                        () => _model.instrumentMouseRegionHovered2 = false);
                   }),
                 ),
                 Padding(
@@ -242,13 +325,13 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                                 15.0, 8.0, 15.0, 4.0),
                             child: Text(
                               FFLocalizations.of(context).getText(
-                                '0e1v881w' /* Tests */,
+                                '0e1v881w' /* Sectors */,
                               ),
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .titleSmallFamily,
+                                    font:
+                                        FlutterFlowTheme.of(context).titleSmall,
                                     color: widget.instrument ||
                                             _model.testMouseRegionHovered
                                         ? FlutterFlowTheme.of(context)
@@ -261,10 +344,6 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                                         : 18.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleSmallFamily),
                                   ),
                             ),
                           ),
@@ -334,8 +413,8 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .titleSmall
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .titleSmallFamily,
+                                    font:
+                                        FlutterFlowTheme.of(context).titleSmall,
                                     color: widget.about ||
                                             _model.abouteUsMouseRegionHovered
                                         ? FlutterFlowTheme.of(context)
@@ -348,10 +427,6 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                                         : 18.0,
                                     letterSpacing: 0.0,
                                     fontWeight: FontWeight.w500,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleSmallFamily),
                                   ),
                             ),
                           ),
@@ -421,8 +496,7 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleSmallFamily,
+                                  font: FlutterFlowTheme.of(context).titleSmall,
                                   color: widget.contactus ||
                                           _model.contactUsMouseREgionHovered
                                       ? FlutterFlowTheme.of(context).primaryText
@@ -434,9 +508,6 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                                       : 18.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .titleSmallFamily),
                                 ),
                           ),
                         ),

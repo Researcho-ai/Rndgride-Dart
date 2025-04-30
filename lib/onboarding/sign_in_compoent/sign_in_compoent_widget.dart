@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'sign_in_compoent_model.dart';
 export 'sign_in_compoent_model.dart';
 
@@ -134,15 +133,12 @@ class _SignInCompoentWidgetState extends State<SignInCompoentWidget> {
                       FFLocalizations.of(context).getText(
                         '5cdmc60c' /* Welcome to RNDgrid.com */,
                       ),
-                      style:
-                          FlutterFlowTheme.of(context).headlineSmall.override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .headlineSmallFamily,
-                                letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .headlineSmallFamily),
-                              ),
+                      style: FlutterFlowTheme.of(context)
+                          .headlineSmall
+                          .override(
+                            font: FlutterFlowTheme.of(context).headlineSmall,
+                            letterSpacing: 0.0,
+                          ),
                     ),
                   ),
                   Text(
@@ -150,11 +146,8 @@ class _SignInCompoentWidgetState extends State<SignInCompoentWidget> {
                       '2w3gbwby' /* Let's get started by entering ... */,
                     ),
                     style: FlutterFlowTheme.of(context).bodyLarge.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).bodyLargeFamily,
+                          font: FlutterFlowTheme.of(context).bodyLarge,
                           letterSpacing: 0.0,
-                          useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).bodyLargeFamily),
                         ),
                   ),
                   Padding(
@@ -174,24 +167,16 @@ class _SignInCompoentWidgetState extends State<SignInCompoentWidget> {
                           labelStyle: FlutterFlowTheme.of(context)
                               .bodyMedium
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodyMediumFamily,
+                                font: FlutterFlowTheme.of(context).bodyMedium,
                                 color: FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodyMediumFamily),
                               ),
                           hintStyle: FlutterFlowTheme.of(context)
                               .bodySmall
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodySmallFamily,
+                                font: FlutterFlowTheme.of(context).bodySmall,
                                 color: FlutterFlowTheme.of(context).border,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodySmallFamily),
                               ),
                           enabledBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
@@ -240,12 +225,9 @@ class _SignInCompoentWidgetState extends State<SignInCompoentWidget> {
                               0.0, 0.0, 16.0, 0.0),
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyLargeFamily,
+                              font: FlutterFlowTheme.of(context).bodyLarge,
                               color: FlutterFlowTheme.of(context).primaryText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context).bodyLargeFamily),
                             ),
                         validator: _model.phoneNumber2TextControllerValidator
                             .asValidator(context),
@@ -323,13 +305,9 @@ class _SignInCompoentWidgetState extends State<SignInCompoentWidget> {
                         textStyle: FlutterFlowTheme.of(context)
                             .labelLarge
                             .override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).labelLargeFamily,
+                              font: FlutterFlowTheme.of(context).labelLarge,
                               color: FlutterFlowTheme.of(context).buttonText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .labelLargeFamily),
                             ),
                         elevation: 0.0,
                         borderRadius: BorderRadius.circular(8.0),

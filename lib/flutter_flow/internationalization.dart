@@ -224,10 +224,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Show More Instruments',
       'hi': '',
     },
-    'zvv3a1uw': {
-      'en': 'Show More Instruments',
-      'hi': '',
-    },
     'lr9b7wb8': {
       'en': 'Resources',
       'hi': '',
@@ -271,211 +267,125 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     'vmog8yr1': {
-      'en': 'Welcome to RNDgrid: Empowering Research Innovation',
+      'en': 'Who we are',
       'hi': '',
     },
     'xb73z63u': {
       'en':
-          'At RNDgrid we are passionate about fostering a vibrant research community in India. Our journey began with a vision to simplify the process of accessing R&D resources. Established by a team of enthusiastic individuals driven by the zeal for innovation, Codots emerged as a pioneering online platform.',
+          'RNDgrid is an innovation-driven platform designed to simplify access to analytical testing, R&D facilities, and expert consultation for startups, students, and innovators. We bridge the gap between those who need cutting-edge scientific support and the labs, facilities, and minds that offer it.\n\nThrough our advanced search, streamlined request process, and centralized booking and payment system, we help you focus on innovation - not logistics.',
       'hi': '',
     },
-    'r0tys1jj': {
-      'en': 'Our Mission',
+    'hhywz9y8': {
+      'en': 'Our mission',
       'hi': '',
     },
-    'i45thz4z': {
+    'bee7lppg': {
       'en':
-          'Our mission is to empower research focused students, professors, scientists, startups and industries by connecting them with the right resources to drive innovation. We facilitate seamless access to a curated network of trusted laboratories, enabling users to discover, book, and utilize R&D facilities efficiently.',
+          'To democratize access to world-class R&D infrastructure, enabling every researcher, student, and innovator to accelerate scientific breakthroughs without barriers.',
       'hi': '',
     },
-    'eq7g4jyp': {
-      'en': 'Why choose us',
+    'ew3limtk': {
+      'en': 'Our vision',
+      'hi': '',
+    },
+    'a2siwj6i': {
+      'en':
+          'To become the global gateway for on-demand research and innovation support by connecting individuals with top-tier labs, instruments, and scientific expertise—all in one place.',
+      'hi': '',
+    },
+    '6jrqoh2b': {
+      'en': 'Why RNDgrid exists',
+      'hi': '',
+    },
+    '4i56pwl2': {
+      'en':
+          'Navigating multiple websites, contacting various labs, and managing logistics can drain time and energy from what really matters - innovation.\n\nRNDgrid centralizes the entire R&D service discovery process, from searching to booking, under one platform. Whether you need a microscope analysis, material testing, or expert interpretation of results, we ensure it’s just a few clicks away.',
+      'hi': '',
+    },
+    '89c4r3nc': {
+      'en': 'Why labs partner with us',
       'hi': '',
     },
     'c1zqwmgc': {
-      'en': 'Simplified Access',
+      'en': 'Reach the Right Audience',
       'hi': '',
     },
     'l4nx6e3r': {
       'en':
-          'We provide a user-friendly interface, making it easy for researchers and laboratories to connect and collaborate.',
+          'Get discovered by startups, researchers, and institutions actively seeking R&D services.',
       'hi': '',
     },
     'kgb913ct': {
-      'en': 'Trusted Network',
+      'en': 'Streamlined Bookings',
       'hi': '',
     },
     'a6hl0dhk': {
       'en':
-          'Partnering with accredited labs, we ensure access to verified facilities, instilling confidence in our users.',
+          'We handle inquiries, quotes, and payments—so you can focus on delivering quality services.',
       'hi': '',
     },
     's3u8hny2': {
-      'en': 'Community-Driven Approach',
+      'en': 'Build Credibility',
       'hi': '',
     },
     'nuw652yh': {
       'en':
-          'We provide a collaborative space where researchers, labs, and startups come together to inspire innovation & growth.',
+          'Be recognized as a trusted provider on a platform built specifically for research and innovation.',
       'hi': '',
     },
     'vm1woejc': {
-      'en': 'Innovate and Grow',
+      'en': 'Showcase Capabilities',
       'hi': '',
     },
     'p2yyswmd': {
       'en':
-          'Our platform empowers researchers to innovate freely by providing the necessary resources and support.',
+          'Highlight your lab’s instruments, testing specialties, and success stories to a qualified, research-oriented audience.',
+      'hi': '',
+    },
+    'eq7g4jyp': {
+      'en':
+          'Joining RNDgrid means being part of a global ecosystem shaping the future of science and technology.',
+      'hi': '',
+    },
+    'elbep121': {
+      'en': 'Let’s Build the Future, Together',
+      'hi': '',
+    },
+    '6s64ziso': {
+      'en':
+          'We believe the next scientific breakthrough could come from a garage startup, a university lab, or an independent thinker. RNDgrid is here to make sure they have what they need to make it happen.',
       'hi': '',
     },
     'tlpo99cr': {
       'en': 'Our Team',
       'hi': '',
     },
-    '9a8m9dji': {
-      'en': 'Janki Shah',
+    'i97tel41': {
+      'en': 'Dr. Janki Shah',
       'hi': '',
     },
-    'm1qs8zna': {
+    'diy2guy7': {
       'en': 'CEO',
       'hi': '',
     },
-    'cg424plw': {
+    'sagzzy3z': {
       'en': 'Akash Patel',
       'hi': '',
     },
-    '7u1e1aml': {
+    '3uoowwjf': {
       'en': 'CTO',
       'hi': '',
     },
-    'u5xuy49u': {
+    'gv1vetiz': {
       'en': 'Rahul Thakur',
       'hi': '',
     },
-    '3bem0zmy': {
+    'g3r6is28': {
       'en': 'Developer',
       'hi': '',
     },
     '51doyj3i': {
       'en': 'About Us',
-      'hi': '',
-    },
-  },
-  // LabOptions
-  {
-    'l7h7oysn': {
-      'en': 'Analysis',
-      'hi': '',
-    },
-    'z8cmizv7': {
-      'en': 'Search for an item...',
-      'hi': '',
-    },
-    'fr825qpk': {
-      'en': 'Option 1',
-      'hi': '',
-    },
-    'cecf8jzz': {
-      'en': 'Solvent/Method',
-      'hi': '',
-    },
-    'zfk0daw7': {
-      'en': 'Search for an item...',
-      'hi': '',
-    },
-    'p7k3m0oo': {
-      'en': 'Option 1',
-      'hi': '',
-    },
-    'fre9qy1g': {
-      'en': 'City',
-      'hi': '',
-    },
-    'w9vauynd': {
-      'en': 'Search for an item...',
-      'hi': '',
-    },
-    'kit3ynjq': {
-      'en': '1 day',
-      'hi': '',
-    },
-    '7775jms5': {
-      'en': '2-3 days',
-      'hi': '',
-    },
-    'tgn20xpq': {
-      'en': '4-5 days',
-      'hi': '',
-    },
-    '2qmoi5n3': {
-      'en': '1 week',
-      'hi': '',
-    },
-    'er3g56uo': {
-      'en': '8-10 days',
-      'hi': '',
-    },
-    '2vy12feb': {
-      'en': '10+ days',
-      'hi': '',
-    },
-    'ybw98kdt': {
-      'en': 'Result Duration',
-      'hi': '',
-    },
-    't6ccq3jn': {
-      'en': 'Search for an item...',
-      'hi': '',
-    },
-    'xj27s3dy': {
-      'en': '1 day',
-      'hi': '',
-    },
-    '9z295hz2': {
-      'en': '2-3 days',
-      'hi': '',
-    },
-    '9aygaytq': {
-      'en': '4-5 days',
-      'hi': '',
-    },
-    'ef2yfvnn': {
-      'en': '1 week',
-      'hi': '',
-    },
-    'mheylnt6': {
-      'en': '8-10 days',
-      'hi': '',
-    },
-    'k1eh49e6': {
-      'en': '10+ days',
-      'hi': '',
-    },
-    'q59pckak': {
-      'en': 'In person',
-      'hi': '',
-    },
-    '1o1lja2l': {
-      'en': 'Clear filter',
-      'hi': '',
-    },
-    'k1i3imvi': {
-      'en': 'Choose Lab',
-      'hi': '',
-    },
-    'z5847ecv': {
-      'en': '•',
-      'hi': '',
-    },
-  },
-  // LabInstruments
-  {
-    's9pmwrsy': {
-      'en': 'Lab Instruments',
-      'hi': '',
-    },
-    'j4bzugn4': {
-      'en': 'Instruments',
       'hi': '',
     },
   },
@@ -611,27 +521,36 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     'rl4agx8j': {
-      'en': 'For research & innovation \nfocused students & startups',
+      'en':
+          'Unlock On-Demand Analytical Testing, R&D Facilities, and Expert Consultation',
       'hi': '',
     },
     'i09efrwm': {
-      'en': 'Find R&D labs, instruments, and tests to fuel your innovation.',
+      'en':
+          'Streamline your research and innovation journey. Search, request quotes, and let RNDgrid handle the rest.',
       'hi': '',
     },
     '06qae4g9': {
-      'en': 'Search  Instruments/Tests...',
+      'en': 'Search  Here...',
       'hi': '',
     },
-    '3352kfsb': {
-      'en': 'Search',
+    'sgu7eikv': {
+      'en': 'Who\'s on RNDgrid?',
       'hi': '',
     },
-    '4v183wv0': {
-      'en': 'Compare labs',
+    'i8w7u8ue': {
+      'en':
+          'Bring your product ideas to life with seamless access to R&D testing and development facilities.',
       'hi': '',
     },
-    'rjzos1fi': {
-      'en': 'Contact lab',
+    '5q7xb7s7': {
+      'en':
+          'Find the right tools, data, and expert help to elevate your research and academic projects.',
+      'hi': '',
+    },
+    '759boupv': {
+      'en':
+          'Whether you\'re building a prototype or scaling a solution, RNDgrid helps you validate faster.',
       'hi': '',
     },
     'rk0agkm2': {
@@ -639,7 +558,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     '4dmjkr8w': {
-      'en': 'Instruments',
+      'en': 'Sophisticated Instruments',
+      'hi': '',
+    },
+    'o0cppanp': {
+      'en': 'Devlopment Facilities',
       'hi': '',
     },
     'w87m02gc': {
@@ -650,59 +573,117 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Sophisticated instruments',
       'hi': '',
     },
-    '6mx7gdev': {
-      'en': 'view all',
+    '1v4839de': {
+      'en':
+          'Discover a wide range of advanced scientific instruments for material analysis, imaging, spectroscopy, and more. Easily search, request, and book equipment without managing multiple lab connections. Empower your research and innovation with world-class precision at your fingertips.',
       'hi': '',
     },
-    '3t3ymk2r': {
-      'en':
-          'Access and book cutting-edge scientific instruments for your advanced research needs.',
+    'so6vlpmi': {
+      'en': 'view all',
       'hi': '',
     },
     'ytd3ulpa': {
-      'en': 'Explore instruments',
-      'hi': '',
-    },
-    's91xnnfm': {
-      'en': 'view all',
+      'en': 'Development Facilities',
       'hi': '',
     },
     'tniqbazd': {
       'en':
-          'Find and utilize a variety of scientific instruments and tests to support your experiments and projects.',
+          'Leverage state-of-the-art R&D labs, fabrication centers, and prototyping hubs designed for breakthrough development. Find the right environment to design, test, and validate your ideas efficiently. Accelerate your innovation journey with seamless facility booking and expert support.',
       'hi': '',
     },
-    'ftdzm7nw': {
-      'en': 'Explore Tests',
-      'hi': '',
-    },
-    'ubjz0opy': {
+    'p1757jtp': {
       'en': 'view all',
       'hi': '',
     },
-    '3qye1nn8': {
+    'xjmv6ixy': {
+      'en': 'Industrial Testing',
+      'hi': '',
+    },
+    'rb2s7y4p': {
       'en':
-          'Find and utilize a variety of tests to support your experiments and projects.',
+          'Access specialized testing across industries such as pharma, biotech, food, chemicals, water, and cosmetics. Ensure product quality, compliance, and performance with trusted partner labs and facilities. Simplify your industrial testing process by managing everything in one place with RNDgrid.',
+      'hi': '',
+    },
+    '3zrgqqmn': {
+      'en': 'view all',
       'hi': '',
     },
     'gmhvzvnc': {
+      'en': 'How it works',
+      'hi': '',
+    },
+    'f87ikzhk': {
+      'en':
+          'Use our advanced search and filters to find suitable analytical testing and R&D services.',
+      'hi': '',
+    },
+    'vbt45i8p': {
+      'en':
+          'Quickly submit your detailed request through RNDgrid. No need to manage multiple lab inquiries.',
+      'hi': '',
+    },
+    'ttih53gw': {
+      'en':
+          'Receive a competitive quote directly from us. Approve, book, and pay easily—all in one place.',
+      'hi': '',
+    },
+    'u6t0t1om': {
+      'en': 'Key features highlight',
+      'hi': '',
+    },
+    '5aqn35x2': {
+      'en': 'One Platform, Endless Possibilities',
+      'hi': '',
+    },
+    'me81uek4': {
+      'en':
+          'Access top academic and industrial laboratories without navigating multiple websites.',
+      'hi': '',
+    },
+    'i4xp5fa7': {
+      'en': 'Expert Consultations',
+      'hi': '',
+    },
+    'h15z667u': {
+      'en':
+          'Connect with leading researchers and scientists for accurate data interpretation and product development advice.',
+      'hi': '',
+    },
+    'eq5nfi5b': {
+      'en': 'Simplified Workflow',
+      'hi': '',
+    },
+    'mefhhqj1': {
+      'en':
+          'RNDgrid manages all communication, booking, and payments, ensuring efficiency and clarity.',
+      'hi': '',
+    },
+    '07qs4mcn': {
       'en': 'Why researchers choose us',
       'hi': '',
     },
-    '9vbn3m5h': {
+    'nnwde73w': {
       'en': 'Save time in finding facilities and innovate more',
       'hi': '',
     },
-    'mwfc4vor': {
+    'z1gvzysh': {
       'en': 'Transparent pricing and fair review system',
       'hi': '',
     },
-    'pc74x4mt': {
+    'c08uoeno': {
       'en': 'Vast network of Research and Development labs',
       'hi': '',
     },
     'mpsqjpvy': {
       'en': 'We are supported by',
+      'hi': '',
+    },
+    'piibqo2e': {
+      'en': 'Our partner labs',
+      'hi': '',
+    },
+    'eo99nte1': {
+      'en': 'Hello World',
       'hi': '',
     },
     '793nprkg': {
@@ -753,6 +734,14 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Sophisticated Instruments',
       'hi': '',
     },
+    '5r1cylvp': {
+      'en': 'Search Sophisticated Instrument...',
+      'hi': '',
+    },
+    'qk1kepn5': {
+      'en': 'Show More Instruments',
+      'hi': '',
+    },
     'arzu7u1d': {
       'en': 'Labs',
       'hi': '',
@@ -774,17 +763,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // Labs
-  {
-    'vriixyjf': {
-      'en': 'Labs',
-      'hi': '',
-    },
-    'ancpwqaz': {
-      'en': 'Resources',
-      'hi': '',
-    },
-  },
   // Tests
   {
     'roqscz37': {
@@ -797,10 +775,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '55n9dtfn': {
       'en': 'Show More Tests',
-      'hi': '',
-    },
-    'k187dfoq': {
-      'en': 'Show More Instruments',
       'hi': '',
     },
     'agxea3u4': {
@@ -829,8 +803,12 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Instruments',
       'hi': '',
     },
+    'd2f0iqxd': {
+      'en': 'Lab Facilities',
+      'hi': '',
+    },
     '0e1v881w': {
-      'en': 'Tests',
+      'en': 'Sectors',
       'hi': '',
     },
     'mwn6usg0': {
@@ -1510,7 +1488,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   // testPropertiesComponent
   {
     'ftkrnxdv': {
-      'en': 'Please selet the material ',
+      'en': 'Please selet the Field ',
+      'hi': '',
+    },
+    'mlz0i413': {
+      'en': 'Please selet the Material ',
       'hi': '',
     },
     'xuetjvlp': {

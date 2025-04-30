@@ -45,9 +45,18 @@ class TestsModel extends FlutterFlowModel<TestsWidget> {
 
   int? searchTestCount;
 
+  List<String> suggetions = [];
+  void addToSuggetions(String item) => suggetions.add(item);
+  void removeFromSuggetions(String item) => suggetions.remove(item);
+  void removeAtIndexFromSuggetions(int index) => suggetions.removeAt(index);
+  void insertAtIndexInSuggetions(int index, String item) =>
+      suggetions.insert(index, item);
+  void updateSuggetionsAtIndex(int index, Function(String) updateFn) =>
+      suggetions[index] = updateFn(suggetions[index]);
+
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (Get Fieds)] action in Tests widget.
+  // Stores action output result for [Backend Call - API (Get Categories)] action in Tests widget.
   ApiCallResponse? testFromAPI;
   // Model for TopNavBar component.
   late TopNavBarModel topNavBarModel;
@@ -57,7 +66,11 @@ class TestsModel extends FlutterFlowModel<TestsWidget> {
   String? Function(BuildContext, String?)? searchITextControllerValidator;
   // Stores action output result for [Backend Call - API (Search Test)] action in searchI widget.
   ApiCallResponse? instrumentSearch;
-  // Stores action output result for [Backend Call - API (Get Fieds)] action in AddButton widget.
+  // Stores action output result for [Backend Call - API (Test Suggestion)] action in searchI widget.
+  ApiCallResponse? apiResultqu1;
+  // Stores action output result for [Custom Action - replaceLastWord] action in Row widget.
+  String? replacedWord;
+  // Stores action output result for [Backend Call - API (Get Categories)] action in AddButton widget.
   ApiCallResponse? extraTests;
   // Model for DataNotFoundCOmponent component.
   late DataNotFoundCOmponentModel dataNotFoundCOmponentModel;

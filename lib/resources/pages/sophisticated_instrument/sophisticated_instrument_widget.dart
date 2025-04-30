@@ -2,16 +2,20 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/flutter_flow/flutter_flow_widgets.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
 import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
+import '/resources/components/data_not_found_c_omponent/data_not_found_c_omponent_widget.dart';
 import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
 import 'dart:async';
+import '/custom_code/actions/index.dart' as actions;
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'sophisticated_instrument_model.dart';
 export 'sophisticated_instrument_model.dart';
 
@@ -47,7 +51,8 @@ class _SophisticatedInstrumentWidgetState
       logFirebaseEvent('SophisticatedInstrument_backend_call');
       _model.sophisticatedInstrumentDesktop =
           await InstrumentsTestsGroup.getSophisticatedInstrumentsTestsCall.call(
-        limit: 12,
+        limit: 16,
+        filteredValue: true,
       );
 
       if ((_model.sophisticatedInstrumentDesktop?.succeeded ?? true)) {
@@ -58,6 +63,10 @@ class _SophisticatedInstrumentWidgetState
           (_model.sophisticatedInstrumentDesktop?.jsonBody ?? ''),
         );
         _model.shoSophisticated = true;
+        _model.count =
+            InstrumentsTestsGroup.getSophisticatedInstrumentsTestsCall.count(
+          (_model.sophisticatedInstrumentDesktop?.jsonBody ?? ''),
+        );
         safeSetState(() {});
         return;
       } else {
@@ -74,6 +83,9 @@ class _SophisticatedInstrumentWidgetState
       });
     }
 
+    _model.searchITextController ??= TextEditingController();
+    _model.searchIFocusNode ??= FocusNode();
+    _model.searchIFocusNode!.addListener(() => safeSetState(() {}));
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -138,14 +150,11 @@ class _SophisticatedInstrumentWidgetState
                         'n32u8q3a' /* Sophisticated Instruments */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyMediumFamily,
+                            font: FlutterFlowTheme.of(context).bodyMedium,
                             color: FlutterFlowTheme.of(context).buttonText,
                             fontSize: 18.0,
                             letterSpacing: 0.0,
                             fontWeight: FontWeight.w500,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyMediumFamily),
                           ),
                     ),
                     actions: [],
@@ -186,151 +195,898 @@ class _SophisticatedInstrumentWidgetState
                                       instrument: false,
                                       about: false,
                                       contactus: false,
+                                      tests: false,
+                                      sophisticated: true,
                                     ),
                                   ),
                                 ),
                               ),
-                            if (_model.sophisticatedInstruments != null)
-                              Align(
-                                alignment: AlignmentDirectional(0.0, 0.0),
-                                child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      valueOrDefault<double>(
-                                        () {
-                                          if (MediaQuery.sizeOf(context).width <
-                                              kBreakpointSmall) {
-                                            return 5.0;
-                                          } else if (MediaQuery.sizeOf(context)
-                                                  .width <
-                                              kBreakpointMedium) {
-                                            return 0.0;
-                                          } else if (MediaQuery.sizeOf(context)
-                                                  .width <
-                                              kBreakpointLarge) {
-                                            return 0.0;
-                                          } else {
-                                            return 0.0;
-                                          }
-                                        }(),
-                                        0.0,
-                                      ),
-                                      20.0,
-                                      valueOrDefault<double>(
-                                        () {
-                                          if (MediaQuery.sizeOf(context).width <
-                                              kBreakpointSmall) {
-                                            return 5.0;
-                                          } else if (MediaQuery.sizeOf(context)
-                                                  .width <
-                                              kBreakpointMedium) {
-                                            return 0.0;
-                                          } else if (MediaQuery.sizeOf(context)
-                                                  .width <
-                                              kBreakpointLarge) {
-                                            return 0.0;
-                                          } else {
-                                            return 0.0;
-                                          }
-                                        }(),
-                                        0.0,
-                                      ),
-                                      valueOrDefault<double>(
-                                        () {
-                                          if (MediaQuery.sizeOf(context).width <
-                                              kBreakpointSmall) {
-                                            return 50.0;
-                                          } else if (MediaQuery.sizeOf(context)
-                                                  .width <
-                                              kBreakpointMedium) {
-                                            return 50.0;
-                                          } else if (MediaQuery.sizeOf(context)
-                                                  .width <
-                                              kBreakpointLarge) {
-                                            return 30.0;
-                                          } else {
-                                            return 30.0;
-                                          }
-                                        }(),
-                                        0.0,
-                                      )),
-                                  child: Container(
-                                    width: () {
-                                      if (MediaQuery.sizeOf(context).width <
-                                          kBreakpointSmall) {
-                                        return (MediaQuery.sizeOf(context)
-                                                .width *
-                                            0.9);
-                                      } else if (MediaQuery.sizeOf(context)
-                                              .width <
-                                          kBreakpointMedium) {
-                                        return (MediaQuery.sizeOf(context)
-                                                .width *
-                                            0.8);
-                                      } else if (MediaQuery.sizeOf(context)
-                                              .width <
-                                          kBreakpointLarge) {
-                                        return (MediaQuery.sizeOf(context)
-                                                .width *
-                                            0.7);
-                                      } else {
-                                        return (MediaQuery.sizeOf(context)
-                                                .width *
-                                            0.7);
-                                      }
-                                    }(),
-                                    decoration: BoxDecoration(),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 16.0),
-                                          child: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Padding(
+                            Align(
+                              alignment: AlignmentDirectional(0.0, 0.0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    valueOrDefault<double>(
+                                      () {
+                                        if (MediaQuery.sizeOf(context).width <
+                                            kBreakpointSmall) {
+                                          return 5.0;
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointMedium) {
+                                          return 0.0;
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointLarge) {
+                                          return 0.0;
+                                        } else {
+                                          return 0.0;
+                                        }
+                                      }(),
+                                      0.0,
+                                    ),
+                                    20.0,
+                                    valueOrDefault<double>(
+                                      () {
+                                        if (MediaQuery.sizeOf(context).width <
+                                            kBreakpointSmall) {
+                                          return 5.0;
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointMedium) {
+                                          return 0.0;
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointLarge) {
+                                          return 0.0;
+                                        } else {
+                                          return 0.0;
+                                        }
+                                      }(),
+                                      0.0,
+                                    ),
+                                    valueOrDefault<double>(
+                                      () {
+                                        if (MediaQuery.sizeOf(context).width <
+                                            kBreakpointSmall) {
+                                          return 50.0;
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointMedium) {
+                                          return 50.0;
+                                        } else if (MediaQuery.sizeOf(context)
+                                                .width <
+                                            kBreakpointLarge) {
+                                          return 30.0;
+                                        } else {
+                                          return 30.0;
+                                        }
+                                      }(),
+                                      0.0,
+                                    )),
+                                child: Container(
+                                  width: () {
+                                    if (MediaQuery.sizeOf(context).width <
+                                        kBreakpointSmall) {
+                                      return (MediaQuery.sizeOf(context).width *
+                                          0.9);
+                                    } else if (MediaQuery.sizeOf(context)
+                                            .width <
+                                        kBreakpointMedium) {
+                                      return (MediaQuery.sizeOf(context).width *
+                                          0.8);
+                                    } else if (MediaQuery.sizeOf(context)
+                                            .width <
+                                        kBreakpointLarge) {
+                                      return (MediaQuery.sizeOf(context).width *
+                                          0.8);
+                                    } else {
+                                      return (MediaQuery.sizeOf(context).width *
+                                          0.8);
+                                    }
+                                  }(),
+                                  decoration: BoxDecoration(),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 24.0, 16.0, 0.0),
+                                            child: FlutterFlowIconButton(
+                                              borderColor: Colors.transparent,
+                                              borderRadius: 30.0,
+                                              borderWidth: 1.0,
+                                              buttonSize: 50.0,
+                                              fillColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              icon: Icon(
+                                                FFIcons.karrowLeft,
+                                                size: 24.0,
+                                              ),
+                                              onPressed: () async {
+                                                logFirebaseEvent(
+                                                    'SOPHISTICATED_INSTRUMENT_arrowLeft_ICN_O');
+                                                logFirebaseEvent(
+                                                    'IconButton_navigate_back');
+                                                context.safePop();
+                                              },
+                                            ),
+                                          ),
+                                          Flexible(
+                                            child: Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Padding(
                                                 padding: EdgeInsetsDirectional
                                                     .fromSTEB(
-                                                        0.0, 0.0, 16.0, 0.0),
-                                                child: FlutterFlowIconButton(
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  borderRadius: 30.0,
-                                                  borderWidth: 1.0,
-                                                  buttonSize: 50.0,
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryBackground,
-                                                  icon: Icon(
-                                                    FFIcons.karrowLeft,
-                                                    size: 24.0,
+                                                        0.0, 16.0, 0.0, 8.0),
+                                                child: Container(
+                                                  width: () {
+                                                    if (MediaQuery.sizeOf(
+                                                                context)
+                                                            .width <
+                                                        kBreakpointSmall) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.9);
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointMedium) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.8);
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointLarge) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.8);
+                                                    } else {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.8);
+                                                    }
+                                                  }(),
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .secondaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8.0),
                                                   ),
-                                                  onPressed: () async {
-                                                    logFirebaseEvent(
-                                                        'SOPHISTICATED_INSTRUMENT_arrowLeft_ICN_O');
-                                                    logFirebaseEvent(
-                                                        'IconButton_navigate_back');
-                                                    context.safePop();
-                                                  },
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, -1.0),
+                                                  child: Column(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Padding(
+                                                        padding: EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                valueOrDefault<
+                                                                    double>(
+                                                                  () {
+                                                                    if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointSmall) {
+                                                                      return 4.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointMedium) {
+                                                                      return 8.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointLarge) {
+                                                                      return 10.0;
+                                                                    } else {
+                                                                      return 10.0;
+                                                                    }
+                                                                  }(),
+                                                                  0.0,
+                                                                ),
+                                                                0.0,
+                                                                valueOrDefault<
+                                                                    double>(
+                                                                  () {
+                                                                    if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointSmall) {
+                                                                      return 4.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointMedium) {
+                                                                      return 8.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointLarge) {
+                                                                      return 10.0;
+                                                                    } else {
+                                                                      return 10.0;
+                                                                    }
+                                                                  }(),
+                                                                  0.0,
+                                                                ),
+                                                                0.0),
+                                                        child: Row(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Expanded(
+                                                              child: Container(
+                                                                width: MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width *
+                                                                    0.4,
+                                                                child:
+                                                                    TextFormField(
+                                                                  controller: _model
+                                                                      .searchITextController,
+                                                                  focusNode: _model
+                                                                      .searchIFocusNode,
+                                                                  onChanged: (_) =>
+                                                                      EasyDebounce
+                                                                          .debounce(
+                                                                    '_model.searchITextController',
+                                                                    Duration(
+                                                                        milliseconds:
+                                                                            100),
+                                                                    () async {
+                                                                      logFirebaseEvent(
+                                                                          'SOPHISTICATED_INSTRUMENT_searchI_ON_TEXT');
+                                                                      if (_model.searchITextController.text !=
+                                                                              '') {
+                                                                        logFirebaseEvent(
+                                                                            'searchI_backend_call');
+                                                                        _model.apiResult81w = await InstrumentsTestsGroup
+                                                                            .instrumentSuggestionsCall
+                                                                            .call(
+                                                                          searchTerm: _model
+                                                                              .searchITextController
+                                                                              .text,
+                                                                          sophisticatedSearch:
+                                                                              true,
+                                                                        );
+
+                                                                        if ((_model.apiResult81w?.succeeded ??
+                                                                            true)) {
+                                                                          logFirebaseEvent(
+                                                                              'searchI_update_page_state');
+                                                                          _model.sugetions = InstrumentsTestsGroup
+                                                                              .instrumentSuggestionsCall
+                                                                              .suggetion(
+                                                                                (_model.apiResult81w?.jsonBody ?? ''),
+                                                                              )!
+                                                                              .toList()
+                                                                              .cast<String>();
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        }
+                                                                      } else {
+                                                                        logFirebaseEvent(
+                                                                            'searchI_wait__delay');
+                                                                        await Future.delayed(const Duration(
+                                                                            milliseconds:
+                                                                                1000));
+                                                                        logFirebaseEvent(
+                                                                            'searchI_update_page_state');
+                                                                        _model.activeSearch =
+                                                                            false;
+                                                                        safeSetState(
+                                                                            () {});
+                                                                      }
+
+                                                                      safeSetState(
+                                                                          () {});
+                                                                    },
+                                                                  ),
+                                                                  onFieldSubmitted:
+                                                                      (_) async {
+                                                                    logFirebaseEvent(
+                                                                        'SOPHISTICATED_INSTRUMENT_searchI_ON_TEXT');
+                                                                    var _shouldSetState =
+                                                                        false;
+                                                                    if (_model
+                                                                            .searchITextController
+                                                                            .text !=
+                                                                        ' ') {
+                                                                      logFirebaseEvent(
+                                                                          'searchI_update_page_state');
+                                                                      _model.activeSearch =
+                                                                          true;
+                                                                      safeSetState(
+                                                                          () {});
+                                                                      logFirebaseEvent(
+                                                                          'searchI_backend_call');
+                                                                      _model.instrumentSearch = await InstrumentsTestsGroup
+                                                                          .searchInstrumentTestCall
+                                                                          .call(
+                                                                        search: _model
+                                                                            .searchITextController
+                                                                            .text,
+                                                                        sophisticatedSearch:
+                                                                            true,
+                                                                      );
+
+                                                                      _shouldSetState =
+                                                                          true;
+                                                                      if ((_model
+                                                                              .instrumentSearch
+                                                                              ?.succeeded ??
+                                                                          true)) {
+                                                                        logFirebaseEvent(
+                                                                            'searchI_update_page_state');
+                                                                        _model.searchResult = InstrumentsTestsGroup
+                                                                            .searchInstrumentTestCall
+                                                                            .instruments(
+                                                                              (_model.instrumentSearch?.jsonBody ?? ''),
+                                                                            )!
+                                                                            .toList()
+                                                                            .cast<dynamic>();
+                                                                        _model.searchResultCount = InstrumentsTestsGroup
+                                                                            .searchInstrumentTestCall
+                                                                            .count(
+                                                                          (_model.instrumentSearch?.jsonBody ??
+                                                                              ''),
+                                                                        );
+                                                                        safeSetState(
+                                                                            () {});
+                                                                        if (_shouldSetState)
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        return;
+                                                                      } else {
+                                                                        if (_shouldSetState)
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        return;
+                                                                      }
+                                                                    } else {
+                                                                      if (_shouldSetState)
+                                                                        safeSetState(
+                                                                            () {});
+                                                                      return;
+                                                                    }
+
+                                                                    if (_shouldSetState)
+                                                                      safeSetState(
+                                                                          () {});
+                                                                  },
+                                                                  autofocus:
+                                                                      false,
+                                                                  textCapitalization:
+                                                                      TextCapitalization
+                                                                          .none,
+                                                                  textInputAction:
+                                                                      TextInputAction
+                                                                          .search,
+                                                                  obscureText:
+                                                                      false,
+                                                                  decoration:
+                                                                      InputDecoration(
+                                                                    hintText: FFLocalizations.of(
+                                                                            context)
+                                                                        .getText(
+                                                                      '5r1cylvp' /* Search Sophisticated Instrumen... */,
+                                                                    ),
+                                                                    hintStyle: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodySmall
+                                                                        .override(
+                                                                          font:
+                                                                              FlutterFlowTheme.of(context).bodySmall,
+                                                                          letterSpacing:
+                                                                              0.0,
+                                                                        ),
+                                                                    enabledBorder:
+                                                                        OutlineInputBorder(
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                        color: Color(
+                                                                            0x00000000),
+                                                                        width:
+                                                                            1.0,
+                                                                      ),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                    ),
+                                                                    focusedBorder:
+                                                                        OutlineInputBorder(
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                        color: Color(
+                                                                            0x00000000),
+                                                                        width:
+                                                                            1.0,
+                                                                      ),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                    ),
+                                                                    errorBorder:
+                                                                        OutlineInputBorder(
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                        color: Color(
+                                                                            0x00000000),
+                                                                        width:
+                                                                            1.0,
+                                                                      ),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                    ),
+                                                                    focusedErrorBorder:
+                                                                        OutlineInputBorder(
+                                                                      borderSide:
+                                                                          BorderSide(
+                                                                        color: Color(
+                                                                            0x00000000),
+                                                                        width:
+                                                                            1.0,
+                                                                      ),
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                    ),
+                                                                    filled:
+                                                                        true,
+                                                                    fillColor: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryBackground,
+                                                                    prefixIcon:
+                                                                        Icon(
+                                                                      FFIcons
+                                                                          .ksearch,
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryText,
+                                                                    ),
+                                                                  ),
+                                                                  style: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .bodyMedium
+                                                                      .override(
+                                                                        font: FlutterFlowTheme.of(context)
+                                                                            .bodyMedium,
+                                                                        letterSpacing:
+                                                                            0.0,
+                                                                      ),
+                                                                  validator: _model
+                                                                      .searchITextControllerValidator
+                                                                      .asValidator(
+                                                                          context),
+                                                                  inputFormatters: [
+                                                                    if (!isAndroid &&
+                                                                        !isiOS)
+                                                                      TextInputFormatter.withFunction(
+                                                                          (oldValue,
+                                                                              newValue) {
+                                                                        return TextEditingValue(
+                                                                          selection:
+                                                                              newValue.selection,
+                                                                          text: newValue
+                                                                              .text
+                                                                              .toCapitalization(TextCapitalization.none),
+                                                                        );
+                                                                      }),
+                                                                  ],
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            if (_model
+                                                                    .searchITextController
+                                                                    .text !=
+                                                                '')
+                                                              Padding(
+                                                                padding:
+                                                                    EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            8.0,
+                                                                            0.0),
+                                                                child: InkWell(
+                                                                  splashColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  focusColor: Colors
+                                                                      .transparent,
+                                                                  hoverColor: Colors
+                                                                      .transparent,
+                                                                  highlightColor:
+                                                                      Colors
+                                                                          .transparent,
+                                                                  onTap:
+                                                                      () async {
+                                                                    logFirebaseEvent(
+                                                                        'SOPHISTICATED_INSTRUMENT_Icon_mcchql13_O');
+                                                                    logFirebaseEvent(
+                                                                        'Icon_clear_text_fields_pin_codes');
+                                                                    safeSetState(
+                                                                        () {
+                                                                      _model
+                                                                          .searchITextController
+                                                                          ?.clear();
+                                                                    });
+                                                                    logFirebaseEvent(
+                                                                        'Icon_update_page_state');
+                                                                    _model.activeSearch =
+                                                                        false;
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  },
+                                                                  child: Icon(
+                                                                    FFIcons
+                                                                        .kcross,
+                                                                    color: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .secondaryText,
+                                                                    size: 24.0,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      if ((_model.searchITextController
+                                                                      .text !=
+                                                                  '') &&
+                                                          (_model.sugetions
+                                                              .isNotEmpty))
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      24.0,
+                                                                      8.0,
+                                                                      24.0,
+                                                                      8.0),
+                                                          child: Builder(
+                                                            builder: (context) {
+                                                              final sUggention =
+                                                                  _model
+                                                                      .sugetions
+                                                                      .toList()
+                                                                      .take(6)
+                                                                      .toList();
+
+                                                              return SingleChildScrollView(
+                                                                child: Column(
+                                                                  mainAxisSize:
+                                                                      MainAxisSize
+                                                                          .min,
+                                                                  children: List.generate(
+                                                                      sUggention
+                                                                          .length,
+                                                                      (sUggentionIndex) {
+                                                                    final sUggentionItem =
+                                                                        sUggention[
+                                                                            sUggentionIndex];
+                                                                    return Padding(
+                                                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                                                          4.0,
+                                                                          6.0,
+                                                                          4.0,
+                                                                          6.0),
+                                                                      child:
+                                                                          InkWell(
+                                                                        splashColor:
+                                                                            Colors.transparent,
+                                                                        focusColor:
+                                                                            Colors.transparent,
+                                                                        hoverColor:
+                                                                            Colors.transparent,
+                                                                        highlightColor:
+                                                                            Colors.transparent,
+                                                                        onTap:
+                                                                            () async {
+                                                                          logFirebaseEvent(
+                                                                              'SOPHISTICATED_INSTRUMENT_Row_c9esfrvy_ON');
+                                                                          logFirebaseEvent(
+                                                                              'Row_custom_action');
+                                                                          _model.replacedWord =
+                                                                              await actions.replaceLastWord(
+                                                                            _model.searchITextController.text,
+                                                                            sUggentionItem,
+                                                                          );
+                                                                          logFirebaseEvent(
+                                                                              'Row_set_form_field');
+                                                                          safeSetState(
+                                                                              () {
+                                                                            _model.searchITextController?.text =
+                                                                                _model.replacedWord!;
+                                                                          });
+
+                                                                          safeSetState(
+                                                                              () {});
+                                                                        },
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.spaceBetween,
+                                                                          children: [
+                                                                            Flexible(
+                                                                              child: Text(
+                                                                                valueOrDefault<String>(
+                                                                                  sUggentionItem,
+                                                                                  '1h',
+                                                                                ),
+                                                                                style: FlutterFlowTheme.of(context).bodyMedium.override(
+                                                                                      font: FlutterFlowTheme.of(context).bodyMedium,
+                                                                                      letterSpacing: 0.0,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                            Icon(
+                                                                              Icons.arrow_outward,
+                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              size: 16.0,
+                                                                            ),
+                                                                          ],
+                                                                        ),
+                                                                      ),
+                                                                    );
+                                                                  }),
+                                                                ),
+                                                              );
+                                                            },
+                                                          ),
+                                                        ),
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
-                                            ],
+                                            ),
                                           ),
+                                        ],
+                                      ),
+                                      if ((_model.sophisticatedInstruments !=
+                                              null) &&
+                                          !_model.activeSearch)
+                                        Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            if (_model.shoSophisticated)
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    1.0, 0.0),
+                                                child: Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 12.0, 0.0, 20.0),
+                                                  child: Builder(
+                                                    builder: (context) {
+                                                      final sophisticatedInstrumentsList =
+                                                          _model.sophisticatedInstruments
+                                                                  ?.toList() ??
+                                                              [];
+
+                                                      return MasonryGridView
+                                                          .builder(
+                                                        physics:
+                                                            const NeverScrollableScrollPhysics(),
+                                                        gridDelegate:
+                                                            SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                          crossAxisCount: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 1;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 3;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 4;
+                                                            } else {
+                                                              return 4;
+                                                            }
+                                                          }(),
+                                                        ),
+                                                        crossAxisSpacing: 20.0,
+                                                        mainAxisSpacing: 20.0,
+                                                        itemCount:
+                                                            sophisticatedInstrumentsList
+                                                                .length,
+                                                        shrinkWrap: true,
+                                                        itemBuilder: (context,
+                                                            sophisticatedInstrumentsListIndex) {
+                                                          final sophisticatedInstrumentsListItem =
+                                                              sophisticatedInstrumentsList[
+                                                                  sophisticatedInstrumentsListIndex];
+                                                          return wrapWithModel(
+                                                            model: _model
+                                                                .sophisticatedInstrumentComponentModels1
+                                                                .getModel(
+                                                              sophisticatedInstrumentsListIndex
+                                                                  .toString(),
+                                                              sophisticatedInstrumentsListIndex,
+                                                            ),
+                                                            updateCallback: () =>
+                                                                safeSetState(
+                                                                    () {}),
+                                                            child:
+                                                                SophisticatedInstrumentComponentWidget(
+                                                              key: Key(
+                                                                'Keyilx_${sophisticatedInstrumentsListIndex.toString()}',
+                                                              ),
+                                                              imageURL:
+                                                                  getJsonField(
+                                                                sophisticatedInstrumentsListItem,
+                                                                r'''$.image_url''',
+                                                              ).toString(),
+                                                              instrumentJson:
+                                                                  sophisticatedInstrumentsListItem,
+                                                            ),
+                                                          );
+                                                        },
+                                                      );
+                                                    },
+                                                  ),
+                                                ),
+                                              ),
+                                            Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(
+                                                      0.0, 0.0, 0.0, 20.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                children: [
+                                                  if (_model.count! >= 16)
+                                                    FFButtonWidget(
+                                                      onPressed: () async {
+                                                        logFirebaseEvent(
+                                                            'SOPHISTICATED_INSTRUMENT_AddButton_ON_TA');
+                                                        var _shouldSetState =
+                                                            false;
+                                                        logFirebaseEvent(
+                                                            'AddButton_backend_call');
+                                                        _model.sophisticatedInstrumentExtra =
+                                                            await InstrumentsTestsGroup
+                                                                .getSophisticatedInstrumentsTestsCall
+                                                                .call(
+                                                          limit:
+                                                              (_model.count!) +
+                                                                  12,
+                                                        );
+
+                                                        _shouldSetState = true;
+                                                        if ((_model
+                                                                .sophisticatedInstrumentExtra
+                                                                ?.succeeded ??
+                                                            true)) {
+                                                          logFirebaseEvent(
+                                                              'AddButton_update_page_state');
+                                                          _model.sophisticatedInstruments =
+                                                              InstrumentsTestsGroup
+                                                                  .getSophisticatedInstrumentsTestsCall
+                                                                  .instruments(
+                                                            (_model.sophisticatedInstrumentExtra
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          );
+                                                          _model.shoSophisticated =
+                                                              true;
+                                                          _model.count =
+                                                              InstrumentsTestsGroup
+                                                                  .getSophisticatedInstrumentsTestsCall
+                                                                  .count(
+                                                            (_model.sophisticatedInstrumentExtra
+                                                                    ?.jsonBody ??
+                                                                ''),
+                                                          );
+                                                          safeSetState(() {});
+                                                          if (_shouldSetState)
+                                                            safeSetState(() {});
+                                                          return;
+                                                        } else {
+                                                          if (_shouldSetState)
+                                                            safeSetState(() {});
+                                                          return;
+                                                        }
+
+                                                        if (_shouldSetState)
+                                                          safeSetState(() {});
+                                                      },
+                                                      text: FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'qk1kepn5' /* Show More Instruments */,
+                                                      ),
+                                                      options: FFButtonOptions(
+                                                        width: 200.0,
+                                                        height: 40.0,
+                                                        padding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    24.0,
+                                                                    0.0,
+                                                                    24.0,
+                                                                    0.0),
+                                                        iconPadding:
+                                                            EdgeInsetsDirectional
+                                                                .fromSTEB(
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0,
+                                                                    0.0),
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .primary,
+                                                        textStyle:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLarge
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLarge,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .buttonText,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                        elevation: 3.0,
+                                                        borderSide: BorderSide(
+                                                          color: Colors
+                                                              .transparent,
+                                                          width: 1.0,
+                                                        ),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        if (_model.shoSophisticated)
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(1.0, 0.0),
+                                      if (_model.activeSearch &&
+                                          (_model.searchITextController
+                                                      .text !=
+                                                  '') &&
+                                          (_model.searchResult.isNotEmpty))
+                                        Align(
+                                          alignment:
+                                              AlignmentDirectional(1.0, 0.0),
+                                          child: Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 12.0, 0.0, 20.0),
                                             child: Builder(
                                               builder: (context) {
-                                                final sophisticatedInstrumentsList =
-                                                    _model.sophisticatedInstruments
-                                                            ?.toList() ??
-                                                        [];
+                                                final searchResultJson = _model
+                                                    .searchResult
+                                                    .toList();
 
                                                 return MasonryGridView.builder(
                                                   physics:
@@ -363,35 +1119,34 @@ class _SophisticatedInstrumentWidgetState
                                                   crossAxisSpacing: 20.0,
                                                   mainAxisSpacing: 20.0,
                                                   itemCount:
-                                                      sophisticatedInstrumentsList
-                                                          .length,
+                                                      searchResultJson.length,
                                                   shrinkWrap: true,
                                                   itemBuilder: (context,
-                                                      sophisticatedInstrumentsListIndex) {
-                                                    final sophisticatedInstrumentsListItem =
-                                                        sophisticatedInstrumentsList[
-                                                            sophisticatedInstrumentsListIndex];
+                                                      searchResultJsonIndex) {
+                                                    final searchResultJsonItem =
+                                                        searchResultJson[
+                                                            searchResultJsonIndex];
                                                     return wrapWithModel(
                                                       model: _model
-                                                          .sophisticatedInstrumentComponentModels
+                                                          .sophisticatedInstrumentComponentModels2
                                                           .getModel(
-                                                        sophisticatedInstrumentsListIndex
+                                                        searchResultJsonIndex
                                                             .toString(),
-                                                        sophisticatedInstrumentsListIndex,
+                                                        searchResultJsonIndex,
                                                       ),
                                                       updateCallback: () =>
                                                           safeSetState(() {}),
                                                       child:
                                                           SophisticatedInstrumentComponentWidget(
                                                         key: Key(
-                                                          'Keyilx_${sophisticatedInstrumentsListIndex.toString()}',
+                                                          'Key3gu_${searchResultJsonIndex.toString()}',
                                                         ),
                                                         imageURL: getJsonField(
-                                                          sophisticatedInstrumentsListItem,
+                                                          searchResultJsonItem,
                                                           r'''$.image_url''',
                                                         ).toString(),
                                                         instrumentJson:
-                                                            sophisticatedInstrumentsListItem,
+                                                            searchResultJsonItem,
                                                       ),
                                                     );
                                                   },
@@ -399,11 +1154,33 @@ class _SophisticatedInstrumentWidgetState
                                               },
                                             ),
                                           ),
-                                      ],
-                                    ),
+                                        ),
+                                      if (_model.activeSearch &&
+                                          (_model.searchITextController
+                                                      .text !=
+                                                  '') &&
+                                          !(_model.searchResult.isNotEmpty))
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 0.0, 20.0),
+                                          child: Container(
+                                            decoration: BoxDecoration(),
+                                            child: wrapWithModel(
+                                              model: _model
+                                                  .dataNotFoundCOmponentModel,
+                                              updateCallback: () =>
+                                                  safeSetState(() {}),
+                                              child:
+                                                  DataNotFoundCOmponentWidget(),
+                                            ),
+                                          ),
+                                        ),
+                                    ],
                                   ),
                                 ),
                               ),
+                            ),
                           ],
                         ),
                       ),

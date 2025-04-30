@@ -12,7 +12,9 @@ class TopNavBarModel extends FlutterFlowModel<TopNavBarWidget> {
   ///  State fields for stateful widgets in this component.
 
   // State field(s) for InstrumentMouseRegion widget.
-  bool instrumentMouseRegionHovered = false;
+  bool instrumentMouseRegionHovered1 = false;
+  // State field(s) for InstrumentMouseRegion widget.
+  bool instrumentMouseRegionHovered2 = false;
   // State field(s) for testMouseRegion widget.
   bool testMouseRegionHovered = false;
   // State field(s) for AbouteUsMouseRegion widget.

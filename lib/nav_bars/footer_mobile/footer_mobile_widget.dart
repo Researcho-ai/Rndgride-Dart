@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'footer_mobile_model.dart';
 export 'footer_mobile_model.dart';
 
@@ -59,59 +58,36 @@ class _FooterMobileWidgetState extends State<FooterMobileWidget> {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (Theme.of(context).brightness == Brightness.dark)
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                      child: InkWell(
-                        splashColor: Colors.transparent,
-                        focusColor: Colors.transparent,
-                        hoverColor: Colors.transparent,
-                        highlightColor: Colors.transparent,
-                        onTap: () async {
-                          logFirebaseEvent(
-                              'FOOTER_MOBILE_COMP_darkMode_ON_TAP');
-                          logFirebaseEvent('darkMode_navigate_to');
-
-                          context.pushNamed(HomeWidget.routeName);
-                        },
-                        child: SvgPicture.asset(
-                          'assets/images/RNDgrid_Horizontal_Logo_Dark.svg',
-                          width: 160.0,
-                          height: 50.0,
-                          fit: BoxFit.fitWidth,
-                        ),
-                      ),
-                    ),
-                  if (Theme.of(context).brightness == Brightness.light)
-                    InkWell(
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
+                    child: InkWell(
                       splashColor: Colors.transparent,
                       focusColor: Colors.transparent,
                       hoverColor: Colors.transparent,
                       highlightColor: Colors.transparent,
                       onTap: () async {
-                        logFirebaseEvent('FOOTER_MOBILE_COMP_lightMode_ON_TAP');
-                        logFirebaseEvent('lightMode_navigate_to');
+                        logFirebaseEvent('FOOTER_MOBILE_COMP_darkMode_ON_TAP');
+                        logFirebaseEvent('darkMode_navigate_to');
 
                         context.pushNamed(HomeWidget.routeName);
                       },
-                      child: Image.asset(
-                        'assets/images/horizontal_black_fonts.png',
+                      child: SvgPicture.asset(
+                        Theme.of(context).brightness == Brightness.dark
+                            ? 'assets/images/RNDgrid_Horizontal_Logo_Dark.svg'
+                            : 'assets/images/RNDgrid_Horizontal_Logo_Light.svg',
                         width: 160.0,
                         height: 50.0,
                         fit: BoxFit.fitWidth,
                       ),
                     ),
+                  ),
                   Text(
                     FFLocalizations.of(context).getText(
                       '823osy6y' /* For Researchers */,
                     ),
                     style: FlutterFlowTheme.of(context).titleLarge.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).titleLargeFamily,
+                          font: FlutterFlowTheme.of(context).titleLarge,
                           letterSpacing: 0.0,
-                          useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).titleLargeFamily),
                         ),
                   ),
                 ],
@@ -131,11 +107,8 @@ class _FooterMobileWidgetState extends State<FooterMobileWidget> {
                         'ud6esqha' /* Join Community */,
                       ),
                       style: FlutterFlowTheme.of(context).titleSmall.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).titleSmallFamily,
+                            font: FlutterFlowTheme.of(context).titleSmall,
                             letterSpacing: 0.0,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).titleSmallFamily),
                           ),
                     ),
                     Padding(
@@ -230,11 +203,8 @@ class _FooterMobileWidgetState extends State<FooterMobileWidget> {
                       ),
                       textAlign: TextAlign.center,
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyLargeFamily,
+                            font: FlutterFlowTheme.of(context).bodyLarge,
                             letterSpacing: 0.0,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyLargeFamily),
                           ),
                     ),
                   ),
@@ -247,11 +217,8 @@ class _FooterMobileWidgetState extends State<FooterMobileWidget> {
                       ),
                       textAlign: TextAlign.start,
                       style: FlutterFlowTheme.of(context).bodyLarge.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).bodyLargeFamily,
+                            font: FlutterFlowTheme.of(context).bodyLarge,
                             letterSpacing: 0.0,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).bodyLargeFamily),
                           ),
                     ),
                   ),
@@ -286,12 +253,8 @@ class _FooterMobileWidgetState extends State<FooterMobileWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodySmall
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodySmallFamily,
+                                font: FlutterFlowTheme.of(context).bodySmall,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodySmallFamily),
                               ),
                         ),
                       ),
@@ -330,12 +293,8 @@ class _FooterMobileWidgetState extends State<FooterMobileWidget> {
                           style: FlutterFlowTheme.of(context)
                               .bodySmall
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .bodySmallFamily,
+                                font: FlutterFlowTheme.of(context).bodySmall,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .bodySmallFamily),
                               ),
                         ),
                       ),

@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'footer_model.dart';
 export 'footer_model.dart';
 
@@ -77,14 +76,10 @@ class _FooterWidgetState extends State<FooterWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .titleSmall
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .titleSmallFamily,
+                                  font: FlutterFlowTheme.of(context).titleSmall,
                                   color:
                                       FlutterFlowTheme.of(context).primaryText,
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .titleSmallFamily),
                                 ),
                           ),
                         ),
@@ -176,44 +171,26 @@ class _FooterWidgetState extends State<FooterWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      if (Theme.of(context).brightness == Brightness.dark)
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            logFirebaseEvent('FOOTER_COMP_darkMode_ON_TAP');
-                            logFirebaseEvent('darkMode_navigate_to');
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent('FOOTER_COMP_darkMode_ON_TAP');
+                          logFirebaseEvent('darkMode_navigate_to');
 
-                            context.pushNamed(HomeWidget.routeName);
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/RNDgrid_Horizontal_Logo_Dark.svg',
-                            width: 160.0,
-                            height: 50.0,
-                            fit: BoxFit.fitWidth,
-                          ),
+                          context.pushNamed(HomeWidget.routeName);
+                        },
+                        child: SvgPicture.asset(
+                          Theme.of(context).brightness == Brightness.dark
+                              ? 'assets/images/RNDgrid_Horizontal_Logo_Dark.svg'
+                              : 'assets/images/RNDgrid_Horizontal_Logo_Light.svg',
+                          width: 160.0,
+                          height: 50.0,
+                          fit: BoxFit.fitWidth,
                         ),
-                      if (Theme.of(context).brightness == Brightness.light)
-                        InkWell(
-                          splashColor: Colors.transparent,
-                          focusColor: Colors.transparent,
-                          hoverColor: Colors.transparent,
-                          highlightColor: Colors.transparent,
-                          onTap: () async {
-                            logFirebaseEvent('FOOTER_COMP_lightMode_ON_TAP');
-                            logFirebaseEvent('lightMode_navigate_to');
-
-                            context.pushNamed(HomeWidget.routeName);
-                          },
-                          child: Image.asset(
-                            'assets/images/horizontal_black_fonts.png',
-                            width: 160.0,
-                            height: 50.0,
-                            fit: BoxFit.fitWidth,
-                          ),
-                        ),
+                      ),
                       Padding(
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 4.0, 0.0, 0.0),
@@ -224,12 +201,8 @@ class _FooterWidgetState extends State<FooterWidget> {
                           style: FlutterFlowTheme.of(context)
                               .titleLarge
                               .override(
-                                fontFamily: FlutterFlowTheme.of(context)
-                                    .titleLargeFamily,
+                                font: FlutterFlowTheme.of(context).titleLarge,
                                 letterSpacing: 0.0,
-                                useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                    FlutterFlowTheme.of(context)
-                                        .titleLargeFamily),
                               ),
                         ),
                       ),
@@ -249,12 +222,9 @@ class _FooterWidgetState extends State<FooterWidget> {
                           'mn3rf2lg' /* 1st Floor, Atal-Kalam Research... */,
                         ),
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyLargeFamily,
+                              font: FlutterFlowTheme.of(context).bodyLarge,
                               color: FlutterFlowTheme.of(context).primaryText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context).bodyLargeFamily),
                             ),
                       ),
                     ),
@@ -267,12 +237,9 @@ class _FooterWidgetState extends State<FooterWidget> {
                         ),
                         textAlign: TextAlign.start,
                         style: FlutterFlowTheme.of(context).bodyLarge.override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).bodyLargeFamily,
+                              font: FlutterFlowTheme.of(context).bodyLarge,
                               color: FlutterFlowTheme.of(context).primaryText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context).bodyLargeFamily),
                             ),
                       ),
                     ),
@@ -309,15 +276,11 @@ class _FooterWidgetState extends State<FooterWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodySmallFamily,
+                                    font:
+                                        FlutterFlowTheme.of(context).bodySmall,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .bodySmallFamily),
                                   ),
                             ),
                           ),
@@ -356,15 +319,11 @@ class _FooterWidgetState extends State<FooterWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .bodySmall
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .bodySmallFamily,
+                                    font:
+                                        FlutterFlowTheme.of(context).bodySmall,
                                     color: FlutterFlowTheme.of(context)
                                         .primaryText,
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .bodySmallFamily),
                                   ),
                             ),
                           ),

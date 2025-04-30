@@ -14,6 +14,7 @@ import '/resources/components/instruments_details/instruments_details_widget.dar
 import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
 import '/index.dart';
 import 'home_widget.dart' show HomeWidget;
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class HomeModel extends FlutterFlowModel<HomeWidget> {
@@ -85,6 +86,34 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   void updateFinaResourcesListAtIndex(int index, Function(dynamic) updateFn) =>
       finaResourcesList[index] = updateFn(finaResourcesList[index]);
 
+  List<dynamic> sophisticatedResultjson = [];
+  void addToSophisticatedResultjson(dynamic item) =>
+      sophisticatedResultjson.add(item);
+  void removeFromSophisticatedResultjson(dynamic item) =>
+      sophisticatedResultjson.remove(item);
+  void removeAtIndexFromSophisticatedResultjson(int index) =>
+      sophisticatedResultjson.removeAt(index);
+  void insertAtIndexInSophisticatedResultjson(int index, dynamic item) =>
+      sophisticatedResultjson.insert(index, item);
+  void updateSophisticatedResultjsonAtIndex(
+          int index, Function(dynamic) updateFn) =>
+      sophisticatedResultjson[index] = updateFn(sophisticatedResultjson[index]);
+
+  bool devlopmentShow = true;
+
+  bool sophisticatedShow = true;
+
+  bool testShow = true;
+
+  List<String> sugetions = [];
+  void addToSugetions(String item) => sugetions.add(item);
+  void removeFromSugetions(String item) => sugetions.remove(item);
+  void removeAtIndexFromSugetions(int index) => sugetions.removeAt(index);
+  void insertAtIndexInSugetions(int index, String item) =>
+      sugetions.insert(index, item);
+  void updateSugetionsAtIndex(int index, Function(String) updateFn) =>
+      sugetions[index] = updateFn(sugetions[index]);
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Get Sophisticated Instruments Tests)] action in Home widget.
@@ -93,7 +122,7 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ApiCallResponse? sophisticatedInstrumentsMobile;
   // Stores action output result for [Backend Call - API (Get Instruments Tests)] action in Home widget.
   ApiCallResponse? instrumentsFromAPI;
-  // Stores action output result for [Backend Call - API (Get Fieds)] action in Home widget.
+  // Stores action output result for [Backend Call - API (Get Categories)] action in Home widget.
   ApiCallResponse? getFields;
   // Model for Drawer component.
   late DrawerModel drawerModel;
@@ -105,14 +134,20 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   String? Function(BuildContext, String?)? textFieldTextControllerValidator;
   // Stores action output result for [Backend Call - API (Search Instrument  Test)] action in TextField widget.
   ApiCallResponse? searchOutput;
+  // Stores action output result for [Backend Call - API (Search Instrument  Test)] action in TextField widget.
+  ApiCallResponse? sophisticatedSearch;
   // Stores action output result for [Backend Call - API (Search Test)] action in TextField widget.
   ApiCallResponse? searhTest;
-  // Models for InstrumentsDetails dynamic component.
-  late FlutterFlowDynamicModels<InstrumentsDetailsModel>
-      instrumentsDetailsModels1;
+  // Stores action output result for [Backend Call - API (Global Suggetion)] action in TextField widget.
+  ApiCallResponse? apiResultgim;
+  // Stores action output result for [Custom Action - replaceLastWord] action in Row widget.
+  String? replacedWord;
   // Models for SophisticatedInstrumentComponent dynamic component.
   late FlutterFlowDynamicModels<SophisticatedInstrumentComponentModel>
       sophisticatedInstrumentComponentModels1;
+  // Models for InstrumentsDetails dynamic component.
+  late FlutterFlowDynamicModels<InstrumentsDetailsModel>
+      instrumentsDetailsModels1;
   // Model for DataNotFoundCOmponent component.
   late DataNotFoundCOmponentModel dataNotFoundCOmponentModel;
   // Models for SophisticatedInstrumentComponent dynamic component.
@@ -121,6 +156,14 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   // Models for InstrumentsDetails dynamic component.
   late FlutterFlowDynamicModels<InstrumentsDetailsModel>
       instrumentsDetailsModels2;
+  // State field(s) for WebCarousel widget.
+  CarouselSliderController? webCarouselController;
+  int webCarouselCurrentIndex = 1;
+
+  // State field(s) for MobileCarousel widget.
+  CarouselSliderController? mobileCarouselController;
+  int mobileCarouselCurrentIndex = 1;
+
   // State field(s) for PageView widget.
   PageController? pageViewController1;
 
@@ -168,10 +211,10 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   void initState(BuildContext context) {
     drawerModel = createModel(context, () => DrawerModel());
     topNavBarModel = createModel(context, () => TopNavBarModel());
-    instrumentsDetailsModels1 =
-        FlutterFlowDynamicModels(() => InstrumentsDetailsModel());
     sophisticatedInstrumentComponentModels1 =
         FlutterFlowDynamicModels(() => SophisticatedInstrumentComponentModel());
+    instrumentsDetailsModels1 =
+        FlutterFlowDynamicModels(() => InstrumentsDetailsModel());
     dataNotFoundCOmponentModel =
         createModel(context, () => DataNotFoundCOmponentModel());
     sophisticatedInstrumentComponentModels2 =
@@ -210,8 +253,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
     textFieldFocusNode?.dispose();
     textFieldTextController?.dispose();
 
-    instrumentsDetailsModels1.dispose();
     sophisticatedInstrumentComponentModels1.dispose();
+    instrumentsDetailsModels1.dispose();
     dataNotFoundCOmponentModel.dispose();
     sophisticatedInstrumentComponentModels2.dispose();
     instrumentsDetailsModels2.dispose();

@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'logout_popup_model.dart';
 export 'logout_popup_model.dart';
 
@@ -90,11 +89,8 @@ class _LogoutPopupWidgetState extends State<LogoutPopupWidget> {
                       'hhq5pi42' /* Are you sure you want to logou... */,
                     ),
                     style: FlutterFlowTheme.of(context).titleMedium.override(
-                          fontFamily:
-                              FlutterFlowTheme.of(context).titleMediumFamily,
+                          font: FlutterFlowTheme.of(context).titleMedium,
                           letterSpacing: 0.0,
-                          useGoogleFonts: GoogleFonts.asMap().containsKey(
-                              FlutterFlowTheme.of(context).titleMediumFamily),
                         ),
                   ),
                 ],
@@ -166,16 +162,11 @@ class _LogoutPopupWidgetState extends State<LogoutPopupWidget> {
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        textStyle: FlutterFlowTheme.of(context)
-                            .titleSmall
-                            .override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).titleSmallFamily,
-                              letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .titleSmallFamily),
-                            ),
+                        textStyle:
+                            FlutterFlowTheme.of(context).titleSmall.override(
+                                  font: FlutterFlowTheme.of(context).titleSmall,
+                                  letterSpacing: 0.0,
+                                ),
                         borderSide: BorderSide(
                           color: FlutterFlowTheme.of(context).border,
                         ),
@@ -218,13 +209,9 @@ class _LogoutPopupWidgetState extends State<LogoutPopupWidget> {
                         textStyle: FlutterFlowTheme.of(context)
                             .titleSmall
                             .override(
-                              fontFamily:
-                                  FlutterFlowTheme.of(context).titleSmallFamily,
+                              font: FlutterFlowTheme.of(context).titleSmall,
                               color: FlutterFlowTheme.of(context).buttonText,
                               letterSpacing: 0.0,
-                              useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                  FlutterFlowTheme.of(context)
-                                      .titleSmallFamily),
                             ),
                         borderSide: BorderSide(
                           color: Colors.transparent,

@@ -4,7 +4,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/profile/components/profile_details_1/profile_details1_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'profile_step1_model.dart';
 export 'profile_step1_model.dart';
 
@@ -100,16 +99,12 @@ class _ProfileStep1WidgetState extends State<ProfileStep1Widget> {
                             style: FlutterFlowTheme.of(context)
                                 .bodyMedium
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .bodyMediumFamily,
+                                  font: FlutterFlowTheme.of(context).bodyMedium,
                                   color:
                                       FlutterFlowTheme.of(context).buttonText,
                                   fontSize: 18.0,
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .bodyMediumFamily),
                                 ),
                           ),
                         ),

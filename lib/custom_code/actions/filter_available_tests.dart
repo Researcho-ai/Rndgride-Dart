@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 // Begin custom action code
 // DO NOT REMOVE OR MODIFY THE CODE ABOVE!
 
+// filterAvailableTests.dart
+
 Future<List<dynamic>> filterAvailableTests(
   String? selectedField,
   String? selectedMaterial,
@@ -22,7 +24,8 @@ Future<List<dynamic>> filterAvailableTests(
   final filterTest = selectedTest?.trim().toLowerCase() ?? '';
   final filterMethod = selectedMethod?.trim().toLowerCase() ?? '';
 
-  return jsonList.where((raw) {
+  // Step 1: initial filtering based on provided criteria
+  final initial = jsonList.where((raw) {
     final entry = raw as Map<String, dynamic>;
 
     final fieldName =
@@ -34,16 +37,20 @@ Future<List<dynamic>> filterAvailableTests(
     final methodName =
         (entry['method']?['method_name'] as String? ?? '').toLowerCase();
 
-    // Start assuming it matches…
-    bool matches = true;
-
-    // …but if a filter is set, require it to match
-    if (filterField.isNotEmpty && filterField != fieldName) matches = false;
+    if (filterField.isNotEmpty && filterField != fieldName) return false;
     if (filterMaterial.isNotEmpty && filterMaterial != materialName)
-      matches = false;
-    if (filterTest.isNotEmpty && filterTest != testName) matches = false;
-    if (filterMethod.isNotEmpty && filterMethod != methodName) matches = false;
-
-    return matches;
+      return false;
+    if (filterTest.isNotEmpty && filterTest != testName) return false;
+    if (filterMethod.isNotEmpty && filterMethod != methodName) return false;
+    return true;
   }).toList();
+
+  // Step 2: drop any entry where both test and method are null
+  final pruned = initial.where((raw) {
+    final entry = raw as Map<String, dynamic>;
+    return entry['test'] != null || entry['method'] != null;
+  }).toList();
+
+  // If everything was pruned (all entries had test & method null), returns []
+  return pruned;
 }

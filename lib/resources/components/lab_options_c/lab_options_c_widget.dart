@@ -5,7 +5,6 @@ import '/resources/components/instrument_test_detail_component/instrument_test_d
 import '/resources/components/lab_type_tag/lab_type_tag_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'lab_options_c_model.dart';
 export 'lab_options_c_model.dart';
 
@@ -162,13 +161,9 @@ class _LabOptionsCWidgetState extends State<LabOptionsCWidget> {
                               style: FlutterFlowTheme.of(context)
                                   .titleMedium
                                   .override(
-                                    fontFamily: FlutterFlowTheme.of(context)
-                                        .titleMediumFamily,
+                                    font: FlutterFlowTheme.of(context)
+                                        .titleMedium,
                                     letterSpacing: 0.0,
-                                    useGoogleFonts: GoogleFonts.asMap()
-                                        .containsKey(
-                                            FlutterFlowTheme.of(context)
-                                                .titleMediumFamily),
                                   ),
                             )),
                           ),
@@ -204,14 +199,10 @@ class _LabOptionsCWidgetState extends State<LabOptionsCWidget> {
                             style: FlutterFlowTheme.of(context)
                                 .labelLarge
                                 .override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .labelLargeFamily,
+                                  font: FlutterFlowTheme.of(context).labelLarge,
                                   color: FlutterFlowTheme.of(context)
                                       .secondaryText,
                                   letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .labelLargeFamily),
                                 ),
                           )),
                         ),
@@ -239,15 +230,12 @@ class _LabOptionsCWidgetState extends State<LabOptionsCWidget> {
                         FFLocalizations.of(context).getText(
                           'qn1le94q' /* Tax not included.* */,
                         ),
-                        style:
-                            FlutterFlowTheme.of(context).labelMedium.override(
-                                  fontFamily: FlutterFlowTheme.of(context)
-                                      .labelMediumFamily,
-                                  letterSpacing: 0.0,
-                                  useGoogleFonts: GoogleFonts.asMap()
-                                      .containsKey(FlutterFlowTheme.of(context)
-                                          .labelMediumFamily),
-                                ),
+                        style: FlutterFlowTheme.of(context)
+                            .labelMedium
+                            .override(
+                              font: FlutterFlowTheme.of(context).labelMedium,
+                              letterSpacing: 0.0,
+                            ),
                       )),
                       Opacity(
                         opacity: 0.5,

@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_pages/components/user_requirement_copy/user_requirement_copy_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'requerment_button_model.dart';
 export 'requerment_button_model.dart';
 
@@ -166,6 +165,7 @@ class _RequermentButtonWidgetState extends State<RequermentButtonWidget> {
             }
           },
           child: Container(
+            width: 400.0,
             decoration: BoxDecoration(
               color: _model.contacOption1Hovered ||
                       (widget.parameter2 == widget.hoverIndex)
@@ -173,7 +173,7 @@ class _RequermentButtonWidgetState extends State<RequermentButtonWidget> {
                   : Color(0x00000000),
               borderRadius: BorderRadius.circular(8.0),
               border: Border.all(
-                color: FlutterFlowTheme.of(context).border,
+                color: FlutterFlowTheme.of(context).primary,
               ),
             ),
             child: Padding(
@@ -190,15 +190,12 @@ class _RequermentButtonWidgetState extends State<RequermentButtonWidget> {
                         'Testing and Development Facility',
                       ),
                       style: FlutterFlowTheme.of(context).titleSmall.override(
-                            fontFamily:
-                                FlutterFlowTheme.of(context).titleSmallFamily,
+                            font: FlutterFlowTheme.of(context).titleSmall,
                             color: _model.contacOption1Hovered ||
                                     (widget.parameter2 == widget.hoverIndex)
                                 ? FlutterFlowTheme.of(context).buttonText
                                 : FlutterFlowTheme.of(context).secondaryText,
                             letterSpacing: 0.0,
-                            useGoogleFonts: GoogleFonts.asMap().containsKey(
-                                FlutterFlowTheme.of(context).titleSmallFamily),
                           ),
                     ),
                   ),

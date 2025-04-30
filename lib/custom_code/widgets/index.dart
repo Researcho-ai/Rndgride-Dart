@@ -1,2 +1,2 @@
-export 'svg_image_widget.dart' show SvgImageWidget;
+export 'image_widget_flexible.dart' show ImageWidgetFlexible;
 export 'svg_profile_widget.dart' show SvgProfileWidget;
