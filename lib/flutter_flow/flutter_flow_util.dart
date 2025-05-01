@@ -411,7 +411,7 @@ void fixStatusBarOniOS16AndBelow(BuildContext context) {
 }
 
 extension ColorOpacityExt on Color {
-  Color applyAlpha(double val) => withOacity(val);
+  Color applyAlpha(double val) => withOpacity(val);
 }
 
 String roundTo(double value, int decimalPoints) {
