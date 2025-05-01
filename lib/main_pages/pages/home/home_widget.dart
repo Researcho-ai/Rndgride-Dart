@@ -7801,29 +7801,20 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         mainAxisSize:
                                                             MainAxisSize.max,
                                                         children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        32.0),
-                                                            child: Container(
-                                                              width: 210.0,
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              child: ClipRRect(
-                                                                borderRadius:
-                                                                    BorderRadius
-                                                                        .circular(
-                                                                            8.0),
-                                                                child:
-                                                                    Image.asset(
-                                                                  'assets/images/Contact.png',
-                                                                  fit: BoxFit
-                                                                      .cover,
-                                                                ),
+                                                          Container(
+                                                            width: 210.0,
+                                                            decoration:
+                                                                BoxDecoration(),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/Contact.png',
+                                                                fit: BoxFit
+                                                                    .cover,
                                                               ),
                                                             ),
                                                           ),
