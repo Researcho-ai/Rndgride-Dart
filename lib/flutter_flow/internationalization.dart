@@ -346,10 +346,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'User Type Not Mentioned!',
       'hi': '',
     },
-    'pkt900na': {
-      'en': 'Logout',
-      'hi': '',
-    },
     '68pxlvcy': {
       'en': 'Research Field',
       'hi': '',
@@ -358,7 +354,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Affiliation',
       'hi': '',
     },
-    '9w783bib': {
+    'zlw8a2iz': {
       'en': 'Logout',
       'hi': '',
     },

@@ -30,12 +30,12 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   ApiCallResponse? userDataFetched;
   // Stores action output result for [Backend Call - API (Get User Data)] action in IconButton widget.
   ApiCallResponse? userDataFetchedDialog;
-  // Model for ThemeMode component.
-  late ThemeModeModel themeModeModel;
   // Stores action output result for [Backend Call - API (Get User Data)] action in IconButton widget.
   ApiCallResponse? userDataFetchedDialog2;
   // Stores action output result for [Backend Call - API (Get User Data)] action in IconButton widget.
   ApiCallResponse? userDataFetchedButtomSheet2;
+  // Model for ThemeMode component.
+  late ThemeModeModel themeModeModel;
   // Model for BottomNavBar component.
   late BottomNavBarModel bottomNavBarModel;
 

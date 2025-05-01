@@ -112,6 +112,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   void updateSugetionsAtIndex(int index, Function(String) updateFn) =>
       sugetions[index] = updateFn(sugetions[index]);
 
+  bool searchBarFocuse = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Get Sophisticated Instruments Tests)] action in Home widget.

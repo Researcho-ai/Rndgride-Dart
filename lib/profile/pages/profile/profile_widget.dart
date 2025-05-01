@@ -15,7 +15,6 @@ import '/profile/components/profile_page_component/profile_page_component_widget
 import '/flutter_flow/custom_functions.dart' as functions;
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
 import 'profile_model.dart';
 export 'profile_model.dart';
@@ -265,117 +264,106 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                           }
                                         }(),
                                         decoration: BoxDecoration(),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 0.0, 16.0),
-                                              child: Row(
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 0.0, 0.0, 16.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  children: [
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  16.0,
+                                                                  0.0),
+                                                      child:
+                                                          FlutterFlowIconButton(
+                                                        borderColor:
+                                                            Colors.transparent,
+                                                        borderRadius: 30.0,
+                                                        borderWidth: 1.0,
+                                                        buttonSize: 50.0,
+                                                        fillColor: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
+                                                        icon: Icon(
+                                                          FFIcons.karrowLeft,
+                                                          size: 24.0,
+                                                        ),
+                                                        onPressed: () async {
+                                                          logFirebaseEvent(
+                                                              'PROFILE_PAGE_arrowLeft_ICN_ON_TAP');
+                                                          logFirebaseEvent(
+                                                              'IconButton_navigate_back');
+                                                          context.safePop();
+                                                        },
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Row(
                                                 mainAxisSize: MainAxisSize.max,
                                                 children: [
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                16.0, 0.0),
-                                                    child:
-                                                        FlutterFlowIconButton(
-                                                      borderColor:
-                                                          Colors.transparent,
-                                                      borderRadius: 30.0,
-                                                      borderWidth: 1.0,
-                                                      buttonSize: 50.0,
-                                                      fillColor: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      icon: Icon(
-                                                        FFIcons.karrowLeft,
-                                                        size: 24.0,
-                                                      ),
-                                                      onPressed: () async {
-                                                        logFirebaseEvent(
-                                                            'PROFILE_PAGE_arrowLeft_ICN_ON_TAP');
-                                                        logFirebaseEvent(
-                                                            'IconButton_navigate_back');
-                                                        context.safePop();
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            MasonryGridView.builder(
-                                              physics:
-                                                  const NeverScrollableScrollPhysics(),
-                                              gridDelegate:
-                                                  SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: () {
-                                                  if (MediaQuery.sizeOf(context)
-                                                          .width <
-                                                      kBreakpointSmall) {
-                                                    return 1;
-                                                  } else if (MediaQuery.sizeOf(
-                                                              context)
-                                                          .width <
-                                                      kBreakpointMedium) {
-                                                    return 2;
-                                                  } else if (MediaQuery.sizeOf(
-                                                              context)
-                                                          .width <
-                                                      kBreakpointLarge) {
-                                                    return 2;
-                                                  } else {
-                                                    return 2;
-                                                  }
-                                                }(),
-                                              ),
-                                              crossAxisSpacing: 10.0,
-                                              mainAxisSpacing: 10.0,
-                                              itemCount: 3,
-                                              shrinkWrap: true,
-                                              itemBuilder: (context, index) {
-                                                return [
-                                                  () => Padding(
-                                                        padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
+                                                  Expanded(
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  valueOrDefault<
+                                                                      double>(
+                                                                    () {
+                                                                      if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointSmall) {
+                                                                        return 0.0;
+                                                                      } else if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointMedium) {
+                                                                        return 24.0;
+                                                                      } else if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointLarge) {
+                                                                        return 36.0;
+                                                                      } else {
+                                                                        return 36.0;
+                                                                      }
+                                                                    }(),
                                                                     0.0,
-                                                                    0.0,
-                                                                    valueOrDefault<
-                                                                        double>(
-                                                                      () {
-                                                                        if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointSmall) {
-                                                                          return 0.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointMedium) {
-                                                                          return 24.0;
-                                                                        } else if (MediaQuery.sizeOf(context).width <
-                                                                            kBreakpointLarge) {
-                                                                          return 36.0;
-                                                                        } else {
-                                                                          return 36.0;
-                                                                        }
-                                                                      }(),
-                                                                      0.0,
-                                                                    ),
-                                                                    0.0),
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                              MainAxisSize.max,
-                                                          children: [
-                                                            Container(
+                                                                  ),
+                                                                  0.0),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        24.0),
+                                                            child: Container(
                                                               decoration:
                                                                   BoxDecoration(
                                                                 color: FlutterFlowTheme.of(
                                                                         context)
-                                                                    .secondaryBackground,
+                                                                    .primary,
                                                                 borderRadius:
                                                                     BorderRadius
                                                                         .circular(
-                                                                            8.0),
+                                                                            16.0),
                                                               ),
                                                               child: Padding(
                                                                 padding:
@@ -386,6 +374,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                   mainAxisSize:
                                                                       MainAxisSize
                                                                           .max,
+                                                                  crossAxisAlignment:
+                                                                      CrossAxisAlignment
+                                                                          .start,
                                                                   children: [
                                                                     Padding(
                                                                       padding: EdgeInsetsDirectional.fromSTEB(
@@ -454,7 +445,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                 buttonSize: 40.0,
                                                                                 icon: Icon(
                                                                                   FFIcons.kedit,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
+                                                                                  color: FlutterFlowTheme.of(context).iconColor,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 onPressed: () async {
@@ -606,10 +597,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                           '-',
                                                                         ),
                                                                         style: FlutterFlowTheme.of(context)
-                                                                            .bodyLarge
+                                                                            .titleSmall
                                                                             .override(
-                                                                              font: FlutterFlowTheme.of(context).bodyLarge,
-                                                                              color: FlutterFlowTheme.of(context).primaryText,
+                                                                              font: FlutterFlowTheme.of(context).titleSmall,
+                                                                              color: FlutterFlowTheme.of(context).primaryBackground,
                                                                               letterSpacing: 0.0,
                                                                             ),
                                                                       ),
@@ -632,9 +623,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             '-',
                                                                           ),
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .bodySmall
+                                                                              .titleSmall
                                                                               .override(
-                                                                                font: FlutterFlowTheme.of(context).bodySmall,
+                                                                                font: FlutterFlowTheme.of(context).titleSmall,
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 letterSpacing: 0.0,
                                                                               ),
                                                                         ),
@@ -657,9 +649,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             'jo6lfqia' /* User Type Not Mentioned! */,
                                                                           ),
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .bodySmall
+                                                                              .titleSmall
                                                                               .override(
-                                                                                font: FlutterFlowTheme.of(context).bodySmall,
+                                                                                font: FlutterFlowTheme.of(context).titleSmall,
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 letterSpacing: 0.0,
                                                                               ),
                                                                         ),
@@ -687,10 +680,10 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                           functions
                                                                               .formatPhoneNumber(currentUserData!.phoneNumber),
                                                                           style: FlutterFlowTheme.of(context)
-                                                                              .bodyMedium
+                                                                              .titleSmall
                                                                               .override(
-                                                                                font: FlutterFlowTheme.of(context).bodyMedium,
-                                                                                color: FlutterFlowTheme.of(context).primaryText,
+                                                                                font: FlutterFlowTheme.of(context).titleSmall,
+                                                                                color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                 letterSpacing: 0.0,
                                                                               ),
                                                                         ),
@@ -699,493 +692,341 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                 ),
                                                               ),
                                                             ),
-                                                            if (responsiveVisibility(
-                                                              context: context,
-                                                              phone: false,
-                                                              tablet: false,
-                                                            ))
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            16.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8.0),
-                                                                  ),
-                                                                  child: Row(
+                                                          ),
+                                                          Expanded(
+                                                            child: Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          24.0),
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  borderRadius:
+                                                                      BorderRadius
+                                                                          .circular(
+                                                                              16.0),
+                                                                ),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          24.0,
+                                                                          24.0,
+                                                                          24.0,
+                                                                          24.0),
+                                                                  child: Column(
                                                                     mainAxisSize:
                                                                         MainAxisSize
                                                                             .max,
                                                                     children: [
-                                                                      if (loggedIn)
-                                                                        Expanded(
-                                                                          child:
-                                                                              Builder(
-                                                                            builder: (context) =>
-                                                                                InkWell(
-                                                                              splashColor: Colors.transparent,
-                                                                              focusColor: Colors.transparent,
-                                                                              hoverColor: Colors.transparent,
-                                                                              highlightColor: Colors.transparent,
-                                                                              onTap: () async {
-                                                                                logFirebaseEvent('PROFILE_PAGE_Container_xvpoyfjo_ON_TAP');
-                                                                                logFirebaseEvent('Container_alert_dialog');
-                                                                                await showDialog(
-                                                                                  context: context,
-                                                                                  builder: (dialogContext) {
-                                                                                    return Dialog(
-                                                                                      elevation: 0,
-                                                                                      insetPadding: EdgeInsets.zero,
-                                                                                      backgroundColor: Colors.transparent,
-                                                                                      alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                      child: GestureDetector(
-                                                                                        onTap: () {
-                                                                                          FocusScope.of(dialogContext).unfocus();
-                                                                                          FocusManager.instance.primaryFocus?.unfocus();
-                                                                                        },
-                                                                                        child: LogoutPopupWidget(),
-                                                                                      ),
-                                                                                    );
-                                                                                  },
-                                                                                );
-                                                                              },
-                                                                              child: Container(
-                                                                                width: 100.0,
-                                                                                decoration: BoxDecoration(
-                                                                                  borderRadius: BorderRadius.circular(8.0),
-                                                                                ),
-                                                                                child: Padding(
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                      valueOrDefault<double>(
-                                                                                        () {
-                                                                                          if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                                                                                            return 24.0;
-                                                                                          } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-                                                                                            return 35.0;
-                                                                                          } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
-                                                                                            return 40.0;
-                                                                                          } else {
-                                                                                            return 40.0;
-                                                                                          }
-                                                                                        }(),
-                                                                                        40.0,
-                                                                                      ),
-                                                                                      14.0,
-                                                                                      14.0,
-                                                                                      14.0),
-                                                                                  child: Row(
-                                                                                    mainAxisSize: MainAxisSize.max,
-                                                                                    children: [
-                                                                                      Icon(
-                                                                                        FFIcons.klogout,
-                                                                                        color: FlutterFlowTheme.of(context).primaryText,
-                                                                                        size: 24.0,
-                                                                                      ),
-                                                                                      Padding(
-                                                                                        padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
-                                                                                        child: Text(
-                                                                                          FFLocalizations.of(context).getText(
-                                                                                            'pkt900na' /* Logout */,
-                                                                                          ),
-                                                                                          style: FlutterFlowTheme.of(context).bodyMedium.override(
-                                                                                                font: FlutterFlowTheme.of(context).bodyMedium,
-                                                                                                color: FlutterFlowTheme.of(context).primaryText,
-                                                                                                letterSpacing: 0.0,
-                                                                                              ),
-                                                                                        ),
-                                                                                      ),
-                                                                                    ],
+                                                                      Padding(
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            0.0,
+                                                                            0.0,
+                                                                            16.0),
+                                                                        child:
+                                                                            Row(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          mainAxisAlignment:
+                                                                              MainAxisAlignment.end,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Align(
+                                                                              alignment: AlignmentDirectional(0.0, -1.0),
+                                                                              child: Builder(
+                                                                                builder: (context) => FlutterFlowIconButton(
+                                                                                  borderColor: Colors.transparent,
+                                                                                  borderRadius: 20.0,
+                                                                                  borderWidth: 1.0,
+                                                                                  buttonSize: 40.0,
+                                                                                  icon: Icon(
+                                                                                    FFIcons.kedit,
+                                                                                    color: FlutterFlowTheme.of(context).iconColor,
+                                                                                    size: 24.0,
                                                                                   ),
+                                                                                  onPressed: () async {
+                                                                                    logFirebaseEvent('PROFILE_PAGE_edit_ICN_ON_TAP');
+                                                                                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall ? true : false) {
+                                                                                      logFirebaseEvent('IconButton_bottom_sheet');
+                                                                                      await showModalBottomSheet(
+                                                                                        isScrollControlled: true,
+                                                                                        backgroundColor: Colors.transparent,
+                                                                                        context: context,
+                                                                                        builder: (context) {
+                                                                                          return GestureDetector(
+                                                                                            onTap: () {
+                                                                                              FocusScope.of(context).unfocus();
+                                                                                              FocusManager.instance.primaryFocus?.unfocus();
+                                                                                            },
+                                                                                            child: Padding(
+                                                                                              padding: MediaQuery.viewInsetsOf(context),
+                                                                                              child: Container(
+                                                                                                height: MediaQuery.sizeOf(context).height * 0.8,
+                                                                                                child: ProfileDetail2Widget(
+                                                                                                  action: () async {
+                                                                                                    var _shouldSetState = false;
+                                                                                                    logFirebaseEvent('_bottom_sheet');
+                                                                                                    Navigator.pop(context);
+                                                                                                    logFirebaseEvent('_backend_call');
+                                                                                                    _model.userDataFetchedDialog2 = await UsersGroup.getUserDataCall.call(
+                                                                                                      userID: FFAppState().userProfileData.uid,
+                                                                                                    );
+
+                                                                                                    _shouldSetState = true;
+                                                                                                    if ((_model.userDataFetchedDialog2?.succeeded ?? true)) {
+                                                                                                      logFirebaseEvent('_update_app_state');
+                                                                                                      FFAppState().userProfileData = UserProfileDataStruct(
+                                                                                                        uid: UsersGroup.getUserDataCall.uid(
+                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        displayName: UsersGroup.getUserDataCall.displayName(
+                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        userAffiliation: UsersGroup.getUserDataCall.affiliation(
+                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        userResearchField: UsersGroup.getUserDataCall.researchField(
+                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        userType: UsersGroup.getUserDataCall.userType(
+                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        phoneNumber: UsersGroup.getUserDataCall.phoneNo(
+                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                      FFAppState().update(() {});
+                                                                                                      return;
+                                                                                                    } else {
+                                                                                                      return;
+                                                                                                    }
+                                                                                                  },
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          );
+                                                                                        },
+                                                                                      ).then((value) => safeSetState(() {}));
+                                                                                    } else {
+                                                                                      logFirebaseEvent('IconButton_alert_dialog');
+                                                                                      await showDialog(
+                                                                                        context: context,
+                                                                                        builder: (dialogContext) {
+                                                                                          return Dialog(
+                                                                                            elevation: 0,
+                                                                                            insetPadding: EdgeInsets.zero,
+                                                                                            backgroundColor: Colors.transparent,
+                                                                                            alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                                            child: GestureDetector(
+                                                                                              onTap: () {
+                                                                                                FocusScope.of(dialogContext).unfocus();
+                                                                                                FocusManager.instance.primaryFocus?.unfocus();
+                                                                                              },
+                                                                                              child: Container(
+                                                                                                width: MediaQuery.sizeOf(context).width * 0.45,
+                                                                                                child: ProfileDetail2Widget(
+                                                                                                  action: () async {
+                                                                                                    var _shouldSetState = false;
+                                                                                                    logFirebaseEvent('_close_dialog_drawer_etc');
+                                                                                                    Navigator.pop(context);
+                                                                                                    logFirebaseEvent('_backend_call');
+                                                                                                    _model.userDataFetchedButtomSheet2 = await UsersGroup.getUserDataCall.call(
+                                                                                                      userID: FFAppState().userProfileData.uid,
+                                                                                                    );
+
+                                                                                                    _shouldSetState = true;
+                                                                                                    if ((_model.userDataFetchedButtomSheet2?.succeeded ?? true)) {
+                                                                                                      logFirebaseEvent('_update_app_state');
+                                                                                                      FFAppState().userProfileData = UserProfileDataStruct(
+                                                                                                        uid: UsersGroup.getUserDataCall.uid(
+                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        displayName: UsersGroup.getUserDataCall.displayName(
+                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        userAffiliation: UsersGroup.getUserDataCall.affiliation(
+                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        userResearchField: UsersGroup.getUserDataCall.researchField(
+                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        userType: UsersGroup.getUserDataCall.userType(
+                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                        phoneNumber: UsersGroup.getUserDataCall.phoneNo(
+                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
+                                                                                                        ),
+                                                                                                      );
+                                                                                                      FFAppState().update(() {});
+                                                                                                      return;
+                                                                                                    } else {
+                                                                                                      return;
+                                                                                                    }
+                                                                                                  },
+                                                                                                ),
+                                                                                              ),
+                                                                                            ),
+                                                                                          );
+                                                                                        },
+                                                                                      );
+                                                                                    }
+
+                                                                                    safeSetState(() {});
+                                                                                  },
                                                                                 ),
                                                                               ),
                                                                             ),
-                                                                          ),
+                                                                          ],
                                                                         ),
+                                                                      ),
+                                                                      Column(
+                                                                        mainAxisSize:
+                                                                            MainAxisSize.max,
+                                                                        crossAxisAlignment:
+                                                                            CrossAxisAlignment.start,
+                                                                        children: [
+                                                                          Text(
+                                                                            FFLocalizations.of(context).getText(
+                                                                              '68pxlvcy' /* Research Field */,
+                                                                            ),
+                                                                            style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                  font: FlutterFlowTheme.of(context).labelMedium,
+                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                  letterSpacing: 0.0,
+                                                                                  fontWeight: FontWeight.w600,
+                                                                                ),
+                                                                          ),
+                                                                          Divider(
+                                                                            thickness:
+                                                                                1.0,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).accent1,
+                                                                          ),
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                8.0,
+                                                                                0.0,
+                                                                                0.0),
+                                                                            child:
+                                                                                Text(
+                                                                              valueOrDefault<String>(
+                                                                                currentUserData?.userResearchField,
+                                                                                '-',
+                                                                              ),
+                                                                              style: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                    font: FlutterFlowTheme.of(context).titleSmall,
+                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    letterSpacing: 0.0,
+                                                                                  ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
                                                                       Padding(
-                                                                        padding:
-                                                                            EdgeInsets.all(8.0),
+                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                            0.0,
+                                                                            24.0,
+                                                                            0.0,
+                                                                            0.0),
                                                                         child:
-                                                                            wrapWithModel(
-                                                                          model:
-                                                                              _model.themeModeModel,
-                                                                          updateCallback: () =>
-                                                                              safeSetState(() {}),
-                                                                          child:
-                                                                              ThemeModeWidget(),
+                                                                            Column(
+                                                                          mainAxisSize:
+                                                                              MainAxisSize.max,
+                                                                          crossAxisAlignment:
+                                                                              CrossAxisAlignment.start,
+                                                                          children: [
+                                                                            Text(
+                                                                              FFLocalizations.of(context).getText(
+                                                                                'm6z0m9p9' /* Affiliation */,
+                                                                              ),
+                                                                              style: FlutterFlowTheme.of(context).labelMedium.override(
+                                                                                    font: FlutterFlowTheme.of(context).labelMedium,
+                                                                                    color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                    letterSpacing: 0.0,
+                                                                                    fontWeight: FontWeight.w600,
+                                                                                  ),
+                                                                            ),
+                                                                            Divider(
+                                                                              thickness: 1.0,
+                                                                              color: FlutterFlowTheme.of(context).accent1,
+                                                                            ),
+                                                                            Padding(
+                                                                              padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
+                                                                              child: Text(
+                                                                                valueOrDefault<String>(
+                                                                                  currentUserData?.userAffiliation,
+                                                                                  '-',
+                                                                                ),
+                                                                                style: FlutterFlowTheme.of(context).titleSmall.override(
+                                                                                      font: FlutterFlowTheme.of(context).titleSmall,
+                                                                                      color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                      letterSpacing: 0.0,
+                                                                                    ),
+                                                                              ),
+                                                                            ),
+                                                                          ],
                                                                         ),
                                                                       ),
                                                                     ],
                                                                   ),
                                                                 ),
                                                               ),
-                                                          ],
-                                                        ),
-                                                      ),
-                                                  () => Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .secondaryBackground,
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      24.0,
-                                                                      24.0,
-                                                                      24.0,
-                                                                      24.0),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .max,
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
+                                                            ),
+                                                          ),
+                                                          Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        24.0),
+                                                            child: Container(
+                                                              decoration:
+                                                                  BoxDecoration(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
                                                                             16.0),
+                                                              ),
+                                                              child: Padding(
+                                                                padding:
+                                                                    EdgeInsets
+                                                                        .all(
+                                                                            8.0),
                                                                 child: Row(
                                                                   mainAxisSize:
                                                                       MainAxisSize
                                                                           .max,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .end,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
                                                                   children: [
-                                                                    Align(
-                                                                      alignment:
-                                                                          AlignmentDirectional(
-                                                                              0.0,
-                                                                              -1.0),
+                                                                    wrapWithModel(
+                                                                      model: _model
+                                                                          .themeModeModel,
+                                                                      updateCallback:
+                                                                          () =>
+                                                                              safeSetState(() {}),
                                                                       child:
-                                                                          Builder(
-                                                                        builder:
-                                                                            (context) =>
-                                                                                FlutterFlowIconButton(
-                                                                          borderColor:
-                                                                              Colors.transparent,
-                                                                          borderRadius:
-                                                                              20.0,
-                                                                          borderWidth:
-                                                                              1.0,
-                                                                          buttonSize:
-                                                                              40.0,
-                                                                          icon:
-                                                                              Icon(
-                                                                            FFIcons.kedit,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            size:
-                                                                                24.0,
-                                                                          ),
-                                                                          onPressed:
-                                                                              () async {
-                                                                            logFirebaseEvent('PROFILE_PAGE_edit_ICN_ON_TAP');
-                                                                            if (MediaQuery.sizeOf(context).width < kBreakpointSmall
-                                                                                ? true
-                                                                                : false) {
-                                                                              logFirebaseEvent('IconButton_bottom_sheet');
-                                                                              await showModalBottomSheet(
-                                                                                isScrollControlled: true,
-                                                                                backgroundColor: Colors.transparent,
-                                                                                context: context,
-                                                                                builder: (context) {
-                                                                                  return GestureDetector(
-                                                                                    onTap: () {
-                                                                                      FocusScope.of(context).unfocus();
-                                                                                      FocusManager.instance.primaryFocus?.unfocus();
-                                                                                    },
-                                                                                    child: Padding(
-                                                                                      padding: MediaQuery.viewInsetsOf(context),
-                                                                                      child: Container(
-                                                                                        height: MediaQuery.sizeOf(context).height * 0.8,
-                                                                                        child: ProfileDetail2Widget(
-                                                                                          action: () async {
-                                                                                            var _shouldSetState = false;
-                                                                                            logFirebaseEvent('_bottom_sheet');
-                                                                                            Navigator.pop(context);
-                                                                                            logFirebaseEvent('_backend_call');
-                                                                                            _model.userDataFetchedDialog2 = await UsersGroup.getUserDataCall.call(
-                                                                                              userID: FFAppState().userProfileData.uid,
-                                                                                            );
-
-                                                                                            _shouldSetState = true;
-                                                                                            if ((_model.userDataFetchedDialog2?.succeeded ?? true)) {
-                                                                                              logFirebaseEvent('_update_app_state');
-                                                                                              FFAppState().userProfileData = UserProfileDataStruct(
-                                                                                                uid: UsersGroup.getUserDataCall.uid(
-                                                                                                  (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                displayName: UsersGroup.getUserDataCall.displayName(
-                                                                                                  (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                userAffiliation: UsersGroup.getUserDataCall.affiliation(
-                                                                                                  (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                  (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                userType: UsersGroup.getUserDataCall.userType(
-                                                                                                  (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                phoneNumber: UsersGroup.getUserDataCall.phoneNo(
-                                                                                                  (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                              );
-                                                                                              FFAppState().update(() {});
-                                                                                              return;
-                                                                                            } else {
-                                                                                              return;
-                                                                                            }
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  );
-                                                                                },
-                                                                              ).then((value) => safeSetState(() {}));
-                                                                            } else {
-                                                                              logFirebaseEvent('IconButton_alert_dialog');
-                                                                              await showDialog(
-                                                                                context: context,
-                                                                                builder: (dialogContext) {
-                                                                                  return Dialog(
-                                                                                    elevation: 0,
-                                                                                    insetPadding: EdgeInsets.zero,
-                                                                                    backgroundColor: Colors.transparent,
-                                                                                    alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
-                                                                                    child: GestureDetector(
-                                                                                      onTap: () {
-                                                                                        FocusScope.of(dialogContext).unfocus();
-                                                                                        FocusManager.instance.primaryFocus?.unfocus();
-                                                                                      },
-                                                                                      child: Container(
-                                                                                        width: MediaQuery.sizeOf(context).width * 0.45,
-                                                                                        child: ProfileDetail2Widget(
-                                                                                          action: () async {
-                                                                                            var _shouldSetState = false;
-                                                                                            logFirebaseEvent('_close_dialog_drawer_etc');
-                                                                                            Navigator.pop(context);
-                                                                                            logFirebaseEvent('_backend_call');
-                                                                                            _model.userDataFetchedButtomSheet2 = await UsersGroup.getUserDataCall.call(
-                                                                                              userID: FFAppState().userProfileData.uid,
-                                                                                            );
-
-                                                                                            _shouldSetState = true;
-                                                                                            if ((_model.userDataFetchedButtomSheet2?.succeeded ?? true)) {
-                                                                                              logFirebaseEvent('_update_app_state');
-                                                                                              FFAppState().userProfileData = UserProfileDataStruct(
-                                                                                                uid: UsersGroup.getUserDataCall.uid(
-                                                                                                  (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                displayName: UsersGroup.getUserDataCall.displayName(
-                                                                                                  (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                userAffiliation: UsersGroup.getUserDataCall.affiliation(
-                                                                                                  (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                  (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                userType: UsersGroup.getUserDataCall.userType(
-                                                                                                  (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                                phoneNumber: UsersGroup.getUserDataCall.phoneNo(
-                                                                                                  (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                ),
-                                                                                              );
-                                                                                              FFAppState().update(() {});
-                                                                                              return;
-                                                                                            } else {
-                                                                                              return;
-                                                                                            }
-                                                                                          },
-                                                                                        ),
-                                                                                      ),
-                                                                                    ),
-                                                                                  );
-                                                                                },
-                                                                              );
-                                                                            }
-
-                                                                            safeSetState(() {});
-                                                                          },
-                                                                        ),
-                                                                      ),
+                                                                          ThemeModeWidget(),
                                                                     ),
                                                                   ],
                                                                 ),
                                                               ),
-                                                              Column(
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Text(
-                                                                    FFLocalizations.of(
-                                                                            context)
-                                                                        .getText(
-                                                                      '68pxlvcy' /* Research Field */,
-                                                                    ),
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .titleSmall
-                                                                        .override(
-                                                                          font:
-                                                                              FlutterFlowTheme.of(context).titleSmall,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryText,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                        ),
-                                                                  ),
-                                                                  Divider(
-                                                                    thickness:
-                                                                        1.0,
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .border,
-                                                                  ),
-                                                                  Padding(
-                                                                    padding: EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            8.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                    child: Text(
-                                                                      valueOrDefault<
-                                                                          String>(
-                                                                        currentUserData
-                                                                            ?.userResearchField,
-                                                                        '-',
-                                                                      ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .bodyMedium
-                                                                          .override(
-                                                                            font:
-                                                                                FlutterFlowTheme.of(context).bodyMedium,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                          ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                              Padding(
-                                                                padding:
-                                                                    EdgeInsetsDirectional
-                                                                        .fromSTEB(
-                                                                            0.0,
-                                                                            24.0,
-                                                                            0.0,
-                                                                            0.0),
-                                                                child: Column(
-                                                                  mainAxisSize:
-                                                                      MainAxisSize
-                                                                          .max,
-                                                                  crossAxisAlignment:
-                                                                      CrossAxisAlignment
-                                                                          .start,
-                                                                  children: [
-                                                                    Text(
-                                                                      FFLocalizations.of(
-                                                                              context)
-                                                                          .getText(
-                                                                        'm6z0m9p9' /* Affiliation */,
-                                                                      ),
-                                                                      style: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .titleSmall
-                                                                          .override(
-                                                                            font:
-                                                                                FlutterFlowTheme.of(context).titleSmall,
-                                                                            color:
-                                                                                FlutterFlowTheme.of(context).primaryText,
-                                                                            letterSpacing:
-                                                                                0.0,
-                                                                          ),
-                                                                    ),
-                                                                    Divider(
-                                                                      thickness:
-                                                                          1.0,
-                                                                      color: FlutterFlowTheme.of(
-                                                                              context)
-                                                                          .border,
-                                                                    ),
-                                                                    Padding(
-                                                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                                                          0.0,
-                                                                          8.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                      child:
-                                                                          Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          currentUserData
-                                                                              ?.userAffiliation,
-                                                                          '-',
-                                                                        ),
-                                                                        style: FlutterFlowTheme.of(context)
-                                                                            .bodyMedium
-                                                                            .override(
-                                                                              font: FlutterFlowTheme.of(context).bodyMedium,
-                                                                              letterSpacing: 0.0,
-                                                                            ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            ],
+                                                            ),
                                                           ),
-                                                        ),
-                                                      ),
-                                                  () => Visibility(
-                                                        visible:
-                                                            responsiveVisibility(
-                                                          context: context,
-                                                          tabletLandscape:
-                                                              false,
-                                                          desktop: false,
-                                                        ),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      16.0,
-                                                                      0.0,
-                                                                      0.0),
-                                                          child: Container(
+                                                          Container(
                                                             decoration:
                                                                 BoxDecoration(
                                                               color: FlutterFlowTheme
@@ -1194,7 +1035,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                               borderRadius:
                                                                   BorderRadius
                                                                       .circular(
-                                                                          8.0),
+                                                                          16.0),
                                                             ),
                                                             child: Row(
                                                               mainAxisSize:
@@ -1219,7 +1060,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                         onTap:
                                                                             () async {
                                                                           logFirebaseEvent(
-                                                                              'PROFILE_PAGE_Container_eykvpii6_ON_TAP');
+                                                                              'PROFILE_PAGE_Container_rum7ihmv_ON_TAP');
                                                                           logFirebaseEvent(
                                                                               'Container_alert_dialog');
                                                                           await showDialog(
@@ -1250,49 +1091,34 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                           decoration:
                                                                               BoxDecoration(
                                                                             color:
-                                                                                FlutterFlowTheme.of(context).secondaryBackground,
+                                                                                FlutterFlowTheme.of(context).primary,
                                                                             borderRadius:
-                                                                                BorderRadius.circular(12.0),
+                                                                                BorderRadius.circular(8.0),
                                                                           ),
                                                                           child:
                                                                               Padding(
-                                                                            padding: EdgeInsetsDirectional.fromSTEB(
-                                                                                valueOrDefault<double>(
-                                                                                  () {
-                                                                                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                                                                                      return 24.0;
-                                                                                    } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-                                                                                      return 35.0;
-                                                                                    } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
-                                                                                      return 40.0;
-                                                                                    } else {
-                                                                                      return 40.0;
-                                                                                    }
-                                                                                  }(),
-                                                                                  40.0,
-                                                                                ),
-                                                                                14.0,
-                                                                                14.0,
-                                                                                14.0),
+                                                                            padding:
+                                                                                EdgeInsets.all(16.0),
                                                                             child:
                                                                                 Row(
                                                                               mainAxisSize: MainAxisSize.max,
                                                                               children: [
                                                                                 Icon(
                                                                                   FFIcons.klogout,
-                                                                                  color: FlutterFlowTheme.of(context).primaryText,
-                                                                                  size: 24.0,
+                                                                                  color: FlutterFlowTheme.of(context).primaryBackground,
+                                                                                  size: 32.0,
                                                                                 ),
                                                                                 Padding(
                                                                                   padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 0.0, 0.0),
                                                                                   child: Text(
                                                                                     FFLocalizations.of(context).getText(
-                                                                                      '9w783bib' /* Logout */,
+                                                                                      'zlw8a2iz' /* Logout */,
                                                                                     ),
                                                                                     style: FlutterFlowTheme.of(context).bodyMedium.override(
                                                                                           font: FlutterFlowTheme.of(context).bodyMedium,
-                                                                                          color: FlutterFlowTheme.of(context).primaryText,
+                                                                                          color: FlutterFlowTheme.of(context).primaryBackground,
                                                                                           letterSpacing: 0.0,
+                                                                                          fontWeight: FontWeight.w600,
                                                                                         ),
                                                                                   ),
                                                                                 ),
@@ -1306,12 +1132,53 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                               ],
                                                             ),
                                                           ),
-                                                        ),
+                                                        ],
                                                       ),
-                                                ][index]();
-                                              },
-                                            ),
-                                          ],
+                                                    ),
+                                                  ),
+                                                  if (responsiveVisibility(
+                                                    context: context,
+                                                    phone: false,
+                                                    tablet: false,
+                                                  ))
+                                                    Flexible(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.max,
+                                                        children: [
+                                                          Container(
+                                                            width:
+                                                                double.infinity,
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .secondaryBackground,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          16.0),
+                                                            ),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/Profile.png',
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                ],
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),

@@ -68,8 +68,11 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
       width: 110.0,
       height: 50.0,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).primaryBackground,
+        color: FlutterFlowTheme.of(context).primary,
         borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(
+          color: FlutterFlowTheme.of(context).iconColor,
+        ),
       ),
       child: Padding(
         padding: EdgeInsets.all(4.0),
@@ -92,13 +95,13 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                 height: 100.0,
                 decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? FlutterFlowTheme.of(context).secondaryBackground
-                      : FlutterFlowTheme.of(context).primaryBackground,
+                      ? FlutterFlowTheme.of(context).accent1
+                      : FlutterFlowTheme.of(context).primary,
                   borderRadius: BorderRadius.circular(4.0),
                   border: Border.all(
                     color: Theme.of(context).brightness == Brightness.light
-                        ? FlutterFlowTheme.of(context).secondaryBackground
-                        : FlutterFlowTheme.of(context).primaryBackground,
+                        ? FlutterFlowTheme.of(context).accent1
+                        : FlutterFlowTheme.of(context).primary,
                     width: 1.0,
                   ),
                 ),
@@ -132,13 +135,13 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                 height: 100.0,
                 decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
-                      ? FlutterFlowTheme.of(context).secondaryBackground
-                      : FlutterFlowTheme.of(context).primaryBackground,
+                      ? FlutterFlowTheme.of(context).accent1
+                      : FlutterFlowTheme.of(context).primary,
                   borderRadius: BorderRadius.circular(4.0),
                   border: Border.all(
                     color: Theme.of(context).brightness == Brightness.dark
-                        ? FlutterFlowTheme.of(context).secondaryBackground
-                        : FlutterFlowTheme.of(context).primaryBackground,
+                        ? FlutterFlowTheme.of(context).accent1
+                        : FlutterFlowTheme.of(context).primary,
                     width: 1.0,
                   ),
                 ),

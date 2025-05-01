@@ -167,7 +167,16 @@ class _HomeWidgetState extends State<HomeWidget> {
 
     _model.textFieldTextController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
-    _model.textFieldFocusNode!.addListener(() => safeSetState(() {}));
+    _model.textFieldFocusNode!.addListener(
+      () async {
+        logFirebaseEvent('HOME_PAGE_TextField_ON_FOCUS_CHANGE');
+        logFirebaseEvent('TextField_wait__delay');
+        await Future.delayed(const Duration(milliseconds: 2000));
+        logFirebaseEvent('TextField_update_page_state');
+        _model.searchBarFocuse = false;
+        safeSetState(() {});
+      },
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -533,6 +542,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                             () async {
                                                                               logFirebaseEvent('HOME_PAGE_TextField_ON_TEXTFIELD_CHANGE');
                                                                               if (_model.textFieldTextController.text != '') {
+                                                                                logFirebaseEvent('TextField_update_page_state');
+                                                                                _model.searchBarFocuse = true;
+                                                                                safeSetState(() {});
                                                                                 logFirebaseEvent('TextField_backend_call');
                                                                                 _model.apiResultgim = await AdminGroup.globalSuggetionCall.call(
                                                                                   searchTerm: _model.textFieldTextController.text,
@@ -761,7 +773,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                             '') &&
                                                                     (_model
                                                                         .sugetions
-                                                                        .isNotEmpty))
+                                                                        .isNotEmpty) &&
+                                                                    _model
+                                                                        .searchBarFocuse)
                                                                   Padding(
                                                                     padding: EdgeInsetsDirectional
                                                                         .fromSTEB(

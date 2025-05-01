@@ -92,6 +92,8 @@ class TestPropertiesComponentModel
   void updateAvailabilityBoolAtIndex(int index, Function(bool) updateFn) =>
       availabilityBool[index] = updateFn(availabilityBool[index]);
 
+  dynamic supportJsonObject;
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Backend Call - API (Get Fieds)] action in testPropertiesComponent widget.
