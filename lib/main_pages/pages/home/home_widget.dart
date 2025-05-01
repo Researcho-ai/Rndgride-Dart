@@ -1968,11 +1968,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 },
                                               ),
                                             ),
-                                          if (!(_model.instrumentaTestResult
-                                                  .isNotEmpty) ||
-                                              (_model.count <= 0) ||
-                                              !(_model
-                                                  .testSearchList.isNotEmpty))
+                                          if (!(_model.testSearchList.isNotEmpty) &&
+                                              !(_model.sophisticatedResultjson
+                                                  .isNotEmpty) &&
+                                              !(_model.instrumentaTestResult
+                                                  .isNotEmpty))
                                             Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(
