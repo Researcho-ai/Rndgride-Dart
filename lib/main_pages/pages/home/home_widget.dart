@@ -956,337 +956,344 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               ),
                                           ],
                                         ),
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  0.0, 0.0, 0.0, 45.0),
-                                          child: Container(
-                                            width: () {
-                                              if (MediaQuery.sizeOf(context)
-                                                      .width <
-                                                  kBreakpointSmall) {
-                                                return (MediaQuery.sizeOf(
-                                                            context)
-                                                        .width *
-                                                    0.9);
-                                              } else if (MediaQuery.sizeOf(
-                                                          context)
-                                                      .width <
-                                                  kBreakpointMedium) {
-                                                return (MediaQuery.sizeOf(
-                                                            context)
-                                                        .width *
-                                                    0.8);
-                                              } else if (MediaQuery.sizeOf(
-                                                          context)
-                                                      .width <
-                                                  kBreakpointLarge) {
-                                                return (MediaQuery.sizeOf(
-                                                            context)
-                                                        .width *
-                                                    0.7);
-                                              } else {
-                                                return (MediaQuery.sizeOf(
-                                                            context)
-                                                        .width *
-                                                    0.7);
-                                              }
-                                            }(),
-                                            decoration: BoxDecoration(),
-                                            child: Column(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Row(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    Text(
-                                                      FFLocalizations.of(
+                                        if (!((_model.searchActive == true) &&
+                                            (_model.textFieldTextController
+                                                        .text !=
+                                                    '')))
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 45.0),
+                                            child: Container(
+                                              width: () {
+                                                if (MediaQuery.sizeOf(context)
+                                                        .width <
+                                                    kBreakpointSmall) {
+                                                  return (MediaQuery.sizeOf(
                                                               context)
-                                                          .getText(
-                                                        'sgu7eikv' /* Who's on RNDgrid? */,
+                                                          .width *
+                                                      0.9);
+                                                } else if (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width <
+                                                    kBreakpointMedium) {
+                                                  return (MediaQuery.sizeOf(
+                                                              context)
+                                                          .width *
+                                                      0.8);
+                                                } else if (MediaQuery.sizeOf(
+                                                            context)
+                                                        .width <
+                                                    kBreakpointLarge) {
+                                                  return (MediaQuery.sizeOf(
+                                                              context)
+                                                          .width *
+                                                      0.7);
+                                                } else {
+                                                  return (MediaQuery.sizeOf(
+                                                              context)
+                                                          .width *
+                                                      0.7);
+                                                }
+                                              }(),
+                                              decoration: BoxDecoration(),
+                                              child: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'sgu7eikv' /* Who's on RNDgrid? */,
+                                                        ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .titleMedium
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .titleMedium,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .secondaryBackground,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
                                                       ),
-                                                      style:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .titleMedium
-                                                              .override(
-                                                                font: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .titleMedium,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .secondaryBackground,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                    ),
-                                                  ],
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                              0.0,
-                                                              valueOrDefault<
-                                                                  double>(
-                                                                () {
-                                                                  if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointSmall) {
-                                                                    return 16.0;
-                                                                  } else if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointMedium) {
-                                                                    return 24.0;
-                                                                  } else if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointLarge) {
-                                                                    return 28.0;
-                                                                  } else {
-                                                                    return 28.0;
-                                                                  }
-                                                                }(),
-                                                                0.0,
-                                                              ),
-                                                              0.0,
-                                                              0.0),
-                                                  child:
-                                                      MasonryGridView.builder(
-                                                    physics:
-                                                        const NeverScrollableScrollPhysics(),
-                                                    gridDelegate:
-                                                        SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                                      crossAxisCount: 3,
-                                                    ),
-                                                    crossAxisSpacing: 30.0,
-                                                    mainAxisSpacing: 20.0,
-                                                    itemCount: 3,
-                                                    shrinkWrap: true,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      return [
-                                                        () => Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Container(
-                                                                  width: 150.0,
-                                                                  height: 150.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12.0),
-                                                                  ),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8.0),
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/images/Startups.png',
-                                                                      width:
-                                                                          200.0,
-                                                                      height:
-                                                                          200.0,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    FFLocalizations.of(
-                                                                            context)
-                                                                        .getText(
-                                                                      'i8w7u8ue' /* Bring your product ideas to li... */,
-                                                                    ),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMedium
-                                                                        .override(
-                                                                          font:
-                                                                              FlutterFlowTheme.of(context).labelMedium,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryBackground,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                        () => Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Container(
-                                                                  width: 150.0,
-                                                                  height: 150.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12.0),
-                                                                  ),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8.0),
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/images/Students.png',
-                                                                      width:
-                                                                          200.0,
-                                                                      height:
-                                                                          200.0,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    FFLocalizations.of(
-                                                                            context)
-                                                                        .getText(
-                                                                      '5q7xb7s7' /* Find the right tools, data, an... */,
-                                                                    ),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMedium
-                                                                        .override(
-                                                                          font:
-                                                                              FlutterFlowTheme.of(context).labelMedium,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryBackground,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                        () => Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .max,
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Container(
-                                                                  width: 150.0,
-                                                                  height: 150.0,
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .secondaryBackground,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            12.0),
-                                                                  ),
-                                                                  child:
-                                                                      ClipRRect(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            8.0),
-                                                                    child: Image
-                                                                        .asset(
-                                                                      'assets/images/Innovators.png',
-                                                                      width:
-                                                                          200.0,
-                                                                      height:
-                                                                          200.0,
-                                                                      fit: BoxFit
-                                                                          .cover,
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                                Padding(
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
-                                                                          0.0,
-                                                                          4.0,
-                                                                          0.0,
-                                                                          0.0),
-                                                                  child: Text(
-                                                                    FFLocalizations.of(
-                                                                            context)
-                                                                        .getText(
-                                                                      '759boupv' /* Whether you're building a prot... */,
-                                                                    ),
-                                                                    textAlign:
-                                                                        TextAlign
-                                                                            .start,
-                                                                    style: FlutterFlowTheme.of(
-                                                                            context)
-                                                                        .labelMedium
-                                                                        .override(
-                                                                          font:
-                                                                              FlutterFlowTheme.of(context).labelMedium,
-                                                                          color:
-                                                                              FlutterFlowTheme.of(context).primaryBackground,
-                                                                          letterSpacing:
-                                                                              0.0,
-                                                                          fontWeight:
-                                                                              FontWeight.w500,
-                                                                        ),
-                                                                  ),
-                                                                ),
-                                                              ],
-                                                            ),
-                                                      ][index]();
-                                                    },
+                                                    ],
                                                   ),
-                                                ),
-                                              ],
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0.0,
+                                                                valueOrDefault<
+                                                                    double>(
+                                                                  () {
+                                                                    if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointSmall) {
+                                                                      return 16.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointMedium) {
+                                                                      return 24.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointLarge) {
+                                                                      return 28.0;
+                                                                    } else {
+                                                                      return 28.0;
+                                                                    }
+                                                                  }(),
+                                                                  0.0,
+                                                                ),
+                                                                0.0,
+                                                                0.0),
+                                                    child:
+                                                        MasonryGridView.builder(
+                                                      physics:
+                                                          const NeverScrollableScrollPhysics(),
+                                                      gridDelegate:
+                                                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                        crossAxisCount: 3,
+                                                      ),
+                                                      crossAxisSpacing: 30.0,
+                                                      mainAxisSpacing: 20.0,
+                                                      itemCount: 3,
+                                                      shrinkWrap: true,
+                                                      itemBuilder:
+                                                          (context, index) {
+                                                        return [
+                                                          () => Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Container(
+                                                                    width:
+                                                                        150.0,
+                                                                    height:
+                                                                        150.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              12.0),
+                                                                    ),
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                      child: Image
+                                                                          .asset(
+                                                                        'assets/images/Startups.png',
+                                                                        width:
+                                                                            200.0,
+                                                                        height:
+                                                                            200.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      FFLocalizations.of(
+                                                                              context)
+                                                                          .getText(
+                                                                        'i8w7u8ue' /* Bring your product ideas to li... */,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .override(
+                                                                            font:
+                                                                                FlutterFlowTheme.of(context).labelMedium,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                          () => Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Container(
+                                                                    width:
+                                                                        150.0,
+                                                                    height:
+                                                                        150.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              12.0),
+                                                                    ),
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                      child: Image
+                                                                          .asset(
+                                                                        'assets/images/Students.png',
+                                                                        width:
+                                                                            200.0,
+                                                                        height:
+                                                                            200.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      FFLocalizations.of(
+                                                                              context)
+                                                                          .getText(
+                                                                        '5q7xb7s7' /* Find the right tools, data, an... */,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .override(
+                                                                            font:
+                                                                                FlutterFlowTheme.of(context).labelMedium,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                          () => Column(
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Container(
+                                                                    width:
+                                                                        150.0,
+                                                                    height:
+                                                                        150.0,
+                                                                    decoration:
+                                                                        BoxDecoration(
+                                                                      color: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .secondaryBackground,
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              12.0),
+                                                                    ),
+                                                                    child:
+                                                                        ClipRRect(
+                                                                      borderRadius:
+                                                                          BorderRadius.circular(
+                                                                              8.0),
+                                                                      child: Image
+                                                                          .asset(
+                                                                        'assets/images/Innovators.png',
+                                                                        width:
+                                                                            200.0,
+                                                                        height:
+                                                                            200.0,
+                                                                        fit: BoxFit
+                                                                            .cover,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding: EdgeInsetsDirectional
+                                                                        .fromSTEB(
+                                                                            0.0,
+                                                                            4.0,
+                                                                            0.0,
+                                                                            0.0),
+                                                                    child: Text(
+                                                                      FFLocalizations.of(
+                                                                              context)
+                                                                          .getText(
+                                                                        '759boupv' /* Whether you're building a prot... */,
+                                                                      ),
+                                                                      textAlign:
+                                                                          TextAlign
+                                                                              .start,
+                                                                      style: FlutterFlowTheme.of(
+                                                                              context)
+                                                                          .labelMedium
+                                                                          .override(
+                                                                            font:
+                                                                                FlutterFlowTheme.of(context).labelMedium,
+                                                                            color:
+                                                                                FlutterFlowTheme.of(context).primaryBackground,
+                                                                            letterSpacing:
+                                                                                0.0,
+                                                                            fontWeight:
+                                                                                FontWeight.w500,
+                                                                          ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                        ][index]();
+                                                      },
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ),
-                                        ),
                                       ],
                                     ),
                                   ),
