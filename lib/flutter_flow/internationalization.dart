@@ -188,28 +188,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // ProfileStep1
-  {
-    'pw8tjlkt': {
-      'en': 'Profile',
-      'hi': '',
-    },
-    'sn8kyjo3': {
-      'en': '',
-      'hi': '',
-    },
-  },
-  // SignIn
-  {
-    '5kbjs6ih': {
-      'en': 'RNDgrid.com',
-      'hi': '',
-    },
-    'bbi3wb6n': {
-      'en': '•',
-      'hi': '',
-    },
-  },
   // Instruments
   {
     'k21bwglw': {
@@ -226,37 +204,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'lr9b7wb8': {
       'en': 'Resources',
-      'hi': '',
-    },
-  },
-  // VerifyOtp
-  {
-    '9pvjxviv': {
-      'en': 'Codots.io',
-      'hi': '',
-    },
-    '3dz00ae8': {
-      'en': 'OTP Verification',
-      'hi': '',
-    },
-    't151oj8k': {
-      'en': 'Please enter the code send to your phone number',
-      'hi': '',
-    },
-    'o5gbc3wb': {
-      'en': 'Resend',
-      'hi': '',
-    },
-    'gawokovb': {
-      'en': 'Resend OTP in',
-      'hi': '',
-    },
-    'yrjlero2': {
-      'en': 'Continue',
-      'hi': '',
-    },
-    'f399p4wa': {
-      'en': '•',
       'hi': '',
     },
   },
@@ -417,100 +364,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'xhq7qg3v': {
       'en': 'Profile',
-      'hi': '',
-    },
-  },
-  // Auth1
-  {
-    'ex5c86va': {
-      'en': 'brand.ai',
-      'hi': '',
-    },
-    '3xmvch7k': {
-      'en': 'Sign In',
-      'hi': '',
-    },
-    'fv8zexle': {
-      'en': 'Let\'s get started by filling out the form below.',
-      'hi': '',
-    },
-    'zak3mp80': {
-      'en': 'Email',
-      'hi': '',
-    },
-    'uosut61g': {
-      'en': 'Password',
-      'hi': '',
-    },
-    'l3r6q1w4': {
-      'en': 'Sign In',
-      'hi': '',
-    },
-    '8wkz3dl8': {
-      'en': 'Forgot Password',
-      'hi': '',
-    },
-    'jxvdinde': {
-      'en': 'Continue with Google',
-      'hi': '',
-    },
-    'irxogkog': {
-      'en': 'Continue with Apple',
-      'hi': '',
-    },
-    'o44d5gmm': {
-      'en': 'Sign Up',
-      'hi': '',
-    },
-    'w1roeuf7': {
-      'en': 'Let\'s get started by filling out the form below.',
-      'hi': '',
-    },
-    's2ajdtjb': {
-      'en': 'Email',
-      'hi': '',
-    },
-    'iuwtqoq8': {
-      'en': 'Password',
-      'hi': '',
-    },
-    'umy0u5p6': {
-      'en': 'Confirm Password',
-      'hi': '',
-    },
-    'u7grg7ty': {
-      'en': 'Create Account',
-      'hi': '',
-    },
-    '83d0rdl7': {
-      'en': 'Or sign up with',
-      'hi': '',
-    },
-    'nknysjqf': {
-      'en': 'Continue with Google',
-      'hi': '',
-    },
-    'gprhdq5i': {
-      'en': 'Continue with Apple',
-      'hi': '',
-    },
-    'rnl8vedf': {
-      'en': 'Home',
-      'hi': '',
-    },
-  },
-  // ViewPDF
-  {
-    'huxns30x': {
-      'en': 'Page Title',
-      'hi': '',
-    },
-    'mhw15ful': {
-      'en': 'Back',
-      'hi': '',
-    },
-    'u8fu339d': {
-      'en': 'Home',
       'hi': '',
     },
   },
@@ -913,7 +766,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     'iue48pzd': {
-      'en': 'ex. student',
+      'en': 'Select user type',
       'hi': '',
     },
     'poyu0zb1': {
@@ -1035,21 +888,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'kr3vj80q': {
       'en': 'Submit',
-      'hi': '',
-    },
-  },
-  // CommonDialogComponent
-  {
-    'r9xzvj0g': {
-      'en': 'Mark this requirement as \"Resolved\"?',
-      'hi': '',
-    },
-    'cfsxrbr0': {
-      'en': 'Cancel',
-      'hi': '',
-    },
-    'ggizmqmx': {
-      'en': 'Confirm',
       'hi': '',
     },
   },
@@ -1213,21 +1051,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '3v7r2ab3': {
       'en': 'Submit',
-      'hi': '',
-    },
-  },
-  // userProfile
-  {
-    '6x6zlp77': {
-      'en': 'About Us',
-      'hi': '',
-    },
-    '6zcuzzrw': {
-      'en': 'Contact Us',
-      'hi': '',
-    },
-    'kpszibm5': {
-      'en': 'Logout',
       'hi': '',
     },
   },
@@ -1533,6 +1356,29 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     '7ke4gerq': {
       'en': 'Submit Request',
+      'hi': '',
+    },
+  },
+  // VerifyOTP
+  {
+    '4t6kpu9m': {
+      'en': 'OTP Verification',
+      'hi': '',
+    },
+    'hfal5oe8': {
+      'en': 'Please enter the code send to your phone number',
+      'hi': '',
+    },
+    'ghvtuuiy': {
+      'en': 'Resend',
+      'hi': '',
+    },
+    '2n0m8phc': {
+      'en': 'Resend OTP in',
+      'hi': '',
+    },
+    'tqgnkdrd': {
+      'en': 'Continue',
       'hi': '',
     },
   },

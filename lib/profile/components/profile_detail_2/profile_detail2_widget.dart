@@ -5,7 +5,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'profile_detail2_model.dart';
 export 'profile_detail2_model.dart';
@@ -183,8 +182,8 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
                           decoration: BoxDecoration(),
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(8.0),
-                            child: SvgPicture.asset(
-                              'assets/images/research_details.svg',
+                            child: Image.asset(
+                              'assets/images/Research_Profile.png',
                               width: 300.0,
                               height: 200.0,
                               fit: BoxFit.cover,

@@ -95,25 +95,6 @@ class _TestDetailsWidgetState extends State<TestDetailsWidget> {
                   return false;
                 }
               }()) {
-                logFirebaseEvent('InstrumnetContainer_bottom_sheet');
-                await showModalBottomSheet(
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  useSafeArea: true,
-                  context: context,
-                  builder: (context) {
-                    return Padding(
-                      padding: MediaQuery.viewInsetsOf(context),
-                      child: Container(
-                        height: MediaQuery.sizeOf(context).height * 0.7,
-                        child: SignInCompoentWidget(
-                          loginRequered: true,
-                        ),
-                      ),
-                    );
-                  },
-                ).then((value) => safeSetState(() {}));
-              } else {
                 logFirebaseEvent('InstrumnetContainer_alert_dialog');
                 await showDialog(
                   context: context,
@@ -125,11 +106,28 @@ class _TestDetailsWidgetState extends State<TestDetailsWidget> {
                       alignment: AlignmentDirectional(0.0, 0.0)
                           .resolve(Directionality.of(context)),
                       child: Container(
-                        height: 440.0,
-                        width: 610.0,
+                        height: 400.0,
+                        width: 500.0,
                         child: SignInCompoentWidget(
                           loginRequered: true,
                         ),
+                      ),
+                    );
+                  },
+                );
+              } else {
+                logFirebaseEvent('InstrumnetContainer_alert_dialog');
+                await showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return Dialog(
+                      elevation: 0,
+                      insetPadding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      alignment: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      child: SignInCompoentWidget(
+                        loginRequered: true,
                       ),
                     );
                   },

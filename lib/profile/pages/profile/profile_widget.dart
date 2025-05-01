@@ -4,8 +4,8 @@ import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/main_pages/components/theme_mode/theme_mode_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
-import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/onboarding/logout_popup/logout_popup_widget.dart';
 import '/onboarding/sign_in_compoent/sign_in_compoent_widget.dart';
@@ -13,7 +13,6 @@ import '/profile/components/profile_detail_2/profile_detail2_widget.dart';
 import '/profile/components/profile_details_1/profile_details1_widget.dart';
 import '/profile/components/profile_page_component/profile_page_component_widget.dart';
 import '/flutter_flow/custom_functions.dart' as functions;
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -50,10 +49,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
         if (MediaQuery.sizeOf(context).width < kBreakpointSmall
             ? true
             : false) {
-          logFirebaseEvent('Profile_navigate_to');
-
-          context.pushNamed(SignInWidget.routeName);
-        } else {
           logFirebaseEvent('Profile_alert_dialog');
           await showDialog(
             context: context,
@@ -70,11 +65,34 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                     FocusManager.instance.primaryFocus?.unfocus();
                   },
                   child: Container(
-                    height: 440.0,
-                    width: 610.0,
+                    height: 400.0,
+                    width: 500.0,
                     child: SignInCompoentWidget(
                       loginRequered: true,
                     ),
+                  ),
+                ),
+              );
+            },
+          );
+        } else {
+          logFirebaseEvent('Profile_alert_dialog');
+          await showDialog(
+            context: context,
+            builder: (dialogContext) {
+              return Dialog(
+                elevation: 0,
+                insetPadding: EdgeInsets.zero,
+                backgroundColor: Colors.transparent,
+                alignment: AlignmentDirectional(0.0, 0.0)
+                    .resolve(Directionality.of(context)),
+                child: GestureDetector(
+                  onTap: () {
+                    FocusScope.of(dialogContext).unfocus();
+                    FocusManager.instance.primaryFocus?.unfocus();
+                  },
+                  child: SignInCompoentWidget(
+                    loginRequered: true,
                   ),
                 ),
               );
@@ -114,14 +132,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-              endDrawer: Drawer(
-                elevation: 16.0,
-                child: wrapWithModel(
-                  model: _model.drawerModel,
-                  updateCallback: () => safeSetState(() {}),
-                  child: DrawerWidget(),
-                ),
-              ),
               appBar: responsiveVisibility(
                 context: context,
                 tabletLandscape: false,
@@ -753,7 +763,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                               child: Container(
                                                                                 width: 100.0,
                                                                                 decoration: BoxDecoration(
-                                                                                  color: FlutterFlowTheme.of(context).secondaryBackground,
                                                                                   borderRadius: BorderRadius.circular(8.0),
                                                                                 ),
                                                                                 child: Padding(
@@ -803,6 +812,19 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             ),
                                                                           ),
                                                                         ),
+                                                                      Padding(
+                                                                        padding:
+                                                                            EdgeInsets.all(8.0),
+                                                                        child:
+                                                                            wrapWithModel(
+                                                                          model:
+                                                                              _model.themeModeModel,
+                                                                          updateCallback: () =>
+                                                                              safeSetState(() {}),
+                                                                          child:
+                                                                              ThemeModeWidget(),
+                                                                        ),
+                                                                      ),
                                                                     ],
                                                                   ),
                                                                 ),

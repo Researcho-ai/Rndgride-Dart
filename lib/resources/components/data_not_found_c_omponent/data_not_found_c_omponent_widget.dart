@@ -2,7 +2,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'data_not_found_c_omponent_model.dart';
 export 'data_not_found_c_omponent_model.dart';
 
@@ -77,8 +76,8 @@ class _DataNotFoundCOmponentWidgetState
             decoration: BoxDecoration(),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: SvgPicture.asset(
-                'assets/images/loading.svg',
+              child: Image.asset(
+                'assets/images/Loading.png',
                 width: 200.0,
                 height: 100.0,
                 fit: BoxFit.contain,
@@ -92,8 +91,8 @@ class _DataNotFoundCOmponentWidgetState
             decoration: BoxDecoration(),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(8.0),
-              child: SvgPicture.asset(
-                'assets/images/data_not_found.svg',
+              child: Image.asset(
+                'assets/images/Result_Not_Found.png',
                 width: 200.0,
                 height: 100.0,
                 fit: BoxFit.contain,

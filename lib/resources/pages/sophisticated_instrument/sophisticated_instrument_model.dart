@@ -41,6 +41,8 @@ class SophisticatedInstrumentModel
   void updateSugetionsAtIndex(int index, Function(String) updateFn) =>
       sugetions[index] = updateFn(sugetions[index]);
 
+  bool searchBarFocus = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Get Sophisticated Instruments Tests)] action in SophisticatedInstrument widget.
@@ -55,8 +57,8 @@ class SophisticatedInstrumentModel
   ApiCallResponse? instrumentSearch;
   // Stores action output result for [Backend Call - API (Instrument suggestions)] action in searchI widget.
   ApiCallResponse? apiResult81w;
-  // Stores action output result for [Custom Action - replaceLastWord] action in Row widget.
-  String? replacedWord;
+  // Stores action output result for [Backend Call - API (Search Instrument  Test)] action in Row widget.
+  ApiCallResponse? instrumentSearchByRow;
   // Models for SophisticatedInstrumentComponent dynamic component.
   late FlutterFlowDynamicModels<SophisticatedInstrumentComponentModel>
       sophisticatedInstrumentComponentModels1;

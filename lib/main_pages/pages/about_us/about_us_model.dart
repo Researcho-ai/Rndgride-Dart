@@ -1,7 +1,6 @@
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_pages/components/icon_component/icon_component_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
-import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/footer/footer_widget.dart';
 import '/nav_bars/footer_mobile/footer_mobile_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
@@ -35,8 +34,6 @@ class AboutUsModel extends FlutterFlowModel<AboutUsWidget> {
   late FooterMobileModel footerMobileModel;
   // Model for BottomNavBar component.
   late BottomNavBarModel bottomNavBarModel;
-  // Model for Drawer component.
-  late DrawerModel drawerModel;
 
   @override
   void initState(BuildContext context) {
@@ -48,7 +45,6 @@ class AboutUsModel extends FlutterFlowModel<AboutUsWidget> {
     footerModel = createModel(context, () => FooterModel());
     footerMobileModel = createModel(context, () => FooterMobileModel());
     bottomNavBarModel = createModel(context, () => BottomNavBarModel());
-    drawerModel = createModel(context, () => DrawerModel());
   }
 
   @override
@@ -61,6 +57,5 @@ class AboutUsModel extends FlutterFlowModel<AboutUsWidget> {
     footerModel.dispose();
     footerMobileModel.dispose();
     bottomNavBarModel.dispose();
-    drawerModel.dispose();
   }
 }

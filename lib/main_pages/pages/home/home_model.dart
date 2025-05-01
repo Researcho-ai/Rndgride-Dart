@@ -5,7 +5,6 @@ import '/main_pages/components/customer_feedback_web/customer_feedback_web_widge
 import '/main_pages/components/requerment_button/requerment_button_widget.dart';
 import '/main_pages/components/user_requirement_copy/user_requirement_copy_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
-import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/footer/footer_widget.dart';
 import '/nav_bars/footer_mobile/footer_mobile_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
@@ -25,7 +24,7 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   String? tagValue = 'Testing and Development Facility';
 
-  int contactUsButtomIndex = 0;
+  int contactUsButtomIndex = 1;
 
   bool openRequermentForm = false;
 
@@ -123,8 +122,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ApiCallResponse? instrumentsFromAPI;
   // Stores action output result for [Backend Call - API (Get Categories)] action in Home widget.
   ApiCallResponse? getFields;
-  // Model for Drawer component.
-  late DrawerModel drawerModel;
   // Model for TopNavBar component.
   late TopNavBarModel topNavBarModel;
   // State field(s) for TextField widget.
@@ -139,8 +136,12 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   ApiCallResponse? searhTest;
   // Stores action output result for [Backend Call - API (Global Suggetion)] action in TextField widget.
   ApiCallResponse? apiResultgim;
-  // Stores action output result for [Custom Action - replaceLastWord] action in Row widget.
-  String? replacedWord;
+  // Stores action output result for [Backend Call - API (Search Instrument  Test)] action in Row widget.
+  ApiCallResponse? searchOutputByrow;
+  // Stores action output result for [Backend Call - API (Search Instrument  Test)] action in Row widget.
+  ApiCallResponse? sophisticatedSearchBySearch;
+  // Stores action output result for [Backend Call - API (Search Test)] action in Row widget.
+  ApiCallResponse? searhTestByRow;
   // Models for SophisticatedInstrumentComponent dynamic component.
   late FlutterFlowDynamicModels<SophisticatedInstrumentComponentModel>
       sophisticatedInstrumentComponentModels1;
@@ -200,7 +201,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   @override
   void initState(BuildContext context) {
-    drawerModel = createModel(context, () => DrawerModel());
     topNavBarModel = createModel(context, () => TopNavBarModel());
     sophisticatedInstrumentComponentModels1 =
         FlutterFlowDynamicModels(() => SophisticatedInstrumentComponentModel());
@@ -239,7 +239,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   @override
   void dispose() {
-    drawerModel.dispose();
     topNavBarModel.dispose();
     textFieldFocusNode?.dispose();
     textFieldTextController?.dispose();

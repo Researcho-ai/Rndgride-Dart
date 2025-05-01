@@ -3,7 +3,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_pages/components/icon_component/icon_component_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
-import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/footer/footer_widget.dart';
 import '/nav_bars/footer_mobile/footer_mobile_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
@@ -57,14 +56,6 @@ class _AboutUsWidgetState extends State<AboutUsWidget> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            endDrawer: Drawer(
-              elevation: 16.0,
-              child: wrapWithModel(
-                model: _model.drawerModel,
-                updateCallback: () => safeSetState(() {}),
-                child: DrawerWidget(),
-              ),
-            ),
             appBar: responsiveVisibility(
               context: context,
               tabletLandscape: false,

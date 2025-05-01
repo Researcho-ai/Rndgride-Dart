@@ -1,6 +1,8 @@
+import '/auth/custom_auth/auth_util.dart';
 import '/components/test_properties_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
+import '/onboarding/sign_in_compoent/sign_in_compoent_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'available_testdetial_component_model.dart';
@@ -64,27 +66,79 @@ class _AvailableTestdetialComponentWidgetState
         highlightColor: Colors.transparent,
         onTap: () async {
           logFirebaseEvent('AVAILABLE_TESTDETIAL_COMPONENT_Container');
-          if (widget.isSearchresult) {
-            logFirebaseEvent('Container_alert_dialog');
-            await showDialog(
-              context: context,
-              builder: (dialogContext) {
-                return Dialog(
-                  elevation: 0,
-                  insetPadding: EdgeInsets.zero,
-                  backgroundColor: Colors.transparent,
-                  alignment: AlignmentDirectional(0.0, 0.0)
-                      .resolve(Directionality.of(context)),
-                  child: Container(
-                    width: MediaQuery.sizeOf(context).width * 0.6,
-                    child: TestPropertiesComponentWidget(
-                      testPropertieJson: widget.testObject,
-                      isSearchResult: true,
+          if (loggedIn) {
+            if (widget.isSearchresult) {
+              logFirebaseEvent('Container_alert_dialog');
+              await showDialog(
+                context: context,
+                builder: (dialogContext) {
+                  return Dialog(
+                    elevation: 0,
+                    insetPadding: EdgeInsets.zero,
+                    backgroundColor: Colors.transparent,
+                    alignment: AlignmentDirectional(0.0, 0.0)
+                        .resolve(Directionality.of(context)),
+                    child: Container(
+                      width: MediaQuery.sizeOf(context).width * 0.6,
+                      child: TestPropertiesComponentWidget(
+                        testPropertieJson: widget.testObject,
+                        isSearchResult: true,
+                      ),
                     ),
-                  ),
-                );
-              },
-            );
+                  );
+                },
+              );
+            }
+          } else {
+            if (() {
+              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                return true;
+              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                return true;
+              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                return false;
+              } else {
+                return false;
+              }
+            }()) {
+              logFirebaseEvent('Container_alert_dialog');
+              await showDialog(
+                context: context,
+                builder: (dialogContext) {
+                  return Dialog(
+                    elevation: 0,
+                    insetPadding: EdgeInsets.zero,
+                    backgroundColor: Colors.transparent,
+                    alignment: AlignmentDirectional(0.0, 0.0)
+                        .resolve(Directionality.of(context)),
+                    child: Container(
+                      height: 400.0,
+                      width: 500.0,
+                      child: SignInCompoentWidget(
+                        loginRequered: true,
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              logFirebaseEvent('Container_alert_dialog');
+              await showDialog(
+                context: context,
+                builder: (dialogContext) {
+                  return Dialog(
+                    elevation: 0,
+                    insetPadding: EdgeInsets.zero,
+                    backgroundColor: Colors.transparent,
+                    alignment: AlignmentDirectional(0.0, 0.0)
+                        .resolve(Directionality.of(context)),
+                    child: SignInCompoentWidget(
+                      loginRequered: true,
+                    ),
+                  );
+                },
+              );
+            }
           }
         },
         child: Container(
@@ -106,7 +160,9 @@ class _AvailableTestdetialComponentWidgetState
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      if (widget.fieldName != null && widget.fieldName != '')
+                      if ((widget.fieldName != null &&
+                              widget.fieldName != '') &&
+                          (widget.fieldName != 'null'))
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 6.0, 0.0, 6.0),
@@ -122,8 +178,9 @@ class _AvailableTestdetialComponentWidgetState
                                 ),
                           ),
                         ),
-                      if (widget.materialName != null &&
-                          widget.materialName != '')
+                      if ((widget.materialName != null &&
+                              widget.materialName != '') &&
+                          (widget.materialName != 'null'))
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 6.0, 0.0, 6.0),
@@ -141,7 +198,8 @@ class _AvailableTestdetialComponentWidgetState
                         ),
                       if ((widget.testName != null &&
                               widget.testName != '') &&
-                          (widget.testName != ''))
+                          (widget.testName != '') &&
+                          (widget.testName != 'null'))
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 6.0, 0.0, 6.0),
@@ -159,7 +217,8 @@ class _AvailableTestdetialComponentWidgetState
                         ),
                       if ((widget.methodName != null &&
                               widget.methodName != '') &&
-                          (widget.methodName != ''))
+                          (widget.methodName != '') &&
+                          (widget.testName != 'null'))
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 6.0, 0.0, 6.0),

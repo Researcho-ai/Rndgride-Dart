@@ -7,7 +7,6 @@ import '/main_pages/components/customer_feedback_web/customer_feedback_web_widge
 import '/main_pages/components/requerment_button/requerment_button_widget.dart';
 import '/main_pages/components/user_requirement_copy/user_requirement_copy_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
-import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/footer/footer_widget.dart';
 import '/nav_bars/footer_mobile/footer_mobile_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
@@ -16,7 +15,6 @@ import '/resources/components/instruments_details/instruments_details_widget.dar
 import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
 import '/resources/components/test_details/test_details_widget.dart';
 import 'dart:async';
-import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -198,14 +196,6 @@ class _HomeWidgetState extends State<HomeWidget> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-            endDrawer: Drawer(
-              elevation: 16.0,
-              child: wrapWithModel(
-                model: _model.drawerModel,
-                updateCallback: () => safeSetState(() {}),
-                child: DrawerWidget(),
-              ),
-            ),
             appBar: responsiveVisibility(
               context: context,
               tabletLandscape: false,
@@ -593,13 +583,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                                         )!
                                                                                         .toList()
                                                                                         .cast<dynamic>();
-                                                                                    _model.count = _model.count +
-                                                                                        valueOrDefault<int>(
-                                                                                          InstrumentsTestsGroup.searchInstrumentTestCall.count(
-                                                                                            (_model.searchOutput?.jsonBody ?? ''),
-                                                                                          ),
-                                                                                          0,
-                                                                                        );
                                                                                     safeSetState(() {});
                                                                                   } else {
                                                                                     if (_shouldSetState) safeSetState(() {});
@@ -622,10 +605,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                                         )!
                                                                                         .toList()
                                                                                         .cast<dynamic>();
-                                                                                    _model.count = _model.count +
-                                                                                        (InstrumentsTestsGroup.searchInstrumentTestCall.count(
-                                                                                          (_model.sophisticatedSearch?.jsonBody ?? ''),
-                                                                                        )!);
                                                                                     safeSetState(() {});
                                                                                   } else {
                                                                                     if (_shouldSetState) safeSetState(() {});
@@ -647,14 +626,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                                         )!
                                                                                         .toList()
                                                                                         .cast<dynamic>();
-                                                                                    _model.count = _model.count +
-                                                                                        valueOrDefault<int>(
-                                                                                          getJsonField(
-                                                                                            (_model.searhTest?.jsonBody ?? ''),
-                                                                                            r'''$.count''',
-                                                                                          ),
-                                                                                          0,
-                                                                                        );
                                                                                     safeSetState(() {});
                                                                                   }
                                                                                 }),
@@ -825,17 +796,82 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                                   highlightColor: Colors.transparent,
                                                                                   onTap: () async {
                                                                                     logFirebaseEvent('HOME_PAGE_Row_hvigajny_ON_TAP');
-                                                                                    logFirebaseEvent('Row_custom_action');
-                                                                                    _model.replacedWord = await actions.replaceLastWord(
-                                                                                      _model.textFieldTextController.text,
-                                                                                      sUggentionItem,
-                                                                                    );
+                                                                                    var _shouldSetState = false;
                                                                                     logFirebaseEvent('Row_set_form_field');
                                                                                     safeSetState(() {
-                                                                                      _model.textFieldTextController?.text = _model.replacedWord!;
+                                                                                      _model.textFieldTextController?.text = sUggentionItem;
                                                                                     });
-
+                                                                                    logFirebaseEvent('Row_update_page_state');
+                                                                                    _model.searchActive = true;
+                                                                                    _model.instrumentaTestResult = [];
+                                                                                    _model.testSearchList = [];
+                                                                                    _model.finaResourcesList = [];
                                                                                     safeSetState(() {});
+                                                                                    await Future.wait([
+                                                                                      Future(() async {
+                                                                                        logFirebaseEvent('Row_backend_call');
+                                                                                        _model.searchOutputByrow = await InstrumentsTestsGroup.searchInstrumentTestCall.call(
+                                                                                          search: _model.textFieldTextController.text,
+                                                                                          sophisticatedSearch: false,
+                                                                                        );
+
+                                                                                        _shouldSetState = true;
+                                                                                        if ((_model.searchOutputByrow?.succeeded ?? true)) {
+                                                                                          logFirebaseEvent('Row_update_page_state');
+                                                                                          _model.instrumentaTestResult = InstrumentsTestsGroup.searchInstrumentTestCall
+                                                                                              .instruments(
+                                                                                                (_model.searchOutputByrow?.jsonBody ?? ''),
+                                                                                              )!
+                                                                                              .toList()
+                                                                                              .cast<dynamic>();
+                                                                                          safeSetState(() {});
+                                                                                        } else {
+                                                                                          if (_shouldSetState) safeSetState(() {});
+                                                                                          return;
+                                                                                        }
+                                                                                      }),
+                                                                                      Future(() async {
+                                                                                        logFirebaseEvent('Row_backend_call');
+                                                                                        _model.sophisticatedSearchBySearch = await InstrumentsTestsGroup.searchInstrumentTestCall.call(
+                                                                                          search: _model.textFieldTextController.text,
+                                                                                          sophisticatedSearch: true,
+                                                                                        );
+
+                                                                                        _shouldSetState = true;
+                                                                                        if ((_model.sophisticatedSearchBySearch?.succeeded ?? true)) {
+                                                                                          logFirebaseEvent('Row_update_page_state');
+                                                                                          _model.sophisticatedResultjson = InstrumentsTestsGroup.searchInstrumentTestCall
+                                                                                              .instruments(
+                                                                                                (_model.sophisticatedSearchBySearch?.jsonBody ?? ''),
+                                                                                              )!
+                                                                                              .toList()
+                                                                                              .cast<dynamic>();
+                                                                                          safeSetState(() {});
+                                                                                        } else {
+                                                                                          if (_shouldSetState) safeSetState(() {});
+                                                                                          return;
+                                                                                        }
+                                                                                      }),
+                                                                                      Future(() async {
+                                                                                        logFirebaseEvent('Row_backend_call');
+                                                                                        _model.searhTestByRow = await TestsGroup.searchTestCall.call(
+                                                                                          searchTerm: _model.textFieldTextController.text,
+                                                                                        );
+
+                                                                                        _shouldSetState = true;
+                                                                                        if ((_model.searhTestByRow?.succeeded ?? true)) {
+                                                                                          logFirebaseEvent('Row_update_page_state');
+                                                                                          _model.testSearchList = TestsGroup.searchTestCall
+                                                                                              .searchResult(
+                                                                                                (_model.searhTestByRow?.jsonBody ?? ''),
+                                                                                              )!
+                                                                                              .toList()
+                                                                                              .cast<dynamic>();
+                                                                                          safeSetState(() {});
+                                                                                        }
+                                                                                      }),
+                                                                                    ]);
+                                                                                    if (_shouldSetState) safeSetState(() {});
                                                                                   },
                                                                                   child: Row(
                                                                                     mainAxisSize: MainAxisSize.max,
@@ -2123,7 +2159,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               ))
                                                 Container(
                                                   width: 300.0,
-                                                  height: 200.0,
+                                                  height: 175.0,
                                                   decoration: BoxDecoration(
                                                     color: FlutterFlowTheme.of(
                                                             context)
@@ -2131,13 +2167,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     borderRadius:
                                                         BorderRadius.circular(
                                                             16.0),
-                                                    border: Border.all(
-                                                      color:
-                                                          FlutterFlowTheme.of(
-                                                                  context)
-                                                              .border,
-                                                      width: 2.0,
-                                                    ),
                                                   ),
                                                   child: Row(
                                                     mainAxisSize:
@@ -2615,19 +2644,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     Flexible(
                                                       flex: 1,
                                                       child: Container(
-                                                        width: 250.0,
+                                                        height: 175.0,
                                                         decoration:
                                                             BoxDecoration(
                                                           borderRadius:
                                                               BorderRadius
                                                                   .circular(
                                                                       16.0),
-                                                          border: Border.all(
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .border,
-                                                            width: 2.0,
-                                                          ),
                                                         ),
                                                         child: Padding(
                                                           padding:
@@ -2640,8 +2663,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                         8.0),
                                                             child: Image.asset(
                                                               'assets/images/Dev_Facilities.png',
-                                                              width: 200.0,
-                                                              height: 200.0,
                                                               fit: BoxFit.cover,
                                                             ),
                                                           ),
@@ -2996,7 +3017,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             MainAxisAlignment
                                                                 .spaceBetween,
                                                         children: [
-                                                          Expanded(
+                                                          Flexible(
                                                             child: Text(
                                                               FFLocalizations.of(
                                                                       context)
@@ -3026,44 +3047,34 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 phone: false,
                                                 tablet: false,
                                               ))
-                                                Flexible(
-                                                  child: Container(
-                                                    width: 300.0,
-                                                    height: 175.0,
-                                                    decoration: BoxDecoration(
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              16.0),
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .border,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .center,
-                                                      children: [
-                                                        ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          child: Image.asset(
-                                                            'assets/images/Fields.png',
-                                                            fit: BoxFit.cover,
-                                                          ),
+                                                Container(
+                                                  width: 300.0,
+                                                  height: 175.0,
+                                                  decoration: BoxDecoration(
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primaryBackground,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.0),
+                                                  ),
+                                                  child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      ClipRRect(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(8.0),
+                                                        child: Image.asset(
+                                                          'assets/images/Fields.png',
+                                                          fit: BoxFit.cover,
                                                         ),
-                                                      ],
-                                                    ),
+                                                      ),
+                                                    ],
                                                   ),
                                                 ),
                                             ],
@@ -3941,7 +3952,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       .max,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .center,
+                                                                      .start,
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
                                                                       .start,
@@ -4140,7 +4151,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       .max,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .center,
+                                                                      .start,
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
                                                                       .start,
@@ -4339,7 +4350,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       .max,
                                                               mainAxisAlignment:
                                                                   MainAxisAlignment
-                                                                      .center,
+                                                                      .start,
                                                               crossAxisAlignment:
                                                                   CrossAxisAlignment
                                                                       .start,
@@ -5786,8 +5797,78 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           .brightness ==
                                                                       Brightness
                                                                           .dark
-                                                                  ? 'assets/images/iHUB_Dark.png'
-                                                                  : 'assets/images/iHUB_Light.png',
+                                                                  ? 'assets/images/iHUB_DARK_NON_BG-removebg-preview_(1).png'
+                                                                  : 'assets/images/iHUB_Light-removebg-preview.png',
+                                                              width: 220.0,
+                                                              height: 220.0,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: valueOrDefault<
+                                                              double>(
+                                                            () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 140.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 175.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 200.0;
+                                                              } else {
+                                                                return 200.0;
+                                                              }
+                                                            }(),
+                                                            200.0,
+                                                          ),
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 50.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 80.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 90.0;
+                                                            } else {
+                                                              return 90.0;
+                                                            }
+                                                          }(),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
+                                                                  ? 'assets/images/STBI_Logo.png'
+                                                                  : 'assets/images/STBI_Logo.png',
                                                               width: 220.0,
                                                               height: 220.0,
                                                               fit: BoxFit
@@ -5926,6 +6007,76 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           .brightness ==
                                                                       Brightness
                                                                           .dark
+                                                                  ? 'assets/images/IIC_Logo.png'
+                                                                  : 'assets/images/IIC_Logo.png',
+                                                              width: 220.0,
+                                                              height: 220.0,
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Container(
+                                                          width: valueOrDefault<
+                                                              double>(
+                                                            () {
+                                                              if (MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .width <
+                                                                  kBreakpointSmall) {
+                                                                return 140.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointMedium) {
+                                                                return 175.0;
+                                                              } else if (MediaQuery
+                                                                          .sizeOf(
+                                                                              context)
+                                                                      .width <
+                                                                  kBreakpointLarge) {
+                                                                return 200.0;
+                                                              } else {
+                                                                return 200.0;
+                                                              }
+                                                            }(),
+                                                            200.0,
+                                                          ),
+                                                          height: () {
+                                                            if (MediaQuery.sizeOf(
+                                                                        context)
+                                                                    .width <
+                                                                kBreakpointSmall) {
+                                                              return 70.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointMedium) {
+                                                              return 100.0;
+                                                            } else if (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width <
+                                                                kBreakpointLarge) {
+                                                              return 100.0;
+                                                            } else {
+                                                              return 100.0;
+                                                            }
+                                                          }(),
+                                                          decoration:
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              Theme.of(context)
+                                                                          .brightness ==
+                                                                      Brightness
+                                                                          .dark
                                                                   ? 'assets/images/StrongHer-removebg-preview.png'
                                                                   : 'assets/images/StrongHer-removebg-preview.png',
                                                               width: 220.0,
@@ -5996,8 +6147,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           .brightness ==
                                                                       Brightness
                                                                           .dark
-                                                                  ? 'assets/images/PDEU_IIC-removebg-preview.png'
-                                                                  : 'assets/images/PDEU_IIC-removebg-preview.png',
+                                                                  ? 'assets/images/SPU.png'
+                                                                  : 'assets/images/SPU.png',
                                                               width: 220.0,
                                                               height: 220.0,
                                                               fit: BoxFit
@@ -6278,245 +6429,370 @@ class _HomeWidgetState extends State<HomeWidget> {
                                             child: Padding(
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(0.0, 0.0, 0.0, 8.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceEvenly,
-                                                children: [
-                                                  Container(
-                                                    width: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
+                                              child: SingleChildScrollView(
+                                                scrollDirection:
+                                                    Axis.horizontal,
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment
+                                                          .spaceBetween,
+                                                  children: [
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        child: Image.asset(
-                                                          'assets/images/Nirma.jpg',
-                                                          fit: BoxFit.contain,
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                            child: Image.asset(
+                                                              'assets/images/Nirma.jpg',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        child: Image.asset(
-                                                          'assets/images/NFSU.png',
-                                                          fit: BoxFit.contain,
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                            child: Image.asset(
+                                                              'assets/images/NFSU.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        child: Image.asset(
-                                                          'assets/images/IIPHG_TBI.png',
-                                                          fit: BoxFit.contain,
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                            child: Image.asset(
+                                                              'assets/images/IIPHG_TBI.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        child: Image.asset(
-                                                          'assets/images/Saint_Xaviers.png',
-                                                          fit: BoxFit.contain,
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                            child: Image.asset(
+                                                              'assets/images/Saint_Xaviers.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        child: Image.asset(
-                                                          'assets/images/Silver_Oak.png',
-                                                          fit: BoxFit.contain,
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                            child: Image.asset(
+                                                              'assets/images/Silver_Oak.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        child: Image.asset(
-                                                          'assets/images/SRISTI_Lab.png',
-                                                          fit: BoxFit.contain,
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                            child: Image.asset(
+                                                              'assets/images/SRISTI_Lab.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        child: Image.asset(
-                                                          'assets/images/Marwadi.png',
-                                                          fit: BoxFit.contain,
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                            child: Image.asset(
+                                                              'assets/images/Marwadi.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                  Container(
-                                                    width: 100.0,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              12.0),
-                                                      shape: BoxShape.rectangle,
-                                                      border: Border.all(
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
-                                                        width: 2.0,
-                                                      ),
-                                                    ),
-                                                    child: Padding(
+                                                    Padding(
                                                       padding:
-                                                          EdgeInsets.all(4.0),
-                                                      child: ClipRRect(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(12.0),
-                                                        child: Image.asset(
-                                                          'assets/images/Indreshil.png',
-                                                          fit: BoxFit.contain,
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  24.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: 100.0,
+                                                        height: 100.0,
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      12.0),
+                                                          shape: BoxShape
+                                                              .rectangle,
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
+                                                        ),
+                                                        child: Padding(
+                                                          padding:
+                                                              EdgeInsets.all(
+                                                                  4.0),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        12.0),
+                                                            child: Image.asset(
+                                                              'assets/images/Indreshil.png',
+                                                              fit: BoxFit
+                                                                  .contain,
+                                                            ),
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -7844,8 +8120,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                       () {}),
                                                               child:
                                                                   RequermentButtonWidget(
-                                                                parameter2: _model
-                                                                    .contactUsButtomIndex,
+                                                                parameter2:
+                                                                    valueOrDefault<
+                                                                        int>(
+                                                                  _model
+                                                                      .contactUsButtomIndex,
+                                                                  1,
+                                                                ),
                                                                 text:
                                                                     'Testing and Development Facility',
                                                                 isHome: false,

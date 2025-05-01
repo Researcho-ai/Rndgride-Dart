@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'profile_details1_model.dart';
 export 'profile_details1_model.dart';
@@ -196,8 +195,8 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                         decoration: BoxDecoration(),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(8.0),
-                          child: SvgPicture.asset(
-                            'assets/images/profile-step_1.svg',
+                          child: Image.asset(
+                            'assets/images/Profile.png',
                             width: 300.0,
                             height: 200.0,
                             fit: BoxFit.cover,
@@ -371,7 +370,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                                   letterSpacing: 0.0,
                                 ),
                             hintText: FFLocalizations.of(context).getText(
-                              'iue48pzd' /* ex. student */,
+                              'iue48pzd' /* Select user type */,
                             ),
                             icon: Icon(
                               Icons.keyboard_arrow_down_rounded,

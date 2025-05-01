@@ -46,6 +46,8 @@ class InstrumentsModel extends FlutterFlowModel<InstrumentsWidget> {
   void updateSugetiionAtIndex(int index, Function(String) updateFn) =>
       sugetiion[index] = updateFn(sugetiion[index]);
 
+  bool searchbarFocuse = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Get Instruments Tests)] action in Instruments widget.
@@ -60,8 +62,8 @@ class InstrumentsModel extends FlutterFlowModel<InstrumentsWidget> {
   ApiCallResponse? instrumentSearch;
   // Stores action output result for [Backend Call - API (Instrument suggestions)] action in searchI widget.
   ApiCallResponse? apiResultq7d;
-  // Stores action output result for [Custom Action - replaceLastWord] action in Row widget.
-  String? replacedWord;
+  // Stores action output result for [Backend Call - API (Search Instrument  Test)] action in Row widget.
+  ApiCallResponse? instrumentSearchByRow;
   // Models for InstrumentsDetails dynamic component.
   late FlutterFlowDynamicModels<InstrumentsDetailsModel>
       instrumentsDetailsModels1;

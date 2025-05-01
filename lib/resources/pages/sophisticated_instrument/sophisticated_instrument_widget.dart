@@ -9,7 +9,6 @@ import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/resources/components/data_not_found_c_omponent/data_not_found_c_omponent_widget.dart';
 import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
 import 'dart:async';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -85,7 +84,16 @@ class _SophisticatedInstrumentWidgetState
 
     _model.searchITextController ??= TextEditingController();
     _model.searchIFocusNode ??= FocusNode();
-    _model.searchIFocusNode!.addListener(() => safeSetState(() {}));
+    _model.searchIFocusNode!.addListener(
+      () async {
+        logFirebaseEvent('SOPHISTICATED_INSTRUMENT_searchI_ON_FOCU');
+        logFirebaseEvent('searchI_wait__delay');
+        await Future.delayed(const Duration(milliseconds: 2000));
+        logFirebaseEvent('searchI_update_page_state');
+        _model.searchBarFocus = false;
+        safeSetState(() {});
+      },
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -450,6 +458,12 @@ class _SophisticatedInstrumentWidgetState
                                                                       if (_model.searchITextController.text !=
                                                                               '') {
                                                                         logFirebaseEvent(
+                                                                            'searchI_update_page_state');
+                                                                        _model.searchBarFocus =
+                                                                            true;
+                                                                        safeSetState(
+                                                                            () {});
+                                                                        logFirebaseEvent(
                                                                             'searchI_backend_call');
                                                                         _model.apiResult81w = await InstrumentsTestsGroup
                                                                             .instrumentSuggestionsCall
@@ -749,9 +763,7 @@ class _SophisticatedInstrumentWidgetState
                                                                   '') &&
                                                           (_model.sugetions
                                                               .isNotEmpty) &&
-                                                          (_model.searchIFocusNode
-                                                                  ?.hasFocus ??
-                                                              false))
+                                                          _model.searchBarFocus)
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional
@@ -801,23 +813,59 @@ class _SophisticatedInstrumentWidgetState
                                                                             () async {
                                                                           logFirebaseEvent(
                                                                               'SOPHISTICATED_INSTRUMENT_Row_c9esfrvy_ON');
-                                                                          logFirebaseEvent(
-                                                                              'Row_custom_action');
-                                                                          _model.replacedWord =
-                                                                              await actions.replaceLastWord(
-                                                                            _model.searchITextController.text,
-                                                                            sUggentionItem,
-                                                                          );
+                                                                          var _shouldSetState =
+                                                                              false;
                                                                           logFirebaseEvent(
                                                                               'Row_set_form_field');
                                                                           safeSetState(
                                                                               () {
                                                                             _model.searchITextController?.text =
-                                                                                _model.replacedWord!;
+                                                                                sUggentionItem;
                                                                           });
-
+                                                                          logFirebaseEvent(
+                                                                              'Row_update_page_state');
+                                                                          _model.activeSearch =
+                                                                              true;
                                                                           safeSetState(
                                                                               () {});
+                                                                          logFirebaseEvent(
+                                                                              'Row_backend_call');
+                                                                          _model.instrumentSearchByRow = await InstrumentsTestsGroup
+                                                                              .searchInstrumentTestCall
+                                                                              .call(
+                                                                            search:
+                                                                                sUggentionItem,
+                                                                            sophisticatedSearch:
+                                                                                true,
+                                                                          );
+
+                                                                          _shouldSetState =
+                                                                              true;
+                                                                          if ((_model.instrumentSearchByRow?.succeeded ??
+                                                                              true)) {
+                                                                            logFirebaseEvent('Row_update_page_state');
+                                                                            _model.searchResult = InstrumentsTestsGroup.searchInstrumentTestCall
+                                                                                .instruments(
+                                                                                  (_model.instrumentSearchByRow?.jsonBody ?? ''),
+                                                                                )!
+                                                                                .toList()
+                                                                                .cast<dynamic>();
+                                                                            _model.searchResultCount =
+                                                                                InstrumentsTestsGroup.searchInstrumentTestCall.count(
+                                                                              (_model.instrumentSearchByRow?.jsonBody ?? ''),
+                                                                            );
+                                                                            safeSetState(() {});
+                                                                            if (_shouldSetState)
+                                                                              safeSetState(() {});
+                                                                            return;
+                                                                          } else {
+                                                                            if (_shouldSetState)
+                                                                              safeSetState(() {});
+                                                                            return;
+                                                                          }
+
+                                                                          if (_shouldSetState)
+                                                                            safeSetState(() {});
                                                                         },
                                                                         child:
                                                                             Row(

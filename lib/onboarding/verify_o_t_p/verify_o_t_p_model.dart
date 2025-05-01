@@ -1,13 +1,12 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
 import 'package:stop_watch_timer/stop_watch_timer.dart';
-import 'verify_otp_widget.dart' show VerifyOtpWidget;
+import 'verify_o_t_p_widget.dart' show VerifyOTPWidget;
 import 'package:flutter/material.dart';
 
-class VerifyOtpModel extends FlutterFlowModel<VerifyOtpWidget> {
-  ///  State fields for stateful widgets in this page.
+class VerifyOTPModel extends FlutterFlowModel<VerifyOTPWidget> {
+  ///  State fields for stateful widgets in this component.
 
   // State field(s) for PinCode widget.
   TextEditingController? pinCodeController;

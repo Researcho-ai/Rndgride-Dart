@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/material_component_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'test_properties_component_widget.dart'
@@ -81,12 +82,27 @@ class TestPropertiesComponentModel
   void updateFielsJsonListAtIndex(int index, Function(dynamic) updateFn) =>
       fielsJsonList[index] = updateFn(fielsJsonList[index]);
 
+  List<bool> availabilityBool = [];
+  void addToAvailabilityBool(bool item) => availabilityBool.add(item);
+  void removeFromAvailabilityBool(bool item) => availabilityBool.remove(item);
+  void removeAtIndexFromAvailabilityBool(int index) =>
+      availabilityBool.removeAt(index);
+  void insertAtIndexInAvailabilityBool(int index, bool item) =>
+      availabilityBool.insert(index, item);
+  void updateAvailabilityBoolAtIndex(int index, Function(bool) updateFn) =>
+      availabilityBool[index] = updateFn(availabilityBool[index]);
+
   ///  State fields for stateful widgets in this component.
 
   // Stores action output result for [Backend Call - API (Get Fieds)] action in testPropertiesComponent widget.
   ApiCallResponse? apiResultvth;
+  // Models for materialComponent dynamic component.
+  late FlutterFlowDynamicModels<MaterialComponentModel>
+      materialComponentModels1;
   // Stores action output result for [Backend Call - API (Get Availabe Test Propeties)] action in materialComponent widget.
   ApiCallResponse? apiResultj0o;
+  // Stores action output result for [Custom Action - checkAvailability] action in materialComponent widget.
+  List<bool>? availability;
   // Stores action output result for [Custom Action - filterAvailableTests] action in materialComponent widget.
   List<dynamic>? testMethods2;
   // State field(s) for RequirementTextField widget.
@@ -102,10 +118,14 @@ class TestPropertiesComponentModel
   ApiCallResponse? apiResult;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(BuildContext context) {
+    materialComponentModels1 =
+        FlutterFlowDynamicModels(() => MaterialComponentModel());
+  }
 
   @override
   void dispose() {
+    materialComponentModels1.dispose();
     requirementTextFieldFocusNode?.dispose();
     requirementTextFieldTextController?.dispose();
   }

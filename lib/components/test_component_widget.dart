@@ -111,7 +111,8 @@ class _TestComponentWidgetState extends State<TestComponentWidget> {
                         mainAxisSize: MainAxisSize.max,
                         children: [
                           if ((widget.test != null && widget.test != '') &&
-                              (widget.test != ''))
+                              (widget.test != '') &&
+                              (widget.test != 'null'))
                             Flexible(
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(

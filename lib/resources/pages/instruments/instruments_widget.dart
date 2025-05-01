@@ -9,7 +9,6 @@ import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/resources/components/data_not_found_c_omponent/data_not_found_c_omponent_widget.dart';
 import '/resources/components/instruments_details/instruments_details_widget.dart';
 import 'dart:async';
-import '/custom_code/actions/index.dart' as actions;
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -81,7 +80,16 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
 
     _model.searchITextController ??= TextEditingController();
     _model.searchIFocusNode ??= FocusNode();
-    _model.searchIFocusNode!.addListener(() => safeSetState(() {}));
+    _model.searchIFocusNode!.addListener(
+      () async {
+        logFirebaseEvent('INSTRUMENTS_PAGE_searchI_ON_FOCUS_CHANGE');
+        logFirebaseEvent('searchI_wait__delay');
+        await Future.delayed(const Duration(milliseconds: 2000));
+        logFirebaseEvent('searchI_update_page_state');
+        _model.searchbarFocuse = false;
+        safeSetState(() {});
+      },
+    );
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -425,6 +433,10 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                           logFirebaseEvent(
                                                                               'INSTRUMENTS_searchI_ON_TEXTFIELD_CHANGE');
                                                                           if (_model.searchITextController.text != '') {
+                                                                            logFirebaseEvent('searchI_update_page_state');
+                                                                            _model.searchbarFocuse =
+                                                                                true;
+                                                                            safeSetState(() {});
                                                                             logFirebaseEvent('searchI_backend_call');
                                                                             _model.apiResultq7d =
                                                                                 await InstrumentsTestsGroup.instrumentSuggestionsCall.call(
@@ -499,6 +511,8 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                               ),
                                                                               0,
                                                                             );
+                                                                            _model.searchbarFocuse =
+                                                                                true;
                                                                             safeSetState(() {});
                                                                             if (_shouldSetState)
                                                                               safeSetState(() {});
@@ -693,9 +707,8 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                       '') &&
                                                               (_model.sugetiion
                                                                   .isNotEmpty) &&
-                                                              (_model.searchIFocusNode
-                                                                      ?.hasFocus ??
-                                                                  false))
+                                                              _model
+                                                                  .searchbarFocuse)
                                                             Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional
@@ -744,17 +757,42 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                             onTap:
                                                                                 () async {
                                                                               logFirebaseEvent('INSTRUMENTS_PAGE_Row_cv4ompa3_ON_TAP');
-                                                                              logFirebaseEvent('Row_custom_action');
-                                                                              _model.replacedWord = await actions.replaceLastWord(
-                                                                                _model.searchITextController.text,
-                                                                                sUggentionItem,
-                                                                              );
+                                                                              var _shouldSetState = false;
                                                                               logFirebaseEvent('Row_set_form_field');
                                                                               safeSetState(() {
-                                                                                _model.searchITextController?.text = _model.replacedWord!;
+                                                                                _model.searchITextController?.text = sUggentionItem;
                                                                               });
-
+                                                                              logFirebaseEvent('Row_update_page_state');
+                                                                              _model.activeSearch = true;
                                                                               safeSetState(() {});
+                                                                              logFirebaseEvent('Row_backend_call');
+                                                                              _model.instrumentSearchByRow = await InstrumentsTestsGroup.searchInstrumentTestCall.call(
+                                                                                search: sUggentionItem,
+                                                                                sophisticatedSearch: false,
+                                                                              );
+
+                                                                              _shouldSetState = true;
+                                                                              if ((_model.instrumentSearchByRow?.succeeded ?? true)) {
+                                                                                logFirebaseEvent('Row_update_page_state');
+                                                                                _model.resultInstrumentsFromAPI = InstrumentsTestsGroup.searchInstrumentTestCall
+                                                                                    .instruments(
+                                                                                      (_model.instrumentSearchByRow?.jsonBody ?? ''),
+                                                                                    )!
+                                                                                    .toList()
+                                                                                    .cast<dynamic>();
+                                                                                _model.searchInstrumentCount = InstrumentsTestsGroup.searchInstrumentTestCall.count(
+                                                                                  (_model.instrumentSearchByRow?.jsonBody ?? ''),
+                                                                                );
+                                                                                safeSetState(() {});
+                                                                                if (_shouldSetState) safeSetState(() {});
+                                                                                return;
+                                                                              } else {
+                                                                                if (_shouldSetState) safeSetState(() {});
+                                                                                return;
+                                                                              }
+
+                                                                              if (_shouldSetState)
+                                                                                safeSetState(() {});
                                                                             },
                                                                             child:
                                                                                 Row(
@@ -1269,14 +1307,9 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                             },
                                                                           ),
                                                                         ),
-                                                                      if ((_model
-                                                                              .resultInstrumentsFromAPI
-                                                                              .isNotEmpty) ||
-                                                                          ((_model.instrumentSearch?.jsonBody ?? '') ==
-                                                                              _model
-                                                                                  .emptyJson) ||
-                                                                          (_model.searchInstrumentCount! <=
-                                                                              0))
+                                                                      if (!(_model
+                                                                          .resultInstrumentsFromAPI
+                                                                          .isNotEmpty))
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,

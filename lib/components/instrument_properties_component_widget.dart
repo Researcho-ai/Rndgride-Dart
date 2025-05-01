@@ -152,6 +152,7 @@ class _InstrumentPropertiesComponentWidgetState
                       8.0),
                   child: Row(
                     mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Flexible(
                         child: Text(
@@ -165,6 +166,23 @@ class _InstrumentPropertiesComponentWidgetState
                                 font: FlutterFlowTheme.of(context).labelLarge,
                                 letterSpacing: 0.0,
                               ),
+                        ),
+                      ),
+                      InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent(
+                              'INSTRUMENT_PROPERTIES_COMPONENT_Icon_551');
+                          logFirebaseEvent('Icon_close_dialog_drawer_etc');
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.close_sharp,
+                          color: FlutterFlowTheme.of(context).primaryText,
+                          size: 24.0,
                         ),
                       ),
                     ],

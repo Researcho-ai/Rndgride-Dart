@@ -2,12 +2,10 @@ import '/auth/custom_auth/auth_util.dart';
 import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/profile/components/user_profile/user_profile_widget.dart';
+import '/onboarding/sign_in_compoent/sign_in_compoent_widget.dart';
 import '/index.dart';
-import 'package:aligned_dialog/aligned_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 import 'top_nav_bar_model.dart';
 export 'top_nav_bar_model.dart';
 
@@ -61,8 +59,6 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0.0, 10.0, 0.0, 10.0),
       child: Container(
@@ -534,124 +530,53 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                 ),
               ],
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Builder(
-                    builder: (context) => MouseRegion(
-                      opaque: false,
-                      cursor: MouseCursor.defer ?? MouseCursor.defer,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: FlutterFlowTheme.of(context).border,
-                          ),
-                        ),
-                        child: Stack(
-                          children: [
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                logFirebaseEvent(
-                                    'TOP_NAV_BAR_Container_y2wt2nue_ON_TAP');
-                                if (loggedIn) {
-                                  logFirebaseEvent('Container_navigate_to');
+            Builder(
+              builder: (context) => Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(16.0, 0.0, 16.0, 0.0),
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    logFirebaseEvent('TOP_NAV_BAR_Container_y2wt2nue_ON_TAP');
+                    if (loggedIn) {
+                      logFirebaseEvent('Container_navigate_to');
 
-                                  context.pushNamed(ProfileWidget.routeName);
-                                } else {
-                                  logFirebaseEvent('Container_navigate_to');
-
-                                  context.pushNamed(SignInWidget.routeName);
-                                }
-                              },
-                              child: Container(
-                                width: 40.0,
-                                height: 40.0,
-                                decoration: BoxDecoration(
-                                  color: FlutterFlowTheme.of(context)
-                                      .primaryBackground,
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Icon(
-                                  FFIcons.kprofile,
-                                  color: FlutterFlowTheme.of(context)
-                                      .secondaryText,
-                                  size: 28.0,
-                                ),
-                              ),
+                      context.pushNamed(ProfileWidget.routeName);
+                    } else {
+                      logFirebaseEvent('Container_alert_dialog');
+                      await showDialog(
+                        context: context,
+                        builder: (dialogContext) {
+                          return Dialog(
+                            elevation: 0,
+                            insetPadding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent,
+                            alignment: AlignmentDirectional(0.0, 0.0)
+                                .resolve(Directionality.of(context)),
+                            child: SignInCompoentWidget(
+                              loginRequered: true,
                             ),
-                            InkWell(
-                              splashColor: Colors.transparent,
-                              focusColor: Colors.transparent,
-                              hoverColor: Colors.transparent,
-                              highlightColor: Colors.transparent,
-                              onTap: () async {
-                                logFirebaseEvent(
-                                    'TOP_NAV_BAR_CircleImage_tur921rf_ON_TAP');
-                                if (loggedIn) {
-                                  logFirebaseEvent('CircleImage_navigate_to');
-
-                                  context.pushNamed(ProfileWidget.routeName);
-                                } else {
-                                  logFirebaseEvent('CircleImage_navigate_to');
-
-                                  context.pushNamed(SignInWidget.routeName);
-                                }
-                              },
-                              child: Container(
-                                width: 40.0,
-                                height: 40.0,
-                                clipBehavior: Clip.antiAlias,
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                ),
-                                child: Image.network(
-                                  FFAppState().userProfileData.photoUrl,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      onEnter: ((event) async {
-                        safeSetState(() => _model.profilHovered = true);
-                        logFirebaseEvent(
-                            'TOP_NAV_BAR_COMP_Profil_ON_TOGGLE_ON');
-                        logFirebaseEvent('Profil_alert_dialog');
-                        await showAlignedDialog(
-                          context: context,
-                          isGlobal: false,
-                          avoidOverflow: true,
-                          targetAnchor: AlignmentDirectional(-3.0, -1.38)
-                              .resolve(Directionality.of(context)),
-                          followerAnchor: AlignmentDirectional(0.0, -1.38)
-                              .resolve(Directionality.of(context)),
-                          builder: (dialogContext) {
-                            return Material(
-                              color: Colors.transparent,
-                              child: Container(
-                                height: 350.0,
-                                width: 300.0,
-                                child: UserProfileWidget(),
-                              ),
-                            );
-                          },
-                        );
-                      }),
-                      onExit: ((event) async {
-                        safeSetState(() => _model.profilHovered = false);
-                      }),
+                          );
+                        },
+                      );
+                    }
+                  },
+                  child: Container(
+                    width: 40.0,
+                    height: 40.0,
+                    decoration: BoxDecoration(
+                      color: FlutterFlowTheme.of(context).primaryBackground,
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      FFIcons.kprofile,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      size: 28.0,
                     ),
                   ),
-                ],
+                ),
               ),
             ),
           ],

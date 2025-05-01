@@ -54,6 +54,8 @@ class TestsModel extends FlutterFlowModel<TestsWidget> {
   void updateSuggetionsAtIndex(int index, Function(String) updateFn) =>
       suggetions[index] = updateFn(suggetions[index]);
 
+  bool searchBarFocus = false;
+
   ///  State fields for stateful widgets in this page.
 
   // Stores action output result for [Backend Call - API (Get Categories)] action in Tests widget.
@@ -68,8 +70,8 @@ class TestsModel extends FlutterFlowModel<TestsWidget> {
   ApiCallResponse? instrumentSearch;
   // Stores action output result for [Backend Call - API (Test Suggestion)] action in searchI widget.
   ApiCallResponse? apiResultqu1;
-  // Stores action output result for [Custom Action - replaceLastWord] action in Row widget.
-  String? replacedWord;
+  // Stores action output result for [Backend Call - API (Search Test)] action in Row widget.
+  ApiCallResponse? instrumentSearchByRow;
   // Stores action output result for [Backend Call - API (Get Categories)] action in AddButton widget.
   ApiCallResponse? extraTests;
   // Model for DataNotFoundCOmponent component.

@@ -106,84 +106,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ContactUsWidget(),
             ),
             FFRoute(
-              name: ProfileStep1Widget.routeName,
-              path: ProfileStep1Widget.routePath,
-              builder: (context, params) => ProfileStep1Widget(
-                pageName: params.getParam(
-                  'pageName',
-                  ParamType.String,
-                ),
-                isNewuser: params.getParam(
-                  'isNewuser',
-                  ParamType.bool,
-                ),
-                phoneNumber: params.getParam(
-                  'phoneNumber',
-                  ParamType.String,
-                ),
-              ),
-            ),
-            FFRoute(
-              name: SignInWidget.routeName,
-              path: SignInWidget.routePath,
-              builder: (context, params) => SignInWidget(),
-            ),
-            FFRoute(
               name: InstrumentsWidget.routeName,
               path: InstrumentsWidget.routePath,
               builder: (context, params) => InstrumentsWidget(),
-            ),
-            FFRoute(
-              name: VerifyOtpWidget.routeName,
-              path: VerifyOtpWidget.routePath,
-              builder: (context, params) => VerifyOtpWidget(
-                number: params.getParam(
-                  'number',
-                  ParamType.String,
-                ),
-                isRedirected: params.getParam(
-                  'isRedirected',
-                  ParamType.String,
-                ),
-                isLoginRequired: params.getParam(
-                  'isLoginRequired',
-                  ParamType.bool,
-                ),
-                userRequest: params.getParam(
-                  'userRequest',
-                  ParamType.String,
-                ),
-                isNewuser: params.getParam(
-                  'isNewuser',
-                  ParamType.bool,
-                ),
-                userName: params.getParam(
-                  'userName',
-                  ParamType.String,
-                ),
-                usertype: params.getParam(
-                  'usertype',
-                  ParamType.DocumentReference,
-                  isList: false,
-                  collectionNamePath: ['user_types'],
-                ),
-                tagValue: params.getParam(
-                  'tagValue',
-                  ParamType.String,
-                ),
-                userType: params.getParam(
-                  'userType',
-                  ParamType.String,
-                ),
-                session: params.getParam(
-                  'session',
-                  ParamType.String,
-                ),
-                otp: params.getParam(
-                  'otp',
-                  ParamType.String,
-                ),
-              ),
             ),
             FFRoute(
               name: AboutUsWidget.routeName,
@@ -194,21 +119,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: ProfileWidget.routeName,
               path: ProfileWidget.routePath,
               builder: (context, params) => ProfileWidget(),
-            ),
-            FFRoute(
-              name: Auth1Widget.routeName,
-              path: Auth1Widget.routePath,
-              builder: (context, params) => Auth1Widget(),
-            ),
-            FFRoute(
-              name: ViewPDFWidget.routeName,
-              path: ViewPDFWidget.routePath,
-              builder: (context, params) => ViewPDFWidget(
-                pdfurl: params.getParam(
-                  'pdfurl',
-                  ParamType.String,
-                ),
-              ),
             ),
             FFRoute(
               name: HomeWidget.routeName,
