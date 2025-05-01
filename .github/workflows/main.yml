@@ -29,49 +29,24 @@ jobs:
       - name: Clean Project
         run: flutter clean
 
-      - name: Install Python YAML Library
-        run: |
-          sudo apt-get update && sudo apt-get install -y python3-pip
-          pip3 install pyyaml
-
-      - name: Modify pubspec.yaml using Python
-        run: |
-          echo "Modifying pubspec.yaml using Python..."
-          python3 - <<EOF
-          import yaml
-          with open('pubspec.yaml', 'r') as f:
-              data = yaml.safe_load(f)
-          if 'dev_dependencies' not in data:
-              data['dev_dependencies'] = {}
-          data['dev_dependencies']['flutter_test'] = {'sdk': 'flutter'}
-          with open('pubspec.yaml', 'w') as f:
-              yaml.dump(data, f, default_flow_style=False)
-          EOF
-
       - name: Add Required Dependencies
         run: |
           flutter pub add collection:^1.18.0
           flutter pub add intl:^0.19.0
-          flutter pub add carousel_slider:^4.2.1
+          flutter pub add carousel_slider:^5.0.0
 
-      - name: Update image_picker_platform_interface Dependency
+      - name: Fix CarouselSlider Import Aliasing
         run: |
-          sed -i 's/image_picker_platform_interface: .*/image_picker_platform_interface: ^2.10.0/' pubspec.yaml
-          flutter pub get
+          echo "🛠 Aliasing CarouselSlider imports to prevent future conflicts"
 
-      - name: Update flutter_svg Dependency
-        run: |
-          sed -i 's/flutter_svg: .*/flutter_svg: ^2.0.10+1/' pubspec.yaml
-          flutter pub get
+          # Alias the carousel_slider import if not already aliased
+          find lib/ -type f -name '*.dart' -exec grep -q 'package:carousel_slider/carousel_slider.dart' {} \; \
+            -exec sed -i 's#import "package:carousel_slider/carousel_slider.dart";#import "package:carousel_slider/carousel_slider.dart" as cs;#g' {} +
 
-      - name: Fix CarouselSlider Import Conflicts
-        run: |
-          echo "🛠 Fixing CarouselSlider import conflicts"
-          find lib/ -type f -name '*.dart' -exec sed -i '/carousel_controller.dart/d' {} +
-          find lib/ -type f -exec sed -i 's#import \"package:carousel_slider/carousel_slider.dart\";#import \"package:carousel_slider/carousel_slider.dart\" as cs;#g' {} +
-          find lib/ -type f -exec sed -i 's/\bCarouselSlider\b/cs.CarouselSlider/g' {} +
-          find lib/ -type f -exec sed -i 's/\bCarouselOptions\b/cs.CarouselOptions/g' {} +
-          find lib/ -type f -exec sed -i 's/\bCarouselController\b/cs.CarouselController/g' {} +
+          # Safely replace raw usages of Carousel classes with cs. prefix
+          find lib/ -type f -name '*.dart' -exec sed -i 's/\([^a-zA-Z0-9_]\)CarouselSlider\([^a-zA-Z0-9_]\)/\1cs.CarouselSlider\2/g' {} +
+          find lib/ -type f -name '*.dart' -exec sed -i 's/\([^a-zA-Z0-9_]\)CarouselOptions\([^a-zA-Z0-9_]\)/\1cs.CarouselOptions\2/g' {} +
+          find lib/ -type f -name '*.dart' -exec sed -i 's/\([^a-zA-Z0-9_]\)CarouselController\([^a-zA-Z0-9_]\)/\1cs.CarouselController\2/g' {} +
 
       - name: Build Web
         run: flutter build web --release --web-renderer canvaskit
@@ -87,7 +62,7 @@ jobs:
       - name: Copy Changes to Branch
         run: |
           git add .
-          git commit -m "Fix carousel_slider usage and build web"
+          git commit -m "Fix carousel_slider conflicts and build web"
           git push origin researcho_io_main --force
 
       - name: Switch Back to Original Branch
