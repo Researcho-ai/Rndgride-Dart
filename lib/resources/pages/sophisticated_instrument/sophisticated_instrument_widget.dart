@@ -743,11 +743,15 @@ class _SophisticatedInstrumentWidgetState
                                                           ],
                                                         ),
                                                       ),
-                                                      if ((_model.searchITextController
+                                                      if ((_model
+                                                                      .searchITextController
                                                                       .text !=
                                                                   '') &&
                                                           (_model.sugetions
-                                                              .isNotEmpty))
+                                                              .isNotEmpty) &&
+                                                          (_model.searchIFocusNode
+                                                                  ?.hasFocus ??
+                                                              false))
                                                         Padding(
                                                           padding:
                                                               EdgeInsetsDirectional

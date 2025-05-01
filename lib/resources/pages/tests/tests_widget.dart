@@ -679,11 +679,15 @@ class _TestsWidgetState extends State<TestsWidget> {
                                                               ],
                                                             ),
                                                           ),
-                                                          if ((_model.searchITextController
+                                                          if ((_model
+                                                                          .searchITextController
                                                                           .text !=
                                                                       '') &&
                                                               (_model.suggetions
-                                                                  .isNotEmpty))
+                                                                  .isNotEmpty) &&
+                                                              (_model.searchIFocusNode
+                                                                      ?.hasFocus ??
+                                                                  false))
                                                             Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional

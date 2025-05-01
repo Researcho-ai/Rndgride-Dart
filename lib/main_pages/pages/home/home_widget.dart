@@ -18,7 +18,6 @@ import '/resources/components/test_details/test_details_widget.dart';
 import 'dart:async';
 import '/custom_code/actions/index.dart' as actions;
 import '/index.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -6273,15 +6272,18 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               ],
                                             ),
                                           ),
-                                          Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    0.0, 0.0, 0.0, 8.0),
-                                            child: Container(
-                                              width: double.infinity,
-                                              height: 100.0,
-                                              child: CarouselSlider(
-                                                items: [
+                                          Container(
+                                            height: 100.0,
+                                            decoration: BoxDecoration(),
+                                            child: Padding(
+                                              padding: EdgeInsetsDirectional
+                                                  .fromSTEB(0.0, 0.0, 0.0, 8.0),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceEvenly,
+                                                children: [
                                                   Container(
                                                     width: 100.0,
                                                     decoration: BoxDecoration(
@@ -6515,51 +6517,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     ),
                                                   ),
                                                 ],
-                                                carouselController: _model
-                                                        .webCarouselController ??=
-                                                    CarouselSliderController(),
-                                                options: CarouselOptions(
-                                                  initialPage: 1,
-                                                  viewportFraction: () {
-                                                    if (MediaQuery.sizeOf(
-                                                                context)
-                                                            .width <
-                                                        kBreakpointSmall) {
-                                                      return 0.6;
-                                                    } else if (MediaQuery
-                                                                .sizeOf(context)
-                                                            .width <
-                                                        kBreakpointMedium) {
-                                                      return 0.6;
-                                                    } else if (MediaQuery
-                                                                .sizeOf(context)
-                                                            .width <
-                                                        kBreakpointLarge) {
-                                                      return 0.2;
-                                                    } else {
-                                                      return 0.2;
-                                                    }
-                                                  }(),
-                                                  disableCenter: false,
-                                                  enlargeCenterPage: false,
-                                                  enlargeFactor: 0.0,
-                                                  enableInfiniteScroll: true,
-                                                  scrollDirection:
-                                                      Axis.horizontal,
-                                                  autoPlay: true,
-                                                  autoPlayAnimationDuration:
-                                                      Duration(
-                                                          milliseconds: 800),
-                                                  autoPlayInterval: Duration(
-                                                      milliseconds:
-                                                          (800 + 4000)),
-                                                  autoPlayCurve: Curves.linear,
-                                                  pauseAutoPlayInFiniteScroll:
-                                                      true,
-                                                  onPageChanged: (index, _) =>
-                                                      _model.webCarouselCurrentIndex =
-                                                          index,
-                                                ),
                                               ),
                                             ),
                                           ),

@@ -692,7 +692,10 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                           .text !=
                                                                       '') &&
                                                               (_model.sugetiion
-                                                                  .isNotEmpty))
+                                                                  .isNotEmpty) &&
+                                                              (_model.searchIFocusNode
+                                                                      ?.hasFocus ??
+                                                                  false))
                                                             Padding(
                                                               padding:
                                                                   EdgeInsetsDirectional

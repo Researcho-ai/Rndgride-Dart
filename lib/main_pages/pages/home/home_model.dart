@@ -14,7 +14,6 @@ import '/resources/components/instruments_details/instruments_details_widget.dar
 import '/resources/components/sophisticated_instrument_component/sophisticated_instrument_component_widget.dart';
 import '/index.dart';
 import 'home_widget.dart' show HomeWidget;
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 class HomeModel extends FlutterFlowModel<HomeWidget> {
@@ -156,10 +155,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   // Models for InstrumentsDetails dynamic component.
   late FlutterFlowDynamicModels<InstrumentsDetailsModel>
       instrumentsDetailsModels2;
-  // State field(s) for WebCarousel widget.
-  CarouselSliderController? webCarouselController;
-  int webCarouselCurrentIndex = 1;
-
   // State field(s) for PageView widget.
   PageController? pageViewController1;
 
