@@ -218,7 +218,7 @@ class _AvailableTestdetialComponentWidgetState
                       if ((widget.methodName != null &&
                               widget.methodName != '') &&
                           (widget.methodName != '') &&
-                          (widget.testName != 'null'))
+                          (widget.methodName != 'null'))
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 6.0, 0.0, 6.0),

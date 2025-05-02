@@ -457,160 +457,147 @@ class _TestPropertiesComponentWidgetState
                                 itemBuilder: (context, fieldsListIndex) {
                                   final fieldsListItem =
                                       fieldsList[fieldsListIndex];
-                                  return wrapWithModel(
-                                    model: _model.materialComponentModels1
-                                        .getModel(
-                                      fieldsListIndex.toString(),
-                                      fieldsListIndex,
-                                    ),
-                                    updateCallback: () => safeSetState(() {}),
-                                    updateOnChange: true,
-                                    child: MaterialComponentWidget(
-                                      key: Key(
-                                        'Keyo8e_${fieldsListIndex.toString()}',
-                                      ),
-                                      materialName: getJsonField(
+                                  return MaterialComponentWidget(
+                                    key: Key(
+                                        'Keyo8e_${fieldsListIndex}_of_${fieldsList.length}'),
+                                    materialName: getJsonField(
+                                      fieldsListItem,
+                                      r'''$.field_name''',
+                                    ).toString(),
+                                    level: 0,
+                                    checkBoxValue: fieldsListIndex ==
+                                        _model.selectedFieldIndex,
+                                    addAction: () async {
+                                      logFirebaseEvent(
+                                          'TEST_PROPERTIES_COMPONENT_Container_o8ex');
+                                      logFirebaseEvent(
+                                          'materialComponent_update_component_state');
+                                      _model.selectedFieldIndex = null;
+                                      safeSetState(() {});
+                                      logFirebaseEvent(
+                                          'materialComponent_update_component_state');
+                                      _model.selectedfield = getJsonField(
                                         fieldsListItem,
                                         r'''$.field_name''',
-                                      ).toString(),
-                                      level: 0,
-                                      checkBoxValue: fieldsListIndex ==
-                                          _model.selectedFieldIndex,
-                                      addAction: () async {
-                                        logFirebaseEvent(
-                                            'TEST_PROPERTIES_COMPONENT_Container_o8ex');
-                                        logFirebaseEvent(
-                                            'materialComponent_update_component_state');
-                                        _model.selectedFieldIndex = null;
-                                        safeSetState(() {});
-                                        logFirebaseEvent(
-                                            'materialComponent_update_component_state');
-                                        _model.selectedfield = getJsonField(
+                                      ).toString();
+                                      _model.fieldShow = false;
+                                      _model.selectedFieldIndex =
+                                          fieldsListIndex;
+                                      _model.finalList = [];
+                                      _model.selectedMaterial = null;
+                                      _model.selectedTest = null;
+                                      _model.testMethodList = [];
+                                      _model.selectedMethod = null;
+                                      _model.selectedtestList = [];
+                                      _model.selectesMaterialIndex = null;
+                                      _model.selectedTestIndexs = [];
+                                      safeSetState(() {});
+                                      logFirebaseEvent(
+                                          'materialComponent_backend_call');
+                                      _model.apiResultj0o = await TestsGroup
+                                          .getAvailabeTestPropetiesCall
+                                          .call(
+                                        fieldRef: getJsonField(
                                           fieldsListItem,
-                                          r'''$.field_name''',
-                                        ).toString();
-                                        _model.fieldShow = false;
-                                        _model.selectedFieldIndex =
-                                            fieldsListIndex;
-                                        _model.finalList = [];
-                                        _model.selectedMaterial = null;
-                                        _model.selectedTest = null;
-                                        _model.testMethodList = [];
-                                        _model.selectedMethod = null;
-                                        _model.selectedtestList = [];
-                                        _model.selectesMaterialIndex = null;
-                                        _model.selectedTestIndexs = [];
-                                        safeSetState(() {});
-                                        logFirebaseEvent(
-                                            'materialComponent_backend_call');
-                                        _model.apiResultj0o = await TestsGroup
-                                            .getAvailabeTestPropetiesCall
-                                            .call(
-                                          fieldRef: getJsonField(
-                                            fieldsListItem,
-                                            r'''$._id''',
-                                          ).toString(),
-                                        );
+                                          r'''$._id''',
+                                        ).toString(),
+                                      );
 
-                                        if ((_model.apiResultj0o?.succeeded ??
-                                            true)) {
-                                          logFirebaseEvent(
-                                              'materialComponent_custom_action');
-                                          _model.availability =
-                                              await actions.checkAvailability(
-                                            TestsGroup
-                                                .getAvailabeTestPropetiesCall
-                                                .data(
-                                                  (_model.apiResultj0o
-                                                          ?.jsonBody ??
-                                                      ''),
-                                                )!
-                                                .toList(),
-                                          );
-                                          logFirebaseEvent(
-                                              'materialComponent_update_component_state');
-                                          _model.finalList = TestsGroup
+                                      if ((_model.apiResultj0o?.succeeded ??
+                                          true)) {
+                                        logFirebaseEvent(
+                                            'materialComponent_custom_action');
+                                        _model.availability =
+                                            await actions.checkAvailability(
+                                          TestsGroup
                                               .getAvailabeTestPropetiesCall
                                               .data(
                                                 (_model.apiResultj0o
                                                         ?.jsonBody ??
                                                     ''),
                                               )!
-                                              .toList()
-                                              .cast<dynamic>();
-                                          _model.testMethodList = TestsGroup
-                                              .getAvailabeTestPropetiesCall
-                                              .data(
-                                                (_model.apiResultj0o
-                                                        ?.jsonBody ??
-                                                    ''),
-                                              )!
-                                              .toList()
-                                              .cast<dynamic>();
-                                          _model.availabilityBool = _model
-                                              .availability!
-                                              .toList()
-                                              .cast<bool>();
-                                          safeSetState(() {});
-                                          await Future.wait([
-                                            Future(() async {
+                                              .toList(),
+                                        );
+                                        logFirebaseEvent(
+                                            'materialComponent_update_component_state');
+                                        _model.finalList = TestsGroup
+                                            .getAvailabeTestPropetiesCall
+                                            .data(
+                                              (_model.apiResultj0o?.jsonBody ??
+                                                  ''),
+                                            )!
+                                            .toList()
+                                            .cast<dynamic>();
+                                        _model.testMethodList = TestsGroup
+                                            .getAvailabeTestPropetiesCall
+                                            .data(
+                                              (_model.apiResultj0o?.jsonBody ??
+                                                  ''),
+                                            )!
+                                            .toList()
+                                            .cast<dynamic>();
+                                        _model.availabilityBool = _model
+                                            .availability!
+                                            .toList()
+                                            .cast<bool>();
+                                        safeSetState(() {});
+                                        await Future.wait([
+                                          Future(() async {
+                                            if (_model.availabilityBool
+                                                .elementAtOrNull(1)!) {
+                                              logFirebaseEvent(
+                                                  'materialComponent_update_component_state');
+                                              _model.materialShow = true;
+                                              _model.level = 1;
+                                              safeSetState(() {});
+                                            } else {
                                               if (_model.availabilityBool
-                                                  .elementAtOrNull(1)!) {
+                                                      .elementAtOrNull(2)! ||
+                                                  _model.availabilityBool
+                                                      .elementAtOrNull(3)!) {
                                                 logFirebaseEvent(
                                                     'materialComponent_update_component_state');
-                                                _model.materialShow = true;
-                                                _model.level = 1;
+                                                _model.level = 2;
+                                                _model.testMethodShow = true;
                                                 safeSetState(() {});
                                               } else {
-                                                if (_model.availabilityBool
-                                                        .elementAtOrNull(2)! ||
-                                                    _model.availabilityBool
-                                                        .elementAtOrNull(3)!) {
-                                                  logFirebaseEvent(
-                                                      'materialComponent_update_component_state');
-                                                  _model.level = 2;
-                                                  _model.testMethodShow = true;
-                                                  safeSetState(() {});
-                                                } else {
-                                                  logFirebaseEvent(
-                                                      'materialComponent_update_component_state');
-                                                  _model.selectedtestList =
-                                                      TestsGroup
-                                                          .getAvailabeTestPropetiesCall
-                                                          .data(
-                                                            (_model.apiResultj0o
-                                                                    ?.jsonBody ??
-                                                                ''),
-                                                          )!
-                                                          .toList()
-                                                          .cast<dynamic>();
-                                                  safeSetState(() {});
-                                                }
+                                                logFirebaseEvent(
+                                                    'materialComponent_update_component_state');
+                                                _model.selectedtestList = TestsGroup
+                                                    .getAvailabeTestPropetiesCall
+                                                    .data(
+                                                      (_model.apiResultj0o
+                                                              ?.jsonBody ??
+                                                          ''),
+                                                    )!
+                                                    .toList()
+                                                    .cast<dynamic>();
+                                                safeSetState(() {});
                                               }
-                                            }),
-                                          ]);
-                                        }
+                                            }
+                                          }),
+                                        ]);
+                                      }
 
-                                        safeSetState(() {});
-                                      },
-                                      rmAction: () async {
-                                        logFirebaseEvent(
-                                            'TEST_PROPERTIES_COMPONENT_Container_o8ex');
-                                        logFirebaseEvent(
-                                            'materialComponent_update_component_state');
-                                        _model.finalList = [];
-                                        _model.selectedMaterial = null;
-                                        _model.selectedTest = null;
-                                        _model.testMethodList = [];
-                                        _model.selectedMethod = null;
-                                        _model.selectedtestList = [];
-                                        _model.selectesMaterialIndex = null;
-                                        _model.selectedTestIndexs = [];
-                                        _model.selectedfield = null;
-                                        _model.selectedFieldIndex = null;
-                                        safeSetState(() {});
-                                      },
-                                    ),
+                                      safeSetState(() {});
+                                    },
+                                    rmAction: () async {
+                                      logFirebaseEvent(
+                                          'TEST_PROPERTIES_COMPONENT_Container_o8ex');
+                                      logFirebaseEvent(
+                                          'materialComponent_update_component_state');
+                                      _model.finalList = [];
+                                      _model.selectedMaterial = null;
+                                      _model.selectedTest = null;
+                                      _model.testMethodList = [];
+                                      _model.selectedMethod = null;
+                                      _model.selectedtestList = [];
+                                      _model.selectesMaterialIndex = null;
+                                      _model.selectedTestIndexs = [];
+                                      _model.selectedfield = null;
+                                      _model.selectedFieldIndex = null;
+                                      safeSetState(() {});
+                                    },
                                   );
                                 },
                               );
@@ -1027,22 +1014,76 @@ class _TestPropertiesComponentWidgetState
                                       addAction: () async {
                                         logFirebaseEvent(
                                             'TEST_PROPERTIES_COMPONENT_Container_hi4p');
+                                        if ((getJsonField(
+                                                  analyssiListItem,
+                                                  r'''$.test.test_name''',
+                                                ) !=
+                                                null) &&
+                                            (getJsonField(
+                                                  analyssiListItem,
+                                                  r'''$.method.method_name''',
+                                                ) !=
+                                                null)) {
+                                          logFirebaseEvent(
+                                              'testComponent_update_component_state');
+                                          _model.testMethodShow = false;
+                                          _model.level = 3;
+                                          _model.addToSelectedTestIndexs(
+                                              analyssiListIndex);
+                                          _model.selectedTest = getJsonField(
+                                            analyssiListItem,
+                                            r'''$.test.test_name''',
+                                          ).toString();
+                                          _model.selectedMethod = getJsonField(
+                                            analyssiListItem,
+                                            r'''$.method.method_name''',
+                                          ).toString();
+                                          safeSetState(() {});
+                                        } else {
+                                          if (getJsonField(
+                                                analyssiListItem,
+                                                r'''$.test.test_name''',
+                                              ) !=
+                                              null) {
+                                            logFirebaseEvent(
+                                                'testComponent_update_component_state');
+                                            _model.testMethodShow = false;
+                                            _model.level = 3;
+                                            _model.addToSelectedTestIndexs(
+                                                analyssiListIndex);
+                                            _model.selectedTest = getJsonField(
+                                              analyssiListItem,
+                                              r'''$.test.test_name''',
+                                            ).toString();
+                                            safeSetState(() {});
+                                          } else {
+                                            if (getJsonField(
+                                                  analyssiListItem,
+                                                  r'''$.method.method_name''',
+                                                ) !=
+                                                null) {
+                                              logFirebaseEvent(
+                                                  'testComponent_update_component_state');
+                                              _model.testMethodShow = false;
+                                              _model.level = 3;
+                                              _model.addToSelectedTestIndexs(
+                                                  analyssiListIndex);
+                                              _model.selectedMethod =
+                                                  getJsonField(
+                                                analyssiListItem,
+                                                r'''$.method.method_name''',
+                                              ).toString();
+                                              safeSetState(() {});
+                                            }
+                                          }
+                                        }
+
                                         logFirebaseEvent(
                                             'testComponent_update_component_state');
-                                        _model.testMethodShow = false;
-                                        _model.level = 3;
-                                        _model.addToSelectedtestList(
-                                            analyssiListItem);
-                                        _model.addToSelectedTestIndexs(
-                                            analyssiListIndex);
-                                        _model.selectedTest = getJsonField(
-                                          analyssiListItem,
-                                          r'''$.test.test_name''',
-                                        ).toString();
-                                        _model.selectedMethod = getJsonField(
-                                          analyssiListItem,
-                                          r'''$.method.method_name''',
-                                        ).toString();
+                                        _model.selectedtestList =
+                                            analyssiListItem
+                                                .toList()
+                                                .cast<dynamic>();
                                         safeSetState(() {});
                                       },
                                       rmAction: () async {

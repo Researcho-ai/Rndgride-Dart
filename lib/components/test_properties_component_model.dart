@@ -1,6 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
 import '/components/available_testdetial_component_widget.dart';
-import '/components/material_component_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'test_properties_component_widget.dart'
@@ -99,9 +98,6 @@ class TestPropertiesComponentModel
 
   // Stores action output result for [Backend Call - API (Get Fieds)] action in testPropertiesComponent widget.
   ApiCallResponse? apiResultvth;
-  // Models for materialComponent dynamic component.
-  late FlutterFlowDynamicModels<MaterialComponentModel>
-      materialComponentModels1;
   // Stores action output result for [Backend Call - API (Get Availabe Test Propeties)] action in materialComponent widget.
   ApiCallResponse? apiResultj0o;
   // Stores action output result for [Custom Action - checkAvailability] action in materialComponent widget.
@@ -130,15 +126,12 @@ class TestPropertiesComponentModel
 
   @override
   void initState(BuildContext context) {
-    materialComponentModels1 =
-        FlutterFlowDynamicModels(() => MaterialComponentModel());
     availableTestdetialComponentModel2 =
         createModel(context, () => AvailableTestdetialComponentModel());
   }
 
   @override
   void dispose() {
-    materialComponentModels1.dispose();
     availableTestdetialComponentModel2.dispose();
     requirementTextFieldFocusNode?.dispose();
     requirementTextFieldTextController?.dispose();
