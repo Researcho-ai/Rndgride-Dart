@@ -514,173 +514,77 @@ class _InstrumentPropertiesComponentWidgetState
                             onPressed: () async {
                               logFirebaseEvent(
                                   'INSTRUMENT_PROPERTIES_COMPONENT_SUBMIT_R');
-                              if (_model.availableInstrumentName.isNotEmpty) {
-                                if (_model.selectedTests.isNotEmpty) {
-                                  logFirebaseEvent('Button_alert_dialog');
-                                  await showDialog(
-                                    context: context,
-                                    builder: (dialogContext) {
-                                      return Dialog(
-                                        elevation: 0,
-                                        insetPadding: EdgeInsets.zero,
-                                        backgroundColor: Colors.transparent,
-                                        alignment:
-                                            AlignmentDirectional(0.0, 0.0)
-                                                .resolve(
-                                                    Directionality.of(context)),
-                                        child: CommonDialogWidget(
-                                          instrumentTestName: getJsonField(
+                              logFirebaseEvent('Button_alert_dialog');
+                              await showDialog(
+                                context: context,
+                                builder: (dialogContext) {
+                                  return Dialog(
+                                    elevation: 0,
+                                    insetPadding: EdgeInsets.zero,
+                                    backgroundColor: Colors.transparent,
+                                    alignment: AlignmentDirectional(0.0, 0.0)
+                                        .resolve(Directionality.of(context)),
+                                    child: CommonDialogWidget(
+                                      instrumentTestName: getJsonField(
+                                        widget.instrumentPropertieJson,
+                                        r'''$.instrument_name''',
+                                      ).toString(),
+                                      isBooking: true,
+                                      bookingAction: () async {
+                                        logFirebaseEvent('_backend_call');
+                                        _model.apiResultt50Copy =
+                                            await InqueryGroup.createBookingCall
+                                                .call(
+                                          userID: currentUserData?.uid,
+                                          subType: 'Resource Booking',
+                                          instrumentRef: getJsonField(
                                             widget.instrumentPropertieJson,
-                                            r'''$.instrument_name''',
+                                            r'''$._id''',
                                           ).toString(),
-                                          isBooking: true,
-                                          bookingAction: () async {
-                                            logFirebaseEvent('_backend_call');
-                                            _model.apiResultt50Copy =
-                                                await InqueryGroup
-                                                    .createBookingCall
-                                                    .call(
-                                              userID: currentUserData?.uid,
-                                              subType: 'Resource Booking',
-                                              instrumentRef: getJsonField(
-                                                widget.instrumentPropertieJson,
-                                                r'''$._id''',
-                                              ).toString(),
-                                              testDetailsListJson:
-                                                  _model.selectedTests,
-                                              sampleQuantity: _model
-                                                  .requirementTextFieldTextController
-                                                  .text,
-                                              neededIn:
-                                                  _model.durationDrpodownValue,
-                                            );
+                                          testDetailsListJson:
+                                              _model.selectedTests,
+                                          sampleQuantity: _model
+                                              .requirementTextFieldTextController
+                                              .text,
+                                          neededIn:
+                                              _model.durationDrpodownValue,
+                                        );
 
-                                            if ((_model.apiResultt50Copy
-                                                    ?.succeeded ??
-                                                true)) {
-                                              logFirebaseEvent('_alert_dialog');
-                                              await showDialog(
-                                                context: context,
-                                                builder: (alertDialogContext) {
-                                                  return AlertDialog(
-                                                    title: Text(
-                                                        'Thank You for Your Request'),
-                                                    content: Text(
-                                                        'Your request has been submitted successfully. We\'ll get back to you shortl'),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () =>
-                                                            Navigator.pop(
-                                                                alertDialogContext),
-                                                        child: Text('Ok'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
+                                        if ((_model
+                                                .apiResultt50Copy?.succeeded ??
+                                            true)) {
+                                          logFirebaseEvent('_alert_dialog');
+                                          await showDialog(
+                                            context: context,
+                                            builder: (alertDialogContext) {
+                                              return AlertDialog(
+                                                title: Text(
+                                                    'Thank You for Your Request'),
+                                                content: Text(
+                                                    'Your request has been submitted successfully. We\'ll get back to you shortl'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () =>
+                                                        Navigator.pop(
+                                                            alertDialogContext),
+                                                    child: Text('Ok'),
+                                                  ),
+                                                ],
                                               );
-                                              logFirebaseEvent(
-                                                  '_update_app_state');
-
-                                              FFAppState().update(() {});
-                                              logFirebaseEvent('_navigate_to');
-
-                                              context.goNamed(
-                                                  HomeWidget.routeName);
-                                            }
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  );
-                                } else {
-                                  logFirebaseEvent('Button_alert_dialog');
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        content:
-                                            Text('Please select the test!'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
-                              } else {
-                                logFirebaseEvent('Button_alert_dialog');
-                                await showDialog(
-                                  context: context,
-                                  builder: (dialogContext) {
-                                    return Dialog(
-                                      elevation: 0,
-                                      insetPadding: EdgeInsets.zero,
-                                      backgroundColor: Colors.transparent,
-                                      alignment: AlignmentDirectional(0.0, 0.0)
-                                          .resolve(Directionality.of(context)),
-                                      child: CommonDialogWidget(
-                                        instrumentTestName: getJsonField(
-                                          widget.instrumentPropertieJson,
-                                          r'''$.instrument_name''',
-                                        ).toString(),
-                                        isBooking: true,
-                                        bookingAction: () async {
-                                          logFirebaseEvent('_backend_call');
-                                          _model.apiResult = await InqueryGroup
-                                              .createBookingCall
-                                              .call(
-                                            userID: currentUserData?.uid,
-                                            subType: 'Resource Booking',
-                                            instrumentRef: getJsonField(
-                                              widget.instrumentPropertieJson,
-                                              r'''$._id''',
-                                            ).toString(),
-                                            testDetailsListJson:
-                                                _model.selectedTests,
-                                            sampleQuantity: _model
-                                                .requirementTextFieldTextController
-                                                .text,
-                                            neededIn:
-                                                _model.durationDrpodownValue,
+                                            },
                                           );
+                                          logFirebaseEvent('_update_app_state');
 
-                                          if ((_model.apiResult?.succeeded ??
-                                              true)) {
-                                            logFirebaseEvent('_alert_dialog');
-                                            await showDialog(
-                                              context: context,
-                                              builder: (alertDialogContext) {
-                                                return AlertDialog(
-                                                  title: Text(
-                                                      'Thank You for Your Request'),
-                                                  content: Text(
-                                                      'Your request has been submitted successfully. We\'ll get back to you shortl'),
-                                                  actions: [
-                                                    TextButton(
-                                                      onPressed: () =>
-                                                          Navigator.pop(
-                                                              alertDialogContext),
-                                                      child: Text('Ok'),
-                                                    ),
-                                                  ],
-                                                );
-                                              },
-                                            );
-                                            logFirebaseEvent('_navigate_to');
+                                          FFAppState().update(() {});
+                                          logFirebaseEvent('_navigate_to');
 
-                                            context.pushNamed(
-                                                HomeWidget.routeName);
-                                          }
-                                        },
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
+                                          context.goNamed(HomeWidget.routeName);
+                                        }
+                                      },
+                                    ),
+                                  );
+                                },
+                              );
 
                               safeSetState(() {});
                             },

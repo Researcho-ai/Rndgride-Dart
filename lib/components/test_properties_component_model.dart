@@ -71,7 +71,7 @@ class TestPropertiesComponentModel
 
   bool fieldShow = false;
 
-  int? fieldIndex;
+  int? selectedFieldIndex;
 
   List<dynamic> fielsJsonList = [];
   void addToFielsJsonList(dynamic item) => fielsJsonList.add(item);

@@ -425,11 +425,10 @@ class _TestPropertiesComponentWidgetState
                               color: FlutterFlowTheme.of(context).line,
                             ),
                           ),
-                        if (_model.fieldShow || (_model.level == 0))
+                        if (_model.fieldShow)
                           Builder(
                             builder: (context) {
-                              final analyssiList =
-                                  _model.fielsJsonList.toList();
+                              final fieldsList = _model.fielsJsonList.toList();
 
                               return MasonryGridView.builder(
                                 gridDelegate:
@@ -453,46 +452,46 @@ class _TestPropertiesComponentWidgetState
                                 ),
                                 crossAxisSpacing: 10.0,
                                 mainAxisSpacing: 10.0,
-                                itemCount: analyssiList.length,
+                                itemCount: fieldsList.length,
                                 shrinkWrap: true,
-                                itemBuilder: (context, analyssiListIndex) {
-                                  final analyssiListItem =
-                                      analyssiList[analyssiListIndex];
+                                itemBuilder: (context, fieldsListIndex) {
+                                  final fieldsListItem =
+                                      fieldsList[fieldsListIndex];
                                   return wrapWithModel(
                                     model: _model.materialComponentModels1
                                         .getModel(
-                                      analyssiListItem.toString(),
-                                      analyssiListIndex,
+                                      fieldsListItem.toString(),
+                                      fieldsListIndex,
                                     ),
                                     updateCallback: () => safeSetState(() {}),
                                     updateOnChange: true,
                                     child: MaterialComponentWidget(
                                       key: Key(
-                                        'Keyo8e_${analyssiListItem.toString()}',
+                                        'Keyo8e_${fieldsListItem.toString()}',
                                       ),
                                       materialName: getJsonField(
-                                        analyssiListItem,
+                                        fieldsListItem,
                                         r'''$.field_name''',
                                       ).toString(),
-                                      level: 1,
-                                      currentIndex: analyssiListIndex,
-                                      selectedIndex: _model.fieldIndex,
+                                      level: 0,
+                                      currentIndex: fieldsListIndex,
+                                      selectedIndex: _model.selectedFieldIndex,
                                       addAction: () async {
                                         logFirebaseEvent(
                                             'TEST_PROPERTIES_COMPONENT_Container_o8ex');
                                         logFirebaseEvent(
                                             'materialComponent_update_component_state');
-                                        _model.fieldShow = false;
-                                        _model.fieldIndex = null;
+                                        _model.selectedFieldIndex = null;
                                         safeSetState(() {});
                                         logFirebaseEvent(
                                             'materialComponent_update_component_state');
                                         _model.selectedfield = getJsonField(
-                                          analyssiListItem,
+                                          fieldsListItem,
                                           r'''$.field_name''',
                                         ).toString();
-                                        _model.fieldShow = true;
-                                        _model.fieldIndex = analyssiListIndex;
+                                        _model.fieldShow = false;
+                                        _model.selectedFieldIndex =
+                                            fieldsListIndex;
                                         _model.finalList = [];
                                         _model.selectedMaterial = null;
                                         _model.selectedTest = null;
@@ -508,7 +507,7 @@ class _TestPropertiesComponentWidgetState
                                             .getAvailabeTestPropetiesCall
                                             .call(
                                           fieldRef: getJsonField(
-                                            analyssiListItem,
+                                            fieldsListItem,
                                             r'''$._id''',
                                           ).toString(),
                                         );
@@ -590,6 +589,10 @@ class _TestPropertiesComponentWidgetState
                                               }
                                             }),
                                           ]);
+                                          logFirebaseEvent(
+                                              'materialComponent_update_component_state');
+                                          _model.fieldShow = true;
+                                          safeSetState(() {});
                                         }
 
                                         safeSetState(() {});
@@ -608,7 +611,7 @@ class _TestPropertiesComponentWidgetState
                                         _model.selectesMaterialIndex = null;
                                         _model.selectedTestIndexs = [];
                                         _model.selectedfield = null;
-                                        _model.fieldIndex = null;
+                                        _model.selectedFieldIndex = null;
                                         safeSetState(() {});
                                       },
                                     ),
@@ -863,7 +866,7 @@ class _TestPropertiesComponentWidgetState
                             ),
                           ),
                         if ((_model.testMethodList.isNotEmpty) &&
-                            (_model.availabilityBool.elementAtOrNull(2)! &&
+                            (_model.availabilityBool.elementAtOrNull(2)! ||
                                 _model.availabilityBool.elementAtOrNull(3)!))
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(

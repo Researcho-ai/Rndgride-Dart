@@ -538,7 +538,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           onChanged: (_) =>
                                                                               EasyDebounce.debounce(
                                                                             '_model.textFieldTextController',
-                                                                            Duration(milliseconds: 900),
+                                                                            Duration(milliseconds: 1200),
                                                                             () async {
                                                                               logFirebaseEvent('HOME_PAGE_TextField_ON_TEXTFIELD_CHANGE');
                                                                               if (_model.textFieldTextController.text != '') {
