@@ -171,7 +171,7 @@ class _HomeWidgetState extends State<HomeWidget> {
       () async {
         logFirebaseEvent('HOME_PAGE_TextField_ON_FOCUS_CHANGE');
         logFirebaseEvent('TextField_wait__delay');
-        await Future.delayed(const Duration(milliseconds: 2000));
+        await Future.delayed(const Duration(milliseconds: 4000));
         logFirebaseEvent('TextField_update_page_state');
         _model.searchBarFocuse = false;
         safeSetState(() {});

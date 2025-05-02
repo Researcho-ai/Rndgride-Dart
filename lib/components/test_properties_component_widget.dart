@@ -10,7 +10,6 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/custom_code/actions/index.dart' as actions;
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -1429,10 +1428,6 @@ class _TestPropertiesComponentWidgetState
                                                   );
                                                 },
                                               );
-                                              logFirebaseEvent('_navigate_to');
-
-                                              context.goNamed(
-                                                  HomeWidget.routeName);
                                             }
                                           } else {
                                             if ((_model.selectedfield != null &&
@@ -1502,11 +1497,6 @@ class _TestPropertiesComponentWidgetState
                                                     );
                                                   },
                                                 );
-                                                logFirebaseEvent(
-                                                    '_navigate_to');
-
-                                                context.goNamed(
-                                                    HomeWidget.routeName);
                                               }
                                             } else {
                                               logFirebaseEvent('_backend_call');
@@ -1553,19 +1543,22 @@ class _TestPropertiesComponentWidgetState
                                                     );
                                                   },
                                                 );
-                                                logFirebaseEvent(
-                                                    '_navigate_to');
-
-                                                context.goNamed(
-                                                    HomeWidget.routeName);
                                               }
                                             }
                                           }
+
+                                          logFirebaseEvent(
+                                              '_close_dialog_drawer_etc');
+                                          Navigator.pop(context);
                                         },
                                       ),
                                     );
                                   },
                                 );
+
+                                logFirebaseEvent(
+                                    'Button_close_dialog_drawer_etc');
+                                Navigator.pop(context);
 
                                 safeSetState(() {});
                               },

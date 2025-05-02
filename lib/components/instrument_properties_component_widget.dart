@@ -7,7 +7,6 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -573,18 +572,19 @@ class _InstrumentPropertiesComponentWidgetState
                                               );
                                             },
                                           );
-                                          logFirebaseEvent('_update_app_state');
-
-                                          FFAppState().update(() {});
-                                          logFirebaseEvent('_navigate_to');
-
-                                          context.goNamed(HomeWidget.routeName);
                                         }
+                                        logFirebaseEvent(
+                                            '_close_dialog_drawer_etc');
+                                        Navigator.pop(context);
                                       },
                                     ),
                                   );
                                 },
                               );
+
+                              logFirebaseEvent(
+                                  'Button_close_dialog_drawer_etc');
+                              Navigator.pop(context);
 
                               safeSetState(() {});
                             },
