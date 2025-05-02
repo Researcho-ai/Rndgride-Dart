@@ -141,7 +141,8 @@ class _TestComponentWidgetState extends State<TestComponentWidget> {
                         children: [
                           if ((widget.methods != null &&
                                   widget.methods != '') &&
-                              (widget.methods != ''))
+                              (widget.methods != '') &&
+                              (widget.methods != 'null'))
                             Flexible(
                               child: Padding(
                                 padding: EdgeInsetsDirectional.fromSTEB(

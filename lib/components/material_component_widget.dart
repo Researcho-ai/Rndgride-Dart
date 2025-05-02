@@ -11,16 +11,14 @@ class MaterialComponentWidget extends StatefulWidget {
     this.rmAction,
     this.materialName,
     this.level,
-    this.currentIndex,
-    this.selectedIndex,
-  });
+    bool? checkBoxValue,
+  }) : this.checkBoxValue = checkBoxValue ?? false;
 
   final Future Function()? addAction;
   final Future Function()? rmAction;
   final String? materialName;
   final int? level;
-  final int? currentIndex;
-  final int? selectedIndex;
+  final bool checkBoxValue;
 
   @override
   State<MaterialComponentWidget> createState() =>
@@ -78,8 +76,7 @@ class _MaterialComponentWidgetState extends State<MaterialComponentWidget> {
                   unselectedWidgetColor: FlutterFlowTheme.of(context).primary,
                 ),
                 child: Checkbox(
-                  value: _model.checkboxValue ??=
-                      widget.currentIndex == widget.selectedIndex,
+                  value: _model.checkboxValue ??= widget.checkBoxValue,
                   onChanged: (newValue) async {
                     safeSetState(() => _model.checkboxValue = newValue!);
                     if (newValue!) {

@@ -460,22 +460,22 @@ class _TestPropertiesComponentWidgetState
                                   return wrapWithModel(
                                     model: _model.materialComponentModels1
                                         .getModel(
-                                      fieldsListItem.toString(),
+                                      fieldsListIndex.toString(),
                                       fieldsListIndex,
                                     ),
                                     updateCallback: () => safeSetState(() {}),
                                     updateOnChange: true,
                                     child: MaterialComponentWidget(
                                       key: Key(
-                                        'Keyo8e_${fieldsListItem.toString()}',
+                                        'Keyo8e_${fieldsListIndex.toString()}',
                                       ),
                                       materialName: getJsonField(
                                         fieldsListItem,
                                         r'''$.field_name''',
                                       ).toString(),
                                       level: 0,
-                                      currentIndex: fieldsListIndex,
-                                      selectedIndex: _model.selectedFieldIndex,
+                                      checkBoxValue: fieldsListIndex ==
+                                          _model.selectedFieldIndex,
                                       addAction: () async {
                                         logFirebaseEvent(
                                             'TEST_PROPERTIES_COMPONENT_Container_o8ex');
@@ -589,10 +589,6 @@ class _TestPropertiesComponentWidgetState
                                               }
                                             }),
                                           ]);
-                                          logFirebaseEvent(
-                                              'materialComponent_update_component_state');
-                                          _model.fieldShow = true;
-                                          safeSetState(() {});
                                         }
 
                                         safeSetState(() {});
@@ -787,8 +783,7 @@ class _TestPropertiesComponentWidgetState
                                         r'''$.material.material_name''',
                                       ).toString(),
                                       level: 1,
-                                      currentIndex: analyssiListIndex,
-                                      selectedIndex:
+                                      checkBoxValue: analyssiListIndex ==
                                           _model.selectesMaterialIndex,
                                       addAction: () async {
                                         logFirebaseEvent(
@@ -1035,6 +1030,11 @@ class _TestPropertiesComponentWidgetState
                                         logFirebaseEvent(
                                             'testComponent_update_component_state');
                                         _model.testMethodShow = false;
+                                        _model.level = 3;
+                                        _model.addToSelectedtestList(
+                                            analyssiListItem);
+                                        _model.addToSelectedTestIndexs(
+                                            analyssiListIndex);
                                         _model.selectedTest = getJsonField(
                                           analyssiListItem,
                                           r'''$.test.test_name''',
@@ -1043,11 +1043,6 @@ class _TestPropertiesComponentWidgetState
                                           analyssiListItem,
                                           r'''$.method.method_name''',
                                         ).toString();
-                                        _model.level = 3;
-                                        _model.addToSelectedtestList(
-                                            analyssiListItem);
-                                        _model.addToSelectedTestIndexs(
-                                            analyssiListIndex);
                                         safeSetState(() {});
                                       },
                                       rmAction: () async {
@@ -1160,8 +1155,8 @@ class _TestPropertiesComponentWidgetState
                                             AvailableTestdetialComponentWidget(
                                           fieldName: _model.selectedfield,
                                           materialName: _model.selectedMaterial,
-                                          testName: '',
-                                          methodName: '',
+                                          testName: _model.selectedTest,
+                                          methodName: _model.selectedMethod,
                                           isSearchresult: false,
                                         ),
                                       ),
@@ -1395,7 +1390,7 @@ class _TestPropertiesComponentWidgetState
                                               );
                                               logFirebaseEvent('_navigate_to');
 
-                                              context.pushNamed(
+                                              context.goNamed(
                                                   HomeWidget.routeName);
                                             }
                                           } else {
@@ -1469,7 +1464,7 @@ class _TestPropertiesComponentWidgetState
                                                 logFirebaseEvent(
                                                     '_navigate_to');
 
-                                                context.pushNamed(
+                                                context.goNamed(
                                                     HomeWidget.routeName);
                                               }
                                             } else {
@@ -1520,7 +1515,7 @@ class _TestPropertiesComponentWidgetState
                                                 logFirebaseEvent(
                                                     '_navigate_to');
 
-                                                context.pushNamed(
+                                                context.goNamed(
                                                     HomeWidget.routeName);
                                               }
                                             }
