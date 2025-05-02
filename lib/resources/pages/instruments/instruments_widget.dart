@@ -428,7 +428,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                         '_model.searchITextController',
                                                                         Duration(
                                                                             milliseconds:
-                                                                                800),
+                                                                                900),
                                                                         () async {
                                                                           logFirebaseEvent(
                                                                               'INSTRUMENTS_searchI_ON_TEXTFIELD_CHANGE');

@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/components/available_testdetial_component_widget.dart';
 import '/components/material_component_widget.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
@@ -107,6 +108,8 @@ class TestPropertiesComponentModel
   List<bool>? availability;
   // Stores action output result for [Custom Action - filterAvailableTests] action in materialComponent widget.
   List<dynamic>? testMethods2;
+  // Model for Available_testdetial_component component.
+  late AvailableTestdetialComponentModel availableTestdetialComponentModel2;
   // State field(s) for RequirementTextField widget.
   FocusNode? requirementTextFieldFocusNode;
   TextEditingController? requirementTextFieldTextController;
@@ -117,17 +120,26 @@ class TestPropertiesComponentModel
   String? durationDrpodownValue;
   FormFieldController<String>? durationDrpodownValueController;
   // Stores action output result for [Backend Call - API (createBooking)] action in Button widget.
+  ApiCallResponse? apiResultFullEmty;
+  // Stores action output result for [Custom Action - createJsonObject] action in Button widget.
+  dynamic genratedJsonObject;
+  // Stores action output result for [Backend Call - API (createBooking)] action in Button widget.
+  ApiCallResponse? apiResultnotEmpty;
+  // Stores action output result for [Backend Call - API (createBooking)] action in Button widget.
   ApiCallResponse? apiResult;
 
   @override
   void initState(BuildContext context) {
     materialComponentModels1 =
         FlutterFlowDynamicModels(() => MaterialComponentModel());
+    availableTestdetialComponentModel2 =
+        createModel(context, () => AvailableTestdetialComponentModel());
   }
 
   @override
   void dispose() {
     materialComponentModels1.dispose();
+    availableTestdetialComponentModel2.dispose();
     requirementTextFieldFocusNode?.dispose();
     requirementTextFieldTextController?.dispose();
   }

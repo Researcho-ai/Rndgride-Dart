@@ -538,7 +538,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           onChanged: (_) =>
                                                                               EasyDebounce.debounce(
                                                                             '_model.textFieldTextController',
-                                                                            Duration(milliseconds: 100),
+                                                                            Duration(milliseconds: 900),
                                                                             () async {
                                                                               logFirebaseEvent('HOME_PAGE_TextField_ON_TEXTFIELD_CHANGE');
                                                                               if (_model.textFieldTextController.text != '') {
@@ -560,6 +560,10 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                                       .cast<String>();
                                                                                   safeSetState(() {});
                                                                                 }
+                                                                              } else {
+                                                                                logFirebaseEvent('TextField_update_page_state');
+
+                                                                                safeSetState(() {});
                                                                               }
 
                                                                               safeSetState(() {});

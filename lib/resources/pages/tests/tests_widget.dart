@@ -429,7 +429,7 @@ class _TestsWidgetState extends State<TestsWidget> {
                                                                         '_model.searchITextController',
                                                                         Duration(
                                                                             milliseconds:
-                                                                                100),
+                                                                                900),
                                                                         () async {
                                                                           logFirebaseEvent(
                                                                               'TESTS_PAGE_searchI_ON_TEXTFIELD_CHANGE');

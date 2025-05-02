@@ -102,7 +102,6 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                     color: Theme.of(context).brightness == Brightness.light
                         ? FlutterFlowTheme.of(context).accent1
                         : FlutterFlowTheme.of(context).primary,
-                    width: 1.0,
                   ),
                 ),
                 child: Row(
@@ -142,7 +141,6 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                     color: Theme.of(context).brightness == Brightness.dark
                         ? FlutterFlowTheme.of(context).accent1
                         : FlutterFlowTheme.of(context).primary,
-                    width: 1.0,
                   ),
                 ),
                 child: Row(

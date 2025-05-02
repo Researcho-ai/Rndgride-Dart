@@ -3,6 +3,7 @@ import '/components/test_properties_component_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/onboarding/sign_in_compoent/sign_in_compoent_widget.dart';
+import '/custom_code/widgets/index.dart' as custom_widgets;
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'test_details_model.dart';
@@ -162,27 +163,77 @@ class _TestDetailsWidgetState extends State<TestDetailsWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          flex: 3,
-                          child: Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 50.0, 0.0),
-                            child: Text(
-                              valueOrDefault<String>(
-                                widget.testName,
-                                'N/A',
-                              ).maybeHandleOverflow(
-                                maxChars: 104,
-                                replacement: '…',
-                              ),
-                              textAlign: TextAlign.start,
-                              style: FlutterFlowTheme.of(context)
-                                  .labelLarge
-                                  .override(
-                                    font:
-                                        FlutterFlowTheme.of(context).labelLarge,
-                                    letterSpacing: 0.0,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Container(
+                                width: () {
+                                  if (MediaQuery.sizeOf(context).width <
+                                      kBreakpointSmall) {
+                                    return 80.0;
+                                  } else if (MediaQuery.sizeOf(context).width <
+                                      kBreakpointMedium) {
+                                    return 90.0;
+                                  } else if (MediaQuery.sizeOf(context).width <
+                                      kBreakpointLarge) {
+                                    return 100.0;
+                                  } else {
+                                    return 100.0;
+                                  }
+                                }(),
+                                height: () {
+                                  if (MediaQuery.sizeOf(context).width <
+                                      kBreakpointSmall) {
+                                    return 80.0;
+                                  } else if (MediaQuery.sizeOf(context).width <
+                                      kBreakpointMedium) {
+                                    return 90.0;
+                                  } else if (MediaQuery.sizeOf(context).width <
+                                      kBreakpointLarge) {
+                                    return 100.0;
+                                  } else {
+                                    return 100.0;
+                                  }
+                                }(),
+                                decoration: BoxDecoration(),
+                                child: Container(
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                  child: custom_widgets.ImageWidgetFlexible(
+                                    width: double.infinity,
+                                    height: double.infinity,
+                                    imageUrl: getJsonField(
+                                      widget.testJson,
+                                      r'''$.image_url''',
+                                    ).toString(),
                                   ),
-                            ),
+                                ),
+                              ),
+                              Flexible(
+                                flex: 3,
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      24.0, 0.0, 0.0, 0.0),
+                                  child: Text(
+                                    valueOrDefault<String>(
+                                      widget.testName,
+                                      'N/A',
+                                    ).maybeHandleOverflow(
+                                      maxChars: 104,
+                                      replacement: '…',
+                                    ),
+                                    textAlign: TextAlign.start,
+                                    style: FlutterFlowTheme.of(context)
+                                        .labelLarge
+                                        .override(
+                                          font: FlutterFlowTheme.of(context)
+                                              .labelLarge,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         ClipRRect(

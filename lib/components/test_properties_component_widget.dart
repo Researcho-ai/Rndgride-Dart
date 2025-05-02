@@ -482,6 +482,11 @@ class _TestPropertiesComponentWidgetState
                                             'TEST_PROPERTIES_COMPONENT_Container_o8ex');
                                         logFirebaseEvent(
                                             'materialComponent_update_component_state');
+                                        _model.fieldShow = false;
+                                        _model.fieldIndex = null;
+                                        safeSetState(() {});
+                                        logFirebaseEvent(
+                                            'materialComponent_update_component_state');
                                         _model.selectedfield = getJsonField(
                                           analyssiListItem,
                                           r'''$.field_name''',
@@ -1125,6 +1130,44 @@ class _TestPropertiesComponentWidgetState
                               ),
                             ),
                           ),
+                        if (!(_model.selectedtestList.isNotEmpty) &&
+                            ((_model.selectedfield != null &&
+                                    _model.selectedfield != '') ||
+                                (_model.selectedMaterial != null &&
+                                    _model.selectedMaterial != '')))
+                          Align(
+                            alignment: AlignmentDirectional(-1.0, 0.0),
+                            child: Padding(
+                              padding: EdgeInsetsDirectional.fromSTEB(
+                                  0.0, 8.0, 0.0, 0.0),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 0.0, 12.0, 0.0),
+                                      child: wrapWithModel(
+                                        model: _model
+                                            .availableTestdetialComponentModel2,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child:
+                                            AvailableTestdetialComponentWidget(
+                                          fieldName: _model.selectedfield,
+                                          materialName: _model.selectedMaterial,
+                                          testName: '',
+                                          methodName: '',
+                                          isSearchresult: false,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                               0.0, 16.0, 0.0, 0.0),
@@ -1286,30 +1329,96 @@ class _TestPropertiesComponentWidgetState
                               onPressed: () async {
                                 logFirebaseEvent(
                                     'TEST_PROPERTIES_COMPONENT_SUBMIT_REQUEST');
-                                if (_model.selectedMaterial != null &&
-                                    _model.selectedMaterial != '') {
-                                  if (_model.selectedtestList.isNotEmpty) {
-                                    logFirebaseEvent('Button_alert_dialog');
-                                    await showDialog(
-                                      context: context,
-                                      builder: (dialogContext) {
-                                        return Dialog(
-                                          elevation: 0,
-                                          insetPadding: EdgeInsets.zero,
-                                          backgroundColor: Colors.transparent,
-                                          alignment: AlignmentDirectional(
-                                                  0.0, 0.0)
-                                              .resolve(
-                                                  Directionality.of(context)),
-                                          child: CommonDialogWidget(
-                                            instrumentTestName: getJsonField(
-                                              widget.testPropertieJson,
-                                              r'''$.category_name''',
-                                            ).toString(),
-                                            isBooking: true,
-                                            bookingAction: () async {
+                                logFirebaseEvent('Button_alert_dialog');
+                                await showDialog(
+                                  context: context,
+                                  builder: (dialogContext) {
+                                    return Dialog(
+                                      elevation: 0,
+                                      insetPadding: EdgeInsets.zero,
+                                      backgroundColor: Colors.transparent,
+                                      alignment: AlignmentDirectional(0.0, 0.0)
+                                          .resolve(Directionality.of(context)),
+                                      child: CommonDialogWidget(
+                                        instrumentTestName: getJsonField(
+                                          widget.testPropertieJson,
+                                          r'''$.category_name''',
+                                        ).toString(),
+                                        isBooking: true,
+                                        bookingAction: () async {
+                                          if (_model
+                                              .selectedtestList.isNotEmpty) {
+                                            logFirebaseEvent('_backend_call');
+                                            _model.apiResult =
+                                                await InqueryGroup
+                                                    .createBookingCall
+                                                    .call(
+                                              userID: currentUserData?.uid,
+                                              subType: 'Test Resource Booking',
+                                              instrumentRef: getJsonField(
+                                                widget.testPropertieJson,
+                                                r'''$._id''',
+                                              ).toString(),
+                                              testDetailsListJson:
+                                                  _model.selectedtestList,
+                                              sampleQuantity: _model
+                                                  .requirementTextFieldTextController
+                                                  .text,
+                                              neededIn:
+                                                  _model.durationDrpodownValue,
+                                            );
+
+                                            if ((_model.apiResult?.succeeded ??
+                                                true)) {
+                                              logFirebaseEvent('_alert_dialog');
+                                              await showDialog(
+                                                context: context,
+                                                builder: (alertDialogContext) {
+                                                  return AlertDialog(
+                                                    title: Text(
+                                                        'Thank You for Your Request'),
+                                                    content: Text(
+                                                        'Your request has been submitted successfully. We\'ll get back to you shortl'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                alertDialogContext),
+                                                        child: Text('Ok'),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                              logFirebaseEvent('_navigate_to');
+
+                                              context.pushNamed(
+                                                  HomeWidget.routeName);
+                                            }
+                                          } else {
+                                            if ((_model.selectedfield != null &&
+                                                    _model.selectedfield !=
+                                                        '') ||
+                                                (_model.selectedMaterial !=
+                                                        null &&
+                                                    _model.selectedMaterial !=
+                                                        '')) {
+                                              logFirebaseEvent(
+                                                  '_custom_action');
+                                              _model.genratedJsonObject =
+                                                  await actions
+                                                      .createJsonObject(
+                                                _model.selectedfield,
+                                                _model.selectedMaterial,
+                                                _model.selectedTest,
+                                                _model.selectedMethod,
+                                              );
+                                              logFirebaseEvent(
+                                                  '_update_component_state');
+                                              _model.addToSelectedtestList(
+                                                  _model.genratedJsonObject!);
                                               logFirebaseEvent('_backend_call');
-                                              _model.apiResult =
+                                              _model.apiResultnotEmpty =
                                                   await InqueryGroup
                                                       .createBookingCall
                                                       .call(
@@ -1329,8 +1438,8 @@ class _TestPropertiesComponentWidgetState
                                                     .durationDrpodownValue,
                                               );
 
-                                              if ((_model
-                                                      .apiResult?.succeeded ??
+                                              if ((_model.apiResultnotEmpty
+                                                      ?.succeeded ??
                                                   true)) {
                                                 logFirebaseEvent(
                                                     '_alert_dialog');
@@ -1360,49 +1469,64 @@ class _TestPropertiesComponentWidgetState
                                                 context.pushNamed(
                                                     HomeWidget.routeName);
                                               }
-                                            },
-                                          ),
-                                        );
-                                      },
+                                            } else {
+                                              logFirebaseEvent('_backend_call');
+                                              _model.apiResultFullEmty =
+                                                  await InqueryGroup
+                                                      .createBookingCall
+                                                      .call(
+                                                userID: currentUserData?.uid,
+                                                subType:
+                                                    'Test Resource Booking',
+                                                instrumentRef: getJsonField(
+                                                  widget.testPropertieJson,
+                                                  r'''$._id''',
+                                                ).toString(),
+                                                sampleQuantity: _model
+                                                    .requirementTextFieldTextController
+                                                    .text,
+                                                neededIn: _model
+                                                    .durationDrpodownValue,
+                                              );
+
+                                              if ((_model.apiResultFullEmty
+                                                      ?.succeeded ??
+                                                  true)) {
+                                                logFirebaseEvent(
+                                                    '_alert_dialog');
+                                                await showDialog(
+                                                  context: context,
+                                                  builder:
+                                                      (alertDialogContext) {
+                                                    return AlertDialog(
+                                                      title: Text(
+                                                          'Thank You for Your Request'),
+                                                      content: Text(
+                                                          'Your request has been submitted successfully. We\'ll get back to you shortl'),
+                                                      actions: [
+                                                        TextButton(
+                                                          onPressed: () =>
+                                                              Navigator.pop(
+                                                                  alertDialogContext),
+                                                          child: Text('Ok'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  },
+                                                );
+                                                logFirebaseEvent(
+                                                    '_navigate_to');
+
+                                                context.pushNamed(
+                                                    HomeWidget.routeName);
+                                              }
+                                            }
+                                          }
+                                        },
+                                      ),
                                     );
-                                  } else {
-                                    logFirebaseEvent('Button_alert_dialog');
-                                    await showDialog(
-                                      context: context,
-                                      builder: (alertDialogContext) {
-                                        return AlertDialog(
-                                          content: Text(
-                                              'Please select the test and method!'),
-                                          actions: [
-                                            TextButton(
-                                              onPressed: () => Navigator.pop(
-                                                  alertDialogContext),
-                                              child: Text('Ok'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  }
-                                } else {
-                                  logFirebaseEvent('Button_alert_dialog');
-                                  await showDialog(
-                                    context: context,
-                                    builder: (alertDialogContext) {
-                                      return AlertDialog(
-                                        content: Text(
-                                            'Please select material from list'),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () => Navigator.pop(
-                                                alertDialogContext),
-                                            child: Text('Ok'),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
+                                  },
+                                );
 
                                 safeSetState(() {});
                               },

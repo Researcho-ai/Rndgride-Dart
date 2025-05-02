@@ -451,7 +451,7 @@ class _SophisticatedInstrumentWidgetState
                                                                     '_model.searchITextController',
                                                                     Duration(
                                                                         milliseconds:
-                                                                            100),
+                                                                            900),
                                                                     () async {
                                                                       logFirebaseEvent(
                                                                           'SOPHISTICATED_INSTRUMENT_searchI_ON_TEXT');
