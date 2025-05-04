@@ -541,26 +541,34 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                             Duration(milliseconds: 500),
                                                                             () async {
                                                                               logFirebaseEvent('HOME_PAGE_TextField_ON_TEXTFIELD_CHANGE');
-                                                                              if (_model.textFieldTextController.text != '') {
-                                                                                logFirebaseEvent('TextField_update_page_state');
-                                                                                _model.searchBarFocuse = true;
-                                                                                safeSetState(() {});
-                                                                                logFirebaseEvent('TextField_backend_call');
-                                                                                _model.apiResultgim = await AdminGroup.globalSuggetionCall.call(
-                                                                                  searchTerm: _model.textFieldTextController.text,
-                                                                                );
+                                                                              await Future.wait([
+                                                                                Future(() async {
+                                                                                  if (_model.textFieldTextController.text != '') {
+                                                                                    logFirebaseEvent('TextField_backend_call');
+                                                                                    _model.apiResultgim = await AdminGroup.globalSuggetionCall.call(
+                                                                                      searchTerm: _model.textFieldTextController.text,
+                                                                                    );
 
-                                                                                if ((_model.apiResultgim?.succeeded ?? true)) {
-                                                                                  logFirebaseEvent('TextField_update_page_state');
-                                                                                  _model.sugetions = AdminGroup.globalSuggetionCall
-                                                                                      .globalSuggetion(
-                                                                                        (_model.apiResultgim?.jsonBody ?? ''),
-                                                                                      )!
-                                                                                      .toList()
-                                                                                      .cast<String>();
-                                                                                  safeSetState(() {});
-                                                                                }
-                                                                              }
+                                                                                    if ((_model.apiResultgim?.succeeded ?? true)) {
+                                                                                      logFirebaseEvent('TextField_update_page_state');
+                                                                                      _model.sugetions = AdminGroup.globalSuggetionCall
+                                                                                          .globalSuggetion(
+                                                                                            (_model.apiResultgim?.jsonBody ?? ''),
+                                                                                          )!
+                                                                                          .toList()
+                                                                                          .cast<String>();
+                                                                                      safeSetState(() {});
+                                                                                    }
+                                                                                  }
+                                                                                }),
+                                                                                Future(() async {
+                                                                                  if ((_model.textFieldFocusNode?.hasFocus ?? false)) {
+                                                                                    logFirebaseEvent('TextField_update_page_state');
+                                                                                    _model.searchBarFocuse = true;
+                                                                                    safeSetState(() {});
+                                                                                  }
+                                                                                }),
+                                                                              ]);
 
                                                                               safeSetState(() {});
                                                                             },
@@ -787,10 +795,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                         Builder(
                                                                       builder:
                                                                           (context) {
-                                                                        final sUggention = _model
-                                                                            .sugetions
-                                                                            .toList()
-                                                                            .take(6)
+                                                                        final sUggention = (AdminGroup.globalSuggetionCall
+                                                                                    .globalSuggetion(
+                                                                                      (_model.apiResultgim?.jsonBody ?? ''),
+                                                                                    )
+                                                                                    ?.unique((e) => e)
+                                                                                    .toList() ??
+                                                                                [])
+                                                                            .take(8)
                                                                             .toList();
 
                                                                         return SingleChildScrollView(
