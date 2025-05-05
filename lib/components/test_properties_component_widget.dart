@@ -1303,9 +1303,6 @@ class _TestPropertiesComponentWidgetState
                                     FormFieldController<String>(null),
                             options: [
                               FFLocalizations.of(context).getText(
-                                '3qqnk5p0' /* Today */,
-                              ),
-                              FFLocalizations.of(context).getText(
                                 '1iqjqy7c' /* 2-6 days */,
                               ),
                               FFLocalizations.of(context).getText(

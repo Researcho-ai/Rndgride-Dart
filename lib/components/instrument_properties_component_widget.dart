@@ -451,9 +451,6 @@ class _InstrumentPropertiesComponentWidgetState
                               FormFieldController<String>(null),
                           options: [
                             FFLocalizations.of(context).getText(
-                              '6tadkvwo' /* Today */,
-                            ),
-                            FFLocalizations.of(context).getText(
                               'nb4wwsgq' /* 2-6 days */,
                             ),
                             FFLocalizations.of(context).getText(

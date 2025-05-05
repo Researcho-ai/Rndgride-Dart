@@ -1275,10 +1275,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'en': 'Search for an item...',
       'hi': '',
     },
-    '6tadkvwo': {
-      'en': 'Today',
-      'hi': '',
-    },
     'nb4wwsgq': {
       'en': '2-6 days',
       'hi': '',
@@ -1328,10 +1324,6 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'jq2eh3a7': {
       'en': 'Search for an item...',
-      'hi': '',
-    },
-    '3qqnk5p0': {
-      'en': 'Today',
       'hi': '',
     },
     '1iqjqy7c': {
