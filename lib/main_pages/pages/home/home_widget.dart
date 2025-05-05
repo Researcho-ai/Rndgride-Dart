@@ -3217,8 +3217,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         'Row_navigate_to');
 
                                                     context.pushNamed(
-                                                        InstrumentsWidget
-                                                            .routeName);
+                                                        TestsWidget.routeName);
                                                   },
                                                   child: Row(
                                                     mainAxisSize:
