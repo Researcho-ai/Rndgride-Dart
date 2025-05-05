@@ -550,14 +550,23 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                                     );
 
                                                                                     if ((_model.apiResultgim?.succeeded ?? true)) {
-                                                                                      logFirebaseEvent('TextField_update_page_state');
-                                                                                      _model.sugetions = AdminGroup.globalSuggetionCall
-                                                                                          .globalSuggetion(
+                                                                                      if (AdminGroup.globalSuggetionCall.globalSuggetion(
+                                                                                                (_model.apiResultgim?.jsonBody ?? ''),
+                                                                                              ) !=
+                                                                                              null &&
+                                                                                          (AdminGroup.globalSuggetionCall.globalSuggetion(
                                                                                             (_model.apiResultgim?.jsonBody ?? ''),
-                                                                                          )!
-                                                                                          .toList()
-                                                                                          .cast<String>();
-                                                                                      safeSetState(() {});
+                                                                                          ))!
+                                                                                              .isNotEmpty) {
+                                                                                        logFirebaseEvent('TextField_update_page_state');
+                                                                                        _model.sugetions = AdminGroup.globalSuggetionCall
+                                                                                            .globalSuggetion(
+                                                                                              (_model.apiResultgim?.jsonBody ?? ''),
+                                                                                            )!
+                                                                                            .toList()
+                                                                                            .cast<String>();
+                                                                                        safeSetState(() {});
+                                                                                      }
                                                                                     }
                                                                                   }
                                                                                 }),
@@ -795,13 +804,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                         Builder(
                                                                       builder:
                                                                           (context) {
-                                                                        final sUggention = (AdminGroup.globalSuggetionCall
-                                                                                    .globalSuggetion(
-                                                                                      (_model.apiResultgim?.jsonBody ?? ''),
-                                                                                    )
-                                                                                    ?.unique((e) => e)
-                                                                                    .toList() ??
-                                                                                [])
+                                                                        final sUggention = _model
+                                                                            .sugetions
+                                                                            .toList()
                                                                             .take(8)
                                                                             .toList();
 

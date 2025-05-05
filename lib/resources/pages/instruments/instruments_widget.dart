@@ -446,14 +446,23 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
 
                                                                             if ((_model.apiResultq7d?.succeeded ??
                                                                                 true)) {
-                                                                              logFirebaseEvent('searchI_update_page_state');
-                                                                              _model.sugetiion = InstrumentsTestsGroup.instrumentSuggestionsCall
-                                                                                  .suggetion(
+                                                                              if (InstrumentsTestsGroup.instrumentSuggestionsCall.suggetion(
+                                                                                        (_model.apiResultq7d?.jsonBody ?? ''),
+                                                                                      ) !=
+                                                                                      null &&
+                                                                                  (InstrumentsTestsGroup.instrumentSuggestionsCall.suggetion(
                                                                                     (_model.apiResultq7d?.jsonBody ?? ''),
-                                                                                  )!
-                                                                                  .toList()
-                                                                                  .cast<String>();
-                                                                              safeSetState(() {});
+                                                                                  ))!
+                                                                                      .isNotEmpty) {
+                                                                                logFirebaseEvent('searchI_update_page_state');
+                                                                                _model.sugetiion = InstrumentsTestsGroup.instrumentSuggestionsCall
+                                                                                    .suggetion(
+                                                                                      (_model.apiResultq7d?.jsonBody ?? ''),
+                                                                                    )!
+                                                                                    .toList()
+                                                                                    .cast<String>();
+                                                                                safeSetState(() {});
+                                                                              }
                                                                             }
                                                                           } else {
                                                                             logFirebaseEvent('searchI_wait__delay');

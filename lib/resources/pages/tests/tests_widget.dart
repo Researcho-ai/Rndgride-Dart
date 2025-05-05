@@ -446,14 +446,23 @@ class _TestsWidgetState extends State<TestsWidget> {
 
                                                                             if ((_model.apiResultqu1?.succeeded ??
                                                                                 true)) {
-                                                                              logFirebaseEvent('searchI_update_page_state');
-                                                                              _model.suggetions = TestsGroup.testSuggestionCall
-                                                                                  .suggetoins(
+                                                                              if (TestsGroup.testSuggestionCall.suggetoins(
+                                                                                        (_model.apiResultqu1?.jsonBody ?? ''),
+                                                                                      ) !=
+                                                                                      null &&
+                                                                                  (TestsGroup.testSuggestionCall.suggetoins(
                                                                                     (_model.apiResultqu1?.jsonBody ?? ''),
-                                                                                  )!
-                                                                                  .toList()
-                                                                                  .cast<String>();
-                                                                              safeSetState(() {});
+                                                                                  ))!
+                                                                                      .isNotEmpty) {
+                                                                                logFirebaseEvent('searchI_update_page_state');
+                                                                                _model.suggetions = TestsGroup.testSuggestionCall
+                                                                                    .suggetoins(
+                                                                                      (_model.apiResultqu1?.jsonBody ?? ''),
+                                                                                    )!
+                                                                                    .toList()
+                                                                                    .cast<String>();
+                                                                                safeSetState(() {});
+                                                                              }
                                                                             }
                                                                           } else {
                                                                             logFirebaseEvent('searchI_wait__delay');

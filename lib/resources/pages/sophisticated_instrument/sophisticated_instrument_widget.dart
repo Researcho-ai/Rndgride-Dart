@@ -477,17 +477,23 @@ class _SophisticatedInstrumentWidgetState
 
                                                                         if ((_model.apiResult81w?.succeeded ??
                                                                             true)) {
-                                                                          logFirebaseEvent(
-                                                                              'searchI_update_page_state');
-                                                                          _model.sugetions = InstrumentsTestsGroup
-                                                                              .instrumentSuggestionsCall
-                                                                              .suggetion(
+                                                                          if (InstrumentsTestsGroup.instrumentSuggestionsCall.suggetion(
+                                                                                    (_model.apiResult81w?.jsonBody ?? ''),
+                                                                                  ) !=
+                                                                                  null &&
+                                                                              (InstrumentsTestsGroup.instrumentSuggestionsCall.suggetion(
                                                                                 (_model.apiResult81w?.jsonBody ?? ''),
-                                                                              )!
-                                                                              .toList()
-                                                                              .cast<String>();
-                                                                          safeSetState(
-                                                                              () {});
+                                                                              ))!
+                                                                                  .isNotEmpty) {
+                                                                            logFirebaseEvent('searchI_update_page_state');
+                                                                            _model.sugetions = InstrumentsTestsGroup.instrumentSuggestionsCall
+                                                                                .suggetion(
+                                                                                  (_model.apiResult81w?.jsonBody ?? ''),
+                                                                                )!
+                                                                                .toList()
+                                                                                .cast<String>();
+                                                                            safeSetState(() {});
+                                                                          }
                                                                         }
                                                                       } else {
                                                                         logFirebaseEvent(
