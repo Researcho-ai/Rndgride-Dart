@@ -479,7 +479,7 @@ class _TestPropertiesComponentWidgetState
                                         fieldsListItem,
                                         r'''$.field_name''',
                                       ).toString();
-                                      _model.fieldShow = false;
+                                      _model.fieldShow = true;
                                       _model.selectedFieldIndex =
                                           fieldsListIndex;
                                       _model.finalList = [];
@@ -709,12 +709,13 @@ class _TestPropertiesComponentWidgetState
                               ),
                             ),
                           ),
-                        if (_model.finalList.isNotEmpty)
+                        if ((_model.finalList.isNotEmpty) &&
+                            _model.availabilityBool.elementAtOrNull(1)!)
                           Opacity(
                             opacity: 0.3,
                             child: Divider(
                               thickness: 1.0,
-                              color: FlutterFlowTheme.of(context).primary,
+                              color: FlutterFlowTheme.of(context).line,
                             ),
                           ),
                         if (_model.materialShow || (_model.level == 1))
