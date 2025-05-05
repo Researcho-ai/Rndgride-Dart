@@ -1,5 +1,6 @@
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
+import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -43,6 +44,36 @@ class _ProfileWidgetState extends State<ProfileWidget> {
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('PROFILE_PAGE_Profile_ON_INIT_STATE');
       if (loggedIn) {
+        logFirebaseEvent('Profile_backend_call');
+        _model.userDataFetchedButtomSheet22 =
+            await UsersGroup.getUserDataCall.call(
+          userID: currentUserUid,
+        );
+
+        if ((_model.userDataFetchedButtomSheet22?.succeeded ?? true)) {
+          logFirebaseEvent('Profile_update_app_state');
+          FFAppState().userProfileData = UserProfileDataStruct(
+            uid: UsersGroup.getUserDataCall.uid(
+              (_model.userDataFetchedButtomSheet22?.jsonBody ?? ''),
+            ),
+            displayName: UsersGroup.getUserDataCall.displayName(
+              (_model.userDataFetchedButtomSheet22?.jsonBody ?? ''),
+            ),
+            userAffiliation: UsersGroup.getUserDataCall.affiliation(
+              (_model.userDataFetchedButtomSheet22?.jsonBody ?? ''),
+            ),
+            userResearchField: UsersGroup.getUserDataCall.researchField(
+              (_model.userDataFetchedButtomSheet22?.jsonBody ?? ''),
+            ),
+            userType: UsersGroup.getUserDataCall.userType(
+              (_model.userDataFetchedButtomSheet22?.jsonBody ?? ''),
+            ),
+            phoneNumber: UsersGroup.getUserDataCall.phoneNo(
+              (_model.userDataFetchedButtomSheet22?.jsonBody ?? ''),
+            ),
+          );
+          safeSetState(() {});
+        }
       } else {
         if (MediaQuery.sizeOf(context).width < kBreakpointSmall
             ? true
@@ -474,12 +505,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                 actionCall: () async {
                                                                                                   logFirebaseEvent('_bottom_sheet');
                                                                                                   Navigator.pop(context);
-                                                                                                  logFirebaseEvent('_backend_call');
-                                                                                                  _model.userDataFetchedButtomSheet1 = await UsersGroup.getUserDataCall.call(
-                                                                                                    userID: currentUserUid,
-                                                                                                  );
-
-                                                                                                  if ((_model.userDataFetchedButtomSheet1?.succeeded ?? true)) {}
                                                                                                   logFirebaseEvent('_update_app_state');
 
                                                                                                   safeSetState(() {});
@@ -514,12 +539,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                 actionCall: () async {
                                                                                                   logFirebaseEvent('_close_dialog_drawer_etc');
                                                                                                   Navigator.pop(context);
-                                                                                                  logFirebaseEvent('_backend_call');
-                                                                                                  _model.userDataFetcheddailog1 = await UsersGroup.getUserDataCall.call(
-                                                                                                    userID: currentUserUid,
-                                                                                                  );
-
-                                                                                                  if ((_model.userDataFetcheddailog1?.succeeded ?? true)) {}
                                                                                                   logFirebaseEvent('_update_app_state');
 
                                                                                                   safeSetState(() {});
@@ -531,8 +550,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                       },
                                                                                     );
                                                                                   }
-
-                                                                                  safeSetState(() {});
                                                                                 },
                                                                               ),
                                                                             ),
@@ -542,12 +559,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                     ),
                                                                     if (loggedIn)
                                                                       Text(
-                                                                        valueOrDefault<
-                                                                            String>(
-                                                                          currentUserData
-                                                                              ?.displayName,
-                                                                          '-',
-                                                                        ),
+                                                                        FFAppState()
+                                                                            .userProfileData
+                                                                            .displayName,
                                                                         style: FlutterFlowTheme.of(context)
                                                                             .titleSmall
                                                                             .override(
@@ -569,11 +583,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             0.0),
                                                                         child:
                                                                             Text(
-                                                                          valueOrDefault<
-                                                                              String>(
-                                                                            currentUserData?.userType,
-                                                                            '-',
-                                                                          ),
+                                                                          FFAppState()
+                                                                              .userProfileData
+                                                                              .userType,
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .titleSmall
                                                                               .override(
@@ -629,8 +641,9 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             8.0),
                                                                         child:
                                                                             Text(
-                                                                          functions
-                                                                              .formatPhoneNumber(currentUserData!.phoneNumber),
+                                                                          functions.formatPhoneNumber(FFAppState()
+                                                                              .userProfileData
+                                                                              .phoneNumber),
                                                                           style: FlutterFlowTheme.of(context)
                                                                               .titleSmall
                                                                               .override(
@@ -727,12 +740,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                   action: () async {
                                                                                                     logFirebaseEvent('_bottom_sheet');
                                                                                                     Navigator.pop(context);
-                                                                                                    logFirebaseEvent('_backend_call');
-                                                                                                    _model.userDataFetchedButtomSheet22 = await UsersGroup.getUserDataCall.call(
-                                                                                                      userID: currentUserUid,
-                                                                                                    );
-
-                                                                                                    if ((_model.userDataFetchedButtomSheet22?.succeeded ?? true)) {}
                                                                                                     logFirebaseEvent('_update_app_state');
 
                                                                                                     safeSetState(() {});
@@ -764,12 +771,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                   action: () async {
                                                                                                     logFirebaseEvent('_close_dialog_drawer_etc');
                                                                                                     Navigator.pop(context);
-                                                                                                    logFirebaseEvent('_backend_call');
-                                                                                                    _model.userDataFetchedButtomSheet2 = await UsersGroup.getUserDataCall.call(
-                                                                                                      userID: currentUserUid,
-                                                                                                    );
-
-                                                                                                    if ((_model.userDataFetchedButtomSheet2?.succeeded ?? true)) {}
                                                                                                     logFirebaseEvent('_update_app_state');
 
                                                                                                     safeSetState(() {});
@@ -781,8 +782,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                         },
                                                                                       );
                                                                                     }
-
-                                                                                    safeSetState(() {});
                                                                                   },
                                                                                 ),
                                                                               ),
@@ -821,10 +820,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                 0.0),
                                                                             child:
                                                                                 Text(
-                                                                              valueOrDefault<String>(
-                                                                                currentUserData?.userResearchField,
-                                                                                '-',
-                                                                              ),
+                                                                              FFAppState().userProfileData.userResearchField,
                                                                               style: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                     font: FlutterFlowTheme.of(context).titleSmall,
                                                                                     color: FlutterFlowTheme.of(context).primaryBackground,
@@ -865,10 +861,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             Padding(
                                                                               padding: EdgeInsetsDirectional.fromSTEB(0.0, 8.0, 0.0, 0.0),
                                                                               child: Text(
-                                                                                valueOrDefault<String>(
-                                                                                  currentUserData?.userAffiliation,
-                                                                                  '-',
-                                                                                ),
+                                                                                FFAppState().userProfileData.userAffiliation,
                                                                                 style: FlutterFlowTheme.of(context).titleSmall.override(
                                                                                       font: FlutterFlowTheme.of(context).titleSmall,
                                                                                       color: FlutterFlowTheme.of(context).primaryBackground,

@@ -476,6 +476,35 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                 ),
                               ),
                             );
+                            logFirebaseEvent('Button_update_app_state');
+                            FFAppState().userProfileData =
+                                UserProfileDataStruct(
+                              uid: AuthenticatonGroup.verifyOtpCall.uid(
+                                (_model.apiResulte19?.jsonBody ?? ''),
+                              ),
+                              displayName:
+                                  AuthenticatonGroup.verifyOtpCall.displayName(
+                                (_model.apiResulte19?.jsonBody ?? ''),
+                              ),
+                              userAffiliation:
+                                  AuthenticatonGroup.verifyOtpCall.affiliation(
+                                (_model.apiResulte19?.jsonBody ?? ''),
+                              ),
+                              userResearchField: AuthenticatonGroup
+                                  .verifyOtpCall
+                                  .researchField(
+                                (_model.apiResulte19?.jsonBody ?? ''),
+                              ),
+                              userType:
+                                  AuthenticatonGroup.verifyOtpCall.usertype(
+                                (_model.apiResulte19?.jsonBody ?? ''),
+                              ),
+                              phoneNumber:
+                                  AuthenticatonGroup.verifyOtpCall.phoneNumber(
+                                (_model.apiResulte19?.jsonBody ?? ''),
+                              ),
+                            );
+                            safeSetState(() {});
                             if (loggedIn) {
                               if (!AuthenticatonGroup.verifyOtpCall.isNewUser(
                                 (_model.apiResulte19?.jsonBody ?? ''),

@@ -61,16 +61,16 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
       ]);
     });
 
-    _model.researchFieldTextController ??=
-        TextEditingController(text: currentUserData?.userResearchField);
+    _model.researchFieldTextController ??= TextEditingController(
+        text: FFAppState().userProfileData.userResearchField);
     _model.researchFieldFocusNode ??= FocusNode();
 
     _model.requeredResoursecTextController ??= TextEditingController(
         text: FFAppState().userProfileData.userRequiredResources);
     _model.requeredResoursecFocusNode ??= FocusNode();
 
-    _model.affiliationTextController ??=
-        TextEditingController(text: currentUserData?.userAffiliation);
+    _model.affiliationTextController ??= TextEditingController(
+        text: FFAppState().userProfileData.userAffiliation);
     _model.affiliationFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -566,7 +566,7 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
                       logFirebaseEvent('Save_backend_call');
                       _model.userDataUpdated =
                           await UsersGroup.updateUserProfileTwoCall.call(
-                        userId: FFAppState().userProfileData.uid,
+                        userId: currentUserUid,
                         userAffiliation: _model.affiliationTextController.text,
                         userResearchField:
                             _model.researchFieldTextController.text,
