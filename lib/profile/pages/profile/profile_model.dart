@@ -4,6 +4,7 @@ import '/main_pages/components/theme_mode/theme_mode_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/profile/components/profile_page_component/profile_page_component_widget.dart';
+import '/index.dart';
 import 'profile_widget.dart' show ProfileWidget;
 import 'package:flutter/material.dart';
 
@@ -27,11 +28,11 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   // Model for profilePageComponent component.
   late ProfilePageComponentModel profilePageComponentModel;
   // Stores action output result for [Backend Call - API (Get User Data)] action in IconButton widget.
-  ApiCallResponse? userDataFetched;
+  ApiCallResponse? userDataFetchedButtomSheet1;
   // Stores action output result for [Backend Call - API (Get User Data)] action in IconButton widget.
-  ApiCallResponse? userDataFetchedDialog;
+  ApiCallResponse? userDataFetcheddailog1;
   // Stores action output result for [Backend Call - API (Get User Data)] action in IconButton widget.
-  ApiCallResponse? userDataFetchedDialog2;
+  ApiCallResponse? userDataFetchedButtomSheet22;
   // Stores action output result for [Backend Call - API (Get User Data)] action in IconButton widget.
   ApiCallResponse? userDataFetchedButtomSheet2;
   // Model for ThemeMode component.

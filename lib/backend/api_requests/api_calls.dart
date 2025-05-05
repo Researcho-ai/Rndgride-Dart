@@ -674,6 +674,14 @@ class GetUserDataCall {
         response,
         r'''$.user_id''',
       ));
+  String? acessToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.access_token''',
+      ));
+  String? refretionToken(dynamic response) => castToType<String>(getJsonField(
+        response,
+        r'''$.refresh_token''',
+      ));
 }
 
 class UpdateUserProfileAtAuthCall {

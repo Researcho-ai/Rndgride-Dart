@@ -1,6 +1,5 @@
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
-import '/backend/schema/structs/index.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
@@ -473,42 +472,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                 pageName: 'profile',
                                                                                                 isProfilePge: true,
                                                                                                 actionCall: () async {
-                                                                                                  var _shouldSetState = false;
                                                                                                   logFirebaseEvent('_bottom_sheet');
                                                                                                   Navigator.pop(context);
                                                                                                   logFirebaseEvent('_backend_call');
-                                                                                                  _model.userDataFetched = await UsersGroup.getUserDataCall.call(
-                                                                                                    userID: FFAppState().userProfileData.uid,
+                                                                                                  _model.userDataFetchedButtomSheet1 = await UsersGroup.getUserDataCall.call(
+                                                                                                    userID: currentUserUid,
                                                                                                   );
 
-                                                                                                  _shouldSetState = true;
-                                                                                                  if ((_model.userDataFetched?.succeeded ?? true)) {
-                                                                                                    logFirebaseEvent('_update_app_state');
-                                                                                                    FFAppState().userProfileData = UserProfileDataStruct(
-                                                                                                      uid: UsersGroup.getUserDataCall.uid(
-                                                                                                        (_model.userDataFetched?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      displayName: UsersGroup.getUserDataCall.displayName(
-                                                                                                        (_model.userDataFetched?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      userAffiliation: UsersGroup.getUserDataCall.affiliation(
-                                                                                                        (_model.userDataFetched?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                        (_model.userDataFetched?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      userType: UsersGroup.getUserDataCall.userType(
-                                                                                                        (_model.userDataFetched?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      phoneNumber: UsersGroup.getUserDataCall.phoneNo(
-                                                                                                        (_model.userDataFetched?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                    );
-                                                                                                    FFAppState().update(() {});
-                                                                                                    return;
-                                                                                                  } else {
-                                                                                                    return;
-                                                                                                  }
+                                                                                                  if ((_model.userDataFetchedButtomSheet1?.succeeded ?? true)) {}
+                                                                                                  logFirebaseEvent('_update_app_state');
+
+                                                                                                  safeSetState(() {});
                                                                                                 },
                                                                                               ),
                                                                                             ),
@@ -538,42 +512,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                 pageName: 'profile',
                                                                                                 isProfilePge: true,
                                                                                                 actionCall: () async {
-                                                                                                  var _shouldSetState = false;
                                                                                                   logFirebaseEvent('_close_dialog_drawer_etc');
                                                                                                   Navigator.pop(context);
                                                                                                   logFirebaseEvent('_backend_call');
-                                                                                                  _model.userDataFetchedDialog = await UsersGroup.getUserDataCall.call(
-                                                                                                    userID: FFAppState().userProfileData.uid,
+                                                                                                  _model.userDataFetcheddailog1 = await UsersGroup.getUserDataCall.call(
+                                                                                                    userID: currentUserUid,
                                                                                                   );
 
-                                                                                                  _shouldSetState = true;
-                                                                                                  if ((_model.userDataFetchedDialog?.succeeded ?? true)) {
-                                                                                                    logFirebaseEvent('_update_app_state');
-                                                                                                    FFAppState().userProfileData = UserProfileDataStruct(
-                                                                                                      uid: UsersGroup.getUserDataCall.uid(
-                                                                                                        (_model.userDataFetchedDialog?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      displayName: UsersGroup.getUserDataCall.displayName(
-                                                                                                        (_model.userDataFetchedDialog?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      userAffiliation: UsersGroup.getUserDataCall.affiliation(
-                                                                                                        (_model.userDataFetchedDialog?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                        (_model.userDataFetchedDialog?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      userType: UsersGroup.getUserDataCall.userType(
-                                                                                                        (_model.userDataFetchedDialog?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                      phoneNumber: UsersGroup.getUserDataCall.phoneNo(
-                                                                                                        (_model.userDataFetchedDialog?.jsonBody ?? ''),
-                                                                                                      ),
-                                                                                                    );
-                                                                                                    FFAppState().update(() {});
-                                                                                                    return;
-                                                                                                  } else {
-                                                                                                    return;
-                                                                                                  }
+                                                                                                  if ((_model.userDataFetcheddailog1?.succeeded ?? true)) {}
+                                                                                                  logFirebaseEvent('_update_app_state');
+
+                                                                                                  safeSetState(() {});
                                                                                                 },
                                                                                               ),
                                                                                             ),
@@ -776,42 +725,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                 height: MediaQuery.sizeOf(context).height * 0.8,
                                                                                                 child: ProfileDetail2Widget(
                                                                                                   action: () async {
-                                                                                                    var _shouldSetState = false;
                                                                                                     logFirebaseEvent('_bottom_sheet');
                                                                                                     Navigator.pop(context);
                                                                                                     logFirebaseEvent('_backend_call');
-                                                                                                    _model.userDataFetchedDialog2 = await UsersGroup.getUserDataCall.call(
-                                                                                                      userID: FFAppState().userProfileData.uid,
+                                                                                                    _model.userDataFetchedButtomSheet22 = await UsersGroup.getUserDataCall.call(
+                                                                                                      userID: currentUserUid,
                                                                                                     );
 
-                                                                                                    _shouldSetState = true;
-                                                                                                    if ((_model.userDataFetchedDialog2?.succeeded ?? true)) {
-                                                                                                      logFirebaseEvent('_update_app_state');
-                                                                                                      FFAppState().userProfileData = UserProfileDataStruct(
-                                                                                                        uid: UsersGroup.getUserDataCall.uid(
-                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        displayName: UsersGroup.getUserDataCall.displayName(
-                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        userAffiliation: UsersGroup.getUserDataCall.affiliation(
-                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        userType: UsersGroup.getUserDataCall.userType(
-                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        phoneNumber: UsersGroup.getUserDataCall.phoneNo(
-                                                                                                          (_model.userDataFetchedDialog2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                      );
-                                                                                                      FFAppState().update(() {});
-                                                                                                      return;
-                                                                                                    } else {
-                                                                                                      return;
-                                                                                                    }
+                                                                                                    if ((_model.userDataFetchedButtomSheet22?.succeeded ?? true)) {}
+                                                                                                    logFirebaseEvent('_update_app_state');
+
+                                                                                                    safeSetState(() {});
                                                                                                   },
                                                                                                 ),
                                                                                               ),
@@ -838,42 +762,17 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                                 width: MediaQuery.sizeOf(context).width * 0.45,
                                                                                                 child: ProfileDetail2Widget(
                                                                                                   action: () async {
-                                                                                                    var _shouldSetState = false;
                                                                                                     logFirebaseEvent('_close_dialog_drawer_etc');
                                                                                                     Navigator.pop(context);
                                                                                                     logFirebaseEvent('_backend_call');
                                                                                                     _model.userDataFetchedButtomSheet2 = await UsersGroup.getUserDataCall.call(
-                                                                                                      userID: FFAppState().userProfileData.uid,
+                                                                                                      userID: currentUserUid,
                                                                                                     );
 
-                                                                                                    _shouldSetState = true;
-                                                                                                    if ((_model.userDataFetchedButtomSheet2?.succeeded ?? true)) {
-                                                                                                      logFirebaseEvent('_update_app_state');
-                                                                                                      FFAppState().userProfileData = UserProfileDataStruct(
-                                                                                                        uid: UsersGroup.getUserDataCall.uid(
-                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        displayName: UsersGroup.getUserDataCall.displayName(
-                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        userAffiliation: UsersGroup.getUserDataCall.affiliation(
-                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        userResearchField: UsersGroup.getUserDataCall.researchField(
-                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        userType: UsersGroup.getUserDataCall.userType(
-                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                        phoneNumber: UsersGroup.getUserDataCall.phoneNo(
-                                                                                                          (_model.userDataFetchedButtomSheet2?.jsonBody ?? ''),
-                                                                                                        ),
-                                                                                                      );
-                                                                                                      FFAppState().update(() {});
-                                                                                                      return;
-                                                                                                    } else {
-                                                                                                      return;
-                                                                                                    }
+                                                                                                    if ((_model.userDataFetchedButtomSheet2?.succeeded ?? true)) {}
+                                                                                                    logFirebaseEvent('_update_app_state');
+
+                                                                                                    safeSetState(() {});
                                                                                                   },
                                                                                                 ),
                                                                                               ),
