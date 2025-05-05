@@ -8,7 +8,6 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:provider/provider.dart';
 import 'profile_details1_model.dart';
 export 'profile_details1_model.dart';
 
@@ -65,16 +64,19 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
       }
     });
 
-    _model.firstNameTextController ??=
-        TextEditingController(text: FFAppState().userProfileData.displayName);
+    _model.firstNameTextController ??= TextEditingController(
+        text: valueOrDefault<String>(
+      currentUserData?.displayName,
+      '-',
+    ));
     _model.firstNameFocusNode ??= FocusNode();
 
-    _model.researchFieldTextController ??= TextEditingController(
-        text: FFAppState().userProfileData.userResearchField);
+    _model.researchFieldTextController ??=
+        TextEditingController(text: currentUserData?.userResearchField);
     _model.researchFieldFocusNode ??= FocusNode();
 
-    _model.affiliationTextController ??= TextEditingController(
-        text: FFAppState().userProfileData.userAffiliation);
+    _model.affiliationTextController ??=
+        TextEditingController(text: currentUserData?.userAffiliation);
     _model.affiliationFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
@@ -89,8 +91,6 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
 
   @override
   Widget build(BuildContext context) {
-    context.watch<FFAppState>();
-
     return Container(
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).primaryBackground,
@@ -350,7 +350,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                                 _model.userTypeDrpodownValueController ??=
                                     FormFieldController<String>(
                               _model.userTypeDrpodownValue ??=
-                                  FFAppState().userProfileData.userType,
+                                  currentUserData?.userType,
                             ),
                             options: _model.userTypeList,
                             onChanged: (val) async {

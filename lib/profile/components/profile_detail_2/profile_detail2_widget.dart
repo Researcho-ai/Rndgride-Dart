@@ -1,3 +1,4 @@
+import '/auth/custom_auth/auth_util.dart';
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
@@ -60,14 +61,16 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
       ]);
     });
 
-    _model.researchFieldTextController ??= TextEditingController();
+    _model.researchFieldTextController ??=
+        TextEditingController(text: currentUserData?.userResearchField);
     _model.researchFieldFocusNode ??= FocusNode();
 
     _model.requeredResoursecTextController ??= TextEditingController(
         text: FFAppState().userProfileData.userRequiredResources);
     _model.requeredResoursecFocusNode ??= FocusNode();
 
-    _model.affiliationTextController ??= TextEditingController();
+    _model.affiliationTextController ??=
+        TextEditingController(text: currentUserData?.userAffiliation);
     _model.affiliationFocusNode ??= FocusNode();
 
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
