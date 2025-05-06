@@ -1192,8 +1192,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                         .start,
                                                                 children: [
                                                                   Container(
-                                                                    width: double
-                                                                        .infinity,
+                                                                    width:
+                                                                        150.0,
                                                                     height: () {
                                                                       if (MediaQuery.sizeOf(context)
                                                                               .width <
