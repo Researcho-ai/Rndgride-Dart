@@ -238,152 +238,151 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Expanded(
-                            child: SingleChildScrollView(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  if (responsiveVisibility(
-                                    context: context,
-                                    phone: false,
-                                    tablet: false,
-                                  ))
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primaryBackground,
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            96.0, 0.0, 96.0, 0.0),
-                                        child: wrapWithModel(
-                                          model: _model.topNavBarModel,
-                                          updateCallback: () =>
-                                              safeSetState(() {}),
-                                          child: TopNavBarWidget(
-                                            instrument: false,
-                                            about: false,
-                                            contactus: false,
-                                            tests: false,
-                                            sophisticated: false,
-                                          ),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                if (responsiveVisibility(
+                                  context: context,
+                                  phone: false,
+                                  tablet: false,
+                                ))
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: FlutterFlowTheme.of(context)
+                                          .primaryBackground,
+                                    ),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          96.0, 0.0, 96.0, 0.0),
+                                      child: wrapWithModel(
+                                        model: _model.topNavBarModel,
+                                        updateCallback: () =>
+                                            safeSetState(() {}),
+                                        child: TopNavBarWidget(
+                                          instrument: false,
+                                          about: false,
+                                          contactus: false,
+                                          tests: false,
+                                          sophisticated: false,
                                         ),
                                       ),
                                     ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 0.0, 24.0),
-                                    child: Container(
-                                      width: () {
-                                        if (MediaQuery.sizeOf(context).width <
-                                            kBreakpointSmall) {
-                                          return (MediaQuery.sizeOf(context)
-                                                  .width *
-                                              0.8);
-                                        } else if (MediaQuery.sizeOf(context)
-                                                .width <
-                                            kBreakpointMedium) {
-                                          return (MediaQuery.sizeOf(context)
-                                                  .width *
-                                              0.8);
-                                        } else if (MediaQuery.sizeOf(context)
-                                                .width <
-                                            kBreakpointLarge) {
-                                          return (MediaQuery.sizeOf(context)
-                                                  .width *
-                                              0.6);
-                                        } else {
-                                          return (MediaQuery.sizeOf(context)
-                                                  .width *
-                                              0.7);
-                                        }
-                                      }(),
-                                      decoration: BoxDecoration(),
-                                      child: SingleChildScrollView(
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 0.0, 0.0, 16.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Padding(
+                                  ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 24.0),
+                                  child: Container(
+                                    width: () {
+                                      if (MediaQuery.sizeOf(context).width <
+                                          kBreakpointSmall) {
+                                        return (MediaQuery.sizeOf(context)
+                                                .width *
+                                            0.8);
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointMedium) {
+                                        return (MediaQuery.sizeOf(context)
+                                                .width *
+                                            0.8);
+                                      } else if (MediaQuery.sizeOf(context)
+                                              .width <
+                                          kBreakpointLarge) {
+                                        return (MediaQuery.sizeOf(context)
+                                                .width *
+                                            0.6);
+                                      } else {
+                                        return (MediaQuery.sizeOf(context)
+                                                .width *
+                                            0.7);
+                                      }
+                                    }(),
+                                    decoration: BoxDecoration(),
+                                    child: SingleChildScrollView(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    0.0, 0.0, 0.0, 16.0),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Padding(
+                                                  padding: EdgeInsetsDirectional
+                                                      .fromSTEB(
+                                                          0.0, 0.0, 16.0, 0.0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderRadius: 30.0,
+                                                    borderWidth: 1.0,
+                                                    buttonSize: 50.0,
+                                                    fillColor: FlutterFlowTheme
+                                                            .of(context)
+                                                        .secondaryBackground,
+                                                    icon: Icon(
+                                                      FFIcons.karrowLeft,
+                                                      size: 24.0,
+                                                    ),
+                                                    onPressed: () async {
+                                                      logFirebaseEvent(
+                                                          'PROFILE_PAGE_arrowLeft_ICN_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'IconButton_navigate_back');
+                                                      context.safePop();
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Container(
+                                            height: MediaQuery.sizeOf(context)
+                                                    .height *
+                                                0.9,
+                                            constraints: BoxConstraints(
+                                              minHeight: 300.0,
+                                            ),
+                                            decoration: BoxDecoration(),
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Expanded(
+                                                  child: Padding(
                                                     padding:
                                                         EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                16.0, 0.0),
+                                                            .fromSTEB(
+                                                                0.0,
+                                                                0.0,
+                                                                valueOrDefault<
+                                                                    double>(
+                                                                  () {
+                                                                    if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointSmall) {
+                                                                      return 0.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointMedium) {
+                                                                      return 24.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointLarge) {
+                                                                      return 36.0;
+                                                                    } else {
+                                                                      return 36.0;
+                                                                    }
+                                                                  }(),
+                                                                  0.0,
+                                                                ),
+                                                                0.0),
                                                     child:
-                                                        FlutterFlowIconButton(
-                                                      borderColor:
-                                                          Colors.transparent,
-                                                      borderRadius: 30.0,
-                                                      borderWidth: 1.0,
-                                                      buttonSize: 50.0,
-                                                      fillColor: FlutterFlowTheme
-                                                              .of(context)
-                                                          .secondaryBackground,
-                                                      icon: Icon(
-                                                        FFIcons.karrowLeft,
-                                                        size: 24.0,
-                                                      ),
-                                                      onPressed: () async {
-                                                        logFirebaseEvent(
-                                                            'PROFILE_PAGE_arrowLeft_ICN_ON_TAP');
-                                                        logFirebaseEvent(
-                                                            'IconButton_navigate_back');
-                                                        context.safePop();
-                                                      },
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Container(
-                                              height: MediaQuery.sizeOf(context)
-                                                      .height *
-                                                  0.8,
-                                              constraints: BoxConstraints(
-                                                minHeight: 300.0,
-                                              ),
-                                              decoration: BoxDecoration(),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Expanded(
-                                                    child: Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  valueOrDefault<
-                                                                      double>(
-                                                                    () {
-                                                                      if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointSmall) {
-                                                                        return 0.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointMedium) {
-                                                                        return 24.0;
-                                                                      } else if (MediaQuery.sizeOf(context)
-                                                                              .width <
-                                                                          kBreakpointLarge) {
-                                                                        return 36.0;
-                                                                      } else {
-                                                                        return 36.0;
-                                                                      }
-                                                                    }(),
-                                                                    0.0,
-                                                                  ),
-                                                                  0.0),
+                                                        SingleChildScrollView(
                                                       child: Column(
                                                         mainAxisSize:
                                                             MainAxisSize.max,
@@ -697,7 +696,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                   child: Column(
                                                                     mainAxisSize:
                                                                         MainAxisSize
-                                                                            .max,
+                                                                            .min,
                                                                     children: [
                                                                       Padding(
                                                                         padding: EdgeInsetsDirectional.fromSTEB(
@@ -1040,60 +1039,58 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                       ),
                                                     ),
                                                   ),
-                                                  if (responsiveVisibility(
-                                                    context: context,
-                                                    phone: false,
-                                                    tablet: false,
-                                                  ))
-                                                    Flexible(
-                                                      child: Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Container(
-                                                            width:
-                                                                double.infinity,
-                                                            height: MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .height *
-                                                                0.8,
-                                                            decoration:
-                                                                BoxDecoration(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .secondaryBackground,
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          16.0),
-                                                            ),
-                                                            child: ClipRRect(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .circular(
-                                                                          8.0),
-                                                              child:
-                                                                  Image.asset(
-                                                                'assets/images/Profile.png',
-                                                                fit: BoxFit
-                                                                    .cover,
-                                                              ),
+                                                ),
+                                                if (responsiveVisibility(
+                                                  context: context,
+                                                  phone: false,
+                                                  tablet: false,
+                                                ))
+                                                  Flexible(
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        Container(
+                                                          width:
+                                                              double.infinity,
+                                                          height:
+                                                              MediaQuery.sizeOf(
+                                                                          context)
+                                                                      .height *
+                                                                  0.8,
+                                                          decoration:
+                                                              BoxDecoration(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .secondaryBackground,
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        16.0),
+                                                          ),
+                                                          child: ClipRRect(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        8.0),
+                                                            child: Image.asset(
+                                                              'assets/images/Profile.png',
+                                                              fit: BoxFit.cover,
                                                             ),
                                                           ),
-                                                        ],
-                                                      ),
+                                                        ),
+                                                      ],
                                                     ),
-                                                ],
-                                              ),
+                                                  ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

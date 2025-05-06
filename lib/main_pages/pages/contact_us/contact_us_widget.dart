@@ -182,76 +182,450 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                 }
                               }(),
                               decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 24.0, 0.0, 0.0),
-                                    child: MasonryGridView.builder(
-                                      gridDelegate:
-                                          SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                        crossAxisCount: () {
-                                          if (MediaQuery.sizeOf(context).width <
-                                              kBreakpointSmall) {
-                                            return 1;
-                                          } else if (MediaQuery.sizeOf(context)
-                                                  .width <
-                                              kBreakpointMedium) {
-                                            return 1;
-                                          } else if (MediaQuery.sizeOf(context)
-                                                  .width <
-                                              kBreakpointLarge) {
-                                            return 2;
-                                          } else {
-                                            return 2;
-                                          }
-                                        }(),
-                                      ),
-                                      crossAxisSpacing: 10.0,
-                                      mainAxisSpacing: 10.0,
-                                      itemCount: 2,
-                                      shrinkWrap: true,
-                                      itemBuilder: (context, index) {
-                                        return [
-                                          () => Container(
-                                                decoration: BoxDecoration(
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0x404568DC),
-                                                      Color(0x3FB06AB3)
-                                                    ],
-                                                    stops: [0.0, 1.0],
-                                                    begin: AlignmentDirectional(
-                                                        0.0, -1.0),
-                                                    end: AlignmentDirectional(
-                                                        0, 1.0),
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 24.0, 0.0, 0.0),
+                                      child: MasonryGridView.builder(
+                                        gridDelegate:
+                                            SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: () {
+                                            if (MediaQuery.sizeOf(context)
+                                                    .width <
+                                                kBreakpointSmall) {
+                                              return 1;
+                                            } else if (MediaQuery.sizeOf(
+                                                        context)
+                                                    .width <
+                                                kBreakpointMedium) {
+                                              return 1;
+                                            } else if (MediaQuery.sizeOf(
+                                                        context)
+                                                    .width <
+                                                kBreakpointLarge) {
+                                              return 2;
+                                            } else {
+                                              return 2;
+                                            }
+                                          }(),
+                                        ),
+                                        crossAxisSpacing: 10.0,
+                                        mainAxisSpacing: 10.0,
+                                        itemCount: 2,
+                                        shrinkWrap: true,
+                                        itemBuilder: (context, index) {
+                                          return [
+                                            () => Container(
+                                                  decoration: BoxDecoration(
+                                                    gradient: LinearGradient(
+                                                      colors: [
+                                                        Color(0x404568DC),
+                                                        Color(0x3FB06AB3)
+                                                      ],
+                                                      stops: [0.0, 1.0],
+                                                      begin:
+                                                          AlignmentDirectional(
+                                                              0.0, -1.0),
+                                                      end: AlignmentDirectional(
+                                                          0, 1.0),
+                                                    ),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.0),
                                                   ),
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsets.all(24.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .start,
+                                                      crossAxisAlignment:
+                                                          CrossAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      32.0),
+                                                          child: Container(
+                                                            width: 210.0,
+                                                            decoration:
+                                                                BoxDecoration(),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          8.0),
+                                                              child:
+                                                                  Image.asset(
+                                                                'assets/images/Contact.png',
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                              ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Padding(
+                                                          padding:
+                                                              EdgeInsetsDirectional
+                                                                  .fromSTEB(
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0),
+                                                          child: Text(
+                                                            FFLocalizations.of(
+                                                                    context)
+                                                                .getText(
+                                                              'nugqv9nb' /* How can we help you? */,
+                                                            ),
+                                                            style: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .headlineSmall
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .headlineSmall,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                          ),
+                                                        ),
+                                                        Align(
+                                                          alignment:
+                                                              AlignmentDirectional(
+                                                                  0.0, 0.0),
+                                                          child: Padding(
+                                                            padding:
+                                                                EdgeInsetsDirectional
+                                                                    .fromSTEB(
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        8.0),
+                                                            child: Text(
+                                                              FFLocalizations.of(
+                                                                      context)
+                                                                  .getText(
+                                                                '8bsnw5tu' /* Please select an option below ... */,
+                                                              ),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .bodyLarge
+                                                                  .override(
+                                                                    font: FlutterFlowTheme.of(
+                                                                            context)
+                                                                        .bodyLarge,
+                                                                    letterSpacing:
+                                                                        0.0,
+                                                                  ),
+                                                            ),
+                                                          ),
+                                                        ),
+                                                        Column(
+                                                          mainAxisSize:
+                                                              MainAxisSize.max,
+                                                          children: [
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                              child:
+                                                                  wrapWithModel(
+                                                                model: _model
+                                                                    .requermentButtonModel1,
+                                                                updateCallback: () =>
+                                                                    safeSetState(
+                                                                        () {}),
+                                                                child:
+                                                                    RequermentButtonWidget(
+                                                                  parameter2:
+                                                                      (_model.indexValue == 0) &&
+                                                                              () {
+                                                                                if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                  return false;
+                                                                                } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                  return false;
+                                                                                } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                  return true;
+                                                                                } else {
+                                                                                  return true;
+                                                                                }
+                                                                              }()
+                                                                          ? 1
+                                                                          : 0,
+                                                                  text:
+                                                                      'Testing and Development Facility',
+                                                                  isHome: false,
+                                                                  hoverIndex: 1,
+                                                                  openForm:
+                                                                      () async {
+                                                                    logFirebaseEvent(
+                                                                        'CONTACT_US_Container_63ot34hi_CALLBACK');
+                                                                    logFirebaseEvent(
+                                                                        'requermentButton_update_page_state');
+                                                                    _model.openRequermentForm =
+                                                                        true;
+                                                                    _model.indexValue =
+                                                                        1;
+                                                                    _model.tagValue =
+                                                                        'Testing and Devlopment Facility';
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                              child:
+                                                                  wrapWithModel(
+                                                                model: _model
+                                                                    .requermentButtonModel2,
+                                                                updateCallback: () =>
+                                                                    safeSetState(
+                                                                        () {}),
+                                                                child:
+                                                                    RequermentButtonWidget(
+                                                                  parameter2: _model
+                                                                      .indexValue,
+                                                                  text:
+                                                                      'Consultation and Analysis Services',
+                                                                  isHome: false,
+                                                                  hoverIndex: 2,
+                                                                  openForm:
+                                                                      () async {
+                                                                    logFirebaseEvent(
+                                                                        'CONTACT_US_Container_ul4mvhox_CALLBACK');
+                                                                    logFirebaseEvent(
+                                                                        'requermentButton_update_page_state');
+                                                                    _model.openRequermentForm =
+                                                                        true;
+                                                                    _model.indexValue =
+                                                                        2;
+                                                                    _model.tagValue =
+                                                                        'Consultation and Analysis Services';
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ),
+                                                            Padding(
+                                                              padding:
+                                                                  EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          8.0,
+                                                                          0.0,
+                                                                          8.0),
+                                                              child:
+                                                                  wrapWithModel(
+                                                                model: _model
+                                                                    .requermentButtonModel3,
+                                                                updateCallback: () =>
+                                                                    safeSetState(
+                                                                        () {}),
+                                                                child:
+                                                                    RequermentButtonWidget(
+                                                                  parameter2: _model
+                                                                      .indexValue,
+                                                                  text:
+                                                                      'Becoming a Lab Partner',
+                                                                  isHome: false,
+                                                                  hoverIndex: 3,
+                                                                  openForm:
+                                                                      () async {
+                                                                    logFirebaseEvent(
+                                                                        'CONTACT_US_Container_6ud0hkzs_CALLBACK');
+                                                                    logFirebaseEvent(
+                                                                        'requermentButton_update_page_state');
+                                                                    _model.openRequermentForm =
+                                                                        true;
+                                                                    _model.indexValue =
+                                                                        3;
+                                                                    _model.tagValue =
+                                                                        'Becoming a Lab Partner';
+                                                                    safeSetState(
+                                                                        () {});
+                                                                  },
+                                                                ),
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
                                                 ),
-                                                child: Padding(
-                                                  padding: EdgeInsets.all(24.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: [
+                                            () => Visibility(
+                                                  visible: responsiveVisibility(
+                                                    context: context,
+                                                    phone: false,
+                                                    tablet: false,
+                                                  ),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(4.0, 0.0,
+                                                                0.0, 0.0),
+                                                    child: Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        if (_model
+                                                            .openRequermentForm)
+                                                          Container(
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          16.0),
+                                                              border:
+                                                                  Border.all(
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primary,
+                                                                width: 2.0,
+                                                              ),
+                                                            ),
+                                                            child:
+                                                                wrapWithModel(
+                                                              model: _model
+                                                                  .userRequirementCopyModel,
+                                                              updateCallback: () =>
+                                                                  safeSetState(
+                                                                      () {}),
+                                                              updateOnChange:
+                                                                  true,
+                                                              child:
+                                                                  UserRequirementCopyWidget(
+                                                                isDialog: false,
+                                                                tagValue: _model
+                                                                    .tagValue,
+                                                                requermwntDialog:
+                                                                    false,
+                                                                isRequermentPage:
+                                                                    false,
+                                                                action:
+                                                                    () async {
+                                                                  logFirebaseEvent(
+                                                                      'CONTACT_US_Container_q90x6622_CALLBACK');
+                                                                  logFirebaseEvent(
+                                                                      'UserRequirementCopy_update_page_state');
+                                                                  _model.tagValue =
+                                                                      'Testing and Development Facility';
+                                                                  safeSetState(
+                                                                      () {});
+                                                                },
+                                                              ),
+                                                            ),
+                                                          ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                          ][index]();
+                                        },
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0.0, 48.0, 0.0, 48.0),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          color: FlutterFlowTheme.of(context)
+                                              .primary,
+                                          borderRadius:
+                                              BorderRadius.circular(16.0),
+                                        ),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 48.0, 0.0, 48.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.max,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            children: [
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 24.0, 0.0, 0.0),
+                                                child: Text(
+                                                  FFLocalizations.of(context)
+                                                      .getText(
+                                                    '1wln40as' /* Reach out to us directly at */,
+                                                  ),
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .headlineSmall
+                                                      .override(
+                                                        font:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .headlineSmall,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        letterSpacing: 0.0,
+                                                      ),
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 37.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  children: [
+                                                    if (responsiveVisibility(
+                                                      context: context,
+                                                      phone: false,
+                                                      tablet: false,
+                                                      tabletLandscape: false,
+                                                      desktop: false,
+                                                    ))
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
-                                                                    0.0,
-                                                                    32.0),
+                                                                    20.0,
+                                                                    0.0),
                                                         child: Container(
-                                                          width: 210.0,
+                                                          width: 30.0,
+                                                          height: 30.0,
                                                           decoration:
                                                               BoxDecoration(),
                                                           child: ClipRRect(
@@ -259,346 +633,103 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                                 BorderRadius
                                                                     .circular(
                                                                         8.0),
-                                                            child: Image.asset(
-                                                              'assets/images/Contact.png',
-                                                              fit: BoxFit.cover,
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              'assets/images/mail-_contact_us.svg',
+                                                              width: 300.0,
+                                                              height: 200.0,
+                                                              fit: BoxFit
+                                                                  .contain,
                                                             ),
                                                           ),
                                                         ),
                                                       ),
+                                                    Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  0.0,
+                                                                  0.0,
+                                                                  20.0,
+                                                                  0.0),
+                                                      child: Icon(
+                                                        FFIcons.ksms,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 28.0,
+                                                      ),
+                                                    ),
+                                                    Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        'wwwnrcxj' /* hello@rndgrid.com */,
+                                                      ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                font: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                              Padding(
+                                                padding: EdgeInsetsDirectional
+                                                    .fromSTEB(
+                                                        0.0, 16.0, 0.0, 0.0),
+                                                child: Row(
+                                                  mainAxisSize:
+                                                      MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    if (responsiveVisibility(
+                                                      context: context,
+                                                      phone: false,
+                                                      tablet: false,
+                                                      tabletLandscape: false,
+                                                      desktop: false,
+                                                    ))
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
                                                                 .fromSTEB(
                                                                     0.0,
                                                                     0.0,
-                                                                    0.0,
-                                                                    16.0),
-                                                        child: Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'nugqv9nb' /* How can we help you? */,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .headlineSmall
-                                                              .override(
-                                                                font: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .headlineSmall,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
-                                                        ),
-                                                      ),
-                                                      Align(
-                                                        alignment:
-                                                            AlignmentDirectional(
-                                                                0.0, 0.0),
-                                                        child: Padding(
-                                                          padding:
-                                                              EdgeInsetsDirectional
-                                                                  .fromSTEB(
-                                                                      0.0,
-                                                                      0.0,
-                                                                      0.0,
-                                                                      8.0),
-                                                          child: Text(
-                                                            FFLocalizations.of(
-                                                                    context)
-                                                                .getText(
-                                                              '8bsnw5tu' /* Please select an option below ... */,
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
-                                                            style: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .bodyLarge
-                                                                .override(
-                                                                  font: FlutterFlowTheme.of(
-                                                                          context)
-                                                                      .bodyLarge,
-                                                                  letterSpacing:
-                                                                      0.0,
-                                                                ),
-                                                          ),
-                                                        ),
-                                                      ),
-                                                      Column(
-                                                        mainAxisSize:
-                                                            MainAxisSize.max,
-                                                        children: [
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        8.0,
-                                                                        0.0,
-                                                                        8.0),
-                                                            child:
-                                                                wrapWithModel(
-                                                              model: _model
-                                                                  .requermentButtonModel1,
-                                                              updateCallback: () =>
-                                                                  safeSetState(
-                                                                      () {}),
-                                                              child:
-                                                                  RequermentButtonWidget(
-                                                                parameter2:
-                                                                    (_model.indexValue ==
-                                                                                0) &&
-                                                                            () {
-                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                                                                                return false;
-                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-                                                                                return false;
-                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
-                                                                                return true;
-                                                                              } else {
-                                                                                return true;
-                                                                              }
-                                                                            }()
-                                                                        ? 1
-                                                                        : 0,
-                                                                text:
-                                                                    'Testing and Development Facility',
-                                                                isHome: false,
-                                                                hoverIndex: 1,
-                                                                openForm:
-                                                                    () async {
-                                                                  logFirebaseEvent(
-                                                                      'CONTACT_US_Container_63ot34hi_CALLBACK');
-                                                                  logFirebaseEvent(
-                                                                      'requermentButton_update_page_state');
-                                                                  _model.openRequermentForm =
-                                                                      true;
-                                                                  _model.indexValue =
-                                                                      1;
-                                                                  _model.tagValue =
-                                                                      'Testing and Devlopment Facility';
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        8.0,
-                                                                        0.0,
-                                                                        8.0),
-                                                            child:
-                                                                wrapWithModel(
-                                                              model: _model
-                                                                  .requermentButtonModel2,
-                                                              updateCallback: () =>
-                                                                  safeSetState(
-                                                                      () {}),
-                                                              child:
-                                                                  RequermentButtonWidget(
-                                                                parameter2: _model
-                                                                    .indexValue,
-                                                                text:
-                                                                    'Consultation and Analysis Services',
-                                                                isHome: false,
-                                                                hoverIndex: 2,
-                                                                openForm:
-                                                                    () async {
-                                                                  logFirebaseEvent(
-                                                                      'CONTACT_US_Container_ul4mvhox_CALLBACK');
-                                                                  logFirebaseEvent(
-                                                                      'requermentButton_update_page_state');
-                                                                  _model.openRequermentForm =
-                                                                      true;
-                                                                  _model.indexValue =
-                                                                      2;
-                                                                  _model.tagValue =
-                                                                      'Consultation and Analysis Services';
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ),
-                                                          Padding(
-                                                            padding:
-                                                                EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        8.0,
-                                                                        0.0,
-                                                                        8.0),
-                                                            child:
-                                                                wrapWithModel(
-                                                              model: _model
-                                                                  .requermentButtonModel3,
-                                                              updateCallback: () =>
-                                                                  safeSetState(
-                                                                      () {}),
-                                                              child:
-                                                                  RequermentButtonWidget(
-                                                                parameter2: _model
-                                                                    .indexValue,
-                                                                text:
-                                                                    'Becoming a Lab Partner',
-                                                                isHome: false,
-                                                                hoverIndex: 3,
-                                                                openForm:
-                                                                    () async {
-                                                                  logFirebaseEvent(
-                                                                      'CONTACT_US_Container_6ud0hkzs_CALLBACK');
-                                                                  logFirebaseEvent(
-                                                                      'requermentButton_update_page_state');
-                                                                  _model.openRequermentForm =
-                                                                      true;
-                                                                  _model.indexValue =
-                                                                      3;
-                                                                  _model.tagValue =
-                                                                      'Becoming a Lab Partner';
-                                                                  safeSetState(
-                                                                      () {});
-                                                                },
-                                                              ),
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                          () => Visibility(
-                                                visible: responsiveVisibility(
-                                                  context: context,
-                                                  phone: false,
-                                                  tablet: false,
-                                                ),
-                                                child: Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
-                                                          4.0, 0.0, 0.0, 0.0),
-                                                  child: Column(
-                                                    mainAxisSize:
-                                                        MainAxisSize.max,
-                                                    children: [
-                                                      if (_model
-                                                          .openRequermentForm)
-                                                        Container(
+                                                                    20.0,
+                                                                    0.0),
+                                                        child: Container(
+                                                          width: 30.0,
+                                                          height: 30.0,
                                                           decoration:
-                                                              BoxDecoration(
+                                                              BoxDecoration(),
+                                                          child: ClipRRect(
                                                             borderRadius:
                                                                 BorderRadius
                                                                     .circular(
-                                                                        16.0),
-                                                            border: Border.all(
-                                                              color: FlutterFlowTheme
-                                                                      .of(context)
-                                                                  .primary,
-                                                              width: 2.0,
-                                                            ),
-                                                          ),
-                                                          child: wrapWithModel(
-                                                            model: _model
-                                                                .userRequirementCopyModel,
-                                                            updateCallback: () =>
-                                                                safeSetState(
-                                                                    () {}),
-                                                            updateOnChange:
-                                                                true,
-                                                            child:
-                                                                UserRequirementCopyWidget(
-                                                              isDialog: false,
-                                                              tagValue: _model
-                                                                  .tagValue,
-                                                              requermwntDialog:
-                                                                  false,
-                                                              isRequermentPage:
-                                                                  false,
-                                                              action: () async {
-                                                                logFirebaseEvent(
-                                                                    'CONTACT_US_Container_q90x6622_CALLBACK');
-                                                                logFirebaseEvent(
-                                                                    'UserRequirementCopy_update_page_state');
-                                                                _model.tagValue =
-                                                                    'Testing and Development Facility';
-                                                                safeSetState(
-                                                                    () {});
-                                                              },
+                                                                        8.0),
+                                                            child: SvgPicture
+                                                                .asset(
+                                                              'assets/images/call-_contact_us.svg',
+                                                              width: 30.0,
+                                                              height: 200.0,
+                                                              fit: BoxFit
+                                                                  .contain,
                                                             ),
                                                           ),
                                                         ),
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                        ][index]();
-                                      },
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 48.0, 0.0, 48.0),
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .primary,
-                                        borderRadius:
-                                            BorderRadius.circular(16.0),
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0.0, 48.0, 0.0, 48.0),
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.max,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 24.0, 0.0, 0.0),
-                                              child: Text(
-                                                FFLocalizations.of(context)
-                                                    .getText(
-                                                  '1wln40as' /* Reach out to us directly at */,
-                                                ),
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .headlineSmall
-                                                        .override(
-                                                          font: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .headlineSmall,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 37.0, 0.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  if (responsiveVisibility(
-                                                    context: context,
-                                                    phone: false,
-                                                    tablet: false,
-                                                    tabletLandscape: false,
-                                                    desktop: false,
-                                                  ))
+                                                      ),
                                                     Padding(
                                                       padding:
                                                           EdgeInsetsDirectional
@@ -607,144 +738,45 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                                   0.0,
                                                                   20.0,
                                                                   0.0),
-                                                      child: Container(
-                                                        width: 30.0,
-                                                        height: 30.0,
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          child:
-                                                              SvgPicture.asset(
-                                                            'assets/images/mail-_contact_us.svg',
-                                                            width: 300.0,
-                                                            height: 200.0,
-                                                            fit: BoxFit.contain,
-                                                          ),
-                                                        ),
+                                                      child: Icon(
+                                                        FFIcons.kcall,
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .primaryBackground,
+                                                        size: 28.0,
                                                       ),
                                                     ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                20.0, 0.0),
-                                                    child: Icon(
-                                                      FFIcons.ksms,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      size: 28.0,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      'wwwnrcxj' /* hello@rndgrid.com */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          font: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyLarge,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      0.0, 16.0, 0.0, 0.0),
-                                              child: Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.center,
-                                                children: [
-                                                  if (responsiveVisibility(
-                                                    context: context,
-                                                    phone: false,
-                                                    tablet: false,
-                                                    tabletLandscape: false,
-                                                    desktop: false,
-                                                  ))
-                                                    Padding(
-                                                      padding:
-                                                          EdgeInsetsDirectional
-                                                              .fromSTEB(
-                                                                  0.0,
-                                                                  0.0,
-                                                                  20.0,
-                                                                  0.0),
-                                                      child: Container(
-                                                        width: 30.0,
-                                                        height: 30.0,
-                                                        decoration:
-                                                            BoxDecoration(),
-                                                        child: ClipRRect(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      8.0),
-                                                          child:
-                                                              SvgPicture.asset(
-                                                            'assets/images/call-_contact_us.svg',
-                                                            width: 30.0,
-                                                            height: 200.0,
-                                                            fit: BoxFit.contain,
-                                                          ),
-                                                        ),
+                                                    Text(
+                                                      FFLocalizations.of(
+                                                              context)
+                                                          .getText(
+                                                        '3xodc14y' /* +91 90545 03803 */,
                                                       ),
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyLarge
+                                                              .override(
+                                                                font: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .bodyLarge,
+                                                                color: FlutterFlowTheme.of(
+                                                                        context)
+                                                                    .primaryBackground,
+                                                                letterSpacing:
+                                                                    0.0,
+                                                              ),
                                                     ),
-                                                  Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(0.0, 0.0,
-                                                                20.0, 0.0),
-                                                    child: Icon(
-                                                      FFIcons.kcall,
-                                                      color: FlutterFlowTheme
-                                                              .of(context)
-                                                          .primaryBackground,
-                                                      size: 28.0,
-                                                    ),
-                                                  ),
-                                                  Text(
-                                                    FFLocalizations.of(context)
-                                                        .getText(
-                                                      '3xodc14y' /* +91 90545 03803 */,
-                                                    ),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyLarge
-                                                        .override(
-                                                          font: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .bodyLarge,
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primaryBackground,
-                                                          letterSpacing: 0.0,
-                                                        ),
-                                                  ),
-                                                ],
+                                                  ],
+                                                ),
                                               ),
-                                            ),
-                                          ],
+                                            ],
+                                          ),
                                         ),
                                       ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             if (responsiveVisibility(

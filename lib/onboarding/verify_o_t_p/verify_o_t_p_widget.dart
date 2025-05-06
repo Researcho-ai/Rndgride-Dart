@@ -533,12 +533,12 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                         child: Container(
                                           height: MediaQuery.sizeOf(context)
                                                   .height *
-                                              0.6,
+                                              0.9,
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   0.9,
                                           child: ProfileDetails1Widget(
-                                            pageName: '',
+                                            pageName: 'profilePage',
                                             isProfilePge: false,
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall
@@ -574,12 +574,12 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                         child: Container(
                                           height: MediaQuery.sizeOf(context)
                                                   .height *
-                                              0.6,
+                                              0.7,
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   0.45,
                                           child: ProfileDetails1Widget(
-                                            pageName: '',
+                                            pageName: 'profilePage',
                                             isProfilePge: false,
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall

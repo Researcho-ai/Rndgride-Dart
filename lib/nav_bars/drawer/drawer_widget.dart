@@ -275,58 +275,117 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 if (!loggedIn)
-                  Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
-                    child: Container(
-                      width: double.infinity,
-                      height: 50.0,
-                      decoration: BoxDecoration(
-                        color: FlutterFlowTheme.of(context).secondaryBackground,
-                        borderRadius: BorderRadius.circular(12.0),
-                      ),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
-                            16.0, 0.0, 16.0, 0.0),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  0.0, 0.0, 8.0, 0.0),
-                              child: Icon(
-                                FFIcons.klogin,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 28.0,
-                              ),
-                            ),
-                            Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
-                                  8.0, 0.0, 0.0, 0.0),
-                              child: Text(
-                                FFLocalizations.of(context).getText(
-                                  '8kpq7rzw' /* LogIn / SignUp */,
+                  Builder(
+                    builder: (context) => Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+                      child: InkWell(
+                        splashColor: Colors.transparent,
+                        focusColor: Colors.transparent,
+                        hoverColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        onTap: () async {
+                          logFirebaseEvent('DRAWER_COMP_LogInContainer_ON_TAP');
+                          logFirebaseEvent('LogInContainer_alert_dialog');
+                          await showDialog(
+                            context: context,
+                            builder: (dialogContext) {
+                              return Dialog(
+                                elevation: 0,
+                                insetPadding: EdgeInsets.zero,
+                                backgroundColor: Colors.transparent,
+                                alignment: AlignmentDirectional(0.0, 0.0)
+                                    .resolve(Directionality.of(context)),
+                                child: SignInCompoentWidget(
+                                  loginRequered: true,
                                 ),
-                                style: FlutterFlowTheme.of(context)
-                                    .bodyMedium
-                                    .override(
-                                      font: FlutterFlowTheme.of(context)
-                                          .bodyMedium,
-                                      fontSize: 16.0,
-                                      letterSpacing: 0.0,
+                              );
+                            },
+                          );
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          height: 50.0,
+                          decoration: BoxDecoration(
+                            color: FlutterFlowTheme.of(context)
+                                .secondaryBackground,
+                            borderRadius: BorderRadius.circular(12.0),
+                          ),
+                          child: Padding(
+                            padding: EdgeInsetsDirectional.fromSTEB(
+                                16.0, 0.0, 16.0, 0.0),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 8.0, 0.0),
+                                  child: Icon(
+                                    FFIcons.klogin,
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                    size: 28.0,
+                                  ),
+                                ),
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      8.0, 0.0, 0.0, 0.0),
+                                  child: Text(
+                                    FFLocalizations.of(context).getText(
+                                      '8kpq7rzw' /* LogIn / SignUp */,
                                     ),
-                              ),
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          font: FlutterFlowTheme.of(context)
+                                              .bodyMedium,
+                                          fontSize: 16.0,
+                                          letterSpacing: 0.0,
+                                        ),
+                                  ),
+                                ),
+                                Builder(
+                                  builder: (context) => InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'DRAWER_COMP_Container_qrelu7e9_ON_TAP');
+                                      logFirebaseEvent(
+                                          'Container_alert_dialog');
+                                      await showDialog(
+                                        context: context,
+                                        builder: (dialogContext) {
+                                          return Dialog(
+                                            elevation: 0,
+                                            insetPadding: EdgeInsets.zero,
+                                            backgroundColor: Colors.transparent,
+                                            alignment: AlignmentDirectional(
+                                                    0.0, 0.0)
+                                                .resolve(
+                                                    Directionality.of(context)),
+                                            child: SignInCompoentWidget(
+                                              loginRequered: true,
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 100.0,
+                                      height: 100.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryBackground,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
                             ),
-                            Container(
-                              width: 100.0,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                            ),
-                          ],
+                          ),
                         ),
                       ),
                     ),
