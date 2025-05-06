@@ -18,16 +18,15 @@ class ProfileDetails1Widget extends StatefulWidget {
     required this.actionCall,
     bool? isProfilePge,
     bool? isNewUser,
-    this.phoneNumber,
-    this.pageName,
+    bool? isLogin,
   })  : this.isProfilePge = isProfilePge ?? false,
-        this.isNewUser = isNewUser ?? false;
+        this.isNewUser = isNewUser ?? false,
+        this.isLogin = isLogin ?? false;
 
   final Future Function()? actionCall;
   final bool isProfilePge;
   final bool isNewUser;
-  final String? phoneNumber;
-  final String? pageName;
+  final bool isLogin;
 
   @override
   State<ProfileDetails1Widget> createState() => _ProfileDetails1WidgetState();
@@ -92,7 +91,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
     context.watch<FFAppState>();
 
     return Column(
-      mainAxisSize: MainAxisSize.max,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           decoration: BoxDecoration(
@@ -218,7 +217,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                       ],
                     ),
                   ),
-                  if ((widget.pageName == 'Signin') || widget.isNewUser)
+                  if (widget.isLogin)
                     Align(
                       alignment: AlignmentDirectional(-1.0, 0.0),
                       child: Padding(

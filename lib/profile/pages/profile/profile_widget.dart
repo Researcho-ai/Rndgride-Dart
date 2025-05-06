@@ -505,7 +505,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                             child: Container(
                                                                                               height: MediaQuery.sizeOf(context).height * 0.7,
                                                                                               child: ProfileDetails1Widget(
-                                                                                                pageName: 'profile',
                                                                                                 isProfilePge: true,
                                                                                                 actionCall: () async {
                                                                                                   logFirebaseEvent('_bottom_sheet');
@@ -539,7 +538,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                               height: MediaQuery.sizeOf(context).height * 0.6,
                                                                                               width: MediaQuery.sizeOf(context).width * 0.45,
                                                                                               child: ProfileDetails1Widget(
-                                                                                                pageName: 'profile',
                                                                                                 isProfilePge: true,
                                                                                                 actionCall: () async {
                                                                                                   logFirebaseEvent('_close_dialog_drawer_etc');
