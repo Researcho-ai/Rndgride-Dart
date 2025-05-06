@@ -251,7 +251,7 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                     logFirebaseEvent('BOTTOM_NAV_BAR_COMP_Hom_ON_TAP');
                     logFirebaseEvent('Hom_navigate_to');
 
-                    context.pushNamed(ContactUsWidget.routeName);
+                    context.pushNamed(TestsWidget.routeName);
                   },
                   child: Container(
                     height: 70.0,
