@@ -340,9 +340,6 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                             ),
                                           ),
                                           Container(
-                                            height: MediaQuery.sizeOf(context)
-                                                    .height *
-                                                0.9,
                                             constraints: BoxConstraints(
                                               minHeight: 300.0,
                                             ),
