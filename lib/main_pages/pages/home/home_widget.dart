@@ -2005,7 +2005,28 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       .builder(
                                                     gridDelegate:
                                                         SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                                      crossAxisCount: 3,
+                                                      crossAxisCount: () {
+                                                        if (MediaQuery.sizeOf(
+                                                                    context)
+                                                                .width <
+                                                            kBreakpointSmall) {
+                                                          return 1;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointMedium) {
+                                                          return 2;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointLarge) {
+                                                          return 3;
+                                                        } else {
+                                                          return 3;
+                                                        }
+                                                      }(),
                                                     ),
                                                     crossAxisSpacing: 20.0,
                                                     mainAxisSpacing: 20.0,
