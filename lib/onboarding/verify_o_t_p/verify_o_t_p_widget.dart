@@ -535,13 +535,13 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                               MediaQuery.sizeOf(context).width *
                                                   0.9,
                                           child: ProfileDetails1Widget(
-                                            isProfilePge: true,
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall
                                                 .isNewUser(
                                               (_model.apiResulte19?.jsonBody ??
                                                   ''),
                                             ),
+                                            isLogin: true,
                                             actionCall: () async {
                                               logFirebaseEvent('_navigate_to');
 
@@ -571,13 +571,13 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                               MediaQuery.sizeOf(context).width *
                                                   0.45,
                                           child: ProfileDetails1Widget(
-                                            isProfilePge: true,
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall
                                                 .isNewUser(
                                               (_model.apiResulte19?.jsonBody ??
                                                   ''),
                                             ),
+                                            isLogin: true,
                                             actionCall: () async {
                                               logFirebaseEvent('_navigate_to');
 
