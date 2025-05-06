@@ -898,11 +898,11 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     '6pcto925': {
-      'en': 'Contact',
+      'en': 'Lab Facilities',
       'hi': '',
     },
-    'vcq5zkgt': {
-      'en': 'Labs',
+    '8mvwdzmj': {
+      'en': 'Sectors',
       'hi': '',
     },
   },

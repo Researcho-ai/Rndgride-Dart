@@ -5,6 +5,7 @@ import '/main_pages/components/customer_feedback_web/customer_feedback_web_widge
 import '/main_pages/components/requerment_button/requerment_button_widget.dart';
 import '/main_pages/components/user_requirement_copy/user_requirement_copy_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
+import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/footer/footer_widget.dart';
 import '/nav_bars/footer_mobile/footer_mobile_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
@@ -24,7 +25,7 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
 
   String? tagValue = 'Testing and Development Facility';
 
-  int contactUsButtomIndex = 1;
+  int contactUsButtomIndex = 0;
 
   bool openRequermentForm = false;
 
@@ -200,6 +201,8 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
   late FooterMobileModel footerMobileModel;
   // Model for BottomNavBar component.
   late BottomNavBarModel bottomNavBarModel;
+  // Model for Drawer component.
+  late DrawerModel drawerModel;
 
   @override
   void initState(BuildContext context) {
@@ -237,6 +240,7 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
     footerModel = createModel(context, () => FooterModel());
     footerMobileModel = createModel(context, () => FooterMobileModel());
     bottomNavBarModel = createModel(context, () => BottomNavBarModel());
+    drawerModel = createModel(context, () => DrawerModel());
   }
 
   @override
@@ -263,5 +267,6 @@ class HomeModel extends FlutterFlowModel<HomeWidget> {
     footerModel.dispose();
     footerMobileModel.dispose();
     bottomNavBarModel.dispose();
+    drawerModel.dispose();
   }
 }

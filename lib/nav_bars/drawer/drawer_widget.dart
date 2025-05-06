@@ -1,14 +1,12 @@
 import '/auth/custom_auth/auth_util.dart';
 import '/backend/schema/structs/index.dart';
-import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_pages/components/theme_mode/theme_mode_widget.dart';
+import '/onboarding/sign_in_compoent/sign_in_compoent_widget.dart';
 import '/index.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_animate/flutter_animate.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 import 'drawer_model.dart';
 export 'drawer_model.dart';
@@ -20,11 +18,8 @@ class DrawerWidget extends StatefulWidget {
   State<DrawerWidget> createState() => _DrawerWidgetState();
 }
 
-class _DrawerWidgetState extends State<DrawerWidget>
-    with TickerProviderStateMixin {
+class _DrawerWidgetState extends State<DrawerWidget> {
   late DrawerModel _model;
-
-  final animationsMap = <String, AnimationInfo>{};
 
   @override
   void setState(VoidCallback callback) {
@@ -45,41 +40,6 @@ class _DrawerWidgetState extends State<DrawerWidget>
       _model.updatePage(() {});
     });
 
-    animationsMap.addAll({
-      'containerOnActionTriggerAnimation1': AnimationInfo(
-        trigger: AnimationTrigger.onActionTrigger,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          MoveEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(115.0, 0.0),
-          ),
-        ],
-      ),
-      'containerOnActionTriggerAnimation2': AnimationInfo(
-        trigger: AnimationTrigger.onActionTrigger,
-        applyInitialState: true,
-        effectsBuilder: () => [
-          MoveEffect(
-            curve: Curves.easeInOut,
-            delay: 0.0.ms,
-            duration: 600.0.ms,
-            begin: Offset(0.0, 0.0),
-            end: Offset(115.0, 0.0),
-          ),
-        ],
-      ),
-    });
-    setupAnimations(
-      animationsMap.values.where((anim) =>
-          anim.trigger == AnimationTrigger.onActionTrigger ||
-          !anim.applyInitialState),
-      this,
-    );
-
     WidgetsBinding.instance.addPostFrameCallback((_) => safeSetState(() {}));
   }
 
@@ -95,7 +55,7 @@ class _DrawerWidgetState extends State<DrawerWidget>
     context.watch<FFAppState>();
 
     return Container(
-      width: 300.0,
+      width: 250.0,
       decoration: BoxDecoration(
         color: FlutterFlowTheme.of(context).secondaryBackground,
         borderRadius: BorderRadius.circular(10.0),
@@ -105,465 +65,141 @@ class _DrawerWidgetState extends State<DrawerWidget>
         children: [
           if (responsiveVisibility(
             context: context,
-            phone: false,
-            tablet: false,
+            tabletLandscape: false,
+            desktop: false,
           ))
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 110.0,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'DRAWER_COMP_containerLightMode_ON_TAP');
-                              logFirebaseEvent(
-                                  'containerLightMode_set_dark_mode_setting');
-                              setDarkModeSetting(context, ThemeMode.light);
-                            },
-                            child: Container(
-                              width: 50.0,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? FlutterFlowTheme.of(context)
-                                        .secondaryBackground
-                                    : FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.light
-                                      ? FlutterFlowTheme.of(context)
-                                          .secondaryBackground
-                                      : FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.wb_sunny_rounded,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.light
-                                        ? FlutterFlowTheme.of(context)
-                                            .primaryText
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    size: 16.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'DRAWER_COMP_containerDarkMode_ON_TAP');
-                              logFirebaseEvent(
-                                  'containerDarkMode_set_dark_mode_settings');
-                              setDarkModeSetting(context, ThemeMode.dark);
-                            },
-                            child: Container(
-                              width: 50.0,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? FlutterFlowTheme.of(context)
-                                        .secondaryBackground
-                                    : FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? FlutterFlowTheme.of(context)
-                                          .secondaryBackground
-                                      : FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    Icons.nightlight_round,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? FlutterFlowTheme.of(context)
-                                            .primaryText
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    size: 16.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ).animateOnActionTrigger(
-                            animationsMap[
-                                'containerOnActionTriggerAnimation1']!,
-                          ),
-                        ],
-                      ),
-                    ),
+            Align(
+              alignment: AlignmentDirectional(-1.0, 1.0),
+              child: Container(
+                width: 300.0,
+                decoration: BoxDecoration(
+                  color: FlutterFlowTheme.of(context).primaryBackground,
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0.0),
+                    bottomRight: Radius.circular(0.0),
+                    topLeft: Radius.circular(0.0),
+                    topRight: Radius.circular(8.0),
                   ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent('DRAWER_COMP_Icon_sos8joh3_ON_TAP');
-                      logFirebaseEvent('Icon_close_dialog_drawer_etc');
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.clear_sharp,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 30.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          if (!loggedIn &&
-              responsiveVisibility(
-                context: context,
-                tabletLandscape: false,
-                desktop: false,
-              ))
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    width: 110.0,
-                    height: 50.0,
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).primaryBackground,
-                      borderRadius: BorderRadius.circular(8.0),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(4.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'DRAWER_COMP_containerLightMode_ON_TAP');
-                              logFirebaseEvent(
-                                  'containerLightMode_set_dark_mode_setting');
-                              setDarkModeSetting(context, ThemeMode.light);
-                            },
-                            child: Container(
-                              width: 50.0,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.light
-                                    ? FlutterFlowTheme.of(context)
-                                        .secondaryBackground
-                                    : FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                borderRadius: BorderRadius.circular(4.0),
-                                border: Border.all(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.light
-                                      ? FlutterFlowTheme.of(context)
-                                          .secondaryBackground
-                                      : FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    FFIcons.klight,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.light
-                                        ? FlutterFlowTheme.of(context)
-                                            .primaryText
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    size: 16.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'DRAWER_COMP_containerDarkMode_ON_TAP');
-                              logFirebaseEvent(
-                                  'containerDarkMode_set_dark_mode_settings');
-                              setDarkModeSetting(context, ThemeMode.dark);
-                            },
-                            child: Container(
-                              width: 50.0,
-                              height: 100.0,
-                              decoration: BoxDecoration(
-                                color: Theme.of(context).brightness ==
-                                        Brightness.dark
-                                    ? FlutterFlowTheme.of(context)
-                                        .secondaryBackground
-                                    : FlutterFlowTheme.of(context)
-                                        .primaryBackground,
-                                borderRadius: BorderRadius.circular(10.0),
-                                border: Border.all(
-                                  color: Theme.of(context).brightness ==
-                                          Brightness.dark
-                                      ? FlutterFlowTheme.of(context)
-                                          .secondaryBackground
-                                      : FlutterFlowTheme.of(context)
-                                          .primaryBackground,
-                                  width: 1.0,
-                                ),
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Icon(
-                                    FFIcons.kdark,
-                                    color: Theme.of(context).brightness ==
-                                            Brightness.dark
-                                        ? FlutterFlowTheme.of(context)
-                                            .primaryText
-                                        : FlutterFlowTheme.of(context)
-                                            .secondaryText,
-                                    size: 16.0,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ).animateOnActionTrigger(
-                            animationsMap[
-                                'containerOnActionTriggerAnimation2']!,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    splashColor: Colors.transparent,
-                    focusColor: Colors.transparent,
-                    hoverColor: Colors.transparent,
-                    highlightColor: Colors.transparent,
-                    onTap: () async {
-                      logFirebaseEvent('DRAWER_COMP_Icon_bpbjfngm_ON_TAP');
-                      logFirebaseEvent('Icon_close_dialog_drawer_etc');
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.clear_sharp,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      size: 24.0,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          if (loggedIn &&
-              responsiveVisibility(
-                context: context,
-                tabletLandscape: false,
-                desktop: false,
-              ))
-            Container(
-              width: 300.0,
-              height: 250.0,
-              decoration: BoxDecoration(
-                color: FlutterFlowTheme.of(context).primaryBackground,
-                borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(0.0),
-                  bottomRight: Radius.circular(0.0),
-                  topLeft: Radius.circular(0.0),
-                  topRight: Radius.circular(8.0),
                 ),
-              ),
-              child: Visibility(
-                visible: responsiveVisibility(
-                  context: context,
-                  tabletLandscape: false,
-                  desktop: false,
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding:
-                          EdgeInsetsDirectional.fromSTEB(20.0, 10.0, 20.0, 0.0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          wrapWithModel(
-                            model: _model.themeModeModel,
-                            updateCallback: () => safeSetState(() {}),
-                            child: ThemeModeWidget(),
-                          ),
-                          InkWell(
-                            splashColor: Colors.transparent,
-                            focusColor: Colors.transparent,
-                            hoverColor: Colors.transparent,
-                            highlightColor: Colors.transparent,
-                            onTap: () async {
-                              logFirebaseEvent(
-                                  'DRAWER_COMP_Icon_1ufru4h3_ON_TAP');
-                              logFirebaseEvent('Icon_close_dialog_drawer_etc');
-                              Navigator.pop(context);
-                            },
-                            child: Icon(
-                              Icons.clear_sharp,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24.0,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Expanded(
-                      child: Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 8.0),
-                        child: Column(
+                child: Visibility(
+                  visible: responsiveVisibility(
+                    context: context,
+                    tabletLandscape: false,
+                    desktop: false,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(
+                            20.0, 10.0, 20.0, 4.0),
+                        child: Row(
                           mainAxisSize: MainAxisSize.max,
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Align(
-                              alignment: AlignmentDirectional(-1.0, 0.0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    20.0, 10.0, 0.0, 10.0),
-                                child: Stack(
-                                  alignment: AlignmentDirectional(0.9, 0.9),
-                                  children: [
-                                    if (FFAppState().userProfileData.photoUrl !=
-                                            '')
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          logFirebaseEvent(
-                                              'DRAWER_COMP_UserImage_ON_TAP');
-                                          logFirebaseEvent(
-                                              'UserImage_navigate_to');
-
-                                          context.pushNamed(
-                                              ProfileWidget.routeName);
-                                        },
-                                        child: Container(
-                                          width: 75.0,
-                                          height: 75.0,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: Image.network(
-                                            FFAppState()
-                                                .userProfileData
-                                                .photoUrl,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                    if (valueOrDefault<bool>(
-                                      FFAppState()
-                                                  .userProfileData
-                                                  .photoUrl ==
-                                              '',
-                                      true,
-                                    ))
-                                      InkWell(
-                                        splashColor: Colors.transparent,
-                                        focusColor: Colors.transparent,
-                                        hoverColor: Colors.transparent,
-                                        highlightColor: Colors.transparent,
-                                        onTap: () async {
-                                          logFirebaseEvent(
-                                              'DRAWER_COMP_defaultImage_ON_TAP');
-                                          logFirebaseEvent(
-                                              'defaultImage_navigate_to');
-
-                                          context.pushNamed(
-                                              ProfileWidget.routeName);
-                                        },
-                                        child: Container(
-                                          width: 75.0,
-                                          height: 75.0,
-                                          clipBehavior: Clip.antiAlias,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                          ),
-                                          child: SvgPicture.network(
-                                            'https://storage.googleapis.com/flutterflow-io-6f20.appspot.com/projects/codots-blj7r8/assets/xajpc72imnio/profile.svg',
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      ),
-                                  ],
-                                ),
+                            wrapWithModel(
+                              model: _model.themeModeModel,
+                              updateCallback: () => safeSetState(() {}),
+                              child: ThemeModeWidget(),
+                            ),
+                            InkWell(
+                              splashColor: Colors.transparent,
+                              focusColor: Colors.transparent,
+                              hoverColor: Colors.transparent,
+                              highlightColor: Colors.transparent,
+                              onTap: () async {
+                                logFirebaseEvent(
+                                    'DRAWER_COMP_Icon_1ufru4h3_ON_TAP');
+                                logFirebaseEvent(
+                                    'Icon_close_dialog_drawer_etc');
+                                Navigator.pop(context);
+                              },
+                              child: Icon(
+                                Icons.clear_sharp,
+                                color:
+                                    FlutterFlowTheme.of(context).secondaryText,
+                                size: 24.0,
                               ),
                             ),
-                            Flexible(
-                              child: Row(
+                          ],
+                        ),
+                      ),
+                      if (loggedIn)
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(
+                              0.0, 0.0, 0.0, 8.0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Builder(
+                                builder: (context) => Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0.0, 0.0, 0.0, 8.0),
+                                  child: InkWell(
+                                    splashColor: Colors.transparent,
+                                    focusColor: Colors.transparent,
+                                    hoverColor: Colors.transparent,
+                                    highlightColor: Colors.transparent,
+                                    onTap: () async {
+                                      logFirebaseEvent(
+                                          'DRAWER_COMP_Container_7tkbh89z_ON_TAP');
+                                      if (loggedIn) {
+                                        logFirebaseEvent(
+                                            'Container_navigate_to');
+
+                                        context
+                                            .pushNamed(ProfileWidget.routeName);
+                                      } else {
+                                        logFirebaseEvent(
+                                            'Container_alert_dialog');
+                                        await showDialog(
+                                          context: context,
+                                          builder: (dialogContext) {
+                                            return Dialog(
+                                              elevation: 0,
+                                              insetPadding: EdgeInsets.zero,
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              alignment:
+                                                  AlignmentDirectional(0.0, 0.0)
+                                                      .resolve(
+                                                          Directionality.of(
+                                                              context)),
+                                              child: SignInCompoentWidget(
+                                                loginRequered: true,
+                                              ),
+                                            );
+                                          },
+                                        );
+                                      }
+                                    },
+                                    child: Container(
+                                      width: 89.0,
+                                      height: 89.0,
+                                      decoration: BoxDecoration(
+                                        color: FlutterFlowTheme.of(context)
+                                            .primaryBackground,
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Icon(
+                                        FFIcons.kprofile,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 50.0,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              Column(
                                 mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Column(
+                                  Row(
                                     mainAxisSize: MainAxisSize.max,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
                                     children: [
                                       Flexible(
                                         child: Padding(
@@ -571,10 +207,9 @@ class _DrawerWidgetState extends State<DrawerWidget>
                                               EdgeInsetsDirectional.fromSTEB(
                                                   16.0, 0.0, 0.0, 0.0),
                                           child: Text(
-                                            valueOrDefault<String>(
-                                              currentUserData?.displayName,
-                                              '-',
-                                            ),
+                                            FFAppState()
+                                                .userProfileData
+                                                .displayName,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -591,16 +226,20 @@ class _DrawerWidgetState extends State<DrawerWidget>
                                           ),
                                         ),
                                       ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
                                       Flexible(
                                         child: Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  16.0, 8.0, 0.0, 0.0),
+                                                  16.0, 16.0, 0.0, 0.0),
                                           child: Text(
-                                            valueOrDefault<String>(
-                                              currentUserData?.phoneNumber,
-                                              '-',
-                                            ),
+                                            FFAppState()
+                                                .userProfileData
+                                                .userType,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyMedium
                                                 .override(
@@ -621,12 +260,11 @@ class _DrawerWidgetState extends State<DrawerWidget>
                                   ),
                                 ],
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),

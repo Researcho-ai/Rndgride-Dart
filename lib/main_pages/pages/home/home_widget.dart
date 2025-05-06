@@ -7,6 +7,7 @@ import '/main_pages/components/customer_feedback_web/customer_feedback_web_widge
 import '/main_pages/components/requerment_button/requerment_button_widget.dart';
 import '/main_pages/components/user_requirement_copy/user_requirement_copy_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
+import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/footer/footer_widget.dart';
 import '/nav_bars/footer_mobile/footer_mobile_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
@@ -205,6 +206,14 @@ class _HomeWidgetState extends State<HomeWidget> {
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            endDrawer: Drawer(
+              elevation: 16.0,
+              child: wrapWithModel(
+                model: _model.drawerModel,
+                updateCallback: () => safeSetState(() {}),
+                child: DrawerWidget(),
+              ),
+            ),
             appBar: responsiveVisibility(
               context: context,
               tabletLandscape: false,
@@ -1098,8 +1107,23 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   Container(
                                                                     width:
                                                                         150.0,
-                                                                    height:
-                                                                        150.0,
+                                                                    height: () {
+                                                                      if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointSmall) {
+                                                                        return 100.0;
+                                                                      } else if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointMedium) {
+                                                                        return 120.0;
+                                                                      } else if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointLarge) {
+                                                                        return 150.0;
+                                                                      } else {
+                                                                        return 150.0;
+                                                                      }
+                                                                    }(),
                                                                     decoration:
                                                                         BoxDecoration(
                                                                       color: FlutterFlowTheme.of(
@@ -1168,10 +1192,25 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                         .start,
                                                                 children: [
                                                                   Container(
-                                                                    width:
-                                                                        150.0,
-                                                                    height:
-                                                                        150.0,
+                                                                    width: double
+                                                                        .infinity,
+                                                                    height: () {
+                                                                      if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointSmall) {
+                                                                        return 100.0;
+                                                                      } else if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointMedium) {
+                                                                        return 120.0;
+                                                                      } else if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointLarge) {
+                                                                        return 150.0;
+                                                                      } else {
+                                                                        return 150.0;
+                                                                      }
+                                                                    }(),
                                                                     decoration:
                                                                         BoxDecoration(
                                                                       color: FlutterFlowTheme.of(
@@ -1190,8 +1229,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                           .asset(
                                                                         'assets/images/Students.png',
                                                                         width:
-                                                                            200.0,
-                                                                        height:
                                                                             200.0,
                                                                         fit: BoxFit
                                                                             .cover,
@@ -1242,8 +1279,23 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                   Container(
                                                                     width:
                                                                         150.0,
-                                                                    height:
-                                                                        150.0,
+                                                                    height: () {
+                                                                      if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointSmall) {
+                                                                        return 100.0;
+                                                                      } else if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointMedium) {
+                                                                        return 120.0;
+                                                                      } else if (MediaQuery.sizeOf(context)
+                                                                              .width <
+                                                                          kBreakpointLarge) {
+                                                                        return 150.0;
+                                                                      } else {
+                                                                        return 150.0;
+                                                                      }
+                                                                    }(),
                                                                     decoration:
                                                                         BoxDecoration(
                                                                       color: FlutterFlowTheme.of(
@@ -2363,31 +2415,27 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                     mainAxisSize:
                                                         MainAxisSize.max,
                                                     children: [
-                                                      if (responsiveVisibility(
-                                                        context: context,
-                                                        phone: false,
-                                                        tablet: false,
-                                                      ))
-                                                        Text(
-                                                          FFLocalizations.of(
-                                                                  context)
-                                                              .getText(
-                                                            'so6vlpmi' /* view all */,
-                                                          ),
-                                                          style: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .labelLarge
-                                                              .override(
-                                                                font: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .labelLarge,
-                                                                color: FlutterFlowTheme.of(
-                                                                        context)
-                                                                    .primary,
-                                                                letterSpacing:
-                                                                    0.0,
-                                                              ),
+                                                      Text(
+                                                        FFLocalizations.of(
+                                                                context)
+                                                            .getText(
+                                                          'so6vlpmi' /* view all */,
                                                         ),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .labelLarge
+                                                                .override(
+                                                                  font: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .labelLarge,
+                                                                  color: FlutterFlowTheme.of(
+                                                                          context)
+                                                                      .primary,
+                                                                  letterSpacing:
+                                                                      0.0,
+                                                                ),
+                                                      ),
                                                       Padding(
                                                         padding:
                                                             EdgeInsetsDirectional
@@ -3431,28 +3479,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                               itemBuilder: (context, index) {
                                                 return [
                                                   () => Container(
-                                                        height: () {
-                                                          if (MediaQuery.sizeOf(
-                                                                      context)
-                                                                  .width <
-                                                              kBreakpointSmall) {
-                                                            return 240.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
-                                                            return 280.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointLarge) {
-                                                            return 320.0;
-                                                          } else {
-                                                            return 320.0;
-                                                          }
-                                                        }(),
+                                                        height: 320.0,
                                                         constraints:
                                                             BoxConstraints(
                                                           minHeight: 150.0,
@@ -3543,28 +3570,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         ),
                                                       ),
                                                   () => Container(
-                                                        height: () {
-                                                          if (MediaQuery.sizeOf(
-                                                                      context)
-                                                                  .width <
-                                                              kBreakpointSmall) {
-                                                            return 240.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
-                                                            return 280.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointLarge) {
-                                                            return 320.0;
-                                                          } else {
-                                                            return 320.0;
-                                                          }
-                                                        }(),
+                                                        height: 320.0,
                                                         constraints:
                                                             BoxConstraints(
                                                           minHeight: 150.0,
@@ -3591,7 +3597,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           child: Column(
                                                             mainAxisSize:
                                                                 MainAxisSize
-                                                                    .max,
+                                                                    .min,
                                                             mainAxisAlignment:
                                                                 MainAxisAlignment
                                                                     .center,
@@ -3649,28 +3655,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         ),
                                                       ),
                                                   () => Container(
-                                                        height: () {
-                                                          if (MediaQuery.sizeOf(
-                                                                      context)
-                                                                  .width <
-                                                              kBreakpointSmall) {
-                                                            return 240.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
-                                                            return 280.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointLarge) {
-                                                            return 320.0;
-                                                          } else {
-                                                            return 320.0;
-                                                          }
-                                                        }(),
+                                                        height: 320.0,
                                                         constraints:
                                                             BoxConstraints(
                                                           minHeight: 150.0,
@@ -8158,12 +8143,24 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                               child:
                                                                   RequermentButtonWidget(
                                                                 parameter2:
-                                                                    valueOrDefault<
-                                                                        int>(
-                                                                  _model
-                                                                      .contactUsButtomIndex,
-                                                                  1,
-                                                                ),
+                                                                    (valueOrDefault<int>(
+                                                                                  _model.contactUsButtomIndex,
+                                                                                  1,
+                                                                                ) ==
+                                                                                0) &&
+                                                                            () {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return false;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return false;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return true;
+                                                                              } else {
+                                                                                return true;
+                                                                              }
+                                                                            }()
+                                                                        ? 1
+                                                                        : 0,
                                                                 text:
                                                                     'Testing and Development Facility',
                                                                 isHome: false,
@@ -8301,83 +8298,98 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                       ),
                                                     ),
                                                   ),
-                                              () => Padding(
-                                                    padding:
-                                                        EdgeInsetsDirectional
-                                                            .fromSTEB(8.0, 0.0,
-                                                                0.0, 0.0),
-                                                    child: Container(
-                                                      width: () {
-                                                        if (MediaQuery.sizeOf(
-                                                                    context)
-                                                                .width <
-                                                            kBreakpointSmall) {
-                                                          return (MediaQuery
+                                              () => Visibility(
+                                                    visible:
+                                                        responsiveVisibility(
+                                                      context: context,
+                                                      phone: false,
+                                                      tablet: false,
+                                                    ),
+                                                    child: Padding(
+                                                      padding:
+                                                          EdgeInsetsDirectional
+                                                              .fromSTEB(
+                                                                  8.0,
+                                                                  0.0,
+                                                                  0.0,
+                                                                  0.0),
+                                                      child: Container(
+                                                        width: () {
+                                                          if (MediaQuery.sizeOf(
+                                                                      context)
+                                                                  .width <
+                                                              kBreakpointSmall) {
+                                                            return (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width *
+                                                                0.9);
+                                                          } else if (MediaQuery
                                                                       .sizeOf(
                                                                           context)
-                                                                  .width *
-                                                              0.9);
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointMedium) {
-                                                          return (MediaQuery
+                                                                  .width <
+                                                              kBreakpointMedium) {
+                                                            return (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width *
+                                                                0.9);
+                                                          } else if (MediaQuery
                                                                       .sizeOf(
                                                                           context)
-                                                                  .width *
-                                                              0.9);
-                                                        } else if (MediaQuery
-                                                                    .sizeOf(
-                                                                        context)
-                                                                .width <
-                                                            kBreakpointLarge) {
-                                                          return (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width *
-                                                              0.45);
-                                                        } else {
-                                                          return (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width *
-                                                              0.45);
-                                                        }
-                                                      }(),
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(16.0),
-                                                        border: Border.all(
-                                                          color: FlutterFlowTheme
-                                                                  .of(context)
-                                                              .primary,
-                                                          width: 2.0,
+                                                                  .width <
+                                                              kBreakpointLarge) {
+                                                            return (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width *
+                                                                0.45);
+                                                          } else {
+                                                            return (MediaQuery
+                                                                        .sizeOf(
+                                                                            context)
+                                                                    .width *
+                                                                0.45);
+                                                          }
+                                                        }(),
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(
+                                                                      16.0),
+                                                          border: Border.all(
+                                                            color: FlutterFlowTheme
+                                                                    .of(context)
+                                                                .primary,
+                                                            width: 2.0,
+                                                          ),
                                                         ),
-                                                      ),
-                                                      child: wrapWithModel(
-                                                        model: _model
-                                                            .userRequirementCopyModel,
-                                                        updateCallback: () =>
-                                                            safeSetState(() {}),
-                                                        updateOnChange: true,
-                                                        child:
-                                                            UserRequirementCopyWidget(
-                                                          isDialog: false,
-                                                          tagValue:
-                                                              _model.tagValue,
-                                                          requermwntDialog:
-                                                              false,
-                                                          action: () async {
-                                                            logFirebaseEvent(
-                                                                'HOME_PAGE_Container_bbn5mb4v_CALLBACK');
-                                                            logFirebaseEvent(
-                                                                'UserRequirementCopy_update_page_state');
-                                                            _model.tagValue =
-                                                                'Testing and Development Facility';
-                                                            safeSetState(() {});
-                                                          },
+                                                        child: wrapWithModel(
+                                                          model: _model
+                                                              .userRequirementCopyModel,
+                                                          updateCallback: () =>
+                                                              safeSetState(
+                                                                  () {}),
+                                                          updateOnChange: true,
+                                                          child:
+                                                              UserRequirementCopyWidget(
+                                                            isDialog: false,
+                                                            tagValue:
+                                                                _model.tagValue,
+                                                            requermwntDialog:
+                                                                false,
+                                                            action: () async {
+                                                              logFirebaseEvent(
+                                                                  'HOME_PAGE_Container_bbn5mb4v_CALLBACK');
+                                                              logFirebaseEvent(
+                                                                  'UserRequirementCopy_update_page_state');
+                                                              _model.tagValue =
+                                                                  'Testing and Development Facility';
+                                                              safeSetState(
+                                                                  () {});
+                                                            },
+                                                          ),
                                                         ),
                                                       ),
                                                     ),
@@ -8445,9 +8457,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                             color: Colors.transparent,
                             child: BottomNavBarWidget(
                               home: true,
-                              resources: false,
-                              job: false,
-                              tools: false,
+                              instruments: false,
+                              labFacilities: false,
+                              tests: false,
                             ),
                           ),
                         ),

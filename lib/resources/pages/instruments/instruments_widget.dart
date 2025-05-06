@@ -843,413 +843,201 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                               ),
                                             ],
                                           ),
-                                          Align(
-                                            alignment:
-                                                AlignmentDirectional(0.0, 0.0),
-                                            child: Padding(
-                                              padding: EdgeInsetsDirectional
-                                                  .fromSTEB(
-                                                      valueOrDefault<double>(
-                                                        () {
-                                                          if (MediaQuery.sizeOf(
-                                                                      context)
-                                                                  .width <
-                                                              kBreakpointSmall) {
-                                                            return 5.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
-                                                            return 5.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointLarge) {
-                                                            return 0.0;
-                                                          } else {
-                                                            return 0.0;
-                                                          }
-                                                        }(),
-                                                        0.0,
-                                                      ),
-                                                      8.0,
-                                                      valueOrDefault<double>(
-                                                        () {
-                                                          if (MediaQuery.sizeOf(
-                                                                      context)
-                                                                  .width <
-                                                              kBreakpointSmall) {
-                                                            return 5.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointMedium) {
-                                                            return 5.0;
-                                                          } else if (MediaQuery
-                                                                      .sizeOf(
-                                                                          context)
-                                                                  .width <
-                                                              kBreakpointLarge) {
-                                                            return 0.0;
-                                                          } else {
-                                                            return 0.0;
-                                                          }
-                                                        }(),
-                                                        0.0,
-                                                      ),
-                                                      0.0),
-                                              child: Container(
-                                                width: () {
-                                                  if (MediaQuery.sizeOf(context)
-                                                          .width <
-                                                      kBreakpointSmall) {
-                                                    return (MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.9);
-                                                  } else if (MediaQuery.sizeOf(
-                                                              context)
-                                                          .width <
-                                                      kBreakpointMedium) {
-                                                    return (MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.8);
-                                                  } else if (MediaQuery.sizeOf(
-                                                              context)
-                                                          .width <
-                                                      kBreakpointLarge) {
-                                                    return (MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.8);
-                                                  } else {
-                                                    return (MediaQuery.sizeOf(
-                                                                context)
-                                                            .width *
-                                                        0.8);
-                                                  }
-                                                }(),
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          16.0),
-                                                ),
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 1.0),
-                                                child: Padding(
-                                                  padding:
-                                                      EdgeInsetsDirectional
-                                                          .fromSTEB(
-                                                              valueOrDefault<
-                                                                  double>(
-                                                                () {
-                                                                  if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointSmall) {
-                                                                    return 5.0;
-                                                                  } else if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointMedium) {
-                                                                    return 5.0;
-                                                                  } else if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointLarge) {
-                                                                    return 0.0;
-                                                                  } else {
-                                                                    return 0.0;
-                                                                  }
-                                                                }(),
-                                                                0.0,
-                                                              ),
+                                          Flexible(
+                                            child: Align(
+                                              alignment: AlignmentDirectional(
+                                                  0.0, 0.0),
+                                              child: Padding(
+                                                padding:
+                                                    EdgeInsetsDirectional
+                                                        .fromSTEB(
+                                                            valueOrDefault<
+                                                                double>(
+                                                              () {
+                                                                if (MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width <
+                                                                    kBreakpointSmall) {
+                                                                  return 5.0;
+                                                                } else if (MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width <
+                                                                    kBreakpointMedium) {
+                                                                  return 5.0;
+                                                                } else if (MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width <
+                                                                    kBreakpointLarge) {
+                                                                  return 0.0;
+                                                                } else {
+                                                                  return 0.0;
+                                                                }
+                                                              }(),
                                                               0.0,
-                                                              valueOrDefault<
-                                                                  double>(
-                                                                () {
-                                                                  if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointSmall) {
-                                                                    return 5.0;
-                                                                  } else if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointMedium) {
-                                                                    return 5.0;
-                                                                  } else if (MediaQuery.sizeOf(
-                                                                              context)
-                                                                          .width <
-                                                                      kBreakpointLarge) {
-                                                                    return 0.0;
-                                                                  } else {
-                                                                    return 0.0;
-                                                                  }
-                                                                }(),
-                                                                0.0,
-                                                              ),
-                                                              0.0),
-                                                  child: SingleChildScrollView(
-                                                    child: Column(
-                                                      mainAxisSize:
-                                                          MainAxisSize.max,
-                                                      children: [
-                                                        if ((FFAppState()
-                                                                    .InstrumentsList !=
-                                                                null) &&
-                                                            !_model
-                                                                .activeSearch)
-                                                          Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.0, -1.0),
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        valueOrDefault<
-                                                                            double>(
-                                                                          () {
-                                                                            if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointSmall) {
-                                                                              return 100.0;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointMedium) {
-                                                                              return 70.0;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointLarge) {
-                                                                              return 30.0;
-                                                                            } else {
-                                                                              return 30.0;
-                                                                            }
-                                                                          }(),
-                                                                          0.0,
-                                                                        )),
-                                                                child:
-                                                                    SingleChildScrollView(
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            20.0),
-                                                                        child:
-                                                                            Builder(
-                                                                          builder:
-                                                                              (context) {
-                                                                            final instrumentsTestsList =
-                                                                                _model.instrumentsListFromAPI?.toList() ?? [];
-
-                                                                            return MasonryGridView.builder(
-                                                                              physics: const NeverScrollableScrollPhysics(),
-                                                                              gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
-                                                                                crossAxisCount: valueOrDefault<int>(
-                                                                                  () {
-                                                                                    if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                                                                                      return 1;
-                                                                                    } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-                                                                                      return 2;
-                                                                                    } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
-                                                                                      return 3;
-                                                                                    } else {
-                                                                                      return 3;
-                                                                                    }
-                                                                                  }(),
-                                                                                  2,
-                                                                                ),
-                                                                              ),
-                                                                              crossAxisSpacing: 20.0,
-                                                                              mainAxisSpacing: 20.0,
-                                                                              itemCount: instrumentsTestsList.length,
-                                                                              padding: EdgeInsets.fromLTRB(
-                                                                                0,
-                                                                                0,
-                                                                                0,
-                                                                                10.0,
-                                                                              ),
-                                                                              shrinkWrap: true,
-                                                                              itemBuilder: (context, instrumentsTestsListIndex) {
-                                                                                final instrumentsTestsListItem = instrumentsTestsList[instrumentsTestsListIndex];
-                                                                                return Material(
-                                                                                  color: Colors.transparent,
-                                                                                  elevation: 0.0,
-                                                                                  shape: RoundedRectangleBorder(
-                                                                                    borderRadius: BorderRadius.only(
-                                                                                      bottomLeft: Radius.circular(0.0),
-                                                                                      bottomRight: Radius.circular(0.0),
-                                                                                      topLeft: Radius.circular(0.0),
-                                                                                      topRight: Radius.circular(0.0),
-                                                                                    ),
-                                                                                  ),
-                                                                                  child: Container(
-                                                                                    decoration: BoxDecoration(
-                                                                                      borderRadius: BorderRadius.only(
-                                                                                        bottomLeft: Radius.circular(0.0),
-                                                                                        bottomRight: Radius.circular(0.0),
-                                                                                        topLeft: Radius.circular(0.0),
-                                                                                        topRight: Radius.circular(0.0),
-                                                                                      ),
-                                                                                    ),
-                                                                                    child: wrapWithModel(
-                                                                                      model: _model.instrumentsDetailsModels1.getModel(
-                                                                                        instrumentsTestsListIndex.toString(),
-                                                                                        instrumentsTestsListIndex,
-                                                                                      ),
-                                                                                      updateCallback: () => safeSetState(() {}),
-                                                                                      child: InstrumentsDetailsWidget(
-                                                                                        key: Key(
-                                                                                          'Keytdi_${instrumentsTestsListIndex.toString()}',
-                                                                                        ),
-                                                                                        instrumentTestName: getJsonField(
-                                                                                          instrumentsTestsListItem,
-                                                                                          r'''$.instrument_name''',
-                                                                                        ).toString(),
-                                                                                        index: instrumentsTestsListIndex,
-                                                                                        instrumentJson: instrumentsTestsListItem,
-                                                                                        isLabInstrument: false,
-                                                                                      ),
-                                                                                    ),
-                                                                                  ),
-                                                                                );
-                                                                              },
-                                                                            );
-                                                                          },
-                                                                        ),
-                                                                      ),
-                                                                      Padding(
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            20.0),
-                                                                        child:
-                                                                            Row(
-                                                                          mainAxisSize:
-                                                                              MainAxisSize.max,
-                                                                          mainAxisAlignment:
-                                                                              MainAxisAlignment.center,
-                                                                          children: [
-                                                                            if (_model.instrumentLength >=
-                                                                                18)
-                                                                              FFButtonWidget(
-                                                                                onPressed: () async {
-                                                                                  logFirebaseEvent('INSTRUMENTS_PAGE_AddButton_ON_TAP');
-                                                                                  var _shouldSetState = false;
-                                                                                  logFirebaseEvent('AddButton_backend_call');
-                                                                                  _model.extraInstrumentz = await InstrumentsTestsGroup.getInstrumentsTestsCall.call(
-                                                                                    limit: _model.instrumentLength + 12,
-                                                                                  );
-
-                                                                                  _shouldSetState = true;
-                                                                                  if ((_model.extraInstrumentz?.succeeded ?? true)) {
-                                                                                    logFirebaseEvent('AddButton_update_page_state');
-                                                                                    _model.instrumentsListFromAPI = InstrumentsTestsGroup.getInstrumentsTestsCall.instrumentsTests(
-                                                                                      (_model.extraInstrumentz?.jsonBody ?? ''),
-                                                                                    );
-                                                                                    _model.instrumentLength = InstrumentsTestsGroup.getInstrumentsTestsCall.count(
-                                                                                      (_model.extraInstrumentz?.jsonBody ?? ''),
-                                                                                    )!;
-                                                                                    safeSetState(() {});
-                                                                                    if (_shouldSetState) safeSetState(() {});
-                                                                                    return;
-                                                                                  } else {
-                                                                                    if (_shouldSetState) safeSetState(() {});
-                                                                                    return;
-                                                                                  }
-
-                                                                                  if (_shouldSetState) safeSetState(() {});
-                                                                                },
-                                                                                text: FFLocalizations.of(context).getText(
-                                                                                  'rnul1obx' /* Show More Instruments */,
-                                                                                ),
-                                                                                options: FFButtonOptions(
-                                                                                  width: 200.0,
-                                                                                  height: 40.0,
-                                                                                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
-                                                                                  iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
-                                                                                  color: FlutterFlowTheme.of(context).primary,
-                                                                                  textStyle: FlutterFlowTheme.of(context).labelLarge.override(
-                                                                                        font: FlutterFlowTheme.of(context).labelLarge,
-                                                                                        color: FlutterFlowTheme.of(context).buttonText,
-                                                                                        letterSpacing: 0.0,
-                                                                                      ),
-                                                                                  elevation: 3.0,
-                                                                                  borderSide: BorderSide(
-                                                                                    color: Colors.transparent,
-                                                                                    width: 1.0,
-                                                                                  ),
-                                                                                  borderRadius: BorderRadius.circular(8.0),
-                                                                                ),
-                                                                              ),
-                                                                          ],
-                                                                        ),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
                                                             ),
-                                                          ),
-                                                        if ((_model.searchITextController
-                                                                        .text !=
-                                                                    '') &&
-                                                            _model.activeSearch)
-                                                          Align(
-                                                            alignment:
-                                                                AlignmentDirectional(
-                                                                    0.0, -1.0),
-                                                            child: Container(
-                                                              decoration:
-                                                                  BoxDecoration(),
-                                                              child: Padding(
-                                                                padding: EdgeInsetsDirectional
-                                                                    .fromSTEB(
-                                                                        0.0,
-                                                                        0.0,
-                                                                        0.0,
-                                                                        valueOrDefault<
-                                                                            double>(
-                                                                          () {
-                                                                            if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointSmall) {
-                                                                              return 100.0;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointMedium) {
-                                                                              return 70.0;
-                                                                            } else if (MediaQuery.sizeOf(context).width <
-                                                                                kBreakpointLarge) {
-                                                                              return 30.0;
-                                                                            } else {
-                                                                              return 30.0;
-                                                                            }
-                                                                          }(),
+                                                            8.0,
+                                                            valueOrDefault<
+                                                                double>(
+                                                              () {
+                                                                if (MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width <
+                                                                    kBreakpointSmall) {
+                                                                  return 5.0;
+                                                                } else if (MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width <
+                                                                    kBreakpointMedium) {
+                                                                  return 5.0;
+                                                                } else if (MediaQuery.sizeOf(
+                                                                            context)
+                                                                        .width <
+                                                                    kBreakpointLarge) {
+                                                                  return 0.0;
+                                                                } else {
+                                                                  return 0.0;
+                                                                }
+                                                              }(),
+                                                              0.0,
+                                                            ),
+                                                            0.0),
+                                                child: Container(
+                                                  width: () {
+                                                    if (MediaQuery.sizeOf(
+                                                                context)
+                                                            .width <
+                                                        kBreakpointSmall) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.9);
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointMedium) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.8);
+                                                    } else if (MediaQuery
+                                                                .sizeOf(context)
+                                                            .width <
+                                                        kBreakpointLarge) {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.8);
+                                                    } else {
+                                                      return (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width *
+                                                          0.8);
+                                                    }
+                                                  }(),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            16.0),
+                                                  ),
+                                                  alignment:
+                                                      AlignmentDirectional(
+                                                          0.0, 1.0),
+                                                  child: Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                valueOrDefault<
+                                                                    double>(
+                                                                  () {
+                                                                    if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointSmall) {
+                                                                      return 5.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointMedium) {
+                                                                      return 5.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointLarge) {
+                                                                      return 0.0;
+                                                                    } else {
+                                                                      return 0.0;
+                                                                    }
+                                                                  }(),
+                                                                  0.0,
+                                                                ),
+                                                                0.0,
+                                                                valueOrDefault<
+                                                                    double>(
+                                                                  () {
+                                                                    if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointSmall) {
+                                                                      return 5.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointMedium) {
+                                                                      return 5.0;
+                                                                    } else if (MediaQuery.sizeOf(context)
+                                                                            .width <
+                                                                        kBreakpointLarge) {
+                                                                      return 0.0;
+                                                                    } else {
+                                                                      return 0.0;
+                                                                    }
+                                                                  }(),
+                                                                  0.0,
+                                                                ),
+                                                                0.0),
+                                                    child:
+                                                        SingleChildScrollView(
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          if ((FFAppState()
+                                                                      .InstrumentsList !=
+                                                                  null) &&
+                                                              !_model
+                                                                  .activeSearch)
+                                                            Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      0.0,
+                                                                      -1.0),
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
                                                                           0.0,
-                                                                        )),
-                                                                child:
-                                                                    SingleChildScrollView(
-                                                                  child: Column(
-                                                                    mainAxisSize:
-                                                                        MainAxisSize
-                                                                            .max,
-                                                                    children: [
-                                                                      if (_model
-                                                                          .resultInstrumentsFromAPI
-                                                                          .isNotEmpty)
+                                                                          0.0,
+                                                                          0.0,
+                                                                          valueOrDefault<
+                                                                              double>(
+                                                                            () {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return 100.0;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return 70.0;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return 30.0;
+                                                                              } else {
+                                                                                return 30.0;
+                                                                              }
+                                                                            }(),
+                                                                            0.0,
+                                                                          )),
+                                                                  child:
+                                                                      SingleChildScrollView(
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
@@ -1260,7 +1048,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                               Builder(
                                                                             builder:
                                                                                 (context) {
-                                                                              final instrumentsTestsList = _model.resultInstrumentsFromAPI.toList();
+                                                                              final instrumentsTestsList = _model.instrumentsListFromAPI?.toList() ?? [];
 
                                                                               return MasonryGridView.builder(
                                                                                 physics: const NeverScrollableScrollPhysics(),
@@ -1292,23 +1080,45 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                                 shrinkWrap: true,
                                                                                 itemBuilder: (context, instrumentsTestsListIndex) {
                                                                                   final instrumentsTestsListItem = instrumentsTestsList[instrumentsTestsListIndex];
-                                                                                  return wrapWithModel(
-                                                                                    model: _model.instrumentsDetailsModels2.getModel(
-                                                                                      instrumentsTestsListIndex.toString(),
-                                                                                      instrumentsTestsListIndex,
-                                                                                    ),
-                                                                                    updateCallback: () => safeSetState(() {}),
-                                                                                    child: InstrumentsDetailsWidget(
-                                                                                      key: Key(
-                                                                                        'Keyzma_${instrumentsTestsListIndex.toString()}',
+                                                                                  return Material(
+                                                                                    color: Colors.transparent,
+                                                                                    elevation: 0.0,
+                                                                                    shape: RoundedRectangleBorder(
+                                                                                      borderRadius: BorderRadius.only(
+                                                                                        bottomLeft: Radius.circular(0.0),
+                                                                                        bottomRight: Radius.circular(0.0),
+                                                                                        topLeft: Radius.circular(0.0),
+                                                                                        topRight: Radius.circular(0.0),
                                                                                       ),
-                                                                                      instrumentTestName: getJsonField(
-                                                                                        instrumentsTestsListItem,
-                                                                                        r'''$.instrument_name''',
-                                                                                      ).toString(),
-                                                                                      index: instrumentsTestsListIndex,
-                                                                                      instrumentJson: instrumentsTestsListItem,
-                                                                                      isLabInstrument: false,
+                                                                                    ),
+                                                                                    child: Container(
+                                                                                      decoration: BoxDecoration(
+                                                                                        borderRadius: BorderRadius.only(
+                                                                                          bottomLeft: Radius.circular(0.0),
+                                                                                          bottomRight: Radius.circular(0.0),
+                                                                                          topLeft: Radius.circular(0.0),
+                                                                                          topRight: Radius.circular(0.0),
+                                                                                        ),
+                                                                                      ),
+                                                                                      child: wrapWithModel(
+                                                                                        model: _model.instrumentsDetailsModels1.getModel(
+                                                                                          instrumentsTestsListIndex.toString(),
+                                                                                          instrumentsTestsListIndex,
+                                                                                        ),
+                                                                                        updateCallback: () => safeSetState(() {}),
+                                                                                        child: InstrumentsDetailsWidget(
+                                                                                          key: Key(
+                                                                                            'Keytdi_${instrumentsTestsListIndex.toString()}',
+                                                                                          ),
+                                                                                          instrumentTestName: getJsonField(
+                                                                                            instrumentsTestsListItem,
+                                                                                            r'''$.instrument_name''',
+                                                                                          ).toString(),
+                                                                                          index: instrumentsTestsListIndex,
+                                                                                          instrumentJson: instrumentsTestsListItem,
+                                                                                          isLabInstrument: false,
+                                                                                        ),
+                                                                                      ),
                                                                                     ),
                                                                                   );
                                                                                 },
@@ -1316,9 +1126,6 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                             },
                                                                           ),
                                                                         ),
-                                                                      if (!(_model
-                                                                          .resultInstrumentsFromAPI
-                                                                          .isNotEmpty))
                                                                         Padding(
                                                                           padding: EdgeInsetsDirectional.fromSTEB(
                                                                               0.0,
@@ -1326,24 +1133,209 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                                                               0.0,
                                                                               20.0),
                                                                           child:
-                                                                              Container(
-                                                                            decoration:
-                                                                                BoxDecoration(),
-                                                                            child:
-                                                                                wrapWithModel(
-                                                                              model: _model.dataNotFoundCOmponentModel,
-                                                                              updateCallback: () => safeSetState(() {}),
-                                                                              child: DataNotFoundCOmponentWidget(),
-                                                                            ),
+                                                                              Row(
+                                                                            mainAxisSize:
+                                                                                MainAxisSize.max,
+                                                                            mainAxisAlignment:
+                                                                                MainAxisAlignment.center,
+                                                                            children: [
+                                                                              if (_model.instrumentLength >= 18)
+                                                                                FFButtonWidget(
+                                                                                  onPressed: () async {
+                                                                                    logFirebaseEvent('INSTRUMENTS_PAGE_AddButton_ON_TAP');
+                                                                                    var _shouldSetState = false;
+                                                                                    logFirebaseEvent('AddButton_backend_call');
+                                                                                    _model.extraInstrumentz = await InstrumentsTestsGroup.getInstrumentsTestsCall.call(
+                                                                                      limit: _model.instrumentLength + 12,
+                                                                                    );
+
+                                                                                    _shouldSetState = true;
+                                                                                    if ((_model.extraInstrumentz?.succeeded ?? true)) {
+                                                                                      logFirebaseEvent('AddButton_update_page_state');
+                                                                                      _model.instrumentsListFromAPI = InstrumentsTestsGroup.getInstrumentsTestsCall.instrumentsTests(
+                                                                                        (_model.extraInstrumentz?.jsonBody ?? ''),
+                                                                                      );
+                                                                                      _model.instrumentLength = InstrumentsTestsGroup.getInstrumentsTestsCall.count(
+                                                                                        (_model.extraInstrumentz?.jsonBody ?? ''),
+                                                                                      )!;
+                                                                                      safeSetState(() {});
+                                                                                      if (_shouldSetState) safeSetState(() {});
+                                                                                      return;
+                                                                                    } else {
+                                                                                      if (_shouldSetState) safeSetState(() {});
+                                                                                      return;
+                                                                                    }
+
+                                                                                    if (_shouldSetState) safeSetState(() {});
+                                                                                  },
+                                                                                  text: FFLocalizations.of(context).getText(
+                                                                                    'rnul1obx' /* Show More Instruments */,
+                                                                                  ),
+                                                                                  options: FFButtonOptions(
+                                                                                    width: 200.0,
+                                                                                    height: 40.0,
+                                                                                    padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
+                                                                                    iconPadding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                                                                                    color: FlutterFlowTheme.of(context).primary,
+                                                                                    textStyle: FlutterFlowTheme.of(context).labelLarge.override(
+                                                                                          font: FlutterFlowTheme.of(context).labelLarge,
+                                                                                          color: FlutterFlowTheme.of(context).buttonText,
+                                                                                          letterSpacing: 0.0,
+                                                                                        ),
+                                                                                    elevation: 3.0,
+                                                                                    borderSide: BorderSide(
+                                                                                      color: Colors.transparent,
+                                                                                      width: 1.0,
+                                                                                    ),
+                                                                                    borderRadius: BorderRadius.circular(8.0),
+                                                                                  ),
+                                                                                ),
+                                                                            ],
                                                                           ),
                                                                         ),
-                                                                    ],
+                                                                      ],
+                                                                    ),
                                                                   ),
                                                                 ),
                                                               ),
                                                             ),
-                                                          ),
-                                                      ],
+                                                          if ((_model.searchITextController
+                                                                          .text !=
+                                                                      '') &&
+                                                              _model
+                                                                  .activeSearch)
+                                                            Align(
+                                                              alignment:
+                                                                  AlignmentDirectional(
+                                                                      0.0,
+                                                                      -1.0),
+                                                              child: Container(
+                                                                decoration:
+                                                                    BoxDecoration(),
+                                                                child: Padding(
+                                                                  padding: EdgeInsetsDirectional
+                                                                      .fromSTEB(
+                                                                          0.0,
+                                                                          0.0,
+                                                                          0.0,
+                                                                          valueOrDefault<
+                                                                              double>(
+                                                                            () {
+                                                                              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                return 100.0;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                return 70.0;
+                                                                              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                return 30.0;
+                                                                              } else {
+                                                                                return 30.0;
+                                                                              }
+                                                                            }(),
+                                                                            0.0,
+                                                                          )),
+                                                                  child:
+                                                                      SingleChildScrollView(
+                                                                    child:
+                                                                        Column(
+                                                                      mainAxisSize:
+                                                                          MainAxisSize
+                                                                              .max,
+                                                                      children: [
+                                                                        if (_model
+                                                                            .resultInstrumentsFromAPI
+                                                                            .isNotEmpty)
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                20.0),
+                                                                            child:
+                                                                                Builder(
+                                                                              builder: (context) {
+                                                                                final instrumentsTestsList = _model.resultInstrumentsFromAPI.toList();
+
+                                                                                return MasonryGridView.builder(
+                                                                                  physics: const NeverScrollableScrollPhysics(),
+                                                                                  gridDelegate: SliverSimpleGridDelegateWithFixedCrossAxisCount(
+                                                                                    crossAxisCount: valueOrDefault<int>(
+                                                                                      () {
+                                                                                        if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                                                                                          return 1;
+                                                                                        } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
+                                                                                          return 2;
+                                                                                        } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
+                                                                                          return 3;
+                                                                                        } else {
+                                                                                          return 3;
+                                                                                        }
+                                                                                      }(),
+                                                                                      2,
+                                                                                    ),
+                                                                                  ),
+                                                                                  crossAxisSpacing: 20.0,
+                                                                                  mainAxisSpacing: 20.0,
+                                                                                  itemCount: instrumentsTestsList.length,
+                                                                                  padding: EdgeInsets.fromLTRB(
+                                                                                    0,
+                                                                                    0,
+                                                                                    0,
+                                                                                    10.0,
+                                                                                  ),
+                                                                                  shrinkWrap: true,
+                                                                                  itemBuilder: (context, instrumentsTestsListIndex) {
+                                                                                    final instrumentsTestsListItem = instrumentsTestsList[instrumentsTestsListIndex];
+                                                                                    return wrapWithModel(
+                                                                                      model: _model.instrumentsDetailsModels2.getModel(
+                                                                                        instrumentsTestsListIndex.toString(),
+                                                                                        instrumentsTestsListIndex,
+                                                                                      ),
+                                                                                      updateCallback: () => safeSetState(() {}),
+                                                                                      child: InstrumentsDetailsWidget(
+                                                                                        key: Key(
+                                                                                          'Keyzma_${instrumentsTestsListIndex.toString()}',
+                                                                                        ),
+                                                                                        instrumentTestName: getJsonField(
+                                                                                          instrumentsTestsListItem,
+                                                                                          r'''$.instrument_name''',
+                                                                                        ).toString(),
+                                                                                        index: instrumentsTestsListIndex,
+                                                                                        instrumentJson: instrumentsTestsListItem,
+                                                                                        isLabInstrument: false,
+                                                                                      ),
+                                                                                    );
+                                                                                  },
+                                                                                );
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                        if (!(_model
+                                                                            .resultInstrumentsFromAPI
+                                                                            .isNotEmpty))
+                                                                          Padding(
+                                                                            padding: EdgeInsetsDirectional.fromSTEB(
+                                                                                0.0,
+                                                                                0.0,
+                                                                                0.0,
+                                                                                20.0),
+                                                                            child:
+                                                                                Container(
+                                                                              decoration: BoxDecoration(),
+                                                                              child: wrapWithModel(
+                                                                                model: _model.dataNotFoundCOmponentModel,
+                                                                                updateCallback: () => safeSetState(() {}),
+                                                                                child: DataNotFoundCOmponentWidget(),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                      ],
+                                                                    ),
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                            ),
+                                                        ],
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -1384,7 +1376,11 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                             color: Colors.transparent,
                             child: BottomNavBarWidget(
                               home: false,
-                              resources: true,
+                              instruments: false,
+                              labFacilities: true,
+                              tests: false,
+                              contactUs: false,
+                              abouteUs: false,
                             ),
                           ),
                         ),

@@ -11,18 +11,24 @@ class BottomNavBarWidget extends StatefulWidget {
   const BottomNavBarWidget({
     super.key,
     bool? home,
-    bool? resources,
-    bool? job,
-    bool? tools,
+    bool? instruments,
+    bool? labFacilities,
+    bool? tests,
+    bool? contactUs,
+    bool? abouteUs,
   })  : this.home = home ?? false,
-        this.resources = resources ?? false,
-        this.job = job ?? false,
-        this.tools = tools ?? false;
+        this.instruments = instruments ?? false,
+        this.labFacilities = labFacilities ?? false,
+        this.tests = tests ?? false,
+        this.contactUs = contactUs ?? false,
+        this.abouteUs = abouteUs ?? false;
 
   final bool home;
-  final bool resources;
-  final bool job;
-  final bool tools;
+  final bool instruments;
+  final bool labFacilities;
+  final bool tests;
+  final bool contactUs;
+  final bool abouteUs;
 
   @override
   State<BottomNavBarWidget> createState() => _BottomNavBarWidgetState();
@@ -165,8 +171,8 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Icon(
-                          FFIcons.kmicroscope,
-                          color: widget.resources
+                          FFIcons.kxps,
+                          color: widget.instruments
                               ? FlutterFlowTheme.of(context).primary
                               : FlutterFlowTheme.of(context).secondaryText,
                           size: 28.0,
@@ -179,7 +185,7 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                               .bodySmall
                               .override(
                                 font: FlutterFlowTheme.of(context).bodySmall,
-                                color: widget.resources
+                                color: widget.instruments
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
@@ -210,21 +216,21 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Icon(
-                          FFIcons.kcall,
-                          color: widget.job
+                          FFIcons.ktestTube,
+                          color: widget.labFacilities
                               ? FlutterFlowTheme.of(context).primary
                               : FlutterFlowTheme.of(context).secondaryText,
                           size: 28.0,
                         ),
                         Text(
                           FFLocalizations.of(context).getText(
-                            '6pcto925' /* Contact */,
+                            '6pcto925' /* Lab Facilities */,
                           ),
                           style: FlutterFlowTheme.of(context)
                               .bodySmall
                               .override(
                                 font: FlutterFlowTheme.of(context).bodySmall,
-                                color: widget.job
+                                color: widget.labFacilities
                                     ? FlutterFlowTheme.of(context).primary
                                     : FlutterFlowTheme.of(context).primaryText,
                                 letterSpacing: 0.0,
@@ -236,33 +242,48 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                 ),
               ),
               Expanded(
-                child: Container(
-                  height: 70.0,
-                  decoration: BoxDecoration(),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      Icon(
-                        FFIcons.ktestTube,
-                        color: widget.tools
-                            ? FlutterFlowTheme.of(context).primary
-                            : FlutterFlowTheme.of(context).secondaryText,
-                        size: 28.0,
-                      ),
-                      Text(
-                        FFLocalizations.of(context).getText(
-                          'vcq5zkgt' /* Labs */,
+                child: InkWell(
+                  splashColor: Colors.transparent,
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onTap: () async {
+                    logFirebaseEvent('BOTTOM_NAV_BAR_COMP_Hom_ON_TAP');
+                    logFirebaseEvent('Hom_navigate_to');
+
+                    context.pushNamed(ContactUsWidget.routeName);
+                  },
+                  child: Container(
+                    height: 70.0,
+                    decoration: BoxDecoration(),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Icon(
+                          Icons.hive_outlined,
+                          color: widget.tests
+                              ? FlutterFlowTheme.of(context).primary
+                              : FlutterFlowTheme.of(context).secondaryText,
+                          size: 28.0,
                         ),
-                        style: FlutterFlowTheme.of(context).bodySmall.override(
-                              font: FlutterFlowTheme.of(context).bodySmall,
-                              color: widget.tools
-                                  ? FlutterFlowTheme.of(context).primary
-                                  : FlutterFlowTheme.of(context).primaryText,
-                              letterSpacing: 0.0,
-                            ),
-                      ),
-                    ],
+                        Text(
+                          FFLocalizations.of(context).getText(
+                            '8mvwdzmj' /* Sectors */,
+                          ),
+                          style: FlutterFlowTheme.of(context)
+                              .bodySmall
+                              .override(
+                                font: FlutterFlowTheme.of(context).bodySmall,
+                                color: widget.tests
+                                    ? FlutterFlowTheme.of(context).primary
+                                    : FlutterFlowTheme.of(context)
+                                        .secondaryText,
+                                letterSpacing: 0.0,
+                              ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),

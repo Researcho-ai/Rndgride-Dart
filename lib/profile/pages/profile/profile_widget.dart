@@ -6,6 +6,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_pages/components/theme_mode/theme_mode_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
+import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/onboarding/logout_popup/logout_popup_widget.dart';
 import '/onboarding/sign_in_compoent/sign_in_compoent_widget.dart';
@@ -161,6 +162,14 @@ class _ProfileWidgetState extends State<ProfileWidget> {
             child: Scaffold(
               key: scaffoldKey,
               backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+              endDrawer: Drawer(
+                elevation: 16.0,
+                child: wrapWithModel(
+                  model: _model.drawerModel,
+                  updateCallback: () => safeSetState(() {}),
+                  child: DrawerWidget(),
+                ),
+              ),
               appBar: responsiveVisibility(
                 context: context,
                 tabletLandscape: false,
@@ -1108,7 +1117,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                 color: Colors.transparent,
                                 child: BottomNavBarWidget(
                                   home: false,
-                                  resources: false,
+                                  instruments: false,
                                 ),
                               ),
                             ),

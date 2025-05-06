@@ -2,6 +2,7 @@ import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/main_pages/components/theme_mode/theme_mode_widget.dart';
 import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
+import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/profile/components/profile_page_component/profile_page_component_widget.dart';
 import 'profile_widget.dart' show ProfileWidget;
@@ -32,6 +33,8 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
   late ThemeModeModel themeModeModel;
   // Model for BottomNavBar component.
   late BottomNavBarModel bottomNavBarModel;
+  // Model for Drawer component.
+  late DrawerModel drawerModel;
 
   @override
   void initState(BuildContext context) {
@@ -40,6 +43,7 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
         createModel(context, () => ProfilePageComponentModel());
     themeModeModel = createModel(context, () => ThemeModeModel());
     bottomNavBarModel = createModel(context, () => BottomNavBarModel());
+    drawerModel = createModel(context, () => DrawerModel());
   }
 
   @override
@@ -48,5 +52,6 @@ class ProfileModel extends FlutterFlowModel<ProfileWidget> {
     profilePageComponentModel.dispose();
     themeModeModel.dispose();
     bottomNavBarModel.dispose();
+    drawerModel.dispose();
   }
 }

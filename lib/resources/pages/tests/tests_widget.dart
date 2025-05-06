@@ -1307,7 +1307,11 @@ class _TestsWidgetState extends State<TestsWidget> {
                             color: Colors.transparent,
                             child: BottomNavBarWidget(
                               home: false,
-                              resources: true,
+                              instruments: false,
+                              labFacilities: false,
+                              tests: true,
+                              contactUs: false,
+                              abouteUs: false,
                             ),
                           ),
                         ),

@@ -439,7 +439,7 @@ class _PrivacyPolicyWidgetState extends State<PrivacyPolicyWidget> {
                             color: Colors.transparent,
                             child: BottomNavBarWidget(
                               home: false,
-                              resources: false,
+                              instruments: false,
                             ),
                           ),
                         ),

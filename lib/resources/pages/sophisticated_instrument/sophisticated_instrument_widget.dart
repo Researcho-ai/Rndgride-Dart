@@ -1266,7 +1266,11 @@ class _SophisticatedInstrumentWidgetState
                             color: Colors.transparent,
                             child: BottomNavBarWidget(
                               home: false,
-                              resources: false,
+                              instruments: true,
+                              labFacilities: false,
+                              tests: false,
+                              contactUs: false,
+                              abouteUs: false,
                             ),
                           ),
                         ),
