@@ -91,92 +91,50 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
   Widget build(BuildContext context) {
     context.watch<FFAppState>();
 
-    return Container(
-      decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).primaryBackground,
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(valueOrDefault<double>(
-            () {
-              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                return 0.0;
-              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-                return 0.0;
-              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
-                return (widget.pageName != 'Signin' ? 20.0 : 0.0);
-              } else {
-                return (widget.pageName != 'Signin' ? 20.0 : 0.0);
-              }
-            }(),
-            0.0,
-          )),
-          bottomRight: Radius.circular(valueOrDefault<double>(
-            () {
-              if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                return 0.0;
-              } else if (MediaQuery.sizeOf(context).width < kBreakpointMedium) {
-                return 0.0;
-              } else if (MediaQuery.sizeOf(context).width < kBreakpointLarge) {
-                return (widget.pageName != 'Signin' ? 20.0 : 0.0);
-              } else {
-                return (widget.pageName != 'Signin' ? 20.0 : 0.0);
-              }
-            }(),
-            0.0,
-          )),
-          topLeft: Radius.circular(valueOrDefault<double>(
-            widget.pageName != 'Signin' ? 20.0 : 0.0,
-            0.0,
-          )),
-          topRight: Radius.circular(valueOrDefault<double>(
-            widget.pageName != 'Signin' ? 20.0 : 0.0,
-            0.0,
-          )),
-        ),
-      ),
-      child: Stack(
-        children: [
-          Align(
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            color: FlutterFlowTheme.of(context).primaryBackground,
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          child: Align(
             alignment: AlignmentDirectional(0.0, 0.0),
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(
                   valueOrDefault<double>(
-                    widget.isProfilePge
-                        ? () {
-                            if (MediaQuery.sizeOf(context).width <
-                                kBreakpointSmall) {
-                              return 16.0;
-                            } else if (MediaQuery.sizeOf(context).width <
-                                kBreakpointMedium) {
-                              return 24.0;
-                            } else if (MediaQuery.sizeOf(context).width <
-                                kBreakpointLarge) {
-                              return 32.0;
-                            } else {
-                              return 32.0;
-                            }
-                          }()
-                        : 0.0,
-                    0.0,
+                    () {
+                      if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                        return 16.0;
+                      } else if (MediaQuery.sizeOf(context).width <
+                          kBreakpointMedium) {
+                        return 24.0;
+                      } else if (MediaQuery.sizeOf(context).width <
+                          kBreakpointLarge) {
+                        return 50.0;
+                      } else {
+                        return 50.0;
+                      }
+                    }(),
+                    50.0,
                   ),
-                  0.0,
+                  30.0,
                   valueOrDefault<double>(
-                    widget.isProfilePge
-                        ? () {
-                            if (MediaQuery.sizeOf(context).width <
-                                kBreakpointSmall) {
-                              return 16.0;
-                            } else if (MediaQuery.sizeOf(context).width <
-                                kBreakpointMedium) {
-                              return 24.0;
-                            } else if (MediaQuery.sizeOf(context).width <
-                                kBreakpointLarge) {
-                              return 32.0;
-                            } else {
-                              return 32.0;
-                            }
-                          }()
-                        : 0.0,
-                    0.0,
+                    () {
+                      if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                        return 16.0;
+                      } else if (MediaQuery.sizeOf(context).width <
+                          kBreakpointMedium) {
+                        return 24.0;
+                      } else if (MediaQuery.sizeOf(context).width <
+                          kBreakpointLarge) {
+                        return 50.0;
+                      } else {
+                        return 50.0;
+                      }
+                    }(),
+                    50.0,
                   ),
                   0.0),
               child: Column(
@@ -184,6 +142,40 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  if (widget.isProfilePge)
+                    Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 30.0),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(0.96, -0.96),
+                            child: FlutterFlowIconButton(
+                              borderColor: Colors.transparent,
+                              borderRadius: 40.0,
+                              borderWidth: 1.0,
+                              buttonSize: 48.0,
+                              fillColor: FlutterFlowTheme.of(context)
+                                  .secondaryBackground,
+                              icon: Icon(
+                                FFIcons.kcross,
+                                color: FlutterFlowTheme.of(context).primaryText,
+                                size: 24.0,
+                              ),
+                              onPressed: () async {
+                                logFirebaseEvent(
+                                    'PROFILE_DETAILS_1_COMP_cross_ICN_ON_TAP');
+                                logFirebaseEvent(
+                                    'IconButton_close_dialog_drawer_etc');
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   Align(
                     alignment: AlignmentDirectional(-1.0, 0.0),
                     child: Padding(
@@ -212,7 +204,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                       children: [
                         Text(
                           FFLocalizations.of(context).getText(
-                            'jwdbe6ej' /* Personal details */,
+                            't0mn0axl' /* Personal details */,
                           ),
                           textAlign: TextAlign.start,
                           style: FlutterFlowTheme.of(context)
@@ -234,7 +226,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                             EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
                         child: Text(
                           FFLocalizations.of(context).getText(
-                            'izv53i9d' /* Complete profile for better ex... */,
+                            'uu6ypjon' /* Complete profile for better ex... */,
                           ),
                           style: FlutterFlowTheme.of(context)
                               .bodyLarge
@@ -246,7 +238,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                       ),
                     ),
                   Form(
-                    key: _model.formKey1,
+                    key: _model.formKey2,
                     autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -261,7 +253,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                             obscureText: false,
                             decoration: InputDecoration(
                               labelText: FFLocalizations.of(context).getText(
-                                '1v4nuccf' /* Name * */,
+                                '4nzlh2t5' /* Name * */,
                               ),
                               labelStyle: FlutterFlowTheme.of(context)
                                   .bodyMedium
@@ -370,7 +362,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                                   letterSpacing: 0.0,
                                 ),
                             hintText: FFLocalizations.of(context).getText(
-                              'iue48pzd' /* Select user type */,
+                              'jixa1zdm' /* Select user type */,
                             ),
                             icon: Icon(
                               Icons.keyboard_arrow_down_rounded,
@@ -403,7 +395,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                     ),
                   ),
                   Form(
-                    key: _model.formKey2,
+                    key: _model.formKey1,
                     autovalidateMode: AutovalidateMode.disabled,
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
@@ -419,7 +411,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: FFLocalizations.of(context).getText(
-                                  'tmw07lfe' /* Research Field * */,
+                                  'ak98s0sz' /* Research Field * */,
                                 ),
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -512,7 +504,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                               obscureText: false,
                               decoration: InputDecoration(
                                 labelText: FFLocalizations.of(context).getText(
-                                  'fdr6dc0m' /* Affiliation * */,
+                                  'b1yrjlsm' /* Affiliation * */,
                                 ),
                                 labelStyle: FlutterFlowTheme.of(context)
                                     .bodyMedium
@@ -611,24 +603,24 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                             var _shouldSetState = false;
                             if (widget.isProfilePge) {
                               logFirebaseEvent('Button_validate_form');
-                              if (_model.formKey1.currentState == null ||
-                                  !_model.formKey1.currentState!.validate()) {
+                              if (_model.formKey2.currentState == null ||
+                                  !_model.formKey2.currentState!.validate()) {
                                 return;
                               }
                             } else {
                               await Future.wait([
                                 Future(() async {
                                   logFirebaseEvent('Button_validate_form');
-                                  if (_model.formKey1.currentState == null ||
-                                      !_model.formKey1.currentState!
+                                  if (_model.formKey2.currentState == null ||
+                                      !_model.formKey2.currentState!
                                           .validate()) {
                                     return;
                                   }
                                 }),
                                 Future(() async {
                                   logFirebaseEvent('Button_validate_form');
-                                  if (_model.formKey2.currentState == null ||
-                                      !_model.formKey2.currentState!
+                                  if (_model.formKey1.currentState == null ||
+                                      !_model.formKey1.currentState!
                                           .validate()) {
                                     return;
                                   }
@@ -748,7 +740,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                             if (_shouldSetState) safeSetState(() {});
                           },
                           text: FFLocalizations.of(context).getText(
-                            'u4no64m0' /* Save */,
+                            '3cotx2h8' /* Save */,
                           ),
                           options: FFButtonOptions(
                             width: 160.0,
@@ -781,42 +773,8 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
               ),
             ),
           ),
-          if (() {
-                if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                  return false;
-                } else if (MediaQuery.sizeOf(context).width <
-                    kBreakpointMedium) {
-                  return false;
-                } else if (MediaQuery.sizeOf(context).width <
-                    kBreakpointLarge) {
-                  return true;
-                } else {
-                  return true;
-                }
-              }() &&
-              widget.isProfilePge)
-            Align(
-              alignment: AlignmentDirectional(0.96, -0.96),
-              child: FlutterFlowIconButton(
-                borderColor: Colors.transparent,
-                borderRadius: 40.0,
-                borderWidth: 1.0,
-                buttonSize: 48.0,
-                fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                icon: Icon(
-                  FFIcons.kcross,
-                  color: FlutterFlowTheme.of(context).primaryText,
-                  size: 24.0,
-                ),
-                onPressed: () async {
-                  logFirebaseEvent('PROFILE_DETAILS_1_COMP_cross_ICN_ON_TAP');
-                  logFirebaseEvent('IconButton_close_dialog_drawer_etc');
-                  Navigator.pop(context);
-                },
-              ),
-            ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

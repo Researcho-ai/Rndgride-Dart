@@ -531,15 +531,12 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                                 .resolve(
                                                     Directionality.of(context)),
                                         child: Container(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              0.9,
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   0.9,
                                           child: ProfileDetails1Widget(
                                             pageName: 'profilePage',
-                                            isProfilePge: false,
+                                            isProfilePge: true,
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall
                                                 .isNewUser(
@@ -572,15 +569,12 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                                 .resolve(
                                                     Directionality.of(context)),
                                         child: Container(
-                                          height: MediaQuery.sizeOf(context)
-                                                  .height *
-                                              0.7,
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   0.45,
                                           child: ProfileDetails1Widget(
                                             pageName: 'profilePage',
-                                            isProfilePge: false,
+                                            isProfilePge: true,
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall
                                                 .isNewUser(
@@ -654,7 +648,7 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                         'tqgnkdrd' /* Continue */,
                       ),
                       options: FFButtonOptions(
-                        width: MediaQuery.sizeOf(context).width * 0.1,
+                        width: 120.0,
                         height: 40.0,
                         padding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),

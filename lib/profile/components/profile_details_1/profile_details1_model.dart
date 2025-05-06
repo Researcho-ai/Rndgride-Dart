@@ -18,8 +18,8 @@ class ProfileDetails1Model extends FlutterFlowModel<ProfileDetails1Widget> {
 
   ///  State fields for stateful widgets in this component.
 
-  final formKey1 = GlobalKey<FormState>();
   final formKey2 = GlobalKey<FormState>();
+  final formKey1 = GlobalKey<FormState>();
   // Stores action output result for [Backend Call - API (get user ty)] action in ProfileDetails-1 widget.
   ApiCallResponse? apiResultas3;
   // State field(s) for FirstName widget.

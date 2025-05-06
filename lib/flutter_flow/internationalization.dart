@@ -745,47 +745,47 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
   },
   // ProfileDetails-1
   {
-    'jwdbe6ej': {
+    't0mn0axl': {
       'en': 'Personal details',
       'hi': '',
     },
-    'izv53i9d': {
+    'uu6ypjon': {
       'en': 'Complete profile for better experience',
       'hi': '',
     },
-    '1v4nuccf': {
+    '4nzlh2t5': {
       'en': 'Name *',
       'hi': '',
     },
-    'ludyv1d1': {
+    '09e6n99v': {
       'en': '',
       'hi': '',
     },
-    'iue48pzd': {
+    'jixa1zdm': {
       'en': 'Select user type',
       'hi': '',
     },
-    'poyu0zb1': {
+    '63d89b3d': {
       'en': 'Search for an item...',
       'hi': '',
     },
-    'tmw07lfe': {
+    'ak98s0sz': {
       'en': 'Research Field *',
       'hi': '',
     },
-    'hp88bbbe': {
+    '6de406w3': {
       'en': '',
       'hi': '',
     },
-    'fdr6dc0m': {
+    'b1yrjlsm': {
       'en': 'Affiliation *',
       'hi': '',
     },
-    'litlh07a': {
+    'uq8ay3mb': {
       'en': '',
       'hi': '',
     },
-    'u4no64m0': {
+    '3cotx2h8': {
       'en': 'Save',
       'hi': '',
     },
