@@ -38,24 +38,17 @@ jobs:
       - name: Fix CarouselSlider Import Aliasing
         run: |
           echo "🛠 Aliasing CarouselSlider imports to prevent future conflicts"
-
-          # Alias the carousel_slider import if not already aliased
           find lib/ -type f -name '*.dart' -exec grep -q 'package:carousel_slider/carousel_slider.dart' {} \; \
             -exec sed -i 's#import "package:carousel_slider/carousel_slider.dart";#import "package:carousel_slider/carousel_slider.dart" as cs;#g' {} +
-
-          # Safely replace raw usages of Carousel classes with cs. prefix
           find lib/ -type f -name '*.dart' -exec sed -i 's/\([^a-zA-Z0-9_]\)CarouselSlider\([^a-zA-Z0-9_]\)/\1cs.CarouselSlider\2/g' {} +
           find lib/ -type f -name '*.dart' -exec sed -i 's/\([^a-zA-Z0-9_]\)CarouselOptions\([^a-zA-Z0-9_]\)/\1cs.CarouselOptions\2/g' {} +
           find lib/ -type f -name '*.dart' -exec sed -i 's/\([^a-zA-Z0-9_]\)CarouselController\([^a-zA-Z0-9_]\)/\1cs.CarouselController\2/g' {} +
 
       - name: Patch applyAlpha function in flutter_flow_util.dart
         run: |
-          echo "🔧 Patching applyAlpha function to use withOpacity instead of withValue..."
+          echo "🔧 Patching applyAlpha function to use withOpacity instead of withValues..."
           FILE_PATH="lib/flutter_flow/flutter_flow_util.dart"
-
-          # Use regex to replace any form of `withValue(...)` in applyAlpha function
-          sed -i 's/Color applyAlpha(double val) => withValue([^)]*);/Color applyAlpha(double val) => withOpacity(val);/' "$FILE_PATH"
-
+          sed -i 's/Color applyAlpha(double val) => withValues([^)]*);/Color applyAlpha(double val) => withOpacity(val);/' "$FILE_PATH"
           echo "✅ applyAlpha function patched to use withOpacity(val)"
 
       - name: Build Web
