@@ -53,12 +53,10 @@ jobs:
           echo "🔧 Patching applyAlpha function to use withOpacity instead of withValue..."
           FILE_PATH="lib/flutter_flow/flutter_flow_util.dart"
 
-          if grep -q 'Color applyAlpha(double val) => withValue(alpha:val);' "$FILE_PATH"; then
-            sed -i 's/Color applyAlpha(double val) => withValue(val:val);/Color applyAlpha(double val) => withOpacity(val);/' "$FILE_PATH"
-            echo "✅ Patch applied successfully."
-          else
-            echo "⚠️ Pattern not found or already patched."
-          fi
+          # Use regex to replace any form of `withValue(...)` in applyAlpha function
+          sed -i 's/Color applyAlpha(double val) => withValue([^)]*);/Color applyAlpha(double val) => withOpacity(val);/' "$FILE_PATH"
+
+          echo "✅ applyAlpha function patched to use withOpacity(val)"
 
       - name: Build Web
         run: flutter build web --release --web-renderer canvaskit
