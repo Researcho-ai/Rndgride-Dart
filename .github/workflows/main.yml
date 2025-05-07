@@ -48,6 +48,18 @@ jobs:
           find lib/ -type f -name '*.dart' -exec sed -i 's/\([^a-zA-Z0-9_]\)CarouselOptions\([^a-zA-Z0-9_]\)/\1cs.CarouselOptions\2/g' {} +
           find lib/ -type f -name '*.dart' -exec sed -i 's/\([^a-zA-Z0-9_]\)CarouselController\([^a-zA-Z0-9_]\)/\1cs.CarouselController\2/g' {} +
 
+      - name: Patch applyAlpha function in flutter_flow_util.dart
+        run: |
+          echo "🔧 Patching applyAlpha function to use withOpacity instead of withValue..."
+          FILE_PATH="lib/flutterflow/flutter_flow_util.dart"
+
+          if grep -q 'Color applyAlpha(double val) => withValue(val:val);' "$FILE_PATH"; then
+            sed -i 's/Color applyAlpha(double val) => withValue(val:val);/Color applyAlpha(double val) => withOpacity(val);/' "$FILE_PATH"
+            echo "✅ Patch applied successfully."
+          else
+            echo "⚠️ Pattern not found or already patched."
+          fi
+
       - name: Build Web
         run: flutter build web --release --web-renderer canvaskit
 
@@ -62,7 +74,7 @@ jobs:
       - name: Copy Changes to Branch
         run: |
           git add .
-          git commit -m "Fix carousel_slider conflicts and build web"
+          git commit -m "Fix carousel_slider conflicts and patch applyAlpha; build web"
           git push origin researcho_io_main --force
 
       - name: Switch Back to Original Branch
