@@ -520,6 +520,7 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                     : false) {
                                   logFirebaseEvent('Button_alert_dialog');
                                   await showDialog(
+                                    barrierDismissible: false,
                                     context: context,
                                     builder: (dialogContext) {
                                       return Dialog(
@@ -533,7 +534,7 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                         child: Container(
                                           width:
                                               MediaQuery.sizeOf(context).width *
-                                                  0.9,
+                                                  0.95,
                                           child: ProfileDetails1Widget(
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall
@@ -556,6 +557,7 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                 } else {
                                   logFirebaseEvent('Button_alert_dialog');
                                   await showDialog(
+                                    barrierDismissible: false,
                                     context: context,
                                     builder: (dialogContext) {
                                       return Dialog(

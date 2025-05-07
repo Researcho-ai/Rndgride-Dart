@@ -1319,7 +1319,8 @@ class _DevFacilitiesWidgetState extends State<DevFacilitiesWidget> {
                                                                       mainAxisSize:
                                                                           MainAxisSize
                                                                               .max,
-                                                                      children: [
+                                                                      children:
+                                                                          [
                                                                         if (_model
                                                                             .resultInstrumentsFromAPI
                                                                             .isNotEmpty)
@@ -1407,7 +1408,8 @@ class _DevFacilitiesWidgetState extends State<DevFacilitiesWidget> {
                                                                               ),
                                                                             ),
                                                                           ),
-                                                                      ],
+                                                                      ].addToEnd(
+                                                                              SizedBox(height: 200.0)),
                                                                     ),
                                                                   ),
                                                                 ),

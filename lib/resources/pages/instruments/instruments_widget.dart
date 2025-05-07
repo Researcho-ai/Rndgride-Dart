@@ -1306,7 +1306,7 @@ class _InstrumentsWidgetState extends State<InstrumentsWidget> {
                                             ),
                                           ),
                                         ),
-                                    ],
+                                    ].addToEnd(SizedBox(height: 200.0)),
                                   ),
                                 ),
                               ),
