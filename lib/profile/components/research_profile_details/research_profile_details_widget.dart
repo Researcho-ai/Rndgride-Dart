@@ -197,45 +197,32 @@ class _ResearchProfileDetailsWidgetState
                         ),
                       ),
                     ),
-                    if (() {
-                      if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
-                        return false;
-                      } else if (MediaQuery.sizeOf(context).width <
-                          kBreakpointMedium) {
-                        return false;
-                      } else if (MediaQuery.sizeOf(context).width <
-                          kBreakpointLarge) {
-                        return true;
-                      } else {
-                        return true;
-                      }
-                    }())
-                      Align(
-                        alignment: AlignmentDirectional(0.94, 0.0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
-                              0.0, 20.0, 0.0, 0.0),
-                          child: FlutterFlowIconButton(
-                            borderRadius: 40.0,
-                            borderWidth: 1.0,
-                            buttonSize: 40.0,
-                            fillColor: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            icon: Icon(
-                              FFIcons.kcross,
-                              color: FlutterFlowTheme.of(context).primaryText,
-                              size: 24.0,
-                            ),
-                            onPressed: () async {
-                              logFirebaseEvent(
-                                  'RESEARCH_PROFILE_DETAILS_cross_ICN_ON_TA');
-                              logFirebaseEvent(
-                                  'IconButton_close_dialog_drawer_etc');
-                              Navigator.pop(context);
-                            },
+                    Align(
+                      alignment: AlignmentDirectional(0.94, 0.0),
+                      child: Padding(
+                        padding:
+                            EdgeInsetsDirectional.fromSTEB(0.0, 20.0, 0.0, 0.0),
+                        child: FlutterFlowIconButton(
+                          borderRadius: 40.0,
+                          borderWidth: 1.0,
+                          buttonSize: 40.0,
+                          fillColor:
+                              FlutterFlowTheme.of(context).secondaryBackground,
+                          icon: Icon(
+                            FFIcons.kcross,
+                            color: FlutterFlowTheme.of(context).primaryText,
+                            size: 24.0,
                           ),
+                          onPressed: () async {
+                            logFirebaseEvent(
+                                'RESEARCH_PROFILE_DETAILS_cross_ICN_ON_TA');
+                            logFirebaseEvent(
+                                'IconButton_close_dialog_drawer_etc');
+                            Navigator.pop(context);
+                          },
                         ),
                       ),
+                    ),
                   ],
                 ),
                 Padding(

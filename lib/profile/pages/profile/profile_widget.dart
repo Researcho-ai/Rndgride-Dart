@@ -464,31 +464,33 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                         ? true
                                                                         : false) {
                                                                       logFirebaseEvent(
-                                                                          'IconButton_bottom_sheet');
-                                                                      await showModalBottomSheet(
-                                                                        isScrollControlled:
-                                                                            true,
-                                                                        backgroundColor:
-                                                                            Colors.transparent,
+                                                                          'IconButton_alert_dialog');
+                                                                      await showDialog(
                                                                         context:
                                                                             context,
                                                                         builder:
-                                                                            (context) {
-                                                                          return GestureDetector(
-                                                                            onTap:
-                                                                                () {
-                                                                              FocusScope.of(context).unfocus();
-                                                                              FocusManager.instance.primaryFocus?.unfocus();
-                                                                            },
+                                                                            (dialogContext) {
+                                                                          return Dialog(
+                                                                            elevation:
+                                                                                0,
+                                                                            insetPadding:
+                                                                                EdgeInsets.zero,
+                                                                            backgroundColor:
+                                                                                Colors.transparent,
+                                                                            alignment:
+                                                                                AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
                                                                             child:
-                                                                                Padding(
-                                                                              padding: MediaQuery.viewInsetsOf(context),
+                                                                                GestureDetector(
+                                                                              onTap: () {
+                                                                                FocusScope.of(dialogContext).unfocus();
+                                                                                FocusManager.instance.primaryFocus?.unfocus();
+                                                                              },
                                                                               child: Container(
-                                                                                height: MediaQuery.sizeOf(context).height * 0.7,
+                                                                                width: MediaQuery.sizeOf(context).width * 0.9,
                                                                                 child: PersonalProfileDetailsWidget(
                                                                                   isProfilePge: true,
                                                                                   actionCall: (name, userType) async {
-                                                                                    logFirebaseEvent('_bottom_sheet');
+                                                                                    logFirebaseEvent('_close_dialog_drawer_etc');
                                                                                     Navigator.pop(context);
                                                                                     logFirebaseEvent('_update_app_state');
                                                                                     FFAppState().updateUserProfileDataStruct(
@@ -503,9 +505,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                             ),
                                                                           );
                                                                         },
-                                                                      ).then((value) =>
-                                                                          safeSetState(
-                                                                              () {}));
+                                                                      );
                                                                     } else {
                                                                       logFirebaseEvent(
                                                                           'IconButton_alert_dialog');
@@ -766,28 +766,27 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                           ? true
                                                                           : false) {
                                                                         logFirebaseEvent(
-                                                                            'IconButton_bottom_sheet');
-                                                                        await showModalBottomSheet(
-                                                                          isScrollControlled:
-                                                                              true,
-                                                                          backgroundColor:
-                                                                              Colors.transparent,
+                                                                            'IconButton_alert_dialog');
+                                                                        await showDialog(
                                                                           context:
                                                                               context,
                                                                           builder:
-                                                                              (context) {
-                                                                            return GestureDetector(
-                                                                              onTap: () {
-                                                                                FocusScope.of(context).unfocus();
-                                                                                FocusManager.instance.primaryFocus?.unfocus();
-                                                                              },
-                                                                              child: Padding(
-                                                                                padding: MediaQuery.viewInsetsOf(context),
+                                                                              (dialogContext) {
+                                                                            return Dialog(
+                                                                              elevation: 0,
+                                                                              insetPadding: EdgeInsets.zero,
+                                                                              backgroundColor: Colors.transparent,
+                                                                              alignment: AlignmentDirectional(0.0, 0.0).resolve(Directionality.of(context)),
+                                                                              child: GestureDetector(
+                                                                                onTap: () {
+                                                                                  FocusScope.of(dialogContext).unfocus();
+                                                                                  FocusManager.instance.primaryFocus?.unfocus();
+                                                                                },
                                                                                 child: Container(
-                                                                                  height: MediaQuery.sizeOf(context).height * 0.8,
+                                                                                  width: MediaQuery.sizeOf(context).width * 0.9,
                                                                                   child: ResearchProfileDetailsWidget(
                                                                                     action: (researchiled, affiliation) async {
-                                                                                      logFirebaseEvent('_bottom_sheet');
+                                                                                      logFirebaseEvent('_close_dialog_drawer_etc');
                                                                                       Navigator.pop(context);
                                                                                       logFirebaseEvent('_update_app_state');
                                                                                       FFAppState().updateUserProfileDataStruct(
@@ -802,8 +801,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                               ),
                                                                             );
                                                                           },
-                                                                        ).then((value) =>
-                                                                            safeSetState(() {}));
+                                                                        );
                                                                       } else {
                                                                         logFirebaseEvent(
                                                                             'IconButton_alert_dialog');
