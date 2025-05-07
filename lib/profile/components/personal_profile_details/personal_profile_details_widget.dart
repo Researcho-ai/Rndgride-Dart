@@ -9,13 +9,13 @@ import '/flutter_flow/form_field_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import 'profile_details1_model.dart';
-export 'profile_details1_model.dart';
+import 'personal_profile_details_model.dart';
+export 'personal_profile_details_model.dart';
 
-class ProfileDetails1Widget extends StatefulWidget {
-  const ProfileDetails1Widget({
+class PersonalProfileDetailsWidget extends StatefulWidget {
+  const PersonalProfileDetailsWidget({
     super.key,
-    required this.actionCall,
+    this.actionCall,
     bool? isProfilePge,
     bool? isNewUser,
     bool? isLogin,
@@ -23,17 +23,19 @@ class ProfileDetails1Widget extends StatefulWidget {
         this.isNewUser = isNewUser ?? false,
         this.isLogin = isLogin ?? false;
 
-  final Future Function()? actionCall;
+  final Future Function(String? name, String? userType)? actionCall;
   final bool isProfilePge;
   final bool isNewUser;
   final bool isLogin;
 
   @override
-  State<ProfileDetails1Widget> createState() => _ProfileDetails1WidgetState();
+  State<PersonalProfileDetailsWidget> createState() =>
+      _PersonalProfileDetailsWidgetState();
 }
 
-class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
-  late ProfileDetails1Model _model;
+class _PersonalProfileDetailsWidgetState
+    extends State<PersonalProfileDetailsWidget> {
+  late PersonalProfileDetailsModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -44,16 +46,16 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProfileDetails1Model());
+    _model = createModel(context, () => PersonalProfileDetailsModel());
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('PROFILE_DETAILS_1_ProfileDetails-1_ON_IN');
-      logFirebaseEvent('ProfileDetails-1_backend_call');
+      logFirebaseEvent('PERSONAL_PROFILE_DETAILS_PersonalProfile');
+      logFirebaseEvent('PersonalProfileDetails_backend_call');
       _model.apiResultas3 = await UsersGroup.getUserTyCall.call();
 
       if ((_model.apiResultas3?.succeeded ?? true)) {
-        logFirebaseEvent('ProfileDetails-1_update_component_state');
+        logFirebaseEvent('PersonalProfileDetails_update_component_');
         _model.userTypeList = UsersGroup.getUserTyCall
             .userTypeList(
               (_model.apiResultas3?.jsonBody ?? ''),
@@ -165,7 +167,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                               ),
                               onPressed: () async {
                                 logFirebaseEvent(
-                                    'PROFILE_DETAILS_1_COMP_cross_ICN_ON_TAP');
+                                    'PERSONAL_PROFILE_DETAILS_cross_ICN_ON_TA');
                                 logFirebaseEvent(
                                     'IconButton_close_dialog_drawer_etc');
                                 Navigator.pop(context);
@@ -348,7 +350,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                               safeSetState(
                                   () => _model.userTypeDrpodownValue = val);
                               logFirebaseEvent(
-                                  'PROFILE_DETAILS_1_UserTypeDrpodown_ON_FO');
+                                  'PERSONAL_PROFILE_DETAILS_UserTypeDrpodow');
                             },
                             height: 48.0,
                             textStyle: FlutterFlowTheme.of(context)
@@ -598,7 +600,7 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                         FFButtonWidget(
                           onPressed: () async {
                             logFirebaseEvent(
-                                'PROFILE_DETAILS_1_COMP_SAVE_BTN_ON_TAP');
+                                'PERSONAL_PROFILE_DETAILS_SAVE_BTN_ON_TAP');
                             var _shouldSetState = false;
                             if (widget.isProfilePge) {
                               logFirebaseEvent('Button_validate_form');
@@ -648,7 +650,10 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                                 if ((_model.updatedUserData?.succeeded ??
                                     true)) {
                                   logFirebaseEvent('Button_execute_callback');
-                                  await widget.actionCall?.call();
+                                  await widget.actionCall?.call(
+                                    _model.firstNameTextController.text,
+                                    _model.userTypeDrpodownValue,
+                                  );
                                   logFirebaseEvent('Button_update_app_state');
 
                                   FFAppState().update(() {});
@@ -687,7 +692,10 @@ class _ProfileDetails1WidgetState extends State<ProfileDetails1Widget> {
                                     },
                                   );
                                   logFirebaseEvent('Button_execute_callback');
-                                  await widget.actionCall?.call();
+                                  await widget.actionCall?.call(
+                                    _model.firstNameTextController.text,
+                                    _model.userTypeDrpodownValue,
+                                  );
                                   logFirebaseEvent('Button_update_app_state');
 
                                   FFAppState().update(() {});

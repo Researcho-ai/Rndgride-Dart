@@ -1,9 +1,10 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'profile_detail2_widget.dart' show ProfileDetail2Widget;
+import 'research_profile_details_widget.dart' show ResearchProfileDetailsWidget;
 import 'package:flutter/material.dart';
 
-class ProfileDetail2Model extends FlutterFlowModel<ProfileDetail2Widget> {
+class ResearchProfileDetailsModel
+    extends FlutterFlowModel<ResearchProfileDetailsWidget> {
   ///  Local state fields for this component.
 
   String imagePath = '';

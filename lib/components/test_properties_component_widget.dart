@@ -430,6 +430,7 @@ class _TestPropertiesComponentWidgetState
                               final fieldsList = _model.fielsJsonList.toList();
 
                               return MasonryGridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: () {
@@ -730,6 +731,7 @@ class _TestPropertiesComponentWidgetState
                                   .toList();
 
                               return MasonryGridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: () {
@@ -960,6 +962,7 @@ class _TestPropertiesComponentWidgetState
                                   _model.testMethodList.toList();
 
                               return MasonryGridView.builder(
+                                physics: const NeverScrollableScrollPhysics(),
                                 gridDelegate:
                                     SliverSimpleGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: () {
@@ -1414,7 +1417,7 @@ class _TestPropertiesComponentWidgetState
                                                     title: Text(
                                                         'Thank You for Your Request'),
                                                     content: Text(
-                                                        'Your request has been submitted successfully. We\'ll get back to you shortl'),
+                                                        'Your request has been submitted successfully. We\'ll get back to you shortly.'),
                                                     actions: [
                                                       TextButton(
                                                         onPressed: () =>
@@ -1483,7 +1486,7 @@ class _TestPropertiesComponentWidgetState
                                                       title: Text(
                                                           'Thank You for Your Request'),
                                                       content: Text(
-                                                          'Your request has been submitted successfully. We\'ll get back to you shortl'),
+                                                          'Your request has been submitted successfully. We\'ll get back to you shortly.'),
                                                       actions: [
                                                         TextButton(
                                                           onPressed: () =>

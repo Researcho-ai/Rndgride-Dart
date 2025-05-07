@@ -97,7 +97,7 @@ class _InstrumentsDetailsWidgetState extends State<InstrumentsDetailsWidget> {
                       alignment: AlignmentDirectional(0.0, 0.0)
                           .resolve(Directionality.of(context)),
                       child: Container(
-                        width: MediaQuery.sizeOf(context).width * 0.9,
+                        width: MediaQuery.sizeOf(context).width * 0.95,
                         child: InstrumentPropertiesComponentWidget(
                           instrumentPropertieJson: widget.instrumentJson,
                         ),

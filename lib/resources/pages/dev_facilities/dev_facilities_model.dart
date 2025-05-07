@@ -50,7 +50,7 @@ class DevFacilitiesModel extends FlutterFlowModel<DevFacilitiesWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (Get Instruments Tests)] action in Dev-Facilities widget.
+  // Stores action output result for [Backend Call - API (Get Instruments Tests)] action in DevFacilities widget.
   ApiCallResponse? instrumentsFromAPI;
   // Model for TopNavBar component.
   late TopNavBarModel topNavBarModel;

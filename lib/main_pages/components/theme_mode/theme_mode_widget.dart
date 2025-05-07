@@ -31,7 +31,20 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
     _model = createModel(context, () => ThemeModeModel());
 
     animationsMap.addAll({
-      'containerOnActionTriggerAnimation': AnimationInfo(
+      'containerOnActionTriggerAnimation1': AnimationInfo(
+        trigger: AnimationTrigger.onActionTrigger,
+        applyInitialState: true,
+        effectsBuilder: () => [
+          MoveEffect(
+            curve: Curves.easeInOut,
+            delay: 0.0.ms,
+            duration: 600.0.ms,
+            begin: Offset(0.0, 0.0),
+            end: Offset(115.0, 0.0),
+          ),
+        ],
+      ),
+      'containerOnActionTriggerAnimation2': AnimationInfo(
         trigger: AnimationTrigger.onActionTrigger,
         applyInitialState: true,
         effectsBuilder: () => [
@@ -71,7 +84,9 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
         color: FlutterFlowTheme.of(context).primary,
         borderRadius: BorderRadius.circular(8.0),
         border: Border.all(
-          color: FlutterFlowTheme.of(context).iconColor,
+          color: Theme.of(context).brightness == Brightness.light
+              ? FlutterFlowTheme.of(context).border
+              : FlutterFlowTheme.of(context).iconColor,
         ),
       ),
       child: Padding(
@@ -95,12 +110,17 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                 height: 100.0,
                 decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.light
-                      ? FlutterFlowTheme.of(context).accent1
+                      ? FlutterFlowTheme.of(context).accent4
                       : FlutterFlowTheme.of(context).primary,
-                  borderRadius: BorderRadius.circular(4.0),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(4.0),
+                    bottomRight: Radius.circular(0.0),
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(0.0),
+                  ),
                   border: Border.all(
                     color: Theme.of(context).brightness == Brightness.light
-                        ? FlutterFlowTheme.of(context).accent1
+                        ? FlutterFlowTheme.of(context).accent4
                         : FlutterFlowTheme.of(context).primary,
                   ),
                 ),
@@ -111,13 +131,15 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                     Icon(
                       FFIcons.klight,
                       color: Theme.of(context).brightness == Brightness.light
-                          ? FlutterFlowTheme.of(context).primaryText
-                          : FlutterFlowTheme.of(context).secondaryText,
+                          ? FlutterFlowTheme.of(context).buttonText
+                          : FlutterFlowTheme.of(context).primaryText,
                       size: 16.0,
                     ),
                   ],
                 ),
               ),
+            ).animateOnActionTrigger(
+              animationsMap['containerOnActionTriggerAnimation1']!,
             ),
             InkWell(
               splashColor: Colors.transparent,
@@ -134,12 +156,17 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                 height: 100.0,
                 decoration: BoxDecoration(
                   color: Theme.of(context).brightness == Brightness.dark
-                      ? FlutterFlowTheme.of(context).accent1
+                      ? FlutterFlowTheme.of(context).accent4
                       : FlutterFlowTheme.of(context).primary,
-                  borderRadius: BorderRadius.circular(4.0),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(0.0),
+                    bottomRight: Radius.circular(4.0),
+                    topLeft: Radius.circular(0.0),
+                    topRight: Radius.circular(4.0),
+                  ),
                   border: Border.all(
                     color: Theme.of(context).brightness == Brightness.dark
-                        ? FlutterFlowTheme.of(context).accent1
+                        ? FlutterFlowTheme.of(context).accent4
                         : FlutterFlowTheme.of(context).primary,
                   ),
                 ),
@@ -149,7 +176,7 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                   children: [
                     Icon(
                       FFIcons.kdark,
-                      color: Theme.of(context).brightness == Brightness.dark
+                      color: Theme.of(context).brightness == Brightness.light
                           ? FlutterFlowTheme.of(context).primaryText
                           : FlutterFlowTheme.of(context).secondaryText,
                       size: 16.0,
@@ -158,7 +185,7 @@ class _ThemeModeWidgetState extends State<ThemeModeWidget>
                 ),
               ),
             ).animateOnActionTrigger(
-              animationsMap['containerOnActionTriggerAnimation']!,
+              animationsMap['containerOnActionTriggerAnimation2']!,
             ),
           ],
         ),

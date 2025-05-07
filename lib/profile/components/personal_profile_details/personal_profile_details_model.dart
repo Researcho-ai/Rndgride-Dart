@@ -1,10 +1,11 @@
 import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'profile_details1_widget.dart' show ProfileDetails1Widget;
+import 'personal_profile_details_widget.dart' show PersonalProfileDetailsWidget;
 import 'package:flutter/material.dart';
 
-class ProfileDetails1Model extends FlutterFlowModel<ProfileDetails1Widget> {
+class PersonalProfileDetailsModel
+    extends FlutterFlowModel<PersonalProfileDetailsWidget> {
   ///  Local state fields for this component.
 
   List<String> userTypeList = [];
@@ -20,7 +21,7 @@ class ProfileDetails1Model extends FlutterFlowModel<ProfileDetails1Widget> {
 
   final formKey2 = GlobalKey<FormState>();
   final formKey1 = GlobalKey<FormState>();
-  // Stores action output result for [Backend Call - API (get user ty)] action in ProfileDetails-1 widget.
+  // Stores action output result for [Backend Call - API (get user ty)] action in PersonalProfileDetails widget.
   ApiCallResponse? apiResultas3;
   // State field(s) for FirstName widget.
   FocusNode? firstNameFocusNode;

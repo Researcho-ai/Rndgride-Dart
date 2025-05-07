@@ -22,8 +22,8 @@ export 'dev_facilities_model.dart';
 class DevFacilitiesWidget extends StatefulWidget {
   const DevFacilitiesWidget({super.key});
 
-  static String routeName = 'Dev-Facilities';
-  static String routePath = 'Dev-Facilities';
+  static String routeName = 'DevFacilities';
+  static String routePath = 'development-facilities';
 
   @override
   State<DevFacilitiesWidget> createState() => _DevFacilitiesWidgetState();
@@ -42,11 +42,11 @@ class _DevFacilitiesWidgetState extends State<DevFacilitiesWidget> {
     _model = createModel(context, () => DevFacilitiesModel());
 
     logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'Dev-Facilities'});
+        parameters: {'screen_name': 'DevFacilities'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('DEV_FACILITIES_Dev-Facilities_ON_INIT_ST');
-      logFirebaseEvent('Dev-Facilities_backend_call');
+      logFirebaseEvent('DEV_FACILITIES_DevFacilities_ON_INIT_STA');
+      logFirebaseEvent('DevFacilities_backend_call');
       _model.instrumentsFromAPI =
           await InstrumentsTestsGroup.getInstrumentsTestsCall.call(
         limit: 18,
@@ -54,7 +54,7 @@ class _DevFacilitiesWidgetState extends State<DevFacilitiesWidget> {
       );
 
       if ((_model.instrumentsFromAPI?.succeeded ?? true)) {
-        logFirebaseEvent('Dev-Facilities_update_page_state');
+        logFirebaseEvent('DevFacilities_update_page_state');
         _model.instrumentsListFromAPI =
             InstrumentsTestsGroup.getInstrumentsTestsCall.instrumentsTests(
           (_model.instrumentsFromAPI?.jsonBody ?? ''),
@@ -109,7 +109,7 @@ class _DevFacilitiesWidgetState extends State<DevFacilitiesWidget> {
     context.watch<FFAppState>();
 
     return Title(
-        title: 'Instruments',
+        title: 'Development Facilities',
         color: FlutterFlowTheme.of(context).primary.withAlpha(0XFF),
         child: GestureDetector(
           onTap: () {

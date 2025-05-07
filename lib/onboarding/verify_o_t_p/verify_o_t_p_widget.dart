@@ -5,7 +5,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_timer.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/profile/components/profile_details_1/profile_details1_widget.dart';
+import '/profile/components/personal_profile_details/personal_profile_details_widget.dart';
 import 'dart:async';
 import '/flutter_flow/custom_functions.dart' as functions;
 import '/index.dart';
@@ -535,7 +535,7 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   0.95,
-                                          child: ProfileDetails1Widget(
+                                          child: PersonalProfileDetailsWidget(
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall
                                                 .isNewUser(
@@ -543,7 +543,7 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                                   ''),
                                             ),
                                             isLogin: true,
-                                            actionCall: () async {
+                                            actionCall: (name, userType) async {
                                               logFirebaseEvent('_navigate_to');
 
                                               context.pushNamed(
@@ -572,7 +572,7 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                           width:
                                               MediaQuery.sizeOf(context).width *
                                                   0.45,
-                                          child: ProfileDetails1Widget(
+                                          child: PersonalProfileDetailsWidget(
                                             isNewUser: AuthenticatonGroup
                                                 .verifyOtpCall
                                                 .isNewUser(
@@ -580,7 +580,7 @@ class _VerifyOTPWidgetState extends State<VerifyOTPWidget> {
                                                   ''),
                                             ),
                                             isLogin: true,
-                                            actionCall: () async {
+                                            actionCall: (name, userType) async {
                                               logFirebaseEvent('_navigate_to');
 
                                               context.pushNamed(

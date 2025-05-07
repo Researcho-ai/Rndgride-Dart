@@ -86,11 +86,11 @@ class _CommonDialogWidgetState extends State<CommonDialogWidget> {
               Text(
                 () {
                   if (!widget.isBooking) {
-                    return 'Are you sure want to request for ${widget.instrumentTestName} ?';
+                    return 'Submit request for ${widget.instrumentTestName} ?';
                   } else if (widget.isBooking) {
-                    return 'Are you sure want to confirm booking for ${widget.instrumentTestName}?';
+                    return 'Confirm request for ${widget.instrumentTestName}?';
                   } else {
-                    return 'Are you want to book this instrument?';
+                    return 'Submit inquiry for this instrument?';
                   }
                 }(),
                 textAlign: TextAlign.center,
@@ -142,7 +142,7 @@ class _CommonDialogWidgetState extends State<CommonDialogWidget> {
                         width: () {
                           if (MediaQuery.sizeOf(context).width <
                               kBreakpointSmall) {
-                            return 80.0;
+                            return 100.0;
                           } else if (MediaQuery.sizeOf(context).width <
                               kBreakpointMedium) {
                             return 100.0;
@@ -155,7 +155,7 @@ class _CommonDialogWidgetState extends State<CommonDialogWidget> {
                         }(),
                         height: 40.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
+                            16.0, 0.0, 16.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).secondaryBackground,
@@ -187,7 +187,7 @@ class _CommonDialogWidgetState extends State<CommonDialogWidget> {
                         width: () {
                           if (MediaQuery.sizeOf(context).width <
                               kBreakpointSmall) {
-                            return 80.0;
+                            return 100.0;
                           } else if (MediaQuery.sizeOf(context).width <
                               kBreakpointMedium) {
                             return 100.0;
@@ -200,7 +200,7 @@ class _CommonDialogWidgetState extends State<CommonDialogWidget> {
                         }(),
                         height: 40.0,
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            24.0, 0.0, 24.0, 0.0),
+                            16.0, 0.0, 16.0, 0.0),
                         iconPadding:
                             EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,

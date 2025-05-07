@@ -7,23 +7,25 @@ import '/flutter_flow/flutter_flow_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:provider/provider.dart';
-import 'profile_detail2_model.dart';
-export 'profile_detail2_model.dart';
+import 'research_profile_details_model.dart';
+export 'research_profile_details_model.dart';
 
-class ProfileDetail2Widget extends StatefulWidget {
-  const ProfileDetail2Widget({
+class ResearchProfileDetailsWidget extends StatefulWidget {
+  const ResearchProfileDetailsWidget({
     super.key,
-    required this.action,
+    this.action,
   });
 
-  final Future Function()? action;
+  final Future Function(String? researchiled, String? affiliation)? action;
 
   @override
-  State<ProfileDetail2Widget> createState() => _ProfileDetail2WidgetState();
+  State<ResearchProfileDetailsWidget> createState() =>
+      _ResearchProfileDetailsWidgetState();
 }
 
-class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
-  late ProfileDetail2Model _model;
+class _ResearchProfileDetailsWidgetState
+    extends State<ResearchProfileDetailsWidget> {
+  late ResearchProfileDetailsModel _model;
 
   @override
   void setState(VoidCallback callback) {
@@ -34,15 +36,15 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => ProfileDetail2Model());
+    _model = createModel(context, () => ResearchProfileDetailsModel());
 
     // On component load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('PROFILE_DETAIL_2_ProfileDetail-2_ON_INIT');
+      logFirebaseEvent('RESEARCH_PROFILE_DETAILS_ResearchProfile');
       await Future.wait([
         Future(() async {
           if (FFAppState().userProfileData.userResearchField != '') {
-            logFirebaseEvent('ProfileDetail-2_set_form_field');
+            logFirebaseEvent('ResearchProfileDetails_set_form_field');
             safeSetState(() {
               _model.researchFieldTextController?.text =
                   FFAppState().userProfileData.userResearchField;
@@ -51,7 +53,7 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
         }),
         Future(() async {
           if (FFAppState().userProfileData.userAffiliation != '') {
-            logFirebaseEvent('ProfileDetail-2_set_form_field');
+            logFirebaseEvent('ResearchProfileDetails_set_form_field');
             safeSetState(() {
               _model.affiliationTextController?.text =
                   FFAppState().userProfileData.userAffiliation;
@@ -226,7 +228,7 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
                             ),
                             onPressed: () async {
                               logFirebaseEvent(
-                                  'PROFILE_DETAIL_2_COMP_cross_ICN_ON_TAP');
+                                  'RESEARCH_PROFILE_DETAILS_cross_ICN_ON_TA');
                               logFirebaseEvent(
                                   'IconButton_close_dialog_drawer_etc');
                               Navigator.pop(context);
@@ -556,7 +558,7 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
                   padding: EdgeInsetsDirectional.fromSTEB(0.0, 24.0, 0.0, 0.0),
                   child: FFButtonWidget(
                     onPressed: () async {
-                      logFirebaseEvent('PROFILE_DETAIL_2_COMP_Save_ON_TAP');
+                      logFirebaseEvent('RESEARCH_PROFILE_DETAILS_Save_ON_TAP');
                       var _shouldSetState = false;
                       logFirebaseEvent('Save_validate_form');
                       if (_model.formKey.currentState == null ||
@@ -591,7 +593,10 @@ class _ProfileDetail2WidgetState extends State<ProfileDetail2Widget> {
                           },
                         );
                         logFirebaseEvent('Save_execute_callback');
-                        await widget.action?.call();
+                        await widget.action?.call(
+                          _model.researchFieldTextController.text,
+                          _model.affiliationTextController.text,
+                        );
                         logFirebaseEvent('Save_update_app_state');
 
                         FFAppState().update(() {});

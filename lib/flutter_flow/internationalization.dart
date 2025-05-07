@@ -188,7 +188,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // Dev-Facilities
+  // DevFacilities
   {
     'k21bwglw': {
       'en': 'Dev Facilites',
@@ -743,7 +743,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // ProfileDetails-1
+  // PersonalProfileDetails
   {
     't0mn0axl': {
       'en': 'Personal details',
@@ -797,7 +797,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // ProfileDetail-2
+  // ResearchProfileDetails
   {
     'cgplnmk9': {
       'en': 'Research related details',
