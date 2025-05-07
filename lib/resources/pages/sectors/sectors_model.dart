@@ -4,10 +4,10 @@ import '/nav_bars/bottom_nav_bar/bottom_nav_bar_widget.dart';
 import '/nav_bars/drawer/drawer_widget.dart';
 import '/nav_bars/top_nav_bar/top_nav_bar_widget.dart';
 import '/resources/components/data_not_found_c_omponent/data_not_found_c_omponent_widget.dart';
-import 'tests_widget.dart' show TestsWidget;
+import 'sectors_widget.dart' show SectorsWidget;
 import 'package:flutter/material.dart';
 
-class TestsModel extends FlutterFlowModel<TestsWidget> {
+class SectorsModel extends FlutterFlowModel<SectorsWidget> {
   ///  Local state fields for this page.
 
   bool activeSearch = false;
@@ -58,7 +58,7 @@ class TestsModel extends FlutterFlowModel<TestsWidget> {
 
   ///  State fields for stateful widgets in this page.
 
-  // Stores action output result for [Backend Call - API (Get Categories)] action in Tests widget.
+  // Stores action output result for [Backend Call - API (Get Categories)] action in Sectors widget.
   ApiCallResponse? testFromAPI;
   // Model for TopNavBar component.
   late TopNavBarModel topNavBarModel;

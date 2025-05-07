@@ -68,26 +68,61 @@ class _AvailableTestdetialComponentWidgetState
           logFirebaseEvent('AVAILABLE_TESTDETIAL_COMPONENT_Container');
           if (loggedIn) {
             if (widget.isSearchresult) {
-              logFirebaseEvent('Container_alert_dialog');
-              await showDialog(
-                context: context,
-                builder: (dialogContext) {
-                  return Dialog(
-                    elevation: 0,
-                    insetPadding: EdgeInsets.zero,
-                    backgroundColor: Colors.transparent,
-                    alignment: AlignmentDirectional(0.0, 0.0)
-                        .resolve(Directionality.of(context)),
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width * 0.6,
-                      child: TestPropertiesComponentWidget(
-                        testPropertieJson: widget.testObject,
-                        isSearchResult: true,
+              if (() {
+                if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointMedium) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointLarge) {
+                  return false;
+                } else {
+                  return false;
+                }
+              }()) {
+                logFirebaseEvent('Container_alert_dialog');
+                await showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return Dialog(
+                      elevation: 0,
+                      insetPadding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      alignment: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 0.6,
+                        child: TestPropertiesComponentWidget(
+                          testPropertieJson: widget.testObject,
+                          isSearchResult: true,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
+                    );
+                  },
+                );
+              } else {
+                logFirebaseEvent('Container_alert_dialog');
+                await showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return Dialog(
+                      elevation: 0,
+                      insetPadding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      alignment: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 0.6,
+                        child: TestPropertiesComponentWidget(
+                          testPropertieJson: widget.testObject,
+                          isSearchResult: true,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }
             }
           } else {
             if (() {

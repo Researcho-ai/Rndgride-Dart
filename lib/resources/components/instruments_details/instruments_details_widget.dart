@@ -73,25 +73,59 @@ class _InstrumentsDetailsWidgetState extends State<InstrumentsDetailsWidget> {
           onTap: () async {
             logFirebaseEvent('INSTRUMENTS_DETAILS_InstrumnetContainer_');
             if (loggedIn) {
-              logFirebaseEvent('InstrumnetContainer_alert_dialog');
-              await showDialog(
-                context: context,
-                builder: (dialogContext) {
-                  return Dialog(
-                    elevation: 0,
-                    insetPadding: EdgeInsets.zero,
-                    backgroundColor: Colors.transparent,
-                    alignment: AlignmentDirectional(0.0, 0.0)
-                        .resolve(Directionality.of(context)),
-                    child: Container(
-                      width: MediaQuery.sizeOf(context).width * 0.6,
-                      child: InstrumentPropertiesComponentWidget(
-                        instrumentPropertieJson: widget.instrumentJson,
+              if (() {
+                if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointMedium) {
+                  return true;
+                } else if (MediaQuery.sizeOf(context).width <
+                    kBreakpointLarge) {
+                  return false;
+                } else {
+                  return false;
+                }
+              }()) {
+                logFirebaseEvent('InstrumnetContainer_alert_dialog');
+                await showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return Dialog(
+                      elevation: 0,
+                      insetPadding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      alignment: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 0.9,
+                        child: InstrumentPropertiesComponentWidget(
+                          instrumentPropertieJson: widget.instrumentJson,
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
+                    );
+                  },
+                );
+              } else {
+                logFirebaseEvent('InstrumnetContainer_alert_dialog');
+                await showDialog(
+                  context: context,
+                  builder: (dialogContext) {
+                    return Dialog(
+                      elevation: 0,
+                      insetPadding: EdgeInsets.zero,
+                      backgroundColor: Colors.transparent,
+                      alignment: AlignmentDirectional(0.0, 0.0)
+                          .resolve(Directionality.of(context)),
+                      child: Container(
+                        width: MediaQuery.sizeOf(context).width * 0.6,
+                        child: InstrumentPropertiesComponentWidget(
+                          instrumentPropertieJson: widget.instrumentJson,
+                        ),
+                      ),
+                    );
+                  },
+                );
+              }
             } else {
               if (() {
                 if (MediaQuery.sizeOf(context).width < kBreakpointSmall) {

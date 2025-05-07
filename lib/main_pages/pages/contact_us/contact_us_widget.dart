@@ -153,15 +153,6 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                   ),
                                 ),
                               ),
-                            if (responsiveVisibility(
-                              context: context,
-                              phone: false,
-                              tablet: false,
-                            ))
-                              Divider(
-                                thickness: 1.0,
-                                color: FlutterFlowTheme.of(context).border,
-                              ),
                             Container(
                               width: () {
                                 if (MediaQuery.sizeOf(context).width <
@@ -241,7 +232,7 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                                                         EdgeInsets.all(24.0),
                                                     child: Column(
                                                       mainAxisSize:
-                                                          MainAxisSize.max,
+                                                          MainAxisSize.min,
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .start,

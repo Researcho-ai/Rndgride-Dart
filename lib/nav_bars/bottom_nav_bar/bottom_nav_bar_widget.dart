@@ -158,8 +158,8 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    logFirebaseEvent('BOTTOM_NAV_BAR_COMP_Hom_ON_TAP');
-                    logFirebaseEvent('Hom_navigate_to');
+                    logFirebaseEvent('BOTTOM_NAV_BAR_COMP_Instrument_ON_TAP');
+                    logFirebaseEvent('Instrument_navigate_to');
 
                     context.pushNamed(InstrumentsWidget.routeName);
                   },
@@ -203,10 +203,11 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    logFirebaseEvent('BOTTOM_NAV_BAR_COMP_Hom_ON_TAP');
-                    logFirebaseEvent('Hom_navigate_to');
+                    logFirebaseEvent(
+                        'BOTTOM_NAV_BAR_COMP_DevFacilities_ON_TAP');
+                    logFirebaseEvent('DevFacilities_navigate_to');
 
-                    context.pushNamed(ContactUsWidget.routeName);
+                    context.pushNamed(DevFacilitiesWidget.routeName);
                   },
                   child: Container(
                     height: 70.0,
@@ -224,7 +225,7 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                         ),
                         Text(
                           FFLocalizations.of(context).getText(
-                            '6pcto925' /* Lab Facilities */,
+                            '6pcto925' /* Dev Facilities */,
                           ),
                           style: FlutterFlowTheme.of(context)
                               .bodySmall
@@ -248,10 +249,10 @@ class _BottomNavBarWidgetState extends State<BottomNavBarWidget> {
                   hoverColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onTap: () async {
-                    logFirebaseEvent('BOTTOM_NAV_BAR_COMP_Hom_ON_TAP');
-                    logFirebaseEvent('Hom_navigate_to');
+                    logFirebaseEvent('BOTTOM_NAV_BAR_COMP_Sectors_ON_TAP');
+                    logFirebaseEvent('Sectors_navigate_to');
 
-                    context.pushNamed(TestsWidget.routeName);
+                    context.pushNamed(SectorsWidget.routeName);
                   },
                   child: Container(
                     height: 70.0,

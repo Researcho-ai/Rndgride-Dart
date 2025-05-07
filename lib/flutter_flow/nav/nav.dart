@@ -106,9 +106,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => ContactUsWidget(),
             ),
             FFRoute(
-              name: InstrumentsWidget.routeName,
-              path: InstrumentsWidget.routePath,
-              builder: (context, params) => InstrumentsWidget(),
+              name: DevFacilitiesWidget.routeName,
+              path: DevFacilitiesWidget.routePath,
+              builder: (context, params) => DevFacilitiesWidget(),
             ),
             FFRoute(
               name: AboutUsWidget.routeName,
@@ -126,9 +126,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => HomeWidget(),
             ),
             FFRoute(
-              name: SophisticatedInstrumentWidget.routeName,
-              path: SophisticatedInstrumentWidget.routePath,
-              builder: (context, params) => SophisticatedInstrumentWidget(),
+              name: InstrumentsWidget.routeName,
+              path: InstrumentsWidget.routePath,
+              builder: (context, params) => InstrumentsWidget(),
             ),
             FFRoute(
               name: RequirementsWidget.routeName,
@@ -136,9 +136,9 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => RequirementsWidget(),
             ),
             FFRoute(
-              name: TestsWidget.routeName,
-              path: TestsWidget.routePath,
-              builder: (context, params) => TestsWidget(),
+              name: SectorsWidget.routeName,
+              path: SectorsWidget.routePath,
+              builder: (context, params) => SectorsWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ),

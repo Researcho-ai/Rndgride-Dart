@@ -394,8 +394,32 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                             12.0),
                                                   ),
                                                   child: Padding(
-                                                    padding:
-                                                        EdgeInsets.all(16.0),
+                                                    padding: EdgeInsets.all(
+                                                        valueOrDefault<double>(
+                                                      () {
+                                                        if (MediaQuery.sizeOf(
+                                                                    context)
+                                                                .width <
+                                                            kBreakpointSmall) {
+                                                          return 4.0;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointMedium) {
+                                                          return 8.0;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointLarge) {
+                                                          return 16.0;
+                                                        } else {
+                                                          return 16.0;
+                                                        }
+                                                      }(),
+                                                      0.0,
+                                                    )),
                                                     child: Column(
                                                       mainAxisSize:
                                                           MainAxisSize.min,
@@ -418,7 +442,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                                 FFLocalizations.of(
                                                                         context)
                                                                     .getText(
-                                                                  'rl4agx8j' /* Unlock On-Demand Analytical Te... */,
+                                                                  'rl4agx8j' /* On-Demand Analytical Testing, ... */,
                                                                 ),
                                                                 textAlign:
                                                                     TextAlign
@@ -2429,7 +2453,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         'Row_navigate_to');
 
                                                     context.pushNamed(
-                                                        SophisticatedInstrumentWidget
+                                                        InstrumentsWidget
                                                             .routeName);
                                                   },
                                                   child: Row(
@@ -2897,7 +2921,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                           'Row_navigate_to');
 
                                                       context.pushNamed(
-                                                          InstrumentsWidget
+                                                          DevFacilitiesWidget
                                                               .routeName);
                                                     },
                                                     child: Row(
@@ -3286,7 +3310,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                         'Row_navigate_to');
 
                                                     context.pushNamed(
-                                                        TestsWidget.routeName);
+                                                        SectorsWidget
+                                                            .routeName);
                                                   },
                                                   child: Row(
                                                     mainAxisSize:

@@ -188,10 +188,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // Instruments
+  // Dev-Facilities
   {
     'k21bwglw': {
-      'en': 'Resources',
+      'en': 'Dev Facilites',
       'hi': '',
     },
     'yhistp7b': {
@@ -371,7 +371,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
     },
     'rl4agx8j': {
       'en':
-          'Unlock On-Demand Analytical Testing, R&D Facilities, and Expert Consultation',
+          'On-Demand Analytical Testing, R&D Facilities, and Expert Consultation',
       'hi': '',
     },
     'i09efrwm': {
@@ -573,10 +573,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // SophisticatedInstrument
+  // Instruments
   {
     'n32u8q3a': {
-      'en': 'Sophisticated Instruments',
+      'en': 'Instruments',
       'hi': '',
     },
     '5r1cylvp': {
@@ -608,10 +608,10 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
   },
-  // Tests
+  // Sectors
   {
     'roqscz37': {
-      'en': 'Resources',
+      'en': 'Sectors',
       'hi': '',
     },
     'p0ampu9c': {
@@ -649,7 +649,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     'd2f0iqxd': {
-      'en': 'Lab Facilities',
+      'en': 'Dev Facilities',
       'hi': '',
     },
     '0e1v881w': {
@@ -898,7 +898,7 @@ final kTranslationsMap = <Map<String, Map<String, String>>>[
       'hi': '',
     },
     '6pcto925': {
-      'en': 'Lab Facilities',
+      'en': 'Dev Facilities',
       'hi': '',
     },
     '8mvwdzmj': {

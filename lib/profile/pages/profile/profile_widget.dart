@@ -483,7 +483,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                 buttonSize: 40.0,
                                                                                 icon: Icon(
                                                                                   FFIcons.kedit,
-                                                                                  color: FlutterFlowTheme.of(context).iconColor,
+                                                                                  color: FlutterFlowTheme.of(context).buttonText,
                                                                                   size: 24.0,
                                                                                 ),
                                                                                 onPressed: () async {
@@ -718,7 +718,7 @@ class _ProfileWidgetState extends State<ProfileWidget> {
                                                                                   buttonSize: 40.0,
                                                                                   icon: Icon(
                                                                                     FFIcons.kedit,
-                                                                                    color: FlutterFlowTheme.of(context).iconColor,
+                                                                                    color: FlutterFlowTheme.of(context).buttonText,
                                                                                     size: 24.0,
                                                                                   ),
                                                                                   onPressed: () async {

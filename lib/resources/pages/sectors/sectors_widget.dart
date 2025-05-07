@@ -17,21 +17,21 @@ import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:provider/provider.dart';
-import 'tests_model.dart';
-export 'tests_model.dart';
+import 'sectors_model.dart';
+export 'sectors_model.dart';
 
-class TestsWidget extends StatefulWidget {
-  const TestsWidget({super.key});
+class SectorsWidget extends StatefulWidget {
+  const SectorsWidget({super.key});
 
-  static String routeName = 'Tests';
-  static String routePath = 'Tests';
+  static String routeName = 'Sectors';
+  static String routePath = 'Sectors';
 
   @override
-  State<TestsWidget> createState() => _TestsWidgetState();
+  State<SectorsWidget> createState() => _SectorsWidgetState();
 }
 
-class _TestsWidgetState extends State<TestsWidget> {
-  late TestsModel _model;
+class _SectorsWidgetState extends State<SectorsWidget> {
+  late SectorsModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late StreamSubscription<bool> _keyboardVisibilitySubscription;
@@ -40,20 +40,20 @@ class _TestsWidgetState extends State<TestsWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => TestsModel());
+    _model = createModel(context, () => SectorsModel());
 
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Tests'});
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Sectors'});
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('TESTS_PAGE_Tests_ON_INIT_STATE');
-      logFirebaseEvent('Tests_backend_call');
+      logFirebaseEvent('SECTORS_PAGE_Sectors_ON_INIT_STATE');
+      logFirebaseEvent('Sectors_backend_call');
       _model.testFromAPI = await TestsGroup.getCategoriesCall.call(
         limit: 18,
         filteredValue: true,
       );
 
       if ((_model.testFromAPI?.succeeded ?? true)) {
-        logFirebaseEvent('Tests_update_page_state');
+        logFirebaseEvent('Sectors_update_page_state');
         _model.testinstrumentsListFromAPI = TestsGroup.getCategoriesCall
             .categories(
               (_model.testFromAPI?.jsonBody ?? ''),
@@ -83,7 +83,7 @@ class _TestsWidgetState extends State<TestsWidget> {
     _model.searchIFocusNode ??= FocusNode();
     _model.searchIFocusNode!.addListener(
       () async {
-        logFirebaseEvent('TESTS_PAGE_searchI_ON_FOCUS_CHANGE');
+        logFirebaseEvent('SECTORS_PAGE_searchI_ON_FOCUS_CHANGE');
         logFirebaseEvent('searchI_wait__delay');
         await Future.delayed(const Duration(milliseconds: 2000));
         logFirebaseEvent('searchI_update_page_state');
@@ -147,14 +147,14 @@ class _TestsWidgetState extends State<TestsWidget> {
                       ),
                       onPressed: () async {
                         logFirebaseEvent(
-                            'TESTS_PAGE_arrow_back_rounded_ICN_ON_TAP');
+                            'SECTORS_arrow_back_rounded_ICN_ON_TAP');
                         logFirebaseEvent('IconButton_navigate_back');
                         context.pop();
                       },
                     ),
                     title: Text(
                       FFLocalizations.of(context).getText(
-                        'roqscz37' /* Resources */,
+                        'roqscz37' /* Sectors */,
                       ),
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             font: FlutterFlowTheme.of(context).bodyMedium,
@@ -272,33 +272,106 @@ class _TestsWidgetState extends State<TestsWidget> {
                                             crossAxisAlignment:
                                                 CrossAxisAlignment.start,
                                             children: [
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
-                                                        0.0, 24.0, 16.0, 0.0),
-                                                child: FlutterFlowIconButton(
-                                                  borderColor:
-                                                      Colors.transparent,
-                                                  borderRadius: 30.0,
-                                                  borderWidth: 1.0,
-                                                  buttonSize: 50.0,
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .secondaryBackground,
-                                                  icon: Icon(
-                                                    FFIcons.karrowLeft,
-                                                    size: 24.0,
+                                              if (responsiveVisibility(
+                                                context: context,
+                                                phone: false,
+                                                tablet: false,
+                                              ))
+                                                Padding(
+                                                  padding:
+                                                      EdgeInsetsDirectional
+                                                          .fromSTEB(
+                                                              0.0,
+                                                              24.0,
+                                                              valueOrDefault<
+                                                                  double>(
+                                                                () {
+                                                                  if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointSmall) {
+                                                                    return 8.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointMedium) {
+                                                                    return 12.0;
+                                                                  } else if (MediaQuery.sizeOf(
+                                                                              context)
+                                                                          .width <
+                                                                      kBreakpointLarge) {
+                                                                    return 16.0;
+                                                                  } else {
+                                                                    return 16.0;
+                                                                  }
+                                                                }(),
+                                                                0.0,
+                                                              ),
+                                                              0.0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderColor:
+                                                        Colors.transparent,
+                                                    borderRadius: 30.0,
+                                                    borderWidth: 1.0,
+                                                    buttonSize: () {
+                                                      if (MediaQuery.sizeOf(
+                                                                  context)
+                                                              .width <
+                                                          kBreakpointSmall) {
+                                                        return 35.0;
+                                                      } else if (MediaQuery
+                                                                  .sizeOf(
+                                                                      context)
+                                                              .width <
+                                                          kBreakpointMedium) {
+                                                        return 35.0;
+                                                      } else if (MediaQuery
+                                                                  .sizeOf(
+                                                                      context)
+                                                              .width <
+                                                          kBreakpointLarge) {
+                                                        return 50.0;
+                                                      } else {
+                                                        return 50.0;
+                                                      }
+                                                    }(),
+                                                    fillColor: FlutterFlowTheme
+                                                            .of(context)
+                                                        .secondaryBackground,
+                                                    icon: Icon(
+                                                      FFIcons.karrowLeft,
+                                                      size: () {
+                                                        if (MediaQuery.sizeOf(
+                                                                    context)
+                                                                .width <
+                                                            kBreakpointSmall) {
+                                                          return 14.0;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointMedium) {
+                                                          return 16.0;
+                                                        } else if (MediaQuery
+                                                                    .sizeOf(
+                                                                        context)
+                                                                .width <
+                                                            kBreakpointLarge) {
+                                                          return 22.0;
+                                                        } else {
+                                                          return 22.0;
+                                                        }
+                                                      }(),
+                                                    ),
+                                                    onPressed: () async {
+                                                      logFirebaseEvent(
+                                                          'SECTORS_PAGE_arrowLeft_ICN_ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'IconButton_navigate_back');
+                                                      context.safePop();
+                                                    },
                                                   ),
-                                                  onPressed: () async {
-                                                    logFirebaseEvent(
-                                                        'TESTS_PAGE_arrowLeft_ICN_ON_TAP');
-                                                    logFirebaseEvent(
-                                                        'IconButton_navigate_back');
-                                                    context.safePop();
-                                                  },
                                                 ),
-                                              ),
                                               Flexible(
                                                 child: Align(
                                                   alignment:
@@ -355,6 +428,11 @@ class _TestsWidgetState extends State<TestsWidget> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(8.0),
+                                                        border: Border.all(
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .line,
+                                                        ),
                                                       ),
                                                       alignment:
                                                           AlignmentDirectional(
@@ -432,7 +510,7 @@ class _TestsWidgetState extends State<TestsWidget> {
                                                                                 1200),
                                                                         () async {
                                                                           logFirebaseEvent(
-                                                                              'TESTS_PAGE_searchI_ON_TEXTFIELD_CHANGE');
+                                                                              'SECTORS_PAGE_searchI_ON_TEXTFIELD_CHANGE');
                                                                           if (_model.searchITextController.text != '') {
                                                                             logFirebaseEvent('searchI_update_page_state');
                                                                             _model.searchBarFocus =
@@ -480,7 +558,7 @@ class _TestsWidgetState extends State<TestsWidget> {
                                                                       onFieldSubmitted:
                                                                           (_) async {
                                                                         logFirebaseEvent(
-                                                                            'TESTS_PAGE_searchI_ON_TEXTFIELD_SUBMIT');
+                                                                            'SECTORS_PAGE_searchI_ON_TEXTFIELD_SUBMIT');
                                                                         var _shouldSetState =
                                                                             false;
                                                                         if (_model.searchITextController.text !=
@@ -670,7 +748,7 @@ class _TestsWidgetState extends State<TestsWidget> {
                                                                       onTap:
                                                                           () async {
                                                                         logFirebaseEvent(
-                                                                            'TESTS_PAGE_Icon_wmzeqicw_ON_TAP');
+                                                                            'SECTORS_PAGE_Icon_wmzeqicw_ON_TAP');
                                                                         logFirebaseEvent(
                                                                             'Icon_clear_text_fields_pin_codes');
                                                                         safeSetState(
@@ -755,7 +833,7 @@ class _TestsWidgetState extends State<TestsWidget> {
                                                                                 Colors.transparent,
                                                                             onTap:
                                                                                 () async {
-                                                                              logFirebaseEvent('TESTS_PAGE_Row_gpvql23y_ON_TAP');
+                                                                              logFirebaseEvent('SECTORS_PAGE_Row_gpvql23y_ON_TAP');
                                                                               var _shouldSetState = false;
                                                                               logFirebaseEvent('Row_set_form_field');
                                                                               safeSetState(() {
@@ -1102,7 +1180,7 @@ class _TestsWidgetState extends State<TestsWidget> {
                                                                                 18)
                                                                               FFButtonWidget(
                                                                                 onPressed: () async {
-                                                                                  logFirebaseEvent('TESTS_PAGE_AddButton_ON_TAP');
+                                                                                  logFirebaseEvent('SECTORS_PAGE_AddButton_ON_TAP');
                                                                                   var _shouldSetState = false;
                                                                                   logFirebaseEvent('AddButton_backend_call');
                                                                                   _model.extraTests = await TestsGroup.getCategoriesCall.call(

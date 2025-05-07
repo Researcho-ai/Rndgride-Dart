@@ -124,8 +124,7 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                           'TOP_NAV_BAR_COMP_Column_2czshu1x_ON_TAP');
                       logFirebaseEvent('Column_navigate_to');
 
-                      context
-                          .pushNamed(SophisticatedInstrumentWidget.routeName);
+                      context.pushNamed(InstrumentsWidget.routeName);
 
                       logFirebaseEvent('Column_update_app_state');
                       FFAppState().topnavBaronSelect = TopNavBarOnSelectStruct(
@@ -212,7 +211,7 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                           'TOP_NAV_BAR_COMP_Column_1dgvrce3_ON_TAP');
                       logFirebaseEvent('Column_navigate_to');
 
-                      context.goNamed(InstrumentsWidget.routeName);
+                      context.goNamed(DevFacilitiesWidget.routeName);
 
                       logFirebaseEvent('Column_update_app_state');
                       FFAppState().topnavBaronSelect = TopNavBarOnSelectStruct(
@@ -238,7 +237,7 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                               15.0, 8.0, 15.0, 4.0),
                           child: Text(
                             FFLocalizations.of(context).getText(
-                              'd2f0iqxd' /* Lab Facilities */,
+                              'd2f0iqxd' /* Dev Facilities */,
                             ),
                             style: FlutterFlowTheme.of(context)
                                 .titleSmall
@@ -294,7 +293,7 @@ class _TopNavBarWidgetState extends State<TopNavBarWidget> {
                             'TOP_NAV_BAR_COMP_Column_szovlnxc_ON_TAP');
                         logFirebaseEvent('Column_navigate_to');
 
-                        context.goNamed(TestsWidget.routeName);
+                        context.goNamed(SectorsWidget.routeName);
 
                         logFirebaseEvent('Column_update_app_state');
                         FFAppState().topnavBaronSelect =
