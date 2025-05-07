@@ -817,8 +817,10 @@ class _ContactUsWidgetState extends State<ContactUsWidget> {
                             child: BottomNavBarWidget(
                               home: false,
                               instruments: false,
-                              labFacilities: true,
+                              labFacilities: false,
                               tests: false,
+                              contactUs: false,
+                              abouteUs: false,
                             ),
                           ),
                         ),
