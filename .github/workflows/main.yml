@@ -53,7 +53,7 @@ jobs:
           echo "🔧 Patching applyAlpha function to use withOpacity instead of withValue..."
           FILE_PATH="lib/flutterflow/flutter_flow_util.dart"
 
-          if grep -q 'Color applyAlpha(double val) => withValue(val:val);' "$FILE_PATH"; then
+          if grep -q 'Color applyAlpha(double val) => withValue(alpha:val);' "$FILE_PATH"; then
             sed -i 's/Color applyAlpha(double val) => withValue(val:val);/Color applyAlpha(double val) => withOpacity(val);/' "$FILE_PATH"
             echo "✅ Patch applied successfully."
           else
