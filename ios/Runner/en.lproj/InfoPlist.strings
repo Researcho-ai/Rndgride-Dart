@@ -1,5 +1,0 @@
-NSFaceIDUsageDescription = "Allow this app to use your biometric information for authentication purposes.";
-NSCalendarsUsageDescription = "Allow this app to access your calendar to schedule events and reminders.";
-NSContactsUsageDescription = "Allow this app to access your contacts to enable communication with your friends.";
-NSLocationWhenInUseUsageDescription = "Allow this app to access your location to provide you with nearby lab results.";
-PermissionGroupNotification = "Allow this app to send you notifications to keep you informed about important updates.";
